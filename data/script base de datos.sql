@@ -2,8 +2,8 @@
 -- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3308
--- Tiempo de generación: 04-03-2020 a las 08:40:57
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 05-03-2020 a las 04:45:14
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -591,6 +591,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `fechaNacimiento` date NOT NULL,
   `RTN` varchar(45) DEFAULT NULL,
   `urlFoto` varchar(1000) DEFAULT NULL,
+  `contraseña` varchar(60) NOT NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `idPersona_UNIQUE` (`idUsuario`),
   KEY `fk_Usuario_tipoUsuario1` (`idtipoUsuario`),

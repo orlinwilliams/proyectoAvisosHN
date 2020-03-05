@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Registrarse|AvisosHN</title>
+        <title>Registrarse | AvisosHN</title>
         <!-- Favicon-->
         <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
@@ -51,19 +51,19 @@
                                 <input type="text" class="form-control" name="last-name" placeholder="Apellido" required autofocus>
                             </div>
                         </div>
-                        <div class="input-group">
+                        <div class="input-group date" id="bs_datepicker_component_container">
                             <span class="input-group-addon">
                                 <i class="material-icons">date_range</i>
                             </span>
                             <div class="form-line">
-                                <input type="text" class="form-control date" placeholder="Ex: 30/07/2016">
+                                <input type="text" class="form-control" placeholder="Fecha de nacimiento" required autofocus>
                             </div>
                         </div>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="material-icons">email</i>
                             </span>
-                            <div class="form-line">
+                            <div class="form-line" id="bs_datepicker_container">
                                 <input type="email" class="form-control" name="email" placeholder="Correo electrónico" required>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                 <i class="material-icons">phone_iphone</i>
                             </span>
                             <div class="form-line">
-                                <input type="text" name="phone" class="form-control mobile-phone-number" placeholder="Ex: +504 9999-9999">
+                                <input type="text" name="phone" class="form-control mobile-phone-number" placeholder="Ex:+504 9999-9999" required autofocus>
                             </div>
                         </div>
                         <!-------------------------------------------------
@@ -87,7 +87,7 @@
                                 <i class="material-icons">place</i>
                             </span>
                             <div class="form-line">
-                                    <select class="form-control show-tick">
+                                    <select class="form-control show-tick" required>
                                     <!---------------------------------------------
                                     -----------------------------------------------
                                                     Inicio de codigo PHP
@@ -116,12 +116,13 @@
                                                         echo'<option value="'.$fila2["idmunicipios"].'">'.$fila2["municipio"].'</option>';
                                                     }
                                                 }
+                                                echo '</optgroup>';
                                             }
                                         }
                                     ?>
                                     <!---------------------------------------------
                                     -----------------------------------------------
-                                                    Inicio de codigo PHP
+                                                    Fin de codigo PHP
                                     -----------------------------------------------
                                     ---------------------------------------------->
                                 </select>
@@ -177,12 +178,34 @@
         <!-- Validation Plugin Js -->
         <script src="../plugins/jquery-validation/jquery.validate.js"></script>
 
-        <!-- Input Mask Plugin Js -->
-        <script src="../plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+
+        
+        <!-- Bootstrap Tags Input Plugin Js -->
+        <script src=".../plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+
 
         <!-- Custom Js -->
         <script src="../js/admin.js"></script>
         <script src="../js/pages/examples/sign-up.js"></script>
+
+        <!-- Autosize Plugin Js -->
+        <script src="../plugins/autosize/autosize.js"></script>
+
+        <!-- Moment Plugin Js -->
+        <script src="../plugins/momentjs/moment.js"></script>
+
+        <!-- Bootstrap Material Datetime Picker Plugin Js -->
+        <script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+        <!-- Bootstrap Datepicker Plugin Js -->
+        <script src="../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+        <!-- Custom Js -->
+        <script src="../js/admin.js"></script>
+        <script src="../js/pages/forms/basic-form-elements.js"></script>
+
+        <!-- Demo Js -->
+        <script src="../js/demo.js"></script>        
     </body>
 
 </html>
