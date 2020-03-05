@@ -5,7 +5,7 @@ IN		pcPrimerNombre	    VARCHAR(45),
 IN		pcPrimerApellido	VARCHAR(45),
 IN		pdFechaNacimiento	DATE,
 IN		pcCorreo		    VARCHAR(45),
-IN		pnTelefono		    INT,
+IN		pnTelefono		    VARCHAR(45),
 IN		pcMunicipio		    VARCHAR(45),
 IN		pcRTN			    VARCHAR(45),
 IN		pcContrasenia		VARCHAR(45),
@@ -15,7 +15,7 @@ OUT		pcMensaje		    VARCHAR(45)
 )        
 SP:BEGIN
      DECLARE vnIdUsuario, vnConteo, vnIdTipoUsuario,vnIdMunicipio INT;
-	DECLARE	vnFechaActual DATE;
+	DECLARE	vnFechaRegistro DATE;
      DECLARE tempMensaje VARCHAR(2000);
      SET autocommit=0;
 	START TRANSACTION;
@@ -64,14 +64,16 @@ IF pnIdUsuario = '' OR pnIdUsuario IS NULL THEN
 SELECT u.idUsuario INTO vnIdUsuario FROM usuario u
                 WHERE c.idUsuario=pnIdUsuario;
 
-SELECT CURDATE() INTO vnFechaActual;
 
-SELECT tu.idtipoUsuario INTO vnIdTipoUsuario FROM tipousuario tu
+SELECT tu.idtipoUsuario INTO vnIdTipoUsuario FROM usuario u
 INNER JOIN tipousuario tu ON tu.idtipoUsuario=u.idtipoUsuario
 WHERE u.idUsuario=pnIdUsuario;
 
 SELECT m.idMunicipios INTO vnIdMunicipio FROM municipios m
 WHERE m.municipio=pcMunicipio;
+
+SELECT u.fechaRegistro INTO vnFechaRegistro FROM usuario u
+WHERE u.idUsuario=vnIdUsuario;
 
 UPDATE usuario
 SET 	idtipoUsuario=vnIdTipoUsuario,
@@ -80,7 +82,7 @@ SET 	idtipoUsuario=vnIdTipoUsuario,
 	pApellido=pcPrimerApellido,
 	correoElectronico=pcCorreo,
 	numTelefono=pnTelefono,
-	fechaRegistro=vnFechaActual,
+	fechaRegistro=vnFechaRegistro,
 	fechaNacimiento=pdFechaNacimiento,
 	RTN=pcRTN,
 		urlFoto=pcRutaImagen
