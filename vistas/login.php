@@ -57,7 +57,7 @@
                                 <label for="rememberme">Remember Me</label>
                             </div>
                             <div class="col-xs-4">
-                                <input class="btn btn-block bg-pink waves-effect" onclick="validar();" value="Ingresar">
+                            <button id="envioFormularioLogin" class="btn btn-block btn-lg bg-pink waves-effect" type="submit">Ingresar</button>
                             </div>
                         </div>
                         <div class="row m-t-15 m-b--20">
@@ -88,7 +88,7 @@
         <!-- Custom Js -->
         <script src="../js/admin.js"></script>
         <script src="../js/pages/examples/sign-in.js"></script>
-        
+        <script src="../controlador/ingresoUsuario.js"></script>
     </body>
 
 </html>
