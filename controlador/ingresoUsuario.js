@@ -16,7 +16,7 @@ $("form").submit(function(event){
         type:"POST",
         success:function(resp){
             if(resp=="1"){
-                location.href="http://localhost/proyectoAvisosHN/vistas/perfil.php"
+                location.href="http://localhost/proyectoAvisosHN/vistas/perfil.php?idUsuario="+datos.idUsuario;
                 //alert("USUARIO REGISTRADO");
             }
             else if(resp=="2"){
