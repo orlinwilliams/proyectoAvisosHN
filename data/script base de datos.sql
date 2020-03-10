@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 05-03-2020 a las 04:45:14
+-- Tiempo de generación: 10-03-2020 a las 04:54:55
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -22,6 +22,86 @@ SET time_zone = "+00:00";
 -- Base de datos: `avisoshn`
 --
 
+DELIMITER $$
+--
+-- Procedimientos
+--
+DROP PROCEDURE IF EXISTS `SP_REGISTRAR`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR` (IN `pcNombre` VARCHAR(45), IN `pcApellido` VARCHAR(45), IN `pcCorreo` VARCHAR(60), IN `pcContraseña` VARCHAR(500), IN `pcConfirmacion` VARCHAR(500), IN `pcTelefono` VARCHAR(20), IN `pdNacimiento` VARCHAR(10), IN `pcRTN` VARCHAR(16), IN `pcURL` VARCHAR(1000), IN `pnMunicipio` INT, OUT `pcMensaje` VARCHAR(300))  SP:BEGIN
+	DECLARE vnConteo INT;
+    DECLARE vcMensajeTemp varchar (200);
+    SET vcMensajeTemp ="";
+    
+	IF pcNombre = "" OR pcNombre IS NULL THEN
+		SET vcMensajeTemp = CONCAT(vcMensajeTemp, "Nombre");
+	END IF;
+    
+	IF pcApellido= "" OR pcApellido IS NULL THEN
+		SET vcMensajeTemp = CONCAT(vcMensajeTemp, "Apellido");
+	END IF;
+    
+	IF pcCorreo= "" OR pcCorreo IS NULL THEN
+		SET vcMensajeTemp = CONCAT(vcMensajeTemp, "Correo");
+	END IF;
+    
+	IF pcContraseña= "" OR pcContraseña IS NULL THEN
+		SET vcMensajeTemp = CONCAT(vcMensajeTemp, "Contraseña");
+	END IF;
+    
+	IF pcConfirmacion= "" OR pcConfirmacion IS NULL THEN
+		SET vcMensajeTemp = CONCAT(vcMensajeTemp, "Confirmación de contraseña");
+	END IF;
+    
+	IF pcTelefono= "" OR pcTelefono IS NULL THEN
+		SET vcMensajeTemp = CONCAT(vcMensajeTemp, "Telefono");
+	END IF;
+    
+	IF pdNacimiento= "" OR pdNacimiento IS NULL THEN
+		SET vcMensajeTemp = CONCAT(vcMensajeTemp, "Fecha de nacimiento");
+	END IF;
+    
+	IF pnMunicipio= "" OR pnMunicipio IS NULL THEN
+		SET vcMensajeTemp = CONCAT(vcMensajeTemp, "Municipio");
+	END IF;
+    
+	IF vcMensajeTemp<>'' THEN
+		SET pcMensaje=CONCAT('Se necesita que ingrese los siguientes campos: ', vcMensajeTemp);
+		LEAVE SP;
+    END IF;
+    
+SELECT 
+    COUNT(*)
+INTO vnConteo FROM
+    usuario
+WHERE
+    correoElectronico = pcCorreo;
+    
+    IF vnConteo>0 THEN
+		SET pcMensaje = "Este correo ya está en uso";
+        LEAVE SP;
+	END IF;
+    
+IF pcContraseña != pcConfirmacion THEN
+	SET pcMensaje = "Las contraseñas no coinciden";
+    LEAVE SP;
+END IF;
+    
+SELECT 
+    (MAX(idUsuario) + 1)
+INTO vnConteo FROM
+    usuario;
+    
+    INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, `pApellido`, `correoElectronico`, `contrasenia`, `numTelefono`, `fechaRegistro`, `fechaNacimiento`, `RTN`, `urlFoto`)
+    VALUES ( vnConteo, 2, pnMunicipio, pcNombre, pcApellido, pcCorreo, pcContraseña, pcTelefono, curdate(), pdNacimiento, pcRTN, pcURL);
+    
+    COMMIT;
+    SET pcMensaje = "Se ha registrado correctamente";
+    LEAVE SP;
+    
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -35,17 +115,17 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   `idcategoria` int(11) NOT NULL,
   `idMunicipios` int(11) NOT NULL,
   `precio` decimal(45,0) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
+  `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `descripcion` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `fechaPublicacion` date NOT NULL,
-  `estadoArticulo` varchar(20) DEFAULT NULL,
-  `estadoAnuncio` varchar(1) NOT NULL,
+  `estadoArticulo` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `estadoAnuncio` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `fechaLimite` date DEFAULT NULL,
   PRIMARY KEY (`idAnuncios`),
   KEY `fk_anuncios_categoria1` (`idcategoria`),
   KEY `fk_anuncios_municipios1` (`idMunicipios`),
   KEY `fk_anuncios_Usuario1` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -57,11 +137,11 @@ DROP TABLE IF EXISTS `calificacionescomprador`;
 CREATE TABLE IF NOT EXISTS `calificacionescomprador` (
   `idcalificacionesComprador` int(11) NOT NULL,
   `cantidadEstrellas` int(1) DEFAULT NULL,
-  `comentarios` varchar(500) DEFAULT NULL,
+  `comentarios` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idcalificacionesComprador`),
   KEY `fk_calificacionesComprador_Usuario1` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -71,13 +151,13 @@ CREATE TABLE IF NOT EXISTS `calificacionescomprador` (
 
 DROP TABLE IF EXISTS `calificacionesvendedor`;
 CREATE TABLE IF NOT EXISTS `calificacionesvendedor` (
-  `idCalificacionVendedor` varchar(45) NOT NULL,
+  `idCalificacionVendedor` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `cantidadEstrellas` int(11) DEFAULT NULL,
-  `comentarios` varchar(500) DEFAULT NULL,
+  `comentarios` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idCalificacionVendedor`),
   KEY `fk_calificacionesVendedor_Usuario1` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -88,11 +168,11 @@ CREATE TABLE IF NOT EXISTS `calificacionesvendedor` (
 DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE IF NOT EXISTS `categoria` (
   `idcategoria` int(11) NOT NULL,
-  `nombreCategoria` varchar(80) DEFAULT NULL,
+  `nombreCategoria` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `idgrupocategoria` int(8) NOT NULL,
   PRIMARY KEY (`idcategoria`),
   KEY `fk_categoria_grupocategoria1` (`idgrupocategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `categoria`
@@ -150,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `denuncias` (
   PRIMARY KEY (`idDenuncias`),
   KEY `fk_Denuncias_razonDenuncia1` (`idrazonDenuncia`),
   KEY `fk_Denuncias_Usuario1` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -161,9 +241,9 @@ CREATE TABLE IF NOT EXISTS `denuncias` (
 DROP TABLE IF EXISTS `departamentos`;
 CREATE TABLE IF NOT EXISTS `departamentos` (
   `idDepartamentos` int(11) NOT NULL,
-  `nombreDepartamento` varchar(45) DEFAULT NULL,
+  `nombreDepartamento` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idDepartamentos`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `departamentos`
@@ -198,9 +278,9 @@ INSERT INTO `departamentos` (`idDepartamentos`, `nombreDepartamento`) VALUES
 DROP TABLE IF EXISTS `grupocategoria`;
 CREATE TABLE IF NOT EXISTS `grupocategoria` (
   `idgrupocategoria` int(11) NOT NULL,
-  `nombregrupo` varchar(80) DEFAULT NULL,
+  `nombregrupo` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idgrupocategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `grupocategoria`
@@ -227,10 +307,10 @@ DROP TABLE IF EXISTS `municipios`;
 CREATE TABLE IF NOT EXISTS `municipios` (
   `idMunicipios` int(11) NOT NULL,
   `idDepartamentos` int(11) NOT NULL,
-  `municipio` varchar(45) NOT NULL,
+  `municipio` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`idMunicipios`),
   KEY `fk_municipios_departamentos1` (`idDepartamentos`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `municipios`
@@ -545,9 +625,9 @@ INSERT INTO `municipios` (`idMunicipios`, `idDepartamentos`, `municipio`) VALUES
 DROP TABLE IF EXISTS `razondenuncia`;
 CREATE TABLE IF NOT EXISTS `razondenuncia` (
   `idrazonDenuncia` int(11) NOT NULL,
-  `descripcion` varchar(45) NOT NULL,
+  `descripcion` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`idrazonDenuncia`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -558,10 +638,10 @@ CREATE TABLE IF NOT EXISTS `razondenuncia` (
 DROP TABLE IF EXISTS `tipousuario`;
 CREATE TABLE IF NOT EXISTS `tipousuario` (
   `idtipoUsuario` int(11) NOT NULL AUTO_INCREMENT,
-  `tipoUsuario` varchar(45) NOT NULL,
+  `tipoUsuario` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`idtipoUsuario`),
   UNIQUE KEY `idtipoUsuario_UNIQUE` (`idtipoUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tipousuario`
@@ -580,67 +660,30 @@ INSERT INTO `tipousuario` (`idtipoUsuario`, `tipoUsuario`) VALUES
 
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
-  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(11) NOT NULL,
   `idtipoUsuario` int(11) NOT NULL,
   `idMunicipios` int(11) NOT NULL,
-  `pNombre` varchar(45) NOT NULL,
-  `pApellido` varchar(45) DEFAULT NULL,
-  `correoElectronico` varchar(45) NOT NULL,
-  `numTelefono` varchar(45) NOT NULL,
-  `fechaRegistro` datetime NOT NULL,
-  `fechaNacimiento` date NOT NULL,
-  `RTN` varchar(45) DEFAULT NULL,
-  `urlFoto` varchar(1000) DEFAULT NULL,
-  `contraseña` varchar(60) NOT NULL,
+  `pNombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `pApellido` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `correoElectronico` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `contrasenia` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `numTelefono` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `fechaRegistro` date NOT NULL,
+  `fechaNacimiento` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `RTN` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `urlFoto` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `idPersona_UNIQUE` (`idUsuario`),
   KEY `fk_Usuario_tipoUsuario1` (`idtipoUsuario`),
   KEY `fk_Usuario_municipios1` (`idMunicipios`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Restricciones para tablas volcadas
+-- Volcado de datos para la tabla `usuario`
 --
 
---
--- Filtros para la tabla `anuncios`
---
-ALTER TABLE `anuncios`
-  ADD CONSTRAINT `fk_anuncios_Usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
-  ADD CONSTRAINT `fk_anuncios_categoria1` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`idcategoria`),
-  ADD CONSTRAINT `fk_anuncios_municipios1` FOREIGN KEY (`idMunicipios`) REFERENCES `municipios` (`idMunicipios`);
-
---
--- Filtros para la tabla `calificacionescomprador`
---
-ALTER TABLE `calificacionescomprador`
-  ADD CONSTRAINT `fk_calificacionesComprador_Usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
-
---
--- Filtros para la tabla `calificacionesvendedor`
---
-ALTER TABLE `calificacionesvendedor`
-  ADD CONSTRAINT `fk_calificacionesVendedor_Usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
-
---
--- Filtros para la tabla `denuncias`
---
-ALTER TABLE `denuncias`
-  ADD CONSTRAINT `fk_Denuncias_Usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
-  ADD CONSTRAINT `fk_Denuncias_razonDenuncia1` FOREIGN KEY (`idrazonDenuncia`) REFERENCES `razondenuncia` (`idrazonDenuncia`);
-
---
--- Filtros para la tabla `municipios`
---
-ALTER TABLE `municipios`
-  ADD CONSTRAINT `fk_municipios_departamentos1` FOREIGN KEY (`idDepartamentos`) REFERENCES `departamentos` (`idDepartamentos`);
-
---
--- Filtros para la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `fk_Usuario_municipios1` FOREIGN KEY (`idMunicipios`) REFERENCES `municipios` (`idMunicipios`),
-  ADD CONSTRAINT `fk_Usuario_tipoUsuario1` FOREIGN KEY (`idtipoUsuario`) REFERENCES `tipousuario` (`idtipoUsuario`);
+INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, `pApellido`, `correoElectronico`, `contrasenia`, `numTelefono`, `fechaRegistro`, `fechaNacimiento`, `RTN`, `urlFoto`) VALUES
+(1, 3, 80, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', '+50469199660', '2020-03-09', '1995-12-01', '0801-1996-01667', NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

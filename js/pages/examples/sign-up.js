@@ -5,7 +5,7 @@ $(function () {
                 required: true
             },
             'confirm': {
-                equalTo: '[name="password"]'
+                equalTo: '[name="password2"]'
             }
         },
         highlight: function (input) {

@@ -373,6 +373,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-9">
+                <input type="hidden" id="int_idUsuario" name="int_idUsuario" value="<?php echo $_GET["idUsuario"];?>">
                     <div class="card">
                         <div class="body">
                             <div>
@@ -448,7 +449,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">municipio</label>
+                                                <label class="col-sm-2 control-label">Teléfono</label>
                                                 <div class="col-sm-10">
                                             <div class="form-line">
                                                 <input type="text" class="form-control mobile-phone-number"  value="Ex: +00 (000) 000-00-00 tambien lo debe cargar" placeholder="Ex: +00 (000) 000-00-00 tambien lo debe cargar" required>
