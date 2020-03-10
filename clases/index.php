@@ -11,6 +11,7 @@
                 echo "No hay municipios";
             }
             else{
+                echo '<option value="">Seleccione un municipio</option>';
                 while($fila=$conexion->obtenerFila($resultado)){                                                    //Recorre todas las filas de departamentos
                     $iddepartamento=$fila["iddepartamentos"];
                     echo '<optgroup label="'.$fila["nombredepartamento"].'">';
@@ -93,11 +94,13 @@
                 echo $respuesta;
             }                                                                                                         //Fin de validación
             else{
-                $date = str_replace('/', '-', $fecha);
-                $fecha = date('Y-m-d', strtotime($date));
+                $date = str_replace('/', '-', $fecha);                                                                //Sustituimos caracterés / por -
+                $fecha = date('Y-m-d', strtotime($date));                                                             //Cambiamos el formato de la fecha
                 $conexion = new Conexion();
+                //Llamada al procedimiento almacenado
                 $sql = "CALL `SP_REGISTRAR`('$nombre', '$apellido', '$correo', '$contraseña', '$contraseña2', '$telefono', '$fecha', 'null', 'null', '$idMunicipio', @p10);";
-                $salida = "SELECT @p10 AS `mensaje`;";
+
+                $salida = "SELECT @p10 AS `mensaje`;";                                                                //Llamado al parametro de salida del procedimiento almacenado
                 $resultado = $conexion->ejecutarInstruccion($sql);
                 $respuesta = $conexion->ejecutarInstruccion($salida);
                 if(!$respuesta){
@@ -106,7 +109,6 @@
                 else{
                     $fila=$conexion->obtenerFila($respuesta);
                     echo $fila["mensaje"];
-                    echo $fecha;
                 }
                 $conexion->cerrarConexion();
             }
@@ -129,12 +131,15 @@
                 echo $respuesta;
             }
             $conexion = new conexion();
-            $sql="SELECT idUsuario, correoElectronico, tipousuario FROM `usuario`
+            $sql="SELECT idUsuario, pNombre, pApellido, correoElectronico, numTelefono,
+            fechaRegistro, fechaNacimiento, urlFoto, RTN, tipousuario, idMunicipios FROM `usuario`
             INNER JOIN tipousuario ON tipousuario.idtipoUsuario=usuario.idtipoUsuario
             WHERE correoElectronico='$correo' AND contrasenia='$password';";
             $resultado=$conexion->ejecutarInstruccion($sql);
             if($resultado->num_rows==1){
                 $datos=$resultado->fetch_assoc();
+                session_start();
+                $_SESSION["usuario"] = $datos;
                 echo json_encode(array('error'=>false, 'tipo' => $datos['tipousuario']));
             }
             else{

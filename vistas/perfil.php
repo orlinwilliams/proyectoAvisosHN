@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -68,7 +71,7 @@
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="../index.html">AvisosHN</a>
+                <a class="navbar-brand" href="index.php">AvisosHN User</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -185,7 +188,7 @@
                         </ul>
                     </li>
                     <!-- #END# Notifications -->
-                    <li><a href="javascript:void(0);" class=""><i class="material-icons">exit_to_app</i></a></li>
+                    <li><a href="../clases/cerrarSesion.php"><i class="material-icons">input</i></a></li>
                     <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i
                                 class="material-icons">more_vert</i></a></li>
                     <li></li>
@@ -203,15 +206,15 @@
                     <img src="../images/user.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
-                    <div class="email">correo@ejemplo.com</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?></div>
+                    <div class="email"><?php echo $_SESSION["usuario"]["correoElectronico"];?></div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="perfil.php"><i class="material-icons">person</i>Profile</a></li>
+                            <li><a href="perfil.php"><i class="material-icons">person</i>Perfil</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">exit_to_app</i>Sign Out</a></li>
+                            <li><a href="../clases/cerrarSesion.php"><i class="material-icons">exit_to_app</i>Cerrar sesión</a></li>
                         </ul>
                     </div>
                 </div>
@@ -349,23 +352,23 @@
                                 <img src="../images/user-lg.jpg" alt="AdminBSB - Profile Image" />
                             </div>
                             <div class="content-area">
-                                <h3>Nombre Concatenado</h3>
-                                <p>Miembro</p>
+                                <h3><?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?></h3>
+                                <p><?php echo $_SESSION["usuario"]["tipousuario"]?></p>
                             </div>
                         </div>
                         <div class="profile-footer">
                             <ul>
                                 <li>
                                     <span>Articulos publicados</span>
-                                    <span>500</span>
+                                    <span>cargar desde la base</span>
                                 </li>
                                 <li>
                                     <span>Calificacion Vendedor</span>
-                                    <span>4.5</span>
+                                    <span>cargar desde la base</span>
                                 </li>
                                 <li>
                                     <span>Calificacion Comprador</span>
-                                    <span>5</span>
+                                    <span>cargar desde la base</span>
                                 </li>
                             </ul>
                             <!--<button class="btn btn-primary btn-lg waves-effect btn-block">FOLLOW</button>-->
@@ -373,7 +376,6 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-9">
-                <input type="hidden" id="int_idUsuario" name="int_idUsuario" value="<?php echo $_GET["idUsuario"];?>">
                     <div class="card">
                         <div class="body">
                             <div>
@@ -393,10 +395,9 @@
                                                 <label for="first-name" class="col-sm-2 control-label">Nombre</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <input type="text" class="form-control" id="first-name"
-                                                            name="first-name"
-                                                            placeholder="El nombre lo carga desde la base de datos"
-                                                            value="El nombre lo carga desde la base de datos" required>
+                                                        <input type="text" id="txt_nombre" class="form-control" name="first-name"
+                                                            placeholder="<?php echo $_SESSION["usuario"]["pNombre"];?>"
+                                                            value="<?php echo $_SESSION["usuario"]["pNombre"];?>" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -404,10 +405,10 @@
                                                 <label for="last-name" class="col-sm-2 control-label">Apellido</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <input type="text" class="form-control" id="last-name"
+                                                        <input type="text" class="form-control" id="txt_apellido"
                                                             name="last-name"
-                                                            placeholder="El apellido lo carga desde la base de datos"
-                                                            value="El apellido lo carga desde la base de datos"
+                                                            placeholder="<?php echo $_SESSION["usuario"]["pApellido"];?>"
+                                                            value="<?php echo $_SESSION["usuario"]["pApellido"];?>"
                                                             required>
                                                     </div>
                                                 </div>
@@ -417,32 +418,33 @@
                                                     electrónico</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <input type="email" class="form-control" id="Email" name="Email"
-                                                            placeholder="lo carga desde la base de datos"
-                                                            value="lo carga desde la base de datos" required>
+                                                        <input type="email" class="form-control" id="txt_correo" name="Email"
+                                                            placeholder="<?php echo $_SESSION["usuario"]["correoElectronico"];?>"
+                                                            value="<?php echo $_SESSION["usuario"]["correoElectronico"];?>" required>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <?php   
+                                                $fechaTemp=$_SESSION["usuario"]["fechaNacimiento"];
+                                                $date = str_replace('-', '/', $fechaTemp); 
+                                                $fechaTemp = date('d-m-Y', strtotime($date)); 
+                                            ?>
                                             <div class="form-group">
                                                 <label for="fecha" class="col-sm-2 control-label">Fecha de
                                                     Nacimiento</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <input type="text" class="form-control date" value="Ex: 30/07/2016 tambien debe cargar la fecha"
-                                                            placeholder="Ex: 30/07/2016 tambien debe cargar la fecha" required>
+                                                        <input type="text"  id="date_fecha" class="form-control date" value="<?php echo $fechaTemp;?>"
+                                                            placeholder="<?php echo $fechaTemp;?>" required>
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <!-- debe cargar desde la base de datos -->
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">municipio</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <select class="form-control show-tick" required>
-                                                            <optgroup label="nombredepartamento">
-                                                                <option value="">municipio</option>
-                                                            </optgroup>
+                                                        <select id="int_municipio" class="form-control show-tick" required>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -452,7 +454,7 @@
                                                 <label class="col-sm-2 control-label">Teléfono</label>
                                                 <div class="col-sm-10">
                                             <div class="form-line">
-                                                <input type="text" class="form-control mobile-phone-number"  value="Ex: +00 (000) 000-00-00 tambien lo debe cargar" placeholder="Ex: +00 (000) 000-00-00 tambien lo debe cargar" required>
+                                                <input type="text" id="txt_tefelono"class="form-control mobile-phone-number"  value="<?php echo $_SESSION["usuario"]["numTelefono"];?>" placeholder="<?php echo $_SESSION["usuario"]["numTelefono"];?>" required>
                                             </div>
                                                 </div>
                                             </div>
@@ -470,7 +472,7 @@
                                                 <label for="OldPassword" class="col-sm-3 control-label">Contraseña actual</label>
                                                 <div class="col-sm-9">
                                                     <div class="form-line">
-                                                        <input type="password" class="form-control" id="OldPassword"
+                                                        <input type="password" class="form-control" id="contraseñaActual"
                                                             name="OldPassword" placeholder="Contraseña actual" required>
                                                     </div>
                                                 </div>
@@ -479,7 +481,7 @@
                                                 <label for="NewPassword" class="col-sm-3 control-label">Nueva contraseña</label>
                                                 <div class="col-sm-9">
                                                     <div class="form-line">
-                                                        <input type="password" class="form-control" id="NewPassword"
+                                                        <input type="password" class="form-control" id="txt_contraseña"
                                                             name="NewPassword" placeholder="Nueva contraseña" required>
                                                     </div>
                                                 </div>
@@ -489,7 +491,7 @@
                                                 <div class="col-sm-9">
                                                     <div class="form-line">
                                                         <input type="password" class="form-control"
-                                                            id="NewPasswordConfirm" name="NewPasswordConfirm"
+                                                            id="txt_contraseña2" name="NewPasswordConfirm"
                                                             placeholder="Confirme la contraseña" required>
                                                     </div>
                                                 </div>
@@ -549,11 +551,10 @@
             <script src="../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     
             <!-- Custom Js -->
-            <script src="../js/admin.js"></script>
             <script src="../js/pages/forms/basic-form-elements.js"></script>
     
             <!-- Demo Js -->
-            <script src="../js/demo.js"></script>      
+            <script src="../controlador/perfiles.js"></script>      
 
 </body>
 

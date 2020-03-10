@@ -51,12 +51,10 @@ $(document).ready(function () {																//document
 			success: function (resultado) {
 				respuesta = JSON.parse(resultado);									//Parsea el arreglo a JSON
 				if (!respuesta.error) {												//Si no hay error entonces..
-					if (respuesta.tipo == 'registrado') {				
-						location.href = "vistas/usuario/home.php";
+					if (respuesta.tipo == 'Miembro' || respuesta.tipo == 'Administrador') {				
+						location.href = "vistas/perfil.php";
 					}
-					else if (respuesta.tipo == 'administrador') {
-						location.href = "vistas/admin/home.php";
-					}
+
 				}
 				else {
 					$("#cuerpoModal").empty();																					//Vacia el cuerpo del modal de mensaje
