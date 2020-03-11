@@ -1,5 +1,6 @@
 <?php
     require_once("conexion.php");
+    require_once("correo.php");
 
     switch ($_GET["accion"]) {                                                                                      //Inicio de switch
         case '1':                                                                                                   //Llena el select de municipios
@@ -109,7 +110,11 @@
                 else{
                     $fila=$conexion->obtenerFila($respuesta);
                     echo $fila["mensaje"];
+                    $correo= new Correo($correo,$nombre);
+                    $correo->enviarCorreo();
+
                 }
+
                 $conexion->cerrarConexion();
             }
         break;
