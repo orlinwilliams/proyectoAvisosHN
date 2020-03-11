@@ -3,6 +3,7 @@ $(document).ready(function () {																//document
 	municipios();																			//Llama la funcion municipios
 
 	$('#txt_tefelono').inputmask('+504 9999-99-99', { placeholder: '+___ ____-__-__' });	//Da formato al telefono
+	$('#txt_rtn').inputmask('0801-1996-01667', { placeholder: '____-____-_____' });			//Da formato al rtn
     $('#date_fecha').inputmask('dd/mm/yyyy', { placeholder: '__/__/____' });				//Da formato a la fecha
 });																				//document
 
@@ -18,4 +19,6 @@ municipios = function () {														//Inicio funcion para llenar los municip
 		}
 	});																			//Fin ajax municipios
 
-}																				//Fin funcion para llenar los municipios
+};																				//Fin funcion para llenar los municipios
+
+

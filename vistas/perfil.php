@@ -206,7 +206,8 @@
                     <img src="../images/user.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?></div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?></div>
                     <div class="email"><?php echo $_SESSION["usuario"]["correoElectronico"];?></div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true"
@@ -214,7 +215,8 @@
                         <ul class="dropdown-menu pull-right">
                             <li><a href="perfil.php"><i class="material-icons">person</i>Perfil</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="../clases/cerrarSesion.php"><i class="material-icons">exit_to_app</i>Cerrar sesión</a></li>
+                            <li><a href="../clases/cerrarSesion.php"><i class="material-icons">exit_to_app</i>Cerrar
+                                    sesión</a></li>
                         </ul>
                     </div>
                 </div>
@@ -352,7 +354,8 @@
                                 <img src="../images/user-lg.jpg" alt="AdminBSB - Profile Image" />
                             </div>
                             <div class="content-area">
-                                <h3><?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?></h3>
+                                <h3><?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?>
+                                </h3>
                                 <p><?php echo $_SESSION["usuario"]["tipousuario"]?></p>
                             </div>
                         </div>
@@ -395,9 +398,11 @@
                                                 <label for="first-name" class="col-sm-2 control-label">Nombre</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <input type="text" id="txt_nombre" class="form-control" name="first-name"
+                                                        <input type="text" id="txt_nombre" class="form-control"
+                                                            name="first-name"
                                                             placeholder="<?php echo $_SESSION["usuario"]["pNombre"];?>"
-                                                            value="<?php echo $_SESSION["usuario"]["pNombre"];?>" required>
+                                                            value="<?php echo $_SESSION["usuario"]["pNombre"];?>"
+                                                            required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -418,9 +423,11 @@
                                                     electrónico</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <input type="email" class="form-control" id="txt_correo" name="Email"
+                                                        <input type="email" class="form-control" id="txt_correo"
+                                                            name="Email"
                                                             placeholder="<?php echo $_SESSION["usuario"]["correoElectronico"];?>"
-                                                            value="<?php echo $_SESSION["usuario"]["correoElectronico"];?>" required>
+                                                            value="<?php echo $_SESSION["usuario"]["correoElectronico"];?>"
+                                                            required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -434,7 +441,8 @@
                                                     Nacimiento</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <input type="text"  id="date_fecha" class="form-control date" value="<?php echo $fechaTemp;?>"
+                                                        <input type="text" id="date_fecha" class="form-control date"
+                                                            value="<?php echo $fechaTemp;?>"
                                                             placeholder="<?php echo $fechaTemp;?>" required>
                                                     </div>
                                                 </div>
@@ -444,7 +452,8 @@
                                                 <label class="col-sm-2 control-label">municipio</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <select id="int_municipio" class="form-control show-tick" required>
+                                                        <select id="int_municipio" class="form-control show-tick"
+                                                            required>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -453,11 +462,33 @@
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Teléfono</label>
                                                 <div class="col-sm-10">
-                                            <div class="form-line">
-                                                <input type="text" id="txt_tefelono"class="form-control mobile-phone-number"  value="<?php echo $_SESSION["usuario"]["numTelefono"];?>" placeholder="<?php echo $_SESSION["usuario"]["numTelefono"];?>" required>
-                                            </div>
+                                                    <div class="form-line">
+                                                        <input type="text" id="txt_tefelono"
+                                                            class="form-control mobile-phone-number"
+                                                            value="<?php echo $_SESSION["usuario"]["numTelefono"];?>"
+                                                            placeholder="<?php echo $_SESSION["usuario"]["numTelefono"];?>"
+                                                            required>
+                                                    </div>
                                                 </div>
                                             </div>
+
+
+
+                                            <div class="form-group">
+                                            <label class="col-sm-2 control-label">Empresarial</label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group input-group-lg">
+                                                    <span class="input-group-addon">
+                                                        <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                                        <label for="ig_checkbox"></label>
+                                                    </span>
+                                                    <div class="form-line">
+                                                        <input type="text" class="form-control" placeholder="____-____-_____" id="txt_rtn">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+
 
                                             <div class="form-group">
                                                 <div class="col-sm-offset-2 col-sm-10">
@@ -469,16 +500,19 @@
                                     <div role="tabpanel" class="tab-pane fade in" id="change_password_settings">
                                         <form class="form-horizontal">
                                             <div class="form-group">
-                                                <label for="OldPassword" class="col-sm-3 control-label">Contraseña actual</label>
+                                                <label for="OldPassword" class="col-sm-3 control-label">Contraseña
+                                                    actual</label>
                                                 <div class="col-sm-9">
                                                     <div class="form-line">
-                                                        <input type="password" class="form-control" id="contraseñaActual"
-                                                            name="OldPassword" placeholder="Contraseña actual" required>
+                                                        <input type="password" class="form-control"
+                                                            id="contraseñaActual" name="OldPassword"
+                                                            placeholder="Contraseña actual" required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="NewPassword" class="col-sm-3 control-label">Nueva contraseña</label>
+                                                <label for="NewPassword" class="col-sm-3 control-label">Nueva
+                                                    contraseña</label>
                                                 <div class="col-sm-9">
                                                     <div class="form-line">
                                                         <input type="password" class="form-control" id="txt_contraseña"
@@ -487,11 +521,12 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="NewPasswordConfirm" class="col-sm-3 control-label">Nueva contraseña (Confirmación)</label>
+                                                <label for="NewPasswordConfirm" class="col-sm-3 control-label">Nueva
+                                                    contraseña (Confirmación)</label>
                                                 <div class="col-sm-9">
                                                     <div class="form-line">
-                                                        <input type="password" class="form-control"
-                                                            id="txt_contraseña2" name="NewPasswordConfirm"
+                                                        <input type="password" class="form-control" id="txt_contraseña2"
+                                                            name="NewPasswordConfirm"
                                                             placeholder="Confirme la contraseña" required>
                                                     </div>
                                                 </div>
@@ -538,23 +573,23 @@
 
     <!-- Input Mask Plugin Js -->
     <script src="../plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
-            <!-- Autosize Plugin Js -->
-            <script src="../plugins/autosize/autosize.js"></script>
+    <!-- Autosize Plugin Js -->
+    <script src="../plugins/autosize/autosize.js"></script>
 
-            <!-- Moment Plugin Js -->
-            <script src="../plugins/momentjs/moment.js"></script>
-    
-            <!-- Bootstrap Material Datetime Picker Plugin Js -->
-            <script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-    
-            <!-- Bootstrap Datepicker Plugin Js -->
-            <script src="../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    
-            <!-- Custom Js -->
-            <script src="../js/pages/forms/basic-form-elements.js"></script>
-    
-            <!-- Demo Js -->
-            <script src="../controlador/perfiles.js"></script>      
+    <!-- Moment Plugin Js -->
+    <script src="../plugins/momentjs/moment.js"></script>
+
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+    <!-- Bootstrap Datepicker Plugin Js -->
+    <script src="../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+    <!-- Custom Js -->
+    <script src="../js/pages/forms/basic-form-elements.js"></script>
+
+    <!-- Demo Js -->
+    <script src="../controlador/perfiles.js"></script>
 
 </body>
 

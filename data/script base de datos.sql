@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 10-03-2020 a las 04:54:55
+-- Tiempo de generación: 11-03-2020 a las 03:45:13
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -649,8 +649,8 @@ CREATE TABLE IF NOT EXISTS `tipousuario` (
 
 INSERT INTO `tipousuario` (`idtipoUsuario`, `tipoUsuario`) VALUES
 (1, 'no registrado'),
-(2, 'registrado'),
-(3, 'administrador');
+(2, 'Miembro'),
+(3, 'Administrador');
 
 -- --------------------------------------------------------
 
@@ -683,7 +683,9 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, `pApellido`, `correoElectronico`, `contrasenia`, `numTelefono`, `fechaRegistro`, `fechaNacimiento`, `RTN`, `urlFoto`) VALUES
-(1, 3, 80, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', '+50469199660', '2020-03-09', '1995-12-01', '0801-1996-01667', NULL);
+(1, 3, 80, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', '+50469199660', '2020-03-09', '1995-12-01', '0801-1996-01667', NULL),
+(3, 2, 14, 'Prueba1', 'prueba1', 'prueba1@gmail.com', 'qwerty', ' 504 9619-99-66', '2020-03-10', '1995-12-02', 'null', 'null'),
+(2, 2, 150, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asd.123', '+504 9999-55-44', '2020-03-09', '1995-12-01', '0801-1996-01667', NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
