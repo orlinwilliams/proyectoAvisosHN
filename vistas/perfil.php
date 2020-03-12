@@ -383,12 +383,15 @@
                         <div class="body">
                             <div>
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation" class="active"><a href="#profile_settings"
-                                            aria-controls="settings" role="tab" data-toggle="tab">Configuración de
+                                    <li role="presentation" class="active">
+                                        <a href="#profile_settings" aria-controls="settings" role="tab"
+                                            data-toggle="tab">Configuración de
                                             perfil</a>
                                     </li>
-                                    <li role="presentation"><a href="#change_password_settings" aria-controls="settings"
-                                            role="tab" data-toggle="tab">Cambiar contraseña</a></li>
+                                    <li role="presentation">
+                                        <a href="#change_password_settings" aria-controls="settings" role="tab"
+                                            data-toggle="tab">Cambiar contraseña</a>
+                                    </li>
                                 </ul>
 
                                 <div class="tab-content">
@@ -474,14 +477,16 @@
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">RTN (Opcional)</label>
                                                 <div class="col-sm-10">
-                                                        <div class="form-line">
-                                                            <input type="text" class="form-control key" placeholder="____-____-_____" id="txt_rtn">
-                                                        </div>
+                                                    <div class="form-line">
+                                                        <input type="text" class="form-control key" value="<?php echo $_SESSION["usuario"]["RTN"];?>"
+                                                            placeholder="<?php echo $_SESSION["usuario"]["RTN"];?>" id="txt_rtn">
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-sm-offset-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-danger" id="editarPerfil">Guardar</button>
+                                                    <button class="btn btn-danger" id="editar"
+                                                        type="button">Guardar</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -523,7 +528,7 @@
 
                                             <div class="form-group">
                                                 <div class="col-sm-offset-3 col-sm-9">
-                                                    <button type="submit" class="btn btn-danger">Cambiar</button>
+                                                    <button id="cambiar" type="button" class="btn btn-danger">Cambiar</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -535,21 +540,22 @@
                 </div>
             </div>
         </div>
-          <!--Modal con el mensaje de respuesta-->
-  <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true ">
-    <div class="modal-dialog modal-dialog-centered" role="document ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true ">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="cuerpoModal">
+        <!--Modal con el mensaje de respuesta-->
+        <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true ">
+            <div class="modal-dialog modal-dialog-centered" role="document ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true ">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="cuerpoModal">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
     </section>
 
     <!-- Jquery Core Js -->
@@ -557,7 +563,6 @@
 
     <!-- Bootstrap Core Js -->
     <script src="../plugins/bootstrap/js/bootstrap.js"></script>
-
 
     <!-- Slimscroll Plugin Js -->
     <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 11-03-2020 a las 03:45:13
+-- Tiempo de generación: 12-03-2020 a las 12:12:51
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -26,6 +26,135 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+DROP PROCEDURE IF EXISTS `SP_CONTRASENIA`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CONTRASENIA` (IN `pnIdUsuario` INT, IN `pcContraseniaActual` VARCHAR(200), IN `pcContraseniaNueva` VARCHAR(200), IN `pcConfirmación` VARCHAR(200), OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(45))  SP:BEGIN
+    DECLARE vnIdUsuario, vnConteo INT;
+    DECLARE tempMensaje VARCHAR(2000);
+    SET autocommit=0;
+	START TRANSACTION;
+	SET tempMensaje='';
+	SET pbOcurrioError=TRUE;
+
+IF pcContraseniaActual = '' OR pcContraseniaActual IS NULL THEN
+    SET tempMensaje = 'Contraseña actual, ';
+END IF;
+
+IF pcContraseniaNueva = '' OR pcContraseniaNueva IS NULL THEN
+    SET tempMensaje = 'Contraseña Nueva, ';
+END IF;
+
+IF tempMensaje <> '' THEN
+    SET pcMensaje = CONCAT('Falta agregar la contraseña: ', tempMensaje);
+    LEAVE SP;
+END IF;
+
+SELECT COUNT(*) INTO vnConteo FROM usuario
+WHERE idUsuario = pnIdUsuario AND contrasenia = pcContraseniaActual;
+
+IF vnConteo=0 THEN
+    SET pcMensaje="El usuario no existe";
+    LEAVE SP;
+END IF;
+
+IF pcContraseniaActual=pcContraseniaNueva THEN
+    SET pcMensaje = 'Contraseña Nueva es igual a contraseña Actual';
+    LEAVE SP;
+END if;
+
+IF pcContraseniaNueva<>pcConfirmación THEN
+    SET pcMensaje = 'Las contraseñas no coinciden';
+    LEAVE SP;
+END IF;
+
+UPDATE usuario
+    SET 	contrasenia=pcContraseniaNueva
+	WHERE idUsuario= pnIdUsuario;
+COMMIT;
+
+SET pcMensaje = 'Contraseña actualizada con exito';
+SET pbOcurrioError = FALSE;
+LEAVE SP;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `SP_EDITAR_USUARIO`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EDITAR_USUARIO` (IN `pnIdUsuario` INT, IN `pcNombre` VARCHAR(45), IN `pcApellido` VARCHAR(45), IN `pdFechaNacimiento` VARCHAR(45), IN `pcCorreo` VARCHAR(45), IN `pnTelefono` VARCHAR(45), IN `pcMunicipio` VARCHAR(45), IN `pcRTN` VARCHAR(45), OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(45))  SP:BEGIN
+     DECLARE  vnConteo, vnIdUsuario, vnIdTipoUsuario,vnIdMunicipio INT;
+	DECLARE	vnFechaRegistro DATE;
+     DECLARE tempMensaje VARCHAR(2000);
+     SET autocommit=0;
+	START TRANSACTION;
+	SET tempMensaje='';
+	SET pbOcurrioError=TRUE;
+
+IF pcNombre = '' OR pcNombre  IS NULL THEN
+    SET tempMensaje = 'Nombre, ';
+END IF;
+
+IF pcApellido = '' OR pcApellido IS NULL THEN
+    SET tempMensaje = CONCAT(tempMensaje,'Apellido, ');
+END IF;
+
+IF pdFechaNacimiento = '' OR pdFechaNacimiento IS NULL THEN
+    SET tempMensaje = CONCAT(tempMensaje,'Fecha de nacimiento, ');
+END IF;
+
+IF pnTelefono = '' OR pnTelefono IS NULL THEN
+    SET tempMensaje = CONCAT(tempMensaje,'Telefono, ');
+END IF;
+
+IF pcCorreo = '' OR pcCorreo IS NULL THEN
+    SET tempMensaje = CONCAT(tempMensaje,'correo, ');
+END IF;
+
+IF pcMunicipio = '' OR pcMunicipio IS NULL THEN
+    SET tempMensaje = CONCAT(tempMensaje,'Municipio, ');
+END IF;
+
+IF tempMensaje <> '' THEN
+    SET pcMensaje = CONCAT('Faltan los siguientes campos: ', tempMensaje);
+    LEAVE SP;
+END IF;
+
+/*SELECCIONARA EL USUARIO POR SU ID*/
+IF pnIdUsuario = '' OR pnIdUsuario IS NULL THEN
+    SET tempMensaje =  'idUsuario, ';
+END IF;
+
+SELECT COUNT(*) INTO vnConteo FROM usuario u
+WHERE u.idUsuario=pnIdUsuario;
+
+IF vnConteo = 0 THEN
+    SET pcMensaje = 'Usuario no existe';
+    LEAVE SP;
+END if;
+
+SELECT COUNT(*) INTO vnConteo FROM municipios
+WHERE pcMunicipio=idMunicipios;
+
+IF vnConteo=0 THEN
+    SET pcMensaje="El municipio no existe";
+    LEAVE SP;
+END IF;
+
+
+UPDATE usuario
+SET 	idMunicipios=pcMunicipio,
+	    pNombre= pcNombre,
+	    pApellido=pcApellido,
+	    correoElectronico=pcCorreo,
+	    numTelefono=pnTelefono,
+	    fechaNacimiento=pdFechaNacimiento,
+	    RTN=pcRTN
+	WHERE idUsuario = pnIdUsuario;
+COMMIT;
+
+SET pcMensaje = 'Usuario  actualizado con exito.';
+SET pbOcurrioError = FALSE;
+LEAVE SP;
+
+END$$
+
 DROP PROCEDURE IF EXISTS `SP_REGISTRAR`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR` (IN `pcNombre` VARCHAR(45), IN `pcApellido` VARCHAR(45), IN `pcCorreo` VARCHAR(60), IN `pcContraseña` VARCHAR(500), IN `pcConfirmacion` VARCHAR(500), IN `pcTelefono` VARCHAR(20), IN `pdNacimiento` VARCHAR(10), IN `pcRTN` VARCHAR(16), IN `pcURL` VARCHAR(1000), IN `pnMunicipio` INT, OUT `pcMensaje` VARCHAR(300))  SP:BEGIN
 	DECLARE vnConteo INT;
@@ -669,7 +798,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `contrasenia` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `numTelefono` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `fechaRegistro` date NOT NULL,
-  `fechaNacimiento` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `fechaNacimiento` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `RTN` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `urlFoto` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idUsuario`),
@@ -684,8 +813,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, `pApellido`, `correoElectronico`, `contrasenia`, `numTelefono`, `fechaRegistro`, `fechaNacimiento`, `RTN`, `urlFoto`) VALUES
 (1, 3, 80, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', '+50469199660', '2020-03-09', '1995-12-01', '0801-1996-01667', NULL),
-(3, 2, 14, 'Prueba1', 'prueba1', 'prueba1@gmail.com', 'qwerty', ' 504 9619-99-66', '2020-03-10', '1995-12-02', 'null', 'null'),
-(2, 2, 150, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asd.123', '+504 9999-55-44', '2020-03-09', '1995-12-01', '0801-1996-01667', NULL);
+(3, 2, 150, 'René', 'Peréz', 'correo@gmail.com', 'asd.789', '504 9605-00-66', '2020-03-10', '1986-11-27', '', 'null'),
+(2, 2, 4, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asdzxc', ' 504 9605-01-00', '2020-03-09', '1995-12-01', '0801-1986-01778', NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
