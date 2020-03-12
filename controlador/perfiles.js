@@ -16,6 +16,42 @@ $(document).ready(function () {
 	$('#txt_rtn').inputmask('****-****-*****', { placeholder: '____-____-_____' });			//Da formato al rtn
 	$('#date_fecha').inputmask('dd/mm/yyyy', { placeholder: '__/__/____' });				//Da formato a la fecha
 
+	$("#imagenPerfil").click(function(){
+		$("#imagenActualizar").click();
+		$("#imagenActualizar").change(function(e){
+			e.preventDefault();
+			var dataImg= new FormData();
+			
+			dataImg.append("imagen",$("#imagenActualizar")[0].files[0]);
+			$.ajax({
+				url:"../clases/actualizarImagen.php",
+				data:dataImg,
+				type:"POST",
+				//dataType:"text",
+				contentType: false,
+				processData: false,
+				success:function(resp){
+					//alert(resp)
+					
+					$("#imagenPerfil").attr("src",resp);
+					
+					$("#imagenPerfil1").attr("src",resp);
+					//location.hrf="";
+					//console.log(resp);
+	
+				},
+				
+				error:function(error){
+					alert("ERRROR EN ELA PETICION"+error);
+				}
+	
+	
+			})
+	
+		});
+	
+	})	
+
 
 
 	$("#editar").click(function (event) {												//Petición ajax para guardar cambios en el perfil
@@ -72,8 +108,7 @@ municipios = function () {														//Inicio funcion para llenar los municip
 	});																			//Fin ajax municipios
 
 };
-																				//Fin funcion para llenar los municipios
 
-																				function recargar(){location.reload()}
+
 
 
