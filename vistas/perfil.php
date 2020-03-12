@@ -471,28 +471,17 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
-
                                             <div class="form-group">
-                                            <label class="col-sm-2 control-label">Empresarial</label>
-                                            <div class="col-sm-10">
-                                                <div class="input-group input-group-lg">
-                                                    <span class="input-group-addon">
-                                                        <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                                        <label for="ig_checkbox"></label>
-                                                    </span>
-                                                    <div class="form-line">
-                                                        <input type="text" class="form-control" placeholder="____-____-_____" id="txt_rtn">
-                                                    </div>
+                                                <label class="col-sm-2 control-label">RTN (Opcional)</label>
+                                                <div class="col-sm-10">
+                                                        <div class="form-line">
+                                                            <input type="text" class="form-control key" placeholder="____-____-_____" id="txt_rtn">
+                                                        </div>
                                                 </div>
                                             </div>
-                                            </div>
-
-
                                             <div class="form-group">
                                                 <div class="col-sm-offset-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-danger">Guardar</button>
+                                                    <button type="submit" class="btn btn-danger" id="editarPerfil">Guardar</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -546,6 +535,21 @@
                 </div>
             </div>
         </div>
+          <!--Modal con el mensaje de respuesta-->
+  <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true ">
+    <div class="modal-dialog modal-dialog-centered" role="document ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true ">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="cuerpoModal">
+            </div>
+        </div>
+    </div>
+</div>
     </section>
 
     <!-- Jquery Core Js -->
@@ -563,7 +567,6 @@
 
     <!-- Custom Js -->
     <script src="../js/admin.js"></script>
-    <script src="../js/pages/examples/profile.js"></script>
 
     <!-- Demo Js -->
     <script src="../js/demo.js"></script>
