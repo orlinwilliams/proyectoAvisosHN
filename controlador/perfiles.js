@@ -1,5 +1,22 @@
+
+
 $(document).ready(function () {							
-	event.preventDefault();									//document
+	event.preventDefault();			
+		//VISTA DE IMAGEN DE PERFIL
+	$.get("../clases/actualizarImagen.php?accion=1",function(resp){
+		//alert(resp);
+		if(resp==null||resp==""){
+		
+			$("#imagenPerfil").attr("src","../images/user.png");
+			$("#imagenPerfil1").attr("src","../images/user.png");
+		}
+		else{
+			$("#imagenPerfil").attr("src",resp);
+			$("#imagenPerfil1").attr("src",resp);
+		}
+		
+	});
+
 	$('button[type="button"]').attr('disabled', 'disabled');									//Desactiva botones de guardar al cargar la página
 	$('input[type="text"]').change(function () {												//Si hay cambios en el formulario activos botones de guardar
 		$('button[type="button"]').removeAttr('disabled');
@@ -7,7 +24,7 @@ $(document).ready(function () {
 	$('input[type="password"]').change(function () {												//Si hay cambios en el formulario activos botones de guardar
 		$('button[type="button"]').removeAttr('disabled');
 	});
-
+	
 
 
 	municipios();																			//Llama la funcion municipios
@@ -16,6 +33,8 @@ $(document).ready(function () {
 	$('#txt_rtn').inputmask('****-****-*****', { placeholder: '____-____-_____' });			//Da formato al rtn
 	$('#date_fecha').inputmask('dd/mm/yyyy', { placeholder: '__/__/____' });				//Da formato a la fecha
 
+	
+	//atualizar imagen de perfil 
 	$("#imagenPerfil").click(function(){
 		$("#imagenActualizar").click();
 		$("#imagenActualizar").change(function(e){
@@ -24,20 +43,19 @@ $(document).ready(function () {
 			
 			dataImg.append("imagen",$("#imagenActualizar")[0].files[0]);
 			$.ajax({
-				url:"../clases/actualizarImagen.php",
+				url:"../clases/actualizarImagen.php?accion=2",
 				data:dataImg,
 				type:"POST",
 				//dataType:"text",
 				contentType: false,
 				processData: false,
 				success:function(resp){
-					//alert(resp)
+					
 					
 					$("#imagenPerfil").attr("src",resp);
 					
 					$("#imagenPerfil1").attr("src",resp);
-					//location.hrf="";
-					//console.log(resp);
+					
 	
 				},
 				

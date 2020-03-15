@@ -203,7 +203,7 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img id="imagenPerfil1"src="<?php echo $_SESSION["usuario"]["urlFoto"];?>" width="48" height="48" alt="User" />
+                    <img id="imagenPerfil1" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -352,13 +352,11 @@
                         
                         <form id="formAtualizarImagen" style="display:none" enctype="multipart/form-data"> <!-- ACTUALIZAR IMAGEN -->
                         <input type="file" name="imagen" accept="image/*" id="imagenActualizar">
-                        <input type="submit" >
-                        
                         </form>
 
                         <div class="profile-body">
                             <div class="image-area">
-                                <img id="imagenPerfil" src="<?php echo $_SESSION["usuario"]["urlFoto"];?>" alt="AdminBSB - Profile Image" />
+                                <img id="imagenPerfil"  alt="AdminBSB - Profile Image" />
                             </div>
                             <div class="content-area">
                                 <h3><?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?>
