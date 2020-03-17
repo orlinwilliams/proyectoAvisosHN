@@ -348,7 +348,7 @@
                 <a a data-toggle="modal" data-target="#defaultModal2" data-dismiss="modal">Registrate ahora!</a>
               </div>
               <div class="col-xs-6 align-right">
-                <a href="forgot-password.html">¿Olvidaste tu contraseña?</a>
+                <a href="recuperar-contraseña.php">¿Olvidaste tu contraseña?</a>
               </div>
             </div>
           </form>

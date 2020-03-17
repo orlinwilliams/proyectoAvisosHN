@@ -349,21 +349,19 @@
                 <div class="col-xs-12 col-sm-3">
                     <div class="card profile-card">
                         <div class="profile-header">&nbsp;</div>
-                        
-                        <form id="formAtualizarImagen" style="display:none" enctype="multipart/form-data"> <!-- ACTUALIZAR IMAGEN -->
-                        <input type="file" name="imagen" accept="image/*" id="imagenActualizar">
-                        </form>
-
-                        <div class="profile-body">
-                            <div class="image-area">
-                                <img id="imagenPerfil"  alt="AdminBSB - Profile Image" />
+                                <form id="formAtualizarImagen" style="display:none" enctype="multipart/form-data"> <!-- ACTUALIZAR IMAGEN -->
+                                    <input type="file" name="imagen" accept="image/*" id="imagenActualizar">
+                                </form>
+                            <div class="profile-body">
+                                <div class="image-area">
+                                    <img id="imagenPerfil"  alt="AdminBSB - Profile Image" height=128px width=128px/>
+                                </div>
+                                <div class="content-area">
+                                    <h3><?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?>
+                                    </h3>
+                                    <p><?php echo $_SESSION["usuario"]["tipousuario"]?></p>
+                                </div>
                             </div>
-                            <div class="content-area">
-                                <h3><?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?>
-                                </h3>
-                                <p><?php echo $_SESSION["usuario"]["tipousuario"]?></p>
-                            </div>
-                        </div>
                         <div class="profile-footer">
                             <ul>
                                 <li>
