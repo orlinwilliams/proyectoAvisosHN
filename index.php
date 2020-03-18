@@ -456,7 +456,8 @@
           </div>
             <div class="form-group">
               <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink" required>
-              <label for="terms">Acepto los <a href="javascript:void(0);">terminos de usuario</a>.</label>
+              <label for="terms">Acepto los <a href="javascript:void(0);" data-toggle="modal" data-target="#politicas">terminos de usuario</a>.</label>
+              
             </div>
 
             <button class="btn btn-block btn-lg bg-pink waves-effect" id="registrar" type="submit">Registrarse</button>
@@ -486,6 +487,157 @@
         </div>
     </div>
 </div>
+
+<!-- Modal para politicas de privacidad -->
+<div class="modal fade" id="politicas" tabindex="-1" role="dialog">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content" style="border-radius:30px">
+                        <div class="modal-header bg-black" style="border-top-right-radius:25px;border-top-left-radius:25px" >
+                           <div class="align-center col-lg-12" style="margin-bottom:30px">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+                                      <img class="img-responsive align-center"src="images/logo.png" alt=""> 
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    </div>
+                             </div>
+                                <br><br>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:20px">
+                                  <h4 class="modal-title align-center font-bold" id="largeModalLabel" style="">TERMINOS, CONDICIONES Y POLITICAS DE PRIVACIDAD</h4>
+                              <br><br>
+                             </div>
+                            <br></div>
+                        <div class="modal-body">
+                                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header bg-black">
+                                        </div>
+                                        <div class="body">
+                                        El presente Política de Privacidad establece los términos en que MARKETHN usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web. Esta compañía está comprometida con la seguridad de los datos de sus usuarios. Cuando le pedimos llenar los campos de información personal con la cual usted pueda ser identificado, lo hacemos asegurando que sólo se empleará de acuerdo con los términos de este documento. Sin embargo, esta Política de Privacidad puede cambiar con el tiempo o ser actualizada por lo que le recomendamos y enfatizamos revisar continuamente esta página para asegurarse que está de acuerdo con dichos cambios.
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header bg-black">
+                                            <h2>
+                                            Información que es recogida 
+                                            </h2>
+                                            
+                                        </div>
+                                        <div class="body">
+                                        Nuestro sitio web podrá recoger información personal, por ejemplo: Nombre, información de contacto como su dirección de correo electrónica e información demográfica, entre otros.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header bg-black">
+                                            <h2>
+                                            Veracidad de los datos facilitados por los Usuarios
+                                            </h2>
+                                            
+                                        </div>
+                                        <div class="body">
+                                        El Usuario garantiza que los datos personales facilitados son veraces y se hace responsable de comunicar a MARKETHN cualquier modificación de los mismos. El Usuario responderá, en cualquier caso, de la veracidad de los datos facilitados, reservándose MARKETHN el derecho a excluir de los Servicios registrados a todo Usuario que haya facilitado datos falsos, sin perjuicio de las demás acciones que procedan en Derecho.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header bg-black">
+                                            <h2>
+                                            Conservación de los datos
+                                            </h2>
+                                            
+                                        </div>
+                                        <div class="body">
+                                        Los datos personales proporcionados se conservarán por parte de MARKETHN mientras el Usuario no manifieste su voluntad de darse de baja de los servicios de AVISOHN, y ello con la finalidad de recibir información sobre productos de la empresa.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header bg-black">
+                                            <h2>
+                                            Derechos del Usuario en relación con sus datos
+                                            </h2>
+                                            
+                                        </div>
+                                        <div class="body">
+                                             El Usuario tiene derecho: <br>
+                                                -Acceder a sus datos personales <br>
+                                                -Solicitar la rectificación de los datos inexactos <br>
+                                                -Solicitar la supresión <br>
+                                                -Solicitar la limitación del tratamiento de sus datos <br>
+                                                -Oponerse al tratamiento de sus datos <br>
+                                                -Solicitar su portabilidad  <br>
+                                                -Ejercer su derecho al olvido <br>
+ 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header bg-black">
+                                            <h2>
+                                            Seguridad de los datos
+                                            </h2>
+                                            
+                                        </div>
+                                        <div class="body">
+                                              La protección de la privacidad y los datos personales de los Usuarios es muy importante para MARKETHN. Por lo tanto, MARKETHN hace todo lo que está en su mano para impedir que sus datos se utilicen de forma inadecuada, permitiendo el acceso a los mismo únicamente a personal autorizado. <br> <br>
+                                              MARKETHN mantiene los niveles de seguridad de protección de datos personales conforme a la normativa aplicable y ha establecido todos los medios técnicos a su alcance para evitar la pérdida, mal uso, alteración, acceso no autorizado y robo de los datos que el Usuario facilite a través del Sitio Web, sin perjuicio de informarle de que las medidas de seguridad en Internet no son inexpugnables. <br> <br>
+                                              MARKETHN se compromete a cumplir con el deber de secreto y confidencialidad respecto de los datos personales de acuerdo con la legislación aplicable, así como a conferirles un tratamiento seguro en las cesiones y transferencias internacionales de datos que, en su caso, puedan producirse. <br> <br>
+                                              En aquellos servicios de la web que precisen registrarse como Usuario, se deberá elegir una contraseña. El Usuario es el responsable de mantener la confidencialidad de esta contraseña, así como de todas las actividades que ocurran en la sesión iniciada con su nombre y contraseña. El Usuario se compromete a notificar a MARKETHN a la mayor brevedad el uso no autorizado de su nombre de Usuario y/o contraseña o cualquier otro fallo en la seguridad. MARKETHN no será responsable por los daños o pérdidas que se pudieran originar debido al no cumplimiento de esta obligación por parte del Usuario.
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header bg-black">
+                                            <h2>
+                                            Links a páginas web
+                                            </h2>
+                                            
+                                        </div>
+                                        <div class="body">
+                                        El Sitio Web de MARKETHN podría contener links a páginas web de compañías y entidades de terceros.
+                                        <br> <br> MARKETHN no puede hacerse responsable de la forma en la que estas compañías tratan la protección de la privacidad y de los datos personales, por lo que le aconsejamos que lea detenidamente las declaraciones de Política de Privacidad de estas páginas web que no son propiedad de MARKETHN con relación al uso, procesamiento y protección de datos personales. Las condiciones que ofrecen estas páginas web pueden no ser las mismas que las que ofrece MARKETHN.
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header bg-black">
+                                            <h2>
+                                            Aceptación y Consentimiento
+                                            </h2>
+                                            
+                                        </div>
+                                        <div class="body">
+                                        El Usuario declara haber sido informado de las condiciones sobre protección de datos personales, aceptando y consintiendo el tratamiento de los mismos por parte de MARKETHN en la forma y para las finalidades indicadas en la presente Política de Privacidad.
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn bg-black waves-effect" data-dismiss="modal">
+                                    <i class="material-icons">verified_user</i> ACEPTAR
+                                </button> <br>
+                         </div> <br>
+                     </div>
+                   </div>
+               </div>
+
+      <!-- Fin Modal para politicas de privacidad --> 
 
   <!-- Jquery Core Js -->
   <script src="plugins/jquery/jquery.min.js"></script>
