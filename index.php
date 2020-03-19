@@ -269,7 +269,7 @@
               <div class="col-xs-1">
               </div>
               <div class="col-xs-10">
-                <input id="iniciar" class="btn btn-block btn-lg bg-black waves-effect" type="submit"></input>
+                <input id="iniciar" class="btn btn-block btn-lg bg-pink waves-effect" type="submit"></input>
               </div>
               <div class="col-xs-1">
               </div>
@@ -632,7 +632,7 @@
               <div class="col-xs-1">
               </div>
               <div class="col-xs-10">
-                <input id="recuperar" class="btn btn-block btn-lg bg-black waves-effect" type="submit"></input>
+                <input id="recuperar" class="btn btn-block btn-lg bg-pink waves-effect" type="submit"></input>
               </div>
               <div class="col-xs-1">
               </div>
