@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    console.log("cargando controlador");
+    //validacion de formularios;
     $(function () {
         $('#recuperar_contraseña').validate({
             rules: {
@@ -22,6 +22,65 @@ $(document).ready(function(){
         });
     });
 
+    // ENVIAR UN CORREO
+	$("#forgot_password").submit(function (event) {
+		event.preventDefault();
+		$.ajax({
+			url:"clases/index.php?accion=4",
+			method:"POST",
+			data:$("#forgot_password").serialize(),
+			success:function(resp){
+				var result=JSON.parse(resp);
+				if(result.error==true){
+					alert(resp.mensaje);
+				}
+				else if(result.error==false){
+					alert("Se envio un correo a:"+resp.correo);
+				}
+				else{
+					alert("error desconocido");
+				}
+			},
+			error:function(error){
+				console.log(error);
+			}
+
+
+		});
+	});		
+
+    //RESTABLECER COONTRASEÑA MEDIANTE CORREO
+	$("#resetPassword").submit(function(event){
+		event.preventDefault();
+		$.ajax({
+			url:"../clases/perfil.php?accion=3",
+			type:"POST",
+			data:$("#resetPassword").serialize(),
+			success:function(resp){
+				console.log(resp);
+				/*var respuesta=JSON.parse(resp);
+				if(respuesta.error==false){
+					alert(respuesta.mensaje)
+				}
+				else if(respuesta.error==true){
+					alert(respuesta.mensaje);
+
+				}
+				else{
+					alert("Error desconocido");
+				}*/
+
+			},
+			error:function(error){
+				console.log("Error en la petecion al server"+error);
+			}
+
+
+
+		})
+
+	});
+ 
 
 
 });
