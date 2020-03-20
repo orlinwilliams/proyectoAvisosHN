@@ -110,8 +110,8 @@
                 else{
                     $fila=$conexion->obtenerFila($respuesta);
                     echo $fila["mensaje"];
-                    $correo= new Correo($correo,$nombre);
-                    $correo->enviarCorreo();
+                    //$correo= new Correo($correo,$nombre);
+                    //$correo->enviarCorreo();
 
                 }
 
