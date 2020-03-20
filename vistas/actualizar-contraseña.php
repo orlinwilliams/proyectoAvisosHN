@@ -78,7 +78,7 @@
 
     <!-- Custom Js -->
     <script src="../js/admin.js"></script>
-    <script src="../js/pages/examples/actualizar-contraseña.js"></script>
+    <script src="../controlador/actualizar-contraseña.js"></script>
 </body>
 
 </html>
