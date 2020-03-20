@@ -118,4 +118,33 @@
         }
 
         break;
+        case '3'://RESTABLECER CONTRASEÑA
+            if(isset($_POST["password2"]) && isset($_POST["confirm"])){
+                $password1=$_POST["password2"];
+                $password2=$_POST["confirm"];
+                if($password1===$password2){
+                    session_start();
+                    $conexion = new conexion();
+                    if(isset($_SESSION["correo"]["idUsuario"])){
+                        $idUsuario=$_SESSION["correo"]["idUsuario"];
+                        $sql= "UPDATE usuario SET contrasenia='$password2' WHERE idUsuario='$idUsuario'";
+                        if($query=$conexion->ejecutarInstruccion($sql)){
+                            echo json_encode(array("error"=>false,"mensaje"=>"Password actualizada"));
+                        }
+                        else{
+                        echo json_encode(array('error'=>true,"mensaje"=>"Error en la consulta de actualizacion")) ;
+                        }    
+                    }
+                    else{
+                        echo json_encode(array('error'=>true,"mensaje"=>"No hay sesion")) ;
+                    }
+                }
+                else{
+                    echo json_encode(array("error"=>true,"mensaje"=>"las contraseñas no coinciden favor revisar"));
+                }
+            }
+            else{
+                echo json_encode(array("error"=>true,"mensaje"=>" Ingrese contraseña")) ;
+            }
+        break;
     }

@@ -152,4 +152,55 @@
             }
             $conexion->cerrarConexion();
         break;
+        case '4':
+            
+            if(isset($_POST["correo"])){
+                $correo=$_POST["correo"];
+                $conexion = new conexion();
+                
+                $sql="SELECT pNombre,correoElectronico FROM usuario WHERE correoElectronico='$correo'";//verifica si existe el correo
+                if($query=$conexion->ejecutarInstruccion($sql)){
+                    if($query->num_rows==1){
+                        $resultado=$query->fetch_assoc();//consulta los valores del usuario
+                        $token=uniqid();
+                        $sql2="UPDATE usuario SET token='$token' WHERE correoElectronico='$correo'"; 
+                        if($query1=$conexion->ejecutarInstruccion($sql2)){// actualiza del token en la base de datos
+                            
+                            $nombreServer=$_SERVER['SERVER_NAME']; 
+                            
+                            $link="<a href='http://$nombreServer/proyectoavisosHN/clases/recuperar-contraseña.php?token=$token'>AQUI</a><br>";//Mensje que se envia por correo
+                            $mensaje="<br> Ha olvidado su Password?<br> para poder restablecerla ingrese".$link;
+                            
+                            $correo= new Correo($correo,$resultado["pNombre"],"Recuperar Password",$mensaje);//parametros que lleva el correo
+                            if($correo->enviarCorreo()){//SE envia el correo
+                                echo json_encode(array("error"=>false,"correo"=>$correo));
+                            }
+                            else{
+                                echo json_encode(array("error"=>true,"mensaje"=>"fallo al enviar correo"));   //Manejo de posibles errores 
+                            }
+
+                        }
+                        else{
+                            echo json_encode(array("error"=>true,"mensaje"=>"fallo en actualizar token"));
+                        }                        
+                    }
+                    else{
+                        echo json_encode(array("error"=>true,"mensaje"=>"No se encontro el correo"));
+                    }
+                }
+                else{
+                    echo json_encode(array("error"=>true,"mensaje"=>"Error en consulta de correo"));
+                }
+            }
+            else{
+                echo json_encode(array("error"=>true,"mensaje"=>"Correo Vacio"));;
+            }
+            $conexion->liberarResultado($sql);
+            $conexion->liberarResultado($sql2);
+            $conexion->cerrarConexion();
+        break;
+
+
+
+
     }

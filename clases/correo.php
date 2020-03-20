@@ -10,13 +10,16 @@ require 'PHPMailer/src/SMTP.php';
 class Correo{ 
     private $correo;
     private $nombreUsuario;
-    private $asunto="Creacion usuario avisosHN";
-    private $mensajeEncabezado="<br>Bienvenido a AvisosHN la mejor plataforma de Anuncios de Honduras<br>";
+    private $asunto;
+    private $mensaje;
+    private $mensajeEncabezado="<br>AvisosHN la mejor plataforma de Anuncios de Honduras<br>";
     
 
-    public function __construct($correo,$nombreUsuario){
+    public function __construct($correo,$nombreUsuario,$asunto,$mensaje){
         $this->correo=$correo;
         $this->nombreUsuario=$nombreUsuario;
+        $this->asunto=$asunto;
+        $this->mensaje=$mensaje;
         
             
     }
@@ -36,21 +39,24 @@ class Correo{
             
 
             //Recipients
-            $mail->setFrom('serprehn@gmail.com', 'SerpreHN');
+            $mail->setFrom('serprehn@gmail.com', 'AvisosHN');
             $mail->addAddress($this->correo, $this->nombreUsuario);     // Add a recipient
             
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = $this->asunto;
-            $mail->Body    = "Estimado: ".$this->nombreUsuario.$this->mensajeEncabezado;
+            $mail->Body    = "Estimado: ".$this->nombreUsuario.$this->mensaje;
             //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-            $mail->send();
+            if($mail->send()){
+                return true;
+            }
+            
             
 
         } catch (Exception $e) {
             
-            echo "ERRROR:". $e;
+            return false;
             
             
         }
