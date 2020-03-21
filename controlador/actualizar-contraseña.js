@@ -60,7 +60,7 @@ $(document).ready(function(){
 			data:$("#recuperar_contraseña").serialize(),
 			success:function(resp){
 				console.log(resp);
-				/*var respuesta=JSON.parse(resp);
+				var respuesta=JSON.parse(resp);
 				if(respuesta.error==false){
 					alert(respuesta.mensaje)
 				}
@@ -70,7 +70,7 @@ $(document).ready(function(){
 				}
 				else{
 					alert("Error desconocido");
-				}*/
+				}
 
 			},
 			error:function(error){

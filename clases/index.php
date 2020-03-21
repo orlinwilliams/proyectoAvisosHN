@@ -168,7 +168,7 @@
                             
                             $nombreServer=$_SERVER['SERVER_NAME']; 
                             
-                            $link="<a href='http://$nombreServer/proyectoavisosHN/clases/recuperar-contraseña.php?token=$token'>AQUI</a><br>";//Mensje que se envia por correo
+                            $link="<a href='http://$nombreServer/proyectoavisosHN/clases/actualizar-contraseña.php?token=$token'>AQUI</a><br>";//Mensje que se envia por correo
                             $mensaje="<br> Ha olvidado su Password?<br> para poder restablecerla ingrese".$link;
                             
                             $correo= new Correo($correoUsuario,$resultado["pNombre"],"Recuperar Password",$mensaje);//parametros que lleva el correo

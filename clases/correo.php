@@ -45,7 +45,7 @@ class Correo{
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = $this->asunto;
-            $mail->Body    = "Estimado: ".$this->nombreUsuario.$this->mensaje;
+            $mail->Body    = "Estimado: ".$this->nombreUsuario.$this->mensaje.$this->mensajeEncabezado;
             //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             if($mail->send()){
