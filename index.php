@@ -695,6 +695,7 @@
   <script src="controlador/index.js"></script>
   <script src="js/pages/examples/sign-up.js"></script>
   <script src="js/pages/examples/sign-in.js"></script>
+  <script src="controlador/actualizar-contraseña.js"></script>
 
 </body>
 

@@ -23,19 +23,21 @@ $(document).ready(function(){
     });
 
     // ENVIAR UN CORREO
-	$("#forgot_password").submit(function (event) {
+	$("#restablecer").submit(function (event) {
 		event.preventDefault();
 		$.ajax({
 			url:"clases/index.php?accion=4",
 			method:"POST",
-			data:$("#forgot_password").serialize(),
+			data:$("#restablecer").serialize(),
 			success:function(resp){
 				var result=JSON.parse(resp);
+				//alert(resp);
+				console.log(result);
 				if(result.error==true){
-					alert(resp.mensaje);
+					alert(result.mensaje);
 				}
 				else if(result.error==false){
-					alert("Se envio un correo a:"+resp.correo);
+					alert("Se envio un correo a:"+result.correo);
 				}
 				else{
 					alert("error desconocido");
@@ -50,12 +52,12 @@ $(document).ready(function(){
 	});		
 
     //RESTABLECER COONTRASEÑA MEDIANTE CORREO
-	$("#resetPassword").submit(function(event){
+	$("#recuperar_contraseña").submit(function(event){
 		event.preventDefault();
 		$.ajax({
 			url:"../clases/perfil.php?accion=3",
 			type:"POST",
-			data:$("#resetPassword").serialize(),
+			data:$("#recuperar_contraseña").serialize(),
 			success:function(resp){
 				console.log(resp);
 				/*var respuesta=JSON.parse(resp);
