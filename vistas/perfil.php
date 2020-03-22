@@ -380,7 +380,11 @@
                             <!--<button class="btn btn-primary btn-lg waves-effect btn-block">FOLLOW</button>-->
                         </div>
                     </div>
-                </div>
+                    <a href="eliminarCuenta.php">
+                    <button style="opacity:0.4"type="submit" class="btn  btn-default waves-effect col-lg-12 col-sm-12 col-xs-12  " data-toggle="modal" data-target="#defaultModal">
+                            <span>Eliminar cuenta</span></button>
+                        </a> <br>
+                </div> <br>
                 <div class="col-xs-12 col-sm-9">
                     <div class="card">
                         <div class="body">

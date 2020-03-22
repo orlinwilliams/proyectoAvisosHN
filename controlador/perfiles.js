@@ -16,6 +16,20 @@ $(document).ready(function () {
 		}
 		
 	});
+	$("#confirma-eliminar").click(function (event) {	//Petición ajax para dar de baja cuenta
+		event.preventDefault();
+		$.ajax({
+			url: "../clases/perfil.php?accion=4",		//Accion para confirmar contraseña al dar de baja
+			method: "POST",
+			data: "txt_contrasenia_confi=" + $("#txt_contrasenia_confi").val() ,
+			success: function (resultado) {
+                location.href ="../index.php";			
+			},
+			error:function(error){
+				alert("ERROR "+error);
+			}
+		});
+	});
 
 	$('button[type="button"]').attr('disabled', 'disabled');									//Desactiva botones de guardar al cargar la página
 	$('input[type="text"]').change(function () {												//Si hay cambios en el formulario activos botones de guardar
@@ -107,6 +121,8 @@ $(document).ready(function () {
 			}
 		});
 	});
+
+	
 
 
 });																				//document

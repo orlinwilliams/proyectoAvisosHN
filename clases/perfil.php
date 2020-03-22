@@ -147,4 +147,31 @@
                 echo json_encode(array("error"=>true,"mensaje"=>" Ingrese contraseña")) ;
             }
         break;
+        case '4': //ELIMINAR CUENTA DE USUARIO
+            if(isset($_POST["txt_contrasenia_confi"])){
+                $contrasenia = $_POST["txt_contrasenia_confi"];
+            }
+            if($contrasenia=="" || $contrasenia==NULL){                                                                     
+                $respuesta="Ingrese la contraseña ";
+                echo $respuesta;
+            }
+            else{
+                session_start();
+                $idUsuario=$_SESSION["usuario"]["idUsuario"];
+                $conexion = new conexion();
+                $sql="CALL `SP_ELIMINAR_USUARIO`('$idUsuario', '$contrasenia', @p4, @p5);";
+                $salida = "SELECT @p5 AS `pcMensaje`;";
+                $resultado = $conexion->ejecutarInstruccion($sql);
+                $respuesta = $conexion->ejecutarInstruccion($salida);
+                if(!$respuesta){
+                    echo "No hay respuesta del procedimiento";
+                }
+                else{
+                    $fila=$conexion->obtenerFila($respuesta);
+                    echo $fila["pcMensaje"];
+            }
+            $conexion->cerrarConexion();
+        }
+
+        break;
     }
