@@ -12,7 +12,7 @@ class Correo{
     private $nombreUsuario;
     private $asunto;
     private $mensaje;
-    private $mensajeEncabezado="<br>AvisosHN la mejor plataforma de Anuncios de Honduras<br>";
+    private $mensajeEncabezado="<br><br><p color='blue'>AvisosHN la mejor plataforma de Anuncios de Honduras.</p><br>";
     
 
     public function __construct($correo,$nombreUsuario,$asunto,$mensaje){
@@ -45,7 +45,7 @@ class Correo{
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = $this->asunto;
-            $mail->Body    = "Estimado: ".$this->nombreUsuario.$this->mensaje.$this->mensajeEncabezado;
+            $mail->Body    = "Estimado: ".$this->nombreUsuario."<br>".$this->mensaje.$this->mensajeEncabezado;
             //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             if($mail->send()){

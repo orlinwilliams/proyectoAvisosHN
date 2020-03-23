@@ -37,15 +37,15 @@ $(document).ready(function(){
 					alert(result.mensaje);
 				}
 				else if(result.error==false){
-					alert("Se envio un correo a: "+result.correo+"<br>favor siga las instrucciones para poder restablecer su contrseña");
-					location.href="../index.php";
+					alert("Se envio un correo a: "+result.correo+" favor siga las instrucciones para poder restablecer su contrseña");
+					location.href="index.php";
 				}
 				else{
 					alert("error desconocido");
 				}
 			},
 			error:function(error){
-				console.log(error);
+				//console.log(error);
 			}
 
 

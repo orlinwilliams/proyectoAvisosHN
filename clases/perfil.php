@@ -130,7 +130,8 @@
                         $sql= "UPDATE usuario SET contrasenia='$password2' WHERE idUsuario='$idUsuario'";//se actualiza la contraseña
                         if($query=$conexion->ejecutarInstruccion($sql)){
                             $conexion->cerrarConexion();
-                            echo json_encode(array("error"=>false,"mensaje"=>"Password actualizada"));
+                            session_destroy();
+                            echo json_encode(array("error"=>false,"mensaje"=>"Password actualizada correctamente"));
                             
                         }
                         else{

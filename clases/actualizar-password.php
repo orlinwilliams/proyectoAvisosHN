@@ -6,7 +6,7 @@
         $token=$_GET['token'];
         $sql1="SELECT idUsuario,pNombre FROM usuario WHERE token='$token'";
         $conexion = new conexion();
-        if($query=$conexion->ejecutarInstruccion($sql1)){
+        if($query=$conexion->ejecutarInstruccion($sql1)){//verifica que el token no haya sido cambiado
             if($query->num_rows==1){
                 $resultado=$query->fetch_assoc();
                 $idUsuario=$resultado["idUsuario"];
@@ -32,7 +32,8 @@
             }
         }
         else{
-            echo "Error en la consulta";
+            //echo "Error en la consulta"; 
+            header("location:../index.php");
         }
         //$conexion->cerrarConexion();
     }
