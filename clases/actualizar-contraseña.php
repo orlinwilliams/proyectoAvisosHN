@@ -1,5 +1,5 @@
 <?php
-    
+ echo 'Redireccionando';
     require_once("conexion.php");
     if(isset($_GET['token'])){
 

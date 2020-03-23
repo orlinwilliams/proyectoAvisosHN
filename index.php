@@ -16,6 +16,9 @@
   <!-- Bootstrap Core Css -->
   <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
+  <!-- Botón flotante css -->
+  <link href="plugins/bootstrap/css/botonflotante.css" rel="stylesheet">
+  
   <!-- Waves Effect Css -->
   <link href="plugins/node-waves/waves.css" rel="stylesheet" />
 
@@ -229,6 +232,12 @@
   </section>
   <section class="content">
     <div class="container-fluid">
+    <div class="contenedor">
+      <button class="botonF1" data-toggle="modal" data-target="#defaultModal">
+        <span >+
+            </span>
+      </button>
+    </div>
                           <!------------------------------------------------------------------------------------
                           --------------------------------------------------------------------------------------
                           --------------------------------------------------------------------------------------
@@ -422,7 +431,6 @@
       </div>
     </div>
   </div>
-
   <!-- Modal para politicas de privacidad -->
   <div class="modal fade" id="politicas" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
@@ -644,9 +652,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Fin Modal para politicas de privacidad -->
-
   <!-- Jquery Core Js -->
   <script src="plugins/jquery/jquery.min.js"></script>
 
