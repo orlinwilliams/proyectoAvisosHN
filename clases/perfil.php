@@ -122,22 +122,25 @@
             if(isset($_POST["password2"]) && isset($_POST["confirm"])){
                 $password1=$_POST["password2"];
                 $password2=$_POST["confirm"];
-                if($password1===$password2){
+                if($password1===$password2){//valida que las contraseñas sean iguales
                     session_start();
                     $conexion = new conexion();
                     if(isset($_SESSION["correo"]["idUsuario"])){
-                        $idUsuario=$_SESSION["correo"]["idUsuario"];
-                        $sql= "UPDATE usuario SET contrasenia='$password2' WHERE idUsuario='$idUsuario'";
+                        $idUsuario=$_SESSION["correo"]["idUsuario"];//capturo el id a traves de la sesion
+                        $sql= "UPDATE usuario SET contrasenia='$password2' WHERE idUsuario='$idUsuario'";//se actualiza la contraseña
                         if($query=$conexion->ejecutarInstruccion($sql)){
+                            $conexion->cerrarConexion();
                             echo json_encode(array("error"=>false,"mensaje"=>"Password actualizada"));
+                            
                         }
                         else{
-                        echo json_encode(array('error'=>true,"mensaje"=>"Error en la consulta de actualizacion")) ;
+                        echo json_encode(array('error'=>true,"mensaje"=>"Error en la consulta de actualizacion"));//manejo de posibles errores
                         }    
                     }
                     else{
                         echo json_encode(array('error'=>true,"mensaje"=>"No hay sesion")) ;
                     }
+                    
                 }
                 else{
                     echo json_encode(array("error"=>true,"mensaje"=>"las contraseñas no coinciden favor revisar"));
@@ -146,7 +149,9 @@
             else{
                 echo json_encode(array("error"=>true,"mensaje"=>" Ingrese contraseña")) ;
             }
+            
         break;
+
         case '4': //ELIMINAR CUENTA DE USUARIO
             if(isset($_POST["txt_contrasenia_confi"])){
                 $contrasenia = $_POST["txt_contrasenia_confi"];

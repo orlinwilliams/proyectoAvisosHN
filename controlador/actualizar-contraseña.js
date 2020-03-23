@@ -22,7 +22,7 @@ $(document).ready(function(){
         });
     });
 
-    // ENVIAR UN CORREO
+    // ENVIAR SOLICITUD DE RESTABLECER LA CONTRASEÑA POR CORREO
 	$("#restablecer").submit(function (event) {
 		event.preventDefault();
 		$.ajax({
@@ -37,7 +37,8 @@ $(document).ready(function(){
 					alert(result.mensaje);
 				}
 				else if(result.error==false){
-					alert("Se envio un correo a:"+result.correo);
+					alert("Se envio un correo a: "+result.correo+"<br>favor siga las instrucciones para poder restablecer su contrseña");
+					location.href="../index.php";
 				}
 				else{
 					alert("error desconocido");
@@ -63,6 +64,7 @@ $(document).ready(function(){
 				var respuesta=JSON.parse(resp);
 				if(respuesta.error==false){
 					alert(respuesta.mensaje)
+					location.href="../index.php";
 				}
 				else if(respuesta.error==true){
 					alert(respuesta.mensaje);

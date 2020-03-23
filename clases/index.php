@@ -163,20 +163,22 @@
                     if($query->num_rows==1){
                         $resultado=$query->fetch_assoc();//consulta los valores del usuario
                         $token=uniqid();
-                        $sql2="UPDATE usuario SET token='$token' WHERE correoElectronico='$correoUsuario'"; 
-                        if($query1=$conexion->ejecutarInstruccion($sql2)){// actualiza del token en la base de datos
+                        $sql2="UPDATE usuario SET token='$token' WHERE correoElectronico='$correoUsuario'"; // actualiza del token en la base de datos
+                        if($query1=$conexion->ejecutarInstruccion($sql2)){
                             
                             $nombreServer=$_SERVER['SERVER_NAME']; 
-                            
-                            $link="<a href='http://$nombreServer/proyectoavisosHN/clases/actualizar-contraseña.php?token=$token'>AQUI</a><br>";//Mensje que se envia por correo
-                            $mensaje="<br> Ha olvidado su Password?<br> para poder restablecerla ingrese".$link;
+                            //CONTENIDO DEL MENSAJE
+                            $link="<a href='http://$nombreServer/proyectoavisosHN/clases/actualizar-password.php?token=$token'>AQUI</a><br>";
+                            $mensaje2=" el link solo puede ser utilizado una vez";
+
+                            $mensaje="<br> Ha olvidado su Password?<br> para poder restablecerla ingrese: ".$link.$mensaje2;
                             
                             $correo= new Correo($correoUsuario,$resultado["pNombre"],"Recuperar Password",$mensaje);//parametros que lleva el correo
                             if($correo->enviarCorreo()){//SE envia el correo
                                 echo json_encode(array("error"=>false,"correo"=>$correoUsuario));
                             }
                             else{
-                                echo json_encode(array("error"=>true));   //Manejo de posibles errores 
+                                echo json_encode(array("error"=>true,"mensaje"=>"no se envio el correo"));   //Manejo de posibles errores 
                             }
 
                         }
@@ -195,8 +197,7 @@
             else{
                 echo json_encode(array("error"=>true,"mensaje"=>"Correo Vacio"));;
             }
-            //$conexion->liberarResultado($sql);
-            //$conexion->liberarResultado($sql2);
+            
             $conexion->cerrarConexion();
         break;
 
