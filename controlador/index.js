@@ -52,7 +52,7 @@ $(document).ready(function () {																//document
 				respuesta = JSON.parse(resultado);									//Parsea el arreglo a JSON
 				if (!respuesta.error) {												//Si no hay error entonces..
 					if (respuesta.tipo == 'Miembro' || respuesta.tipo == 'Administrador') {				
-						location.href = "vistas/perfil.php";
+						location.href = "vistas/index.php";
 					}
 
 				}

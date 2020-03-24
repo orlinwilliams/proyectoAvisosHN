@@ -191,7 +191,6 @@
                     <li><a href="../clases/cerrarSesion.php"><i class="material-icons">input</i></a></li>
                     <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i
                                 class="material-icons">more_vert</i></a></li>
-                    <li></li>
                 </ul>
             </div>
         </div>
@@ -226,12 +225,19 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
+                    <li>
+                        <a href="index.php">
+                            <i class="material-icons">home</i>
+                            <span>Inicio</span>
+                        </a>
+                    </li>
                     <li class="active">
-                        <a href=".../perfil.php">
+                        <a href="perfil.php">
                             <i class="material-icons">person</i>
                             <span>Perfil</span>
                         </a>
                     </li>
+
                 </ul>
             </div>
             <!-- #Menu -->
@@ -381,10 +387,10 @@
                         </div>
                     </div>
                     <a href="eliminarCuenta.php">
-                    <button style="opacity:0.4"type="submit" class="btn  btn-default waves-effect col-lg-12 col-sm-12 col-xs-12  " data-toggle="modal" data-target="#defaultModal">
+                    <button type="submit" class="btn bg-red btn-block waves-effect" data-toggle="modal" data-target="#defaultModal">
                             <span>Eliminar cuenta</span></button>
                         </a> <br>
-                </div> <br>
+                        <br></div> 
                 <div class="col-xs-12 col-sm-9">
                     <div class="card">
                         <div class="body">

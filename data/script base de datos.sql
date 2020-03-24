@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 19-03-2020 a las 23:23:09
+-- Tiempo de generación: 24-03-2020 a las 23:40:22
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -796,12 +796,13 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `pApellido` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `correoElectronico` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `contrasenia` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `token` varchar(1000) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `token` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `numTelefono` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `fechaRegistro` date NOT NULL,
   `fechaNacimiento` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `RTN` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `urlFoto` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT 'user.png',
+  `estado` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `idPersona_UNIQUE` (`idUsuario`),
   KEY `fk_Usuario_tipoUsuario1` (`idtipoUsuario`),
@@ -812,10 +813,10 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, `pApellido`, `correoElectronico`, `contrasenia`, `token`, `numTelefono`, `fechaRegistro`, `fechaNacimiento`, `RTN`, `urlFoto`) VALUES
-(1, 3, 110, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', '', ' 504 9619-96-60', '2020-03-17', '1995-12-01', '0801-1996-01667', '../images/imgUsuarios/5e713b9d83aebIMG_20160714_170043.jpg'),
-(3, 2, 150, 'René', 'Peréz', 'correo@gmail.com', 'asd.789', '', '504 9605-00-66', '2020-03-10', '1986-11-27', '', '../images/imgUsuarios/5e713cc24bf1euser.png'),
-(2, 2, 14, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asdzxc', '', ' 504 9605-01-00', '2020-03-09', '1995-12-01', '', '../images/imgUsuarios/user.png');
+INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, `pApellido`, `correoElectronico`, `contrasenia`, `token`, `numTelefono`, `fechaRegistro`, `fechaNacimiento`, `RTN`, `urlFoto`, `estado`) VALUES
+(1, 3, 110, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', '', ' 504 9619-96-60', '2020-03-17', '1995-12-01', '0801-1996-01667', '../images/imgUsuarios/5e713b9d83aebIMG_20160714_170043.jpg', 1),
+(3, 2, 150, 'René', 'Peréz', 'correo@gmail.com', 'asd.789', '', '504 9605-00-66', '2020-03-10', '1986-11-27', '', '../images/imgUsuarios/5e713cc24bf1euser.png', 0),
+(2, 2, 14, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asdzxc', '', ' 504 9605-01-00', '2020-03-09', '1995-12-01', '', '../images/imgUsuarios/user.png', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

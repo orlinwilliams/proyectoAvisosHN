@@ -20,8 +20,7 @@
                     header("location:../vistas/actualizar-contraseña.php");
                 }
                 else{
-                    echo "Error en actualizar el Token"; //validaciones y posibles errores
-                    
+                    echo "Error en actualizar el Token"; //validaciones y posibles errores       
                 }
             }
             else{
@@ -41,3 +40,4 @@
         header("location:../index.php");
         //echo "No esta el token";
     }
+?>
