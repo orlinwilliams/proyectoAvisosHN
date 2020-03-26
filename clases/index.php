@@ -112,7 +112,7 @@
 
                     $token=uniqid();//CONFIGURACION DE CONTENIDO DE CORREO ELECTRONICO
                     $nombreServer=$_SERVER['SERVER_NAME'];
-                    $link="<a href='http://$nombreServer/proyectoavisosHN/clases/validar-usuario.php?token=$token'>AQUI</a><br>";//LINK AL QUE INGRESERA EL USUARIO
+                    $link="<a href='http://$nombreServer/AvisosHN/clases/validar-usuario.php?token=$token'>AQUI</a><br>";//LINK AL QUE INGRESERA EL USUARIO
                     $mensajeEncabezado="<br>Bienvenido a AvisosHN<br><br>";
                     $mensaje=$mensajeEncabezado."Para poder acceder a todas las caracteristicas de nuestra plataforma <br> 
                     confirme su cuenta ".$link;
@@ -187,7 +187,7 @@
                             
                             $nombreServer=$_SERVER['SERVER_NAME']; 
                             //CONTENIDO DEL MENSAJE
-                            $link="<a href='http://$nombreServer/proyectoavisosHN/clases/actualizar-password.php?token=$token'>AQUI</a><br>";
+                            $link="<a href='http://$nombreServer/AvisosHN/clases/actualizar-password.php?token=$token'>AQUI</a><br>";
                             $mensaje2=" el link solo puede ser utilizado una vez";
 
                             $mensaje="<br> Ha olvidado su Password?<br> para poder restablecerla ingrese: ".$link.$mensaje2;
