@@ -109,9 +109,28 @@
                 }
                 else{
                     $fila=$conexion->obtenerFila($respuesta);
-                    echo $fila["mensaje"].". Por favor revisa tu correo eléctronico";
-                    //$correo= new Correo($correo,$nombre);
-                    //$correo->enviarCorreo();
+
+                    $token=uniqid();//CONFIGURACION DE CONTENIDO DE CORREO ELECTRONICO
+                    $nombreServer=$_SERVER['SERVER_NAME'];
+                    $link="<a href='http://$nombreServer/proyectoavisosHN/clases/validar-usuario.php?token=$token'>AQUI</a><br>";//LINK AL QUE INGRESERA EL USUARIO
+                    $mensajeEncabezado="<br>Bienvenido a AvisosHN<br><br>";
+                    $mensaje=$mensajeEncabezado."Para poder acceder a todas las caracteristicas de nuestra plataforma <br> 
+                    confirme su cuenta ".$link;
+                    
+                    $sql2="UPDATE usuario SET token='$token' WHERE correoElectronico='$correo'";
+                    if($conexion->ejecutarInstruccion($sql2)){//ACTUALIZA EL TOKEN
+                        $correo= new Correo($correo,$nombre,"Confirmacion de usuario",$mensaje);
+                        if($correo->enviarCorreo()){//SE ENVIA CORREO
+                            echo $fila["mensaje"].". Por favor revisa tu correo eléctronico para poder confirmar tu cuenta";
+                        }
+                        else{
+                            echo "FALLO EN ENVIO DE CORREO";
+                        }
+                        
+                    }
+                    else{
+                        echo "ERROR EN ACTUALIZAR TOKEN";
+                    }
 
                 }
 
