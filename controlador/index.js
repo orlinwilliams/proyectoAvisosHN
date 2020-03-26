@@ -51,7 +51,12 @@ $(document).ready(function () {																//document
 			success: function (resultado) {
 				respuesta = JSON.parse(resultado);									//Parsea el arreglo a JSON
 				if (!respuesta.error) {												//Si no hay error entonces..
-					if (respuesta.tipo == 'Miembro' || respuesta.tipo == 'Administrador') {				
+					if (respuesta.estado == 0) {				
+						$("#cuerpoModal").empty();																					//Vacia el cuerpo del modal de mensaje
+						$("#cuerpoModal").html('Por favor asegurate de que tu cuenta esté validada');								//Imprime el cuerpo del modal de mensaje					
+						$("#ModalMensaje").modal("show");
+					}
+					else{
 						location.href = "vistas/index.php";
 					}
 

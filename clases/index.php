@@ -109,7 +109,7 @@
                 }
                 else{
                     $fila=$conexion->obtenerFila($respuesta);
-                    echo $fila["mensaje"];
+                    echo $fila["mensaje"].". Por favor revisa tu correo eléctronico";
                     //$correo= new Correo($correo,$nombre);
                     //$correo->enviarCorreo();
 
@@ -137,7 +137,7 @@
             }
             $conexion = new conexion();
             $sql="SELECT idUsuario, pNombre, pApellido, correoElectronico, numTelefono,
-            fechaRegistro, fechaNacimiento, urlFoto, RTN, tipousuario, idMunicipios FROM `usuario`
+            fechaRegistro, fechaNacimiento, urlFoto, RTN, tipousuario, idMunicipios, estado FROM `usuario`
             INNER JOIN tipousuario ON tipousuario.idtipoUsuario=usuario.idtipoUsuario
             WHERE correoElectronico='$correo' AND contrasenia='$password';";
             $resultado=$conexion->ejecutarInstruccion($sql);
@@ -145,7 +145,7 @@
                 $datos=$resultado->fetch_assoc();
                 session_start();
                 $_SESSION["usuario"] = $datos;
-                echo json_encode(array('error'=>false, 'tipo' => $datos['tipousuario']));
+                echo json_encode(array('error'=>false, 'estado' => $datos['estado']));
             }
             else{
                 echo json_encode(array('error'=>true));
