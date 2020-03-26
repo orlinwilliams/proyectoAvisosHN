@@ -37,8 +37,11 @@ $(document).ready(function(){
 					alert(result.mensaje);
 				}
 				else if(result.error==false){
-					alert("Se envio un correo a: "+result.correo+" favor siga las instrucciones para poder restablecer su contrseña");
-					location.href="index.php";
+					$("#cuerpoModal").empty();																					//Vacia el cuerpo del modal de mensaje
+					$("#cuerpoModal").html('Se envio un correo a: '+result.correo+' favor siga las instrucciones para poder restablecer su contrseña');											//Imprime el cuerpo del modal de mensaje					
+					$("#modalRecuperar").modal("hide");	
+					$("#ModalMensaje").modal("show");																			//Despliega el modal con el modal
+					
 				}
 				else{
 					alert("error desconocido");
@@ -63,10 +66,17 @@ $(document).ready(function(){
 				console.log(resp);
 				var respuesta=JSON.parse(resp);
 				if(respuesta.error==false){
-					alert(respuesta.mensaje)
+					$("#cuerpoModal").empty();																					//Vacia el cuerpo del modal de mensaje
+					$("#cuerpoModal").html('Contraseña cambiada con éxito');													//Imprime el cuerpo del modal de mensaje					
+					$("#ModalMensaje").modal("show");
+					sleep(3000);																			//Despliega el modal con el modal
 					location.href="../index.php";
 				}
 				else if(respuesta.error==true){
+					$("#cuerpoModal").empty();																					//Vacia el cuerpo del modal de mensaje
+					$("#cuerpoModal").html('Ha ocurrido un problema, intente de nuevo');										//Imprime el cuerpo del modal de mensaje					
+					$("#ModalMensaje").modal("show");																			//Despliega el modal con el modal
+					sleep(3000);
 					alert(respuesta.mensaje);
 
 				}

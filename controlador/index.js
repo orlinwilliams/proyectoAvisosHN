@@ -38,7 +38,7 @@ $(document).ready(function () {																//document
 
 
 
-	//Funcioón al presionar el botón de iniciar sesión
+	//Función al presionar el botón de iniciar sesión
 	$("#sign_in").submit(function (event) {										//Inicio de evento en el botón submit de registro
 
 		event.preventDefault();

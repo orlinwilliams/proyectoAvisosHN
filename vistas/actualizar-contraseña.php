@@ -48,7 +48,7 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" id="txt_contraseña_1" class="form-control" name="password2" placeholder="Correo electrónico" required>
+                            <input type="password" id="txt_contraseña_1" class="form-control" name="password2" placeholder="Nueva contraseña" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -66,6 +66,22 @@
                         <a href="../index.php">Inicia sesión!</a>
                     </div>
                 </form>
+            </div>
+            <!--Modal con el mensaje de respuesta-->
+            <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true ">
+                <div class="modal-dialog modal-dialog-centered" role="document ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true ">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body" id="cuerpoModal">
+                    </div>
+                </div>
+                </div>
             </div>
         </div>
     </div>
