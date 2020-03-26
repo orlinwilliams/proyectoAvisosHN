@@ -44,6 +44,4 @@ CREATE PROCEDURE SP_ELIMINAR_USUARIO(
 
         DELETE FROM Usuario
         WHERE idusuario = pnIdUsuario;
-
-
- END
+ END$$

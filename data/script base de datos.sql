@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 24-03-2020 a las 23:40:22
+-- Tiempo de generación: 26-03-2020 a las 02:17:56
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -154,6 +154,46 @@ SET pbOcurrioError = FALSE;
 LEAVE SP;
 
 END$$
+
+DROP PROCEDURE IF EXISTS `SP_ELIMINAR_USUARIO`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_USUARIO` (IN `pnIdUsuario` INT, IN `pcContrasenia` VARCHAR(50), OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(1000))  SP:BEGIN
+
+        DECLARE vnConteo  INT;
+        DECLARE vcContrasenia VARCHAR(50);
+        DECLARE tempMensaje VARCHAR(2000);
+        SET autocommit=0;
+		START TRANSACTION;
+		SET tempMensaje='';
+		SET pbOcurrioError=TRUE;
+
+                 IF pnIdUsuario  = '' OR pnIdUsuario  IS NULL THEN
+                    SET tempMensaje =  'idusuario, ';
+                END IF;
+                IF pcContrasenia  = '' OR pcContrasenia  IS NULL THEN
+                    SET tempMensaje =  'contraseña, ';
+                END IF;
+                IF tempMensaje <> '' THEN
+                    SET pcMensaje= CONCAT('Faltan campos requeridos: ', tempMensaje);
+                END IF;
+                
+                SELECT u.contrasenia INTO vcContrasenia FROM Usuario u 
+                WHERE u.idusuario = pnIdUsuario;
+
+                IF vcContrasenia <> pcContrasenia THEN
+                    SET pcMensaje='Contraseña no correcta';
+                    LEAVE SP;
+                END IF;
+
+                SELECT COUNT(*) INTO vnConteo FROM Usuario u
+                WHERE u.idusuario = pnIdUsuario ;
+                IF vnConteo = 0 THEN
+                    SET pcMensaje = 'idusuario no existe';
+                    LEAVE SP;
+                 END if;
+
+        DELETE FROM Usuario
+        WHERE idusuario = pnIdUsuario;
+ END$$
 
 DROP PROCEDURE IF EXISTS `SP_REGISTRAR`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR` (IN `pcNombre` VARCHAR(45), IN `pcApellido` VARCHAR(45), IN `pcCorreo` VARCHAR(60), IN `pcContraseña` VARCHAR(500), IN `pcConfirmacion` VARCHAR(500), IN `pcTelefono` VARCHAR(20), IN `pdNacimiento` VARCHAR(10), IN `pcRTN` VARCHAR(16), IN `pcURL` VARCHAR(1000), IN `pnMunicipio` INT, OUT `pcMensaje` VARCHAR(300))  SP:BEGIN
@@ -814,9 +854,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, `pApellido`, `correoElectronico`, `contrasenia`, `token`, `numTelefono`, `fechaRegistro`, `fechaNacimiento`, `RTN`, `urlFoto`, `estado`) VALUES
-(1, 3, 110, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', '', ' 504 9619-96-60', '2020-03-17', '1995-12-01', '0801-1996-01667', '../images/imgUsuarios/5e713b9d83aebIMG_20160714_170043.jpg', 1),
-(3, 2, 150, 'René', 'Peréz', 'correo@gmail.com', 'asd.789', '', '504 9605-00-66', '2020-03-10', '1986-11-27', '', '../images/imgUsuarios/5e713cc24bf1euser.png', 0),
-(2, 2, 14, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asdzxc', '', ' 504 9605-01-00', '2020-03-09', '1995-12-01', '', '../images/imgUsuarios/user.png', 1);
+(3, 2, 110, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', NULL, ' 504 9619-96-60', '2020-03-25', '1995-12-01', '', '../images/imgUsuarios/user.png', 0),
+(2, 3, 14, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asdzxc', '', ' 504 9605-01-00', '2020-03-09', '1995-12-01', '', '../images/imgUsuarios/user.png', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
