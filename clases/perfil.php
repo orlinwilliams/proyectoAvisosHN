@@ -179,4 +179,33 @@
         }
 
         break;
+        case '5':       //MIS PUBLICACIONES
+            $conexion = new conexion();
+            session_start();
+            $idUsuario=$_SESSION["usuario"]["idUsuario"];
+            $sql="SELECT idAnuncios,idUsuario,nombre,precio,descripcion FROM anuncios WHERE idUsuario='$idUsuario'";//CONSULTA MIS PUBLICACIONES
+            if($resultado=$conexion->ejecutarInstruccion($sql)){
+                if($resultado->num_rows!=0){
+                    $datos=array();
+                    while($row=$resultado->fetch_array()){
+                        $datos[]=array("idAnuncios"=>$row["idAnuncios"],"idUsuario"=>$row["idUsuario"],"nombre"=>$row["nombre"],
+                        "precio"=>$row["precio"],"descripcion"=>$row["descripcion"]);
+                        
+                    }
+                    echo json_encode($datos);
+                    
+                    
+
+
+                }
+                else{
+                    echo json_encode(array("error"=>true,"mensaje"=>"No hay anuncios"));
+                }
+            }
+            else{
+                echo json_encode(array("error"=>true,"mensaje"=>"fallo en la consulta"));
+            }
+            $conexion->cerrarConexion();
+
+        break;
     }

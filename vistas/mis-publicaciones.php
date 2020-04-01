@@ -261,7 +261,7 @@
       </button>
     </div>
 
-    <div class="row clearfix">
+    <div id="contenedorTarjetas" class="row clearfix">
 
     
       <div class="col-sm-6 col-md-6 col-lg-3 cards">
@@ -281,7 +281,7 @@
           </div>
           <div class="card-flap flap1">
             <div class="card-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis imperdiet. Phasellus elementum enim et sem ornare commodo. 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis  
             </div>
             <div class="card-flap flap2">
               <div class="card-actions">
@@ -291,6 +291,9 @@
           </div>
         </div>
       </div>
+
+
+
       <div class="col-sm-6 col-md-6 col-lg-3 cards">
         <div class="card">
           <div class="card__image-holder">
@@ -345,7 +348,8 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-md-6 col-lg-3 cards">
+      
+      <!--<div class="col-sm-6 col-md-6 col-lg-3 cards">
         <div class="card">
           <div class="card__image-holder">
             <img class="card__image" src="../images/5e82b609678c10101241D3" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
@@ -371,7 +375,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
 
 
 
@@ -482,8 +486,7 @@
   <!-- Slimscroll Plugin Js -->
   <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
-  <!-- Waves Effect Plugin Js -->
-  <script src="../plugins/node-waves/waves.js"></script>
+  
 
   <!-- Validation Plugin Js -->
   <script src="../plugins/jquery-validation/jquery.validate.js"></script>
@@ -497,6 +500,10 @@
   <!-- Demo Js -->
   <script src="../js/demo.js"></script>
   <script src="../js/index.js"></script>
+  <script src="../controlador/perfiles.js"></script>
+  
+  <!-- Waves Effect Plugin Js -->
+  <script src="../plugins/node-waves/waves.js"></script>
 
   <!-- Input Mask Plugin Js -->
   <script src="../plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
@@ -521,6 +528,7 @@
 
   <!-- Dropzone Plugin Js -->
   <script src="../plugins/dropzone/dropzone.js"></script>
+  
 
 
 

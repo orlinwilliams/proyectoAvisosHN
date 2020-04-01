@@ -16,6 +16,7 @@ $(document).ready(function () {
 		}
 		
 	});
+	misPublicaciones();
 	$("#confirma-eliminar").click(function (event) {	//Petición ajax para dar de baja cuenta
 		event.preventDefault();
 		$.ajax({
@@ -42,6 +43,7 @@ $(document).ready(function () {
 
 
 	municipios();																			//Llama la funcion municipios
+	
 
 	$('#txt_tefelono').inputmask('+999 9999-99-99', { placeholder: '+___ ____-__-__' });	//Da formato al telefono
 	$('#txt_rtn').inputmask('****-****-*****', { placeholder: '____-____-_____' });			//Da formato al rtn
@@ -140,6 +142,53 @@ municipios = function () {														//Inicio funcion para llenar los municip
 	});																			//Fin ajax municipios
 
 };
+
+misPublicaciones=function(){ //VISTA DE MIS PUBLIACIONES
+	$.ajax({																	
+		url: "../clases/perfil.php?accion=5",
+		success: function (resp) {
+			let datos=JSON.parse(resp);
+			var tarjetas="";
+			for(let item of datos){//RECORRER EL JSON 
+				tarjetas+="<div class='col-sm-6 col-md-6 col-lg-3 cards'>"
+				+"<div class='card'>"
+				+  "<div class='card__image-holder'>"
+					+"<img class='card__image' src='../images/5e82b609678c10101241D3' alt='Miniatura del anuncio' max-width='100%;' height='auto;'/>"
+				  +"</div>"
+				  +"<div class='card-title'>"
+					+"<a href='#' class='toggle-info btn'>"
+					  +"<span class='left'></span>"
+					  +"<span class='right'></span>"
+					+"</a>"
+					+"<h2>"+
+					  item.nombre
+					  +"<small>"+item.precio+"</small>"
+					+"</h2>"
+				  +"</div>"
+				  +"<div class='card-flap flap1'>"
+					+"<div class='card-description'>"+
+					item.descripcion
+					+"</div>"
+					+"<div class='card-flap flap2'>"
+					  +"<div class='card-actions'>"
+						+"<a href='#' class='btn'>VER</a>"
+					  +"</div>"
+					+"</div>"
+				  +"</div>"
+				+"</div>"
+			  +"</div>" ;
+			  $("#contenedorTarjetas").html(tarjetas);//INSERTA LAS TARJETAS
+			}
+			
+			//console.log(datos);
+			//alert(typeof(datos));
+			
+		},
+		error: function (error) {
+			console.log(error);
+		}
+	});																			
+}
 
 
 
