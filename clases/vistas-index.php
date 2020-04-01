@@ -33,4 +33,6 @@
         default:
             echo "No ha seleccionado una opcion";
     };
+     session_start();
+
 ?>

@@ -125,7 +125,7 @@
       <div class="menu">
         <ul class="list">
           <li class="header">Panel de navegación</li>
-          <li class="active">
+          <li >
             <a href="index.php">
               <i class="material-icons">home</i>
               <span>Inicio</span>
@@ -137,7 +137,7 @@
               <span>Perfil</span>
             </a>
           </li>
-          <li>
+          <li class="active">
             <a href="mis-publicaciones.php">
               <i class="material-icons">list</i>
               <span>Mis publicaciones</span>
@@ -267,7 +267,7 @@
       <div class="col-sm-6 col-md-6 col-lg-3 cards">
         <div class="card">
           <div class="card__image-holder">
-            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
+            <img class="card__image" src="../images/5e82b609678c10101241D3" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
           </div>
           <div class="card-title">
             <a href="#" class="toggle-info btn">
@@ -294,7 +294,7 @@
       <div class="col-sm-6 col-md-6 col-lg-3 cards">
         <div class="card">
           <div class="card__image-holder">
-            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
+            <img class="card__image" src="../images/5e82b609678c10101241D3" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
           </div>
           <div class="card-title">
             <a href="#" class="toggle-info btn">
@@ -321,7 +321,7 @@
       <div class="col-sm-6 col-md-6 col-lg-3 cards">
         <div class="card">
           <div class="card__image-holder">
-            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
+            <img class="card__image" src="../images/5e82b609678c10101241D3" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
           </div>
           <div class="card-title">
             <a href="#" class="toggle-info btn">
@@ -348,7 +348,7 @@
       <div class="col-sm-6 col-md-6 col-lg-3 cards">
         <div class="card">
           <div class="card__image-holder">
-            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
+            <img class="card__image" src="../images/5e82b609678c10101241D3" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
           </div>
           <div class="card-title">
             <a href="#" class="toggle-info btn">
@@ -522,8 +522,6 @@
   <!-- Dropzone Plugin Js -->
   <script src="../plugins/dropzone/dropzone.js"></script>
 
-  <!-- Controlador de página Js -->
-  <script src="../controlador/vistas-index.js"></script>
 
 
 </body>

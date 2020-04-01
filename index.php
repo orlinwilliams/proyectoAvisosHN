@@ -27,6 +27,7 @@
 
   <!-- Custom Css -->
   <link href="css/style.css" rel="stylesheet">
+  <link href="css/anuncios.css" rel="stylesheet">
 
   <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
   <link href="css/themes/all-themes.css" rel="stylesheet" />
@@ -245,6 +246,124 @@
                           --------------------------------------------------------------------------------------
                           --------------------------------------------------------------------------------------
                           -------------------------------------------------------------------------------------->
+
+                          <div class="row clearfix">
+
+    
+<div class="col-sm-6 col-md-6 col-lg-3 cards">
+  <div class="card">
+    <div class="card__image-holder">
+      <img class="card__image" src="images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
+    </div>
+    <div class="card-title">
+      <a href="#" class="toggle-info btn">
+        <span class="left"></span>
+        <span class="right"></span>
+      </a>
+      <h2>
+        TITULO DEL ARTICULO
+        <small>PRECIO</small>
+      </h2>
+    </div>
+    <div class="card-flap flap1">
+      <div class="card-description">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis imperdiet. Phasellus elementum enim et sem ornare commodo. 
+      </div>
+      <div class="card-flap flap2">
+        <div class="card-actions">
+          <a href="#" class="btn">VER</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-6 col-md-6 col-lg-3 cards">
+  <div class="card">
+    <div class="card__image-holder">
+      <img class="card__image" src="images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
+    </div>
+    <div class="card-title">
+      <a href="#" class="toggle-info btn">
+        <span class="left"></span>
+        <span class="right"></span>
+      </a>
+      <h2>
+        TITULO DEL ARTICULO
+        <small>PRECIO</small>
+      </h2>
+    </div>
+    <div class="card-flap flap1">
+      <div class="card-description">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis imperdiet. Phasellus elementum enim et sem ornare commodo. 
+      </div>
+      <div class="card-flap flap2">
+        <div class="card-actions">
+          <a href="#" class="btn">VER</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-6 col-md-6 col-lg-3 cards">
+  <div class="card">
+    <div class="card__image-holder">
+      <img class="card__image" src="images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
+    </div>
+    <div class="card-title">
+      <a href="#" class="toggle-info btn">
+        <span class="left"></span>
+        <span class="right"></span>
+      </a>
+      <h2>
+        TITULO DEL ARTICULO
+        <small>PRECIO</small>
+      </h2>
+    </div>
+    <div class="card-flap flap1">
+      <div class="card-description">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis imperdiet. Phasellus elementum enim et sem ornare commodo. 
+      </div>
+      <div class="card-flap flap2">
+        <div class="card-actions">
+          <a href="#" class="btn">VER</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-6 col-md-6 col-lg-3 cards">
+  <div class="card">
+    <div class="card__image-holder">
+      <img class="card__image" src="images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
+    </div>
+    <div class="card-title">
+      <a href="#" class="toggle-info btn">
+        <span class="left"></span>
+        <span class="right"></span>
+      </a>
+      <h2>
+        TITULO DEL ARTICULO
+        <small>PRECIO</small>
+      </h2>
+    </div>
+    <div class="card-flap flap1">
+      <div class="card-description">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis imperdiet. Phasellus elementum enim et sem ornare commodo. 
+      </div>
+      <div class="card-flap flap2">
+        <div class="card-actions">
+          <a href="#" class="btn">VER</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
     </div>
   </section>
   <!-- Modal para iniciar sesión -->
@@ -701,6 +820,7 @@
   <script src="js/pages/examples/sign-up.js"></script>
   <script src="js/pages/examples/sign-in.js"></script>
   <script src="controlador/actualizar-contraseña.js"></script>
+  <script src="js/index.js"></script>
 
 </body>
 

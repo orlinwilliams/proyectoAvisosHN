@@ -74,8 +74,7 @@
                     }
                 }
                 $conexion->cerrarConexion();
-            }
-                                                     
+            }                                              
         break;
         case '2':
             if(isset($_POST["contraseñaActual"])){

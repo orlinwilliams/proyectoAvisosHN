@@ -237,6 +237,12 @@
                             <span>Perfil</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="mis-publicaciones.php">
+                        <i class="material-icons">list</i>
+                        <span>Mis publicaciones</span>
+                        </a>
+                    </li>
 
                 </ul>
             </div>
