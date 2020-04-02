@@ -1,5 +1,3 @@
-
-
 $(document).ready(function () {							
 	event.preventDefault();			
 		//VISTA DE IMAGEN DE PERFIL
@@ -124,6 +122,52 @@ $(document).ready(function () {
 		});
 	});
 
+	var zindex = 10;
+    
+$("div.carde").click(function(e){
+  e.preventDefault();
+
+  var isShowing = false;
+
+  if ($(this).hasClass("show")) {
+	isShowing = true
+  }
+
+  if ($("div.cards").hasClass("showing")) {
+	// a card is already in view
+	$("div.carde.show")
+	  .removeClass("show");
+
+	if (isShowing) {
+	  // this card was showing - reset the grid
+	  $("div.cards")
+		.removeClass("showing");
+	} else {
+	  // this card isn't showing - get in with it
+	  $(this)
+		.css({zIndex: zindex})
+		.addClass("show");
+
+	}
+
+	zindex++;
+
+  } else {
+	// no cards in view
+	$("div.cards")
+	  .addClass("showing");
+	$(this)
+	  .css({zIndex:zindex})
+	  .addClass("show");
+
+	zindex++;
+  }
+  
+});
+
+
+
+
 	
 
 
@@ -148,10 +192,12 @@ misPublicaciones=function(){ //VISTA DE MIS PUBLIACIONES
 		url: "../clases/perfil.php?accion=5",
 		success: function (resp) {
 			let datos=JSON.parse(resp);
+			console.log(datos);
 			var tarjetas="";
 			for(let item of datos){//RECORRER EL JSON 
-				tarjetas+="<div class='col-sm-6 col-md-6 col-lg-3 cards'>"
-				+"<div class='card'>"
+				tarjetas+="<div class='row clearfix'>"
+				+"<div class='col-sm-6 col-md-6 col-lg-3 cards'>"
+				+"<div class='carde'>"
 				+  "<div class='card__image-holder'>"
 					+"<img class='card__image' src='../images/5e82b609678c10101241D3' alt='Miniatura del anuncio' max-width='100%;' height='auto;'/>"
 				  +"</div>"
@@ -175,11 +221,11 @@ misPublicaciones=function(){ //VISTA DE MIS PUBLIACIONES
 					  +"</div>"
 					+"</div>"
 				  +"</div>"
+				 +"</div>"
 				+"</div>"
 			  +"</div>" ;
 			  $("#contenedorTarjetas").html(tarjetas);//INSERTA LAS TARJETAS
-			}
-			
+			}			
 			//console.log(datos);
 			//alert(typeof(datos));
 			
@@ -189,7 +235,6 @@ misPublicaciones=function(){ //VISTA DE MIS PUBLIACIONES
 		}
 	});																			
 }
-
 
 
 

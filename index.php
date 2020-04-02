@@ -251,7 +251,7 @@
 
     
 <div class="col-sm-6 col-md-6 col-lg-3 cards">
-  <div class="card">
+  <div class="carde">
     <div class="card__image-holder">
       <img class="card__image" src="images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
     </div>
@@ -278,7 +278,7 @@
   </div>
 </div>
 <div class="col-sm-6 col-md-6 col-lg-3 cards">
-  <div class="card">
+  <div class="carde">
     <div class="card__image-holder">
       <img class="card__image" src="images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
     </div>
@@ -305,7 +305,7 @@
   </div>
 </div>
 <div class="col-sm-6 col-md-6 col-lg-3 cards">
-  <div class="card">
+  <div class="carde">
     <div class="card__image-holder">
       <img class="card__image" src="images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
     </div>
@@ -332,7 +332,7 @@
   </div>
 </div>
 <div class="col-sm-6 col-md-6 col-lg-3 cards">
-  <div class="card">
+  <div class="carde">
     <div class="card__image-holder">
       <img class="card__image" src="images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
     </div>

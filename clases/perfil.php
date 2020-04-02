@@ -193,10 +193,7 @@
                         
                     }
                     echo json_encode($datos);
-                    
-                    
-
-
+ 
                 }
                 else{
                     echo json_encode(array("error"=>true,"mensaje"=>"No hay anuncios"));

@@ -261,94 +261,9 @@
       </button>
     </div>
 
-    <div id="contenedorTarjetas" class="row clearfix">
+    <div id="contenedorTarjetas">
 
     
-      <div class="col-sm-6 col-md-6 col-lg-3 cards">
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="../images/5e82b609678c10101241D3" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-              TITULO DEL ARTICULO
-              <small>PRECIO</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis  
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">VER</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
-      <div class="col-sm-6 col-md-6 col-lg-3 cards">
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="../images/5e82b609678c10101241D3" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-              TITULO DEL ARTICULO
-              <small>PRECIO</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis imperdiet. Phasellus elementum enim et sem ornare commodo. 
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">VER</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-6 col-lg-3 cards">
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="../images/5e82b609678c10101241D3" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-              TITULO DEL ARTICULO
-              <small>PRECIO</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis imperdiet. Phasellus elementum enim et sem ornare commodo. 
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">VER</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
       <!--<div class="col-sm-6 col-md-6 col-lg-3 cards">
         <div class="card">
           <div class="card__image-holder">
@@ -366,7 +281,7 @@
           </div>
           <div class="card-flap flap1">
             <div class="card-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis imperdiet. Phasellus elementum enim et sem ornare commodo. 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis  
             </div>
             <div class="card-flap flap2">
               <div class="card-actions">
@@ -482,6 +397,7 @@
 
   <!-- Bootstrap Core Js -->
   <script src="../plugins/bootstrap/js/bootstrap.js"></script>
+  <script src="../controlador/perfiles.js"></script>
 
   <!-- Slimscroll Plugin Js -->
   <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
@@ -497,10 +413,10 @@
   <!-- Custom Js -->
   <script src="../js/admin.js"></script>
 
-  <!-- Demo Js -->
+  <!-- <script src="../js/index.js"></script> Js -->
   <script src="../js/demo.js"></script>
-  <script src="../js/index.js"></script>
-  <script src="../controlador/perfiles.js"></script>
+  
+
   
   <!-- Waves Effect Plugin Js -->
   <script src="../plugins/node-waves/waves.js"></script>

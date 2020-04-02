@@ -31,6 +31,8 @@
   <!-- Custom Css -->
   <link href="../css/style.css" rel="stylesheet">
   <link href="../css/anuncios.css" rel="stylesheet">
+  <link href="../css/estilos.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
 
   <!-- Dropzone Css -->
   <link href="../plugins/dropzone/dropzone.css" rel="stylesheet">
@@ -254,7 +256,7 @@
   </section>
 
   <section class="content">
-  <div class="contenedor">
+    <div class="contenedor">
       <button class="botonF1" data-toggle="modal" data-target="#modalArticulo">
         <span>+
         </span>
@@ -263,11 +265,12 @@
 
     <div class="row clearfix">
 
-    
+
       <div class="col-sm-6 col-md-6 col-lg-3 cards">
-        <div class="card">
+        <div class="carde">
           <div class="card__image-holder">
-            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
+            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;"
+              height="auto;" />
           </div>
           <div class="card-title">
             <a href="#" class="toggle-info btn">
@@ -281,92 +284,13 @@
           </div>
           <div class="card-flap flap1">
             <div class="card-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis imperdiet. Phasellus elementum enim et sem ornare commodo. 
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula
+              tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis
+              imperdiet. Phasellus elementum enim et sem ornare commodo.
             </div>
             <div class="card-flap flap2">
               <div class="card-actions">
-                <a href="#" class="btn">VER</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-6 col-lg-3 cards">
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-              TITULO DEL ARTICULO
-              <small>PRECIO</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis imperdiet. Phasellus elementum enim et sem ornare commodo. 
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">VER</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-6 col-lg-3 cards">
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-              TITULO DEL ARTICULO
-              <small>PRECIO</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis imperdiet. Phasellus elementum enim et sem ornare commodo. 
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">VER</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-6 col-lg-3 cards">
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-              TITULO DEL ARTICULO
-              <small>PRECIO</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis imperdiet. Phasellus elementum enim et sem ornare commodo. 
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">VER</a>
+                <a href="#" class="btn" data-toggle="modal" data-target="#defaultModal">VER</a>
               </div>
             </div>
           </div>
@@ -379,6 +303,83 @@
 
     </div>
   </section>
+  <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
+  <div class="modal show" id="defaultModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg " role="document" style="width:80%">
+      <div class="modal-content">
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-md-7 col-sm-12 col-xs-12 izquierdo">
+              <div class="fotorama" data-width="100%" data-ratio="700/467" data-minwidth="400" data-maxwidth="1000"
+                data-minheight="300" data-maxheight="100%" data-nav="thumbs" data-fit="cover" data-loop="true">
+                <img src="../images/joker.jpg">
+                <img src="../images/image-gallery/12.jpg">
+                <img src="../images/image-gallery/19.jpg" />
+              </div>
+            </div>
+            <div class="col-md-5 col-sm-12 col-xs-12 derecho">
+              <div>
+                <!--ESTOS SE DEBEN CAMBIAR POR LINKS QUE ENVIEN A TODOS LOS ANUNCIONS DE ESA CATEGORIA
+                <a href="http://"> </a>-->
+                <p class="font-categoria"><a class="links-categorias" href="#">Categoria</a> > <a
+                    class="links-categorias" href="#">Tecnología</a>> <a class="links-categorias" href="#">Móviles y
+                    Telefonía</a></p>
+              </div>
+              <div>
+                <p class="titulo">Samsung Galaxy S20</p>
+              </div>
+              <div class="precio">
+                <p class="font-precio">L 19,000</p>
+              </div>
+              <div class="estado">
+                <p class="font-estado"><strong>Estado:</strong> Nuevo</p>
+              </div>
+              <div class="lugar">
+                <p class="font-estado"><strong>Lugar:</strong> Tegucigalpa</p>
+              </div>
+              <div class="descripcion">
+                <p class="font-descripcion"><strong>Descripción:</strong></p>
+                <p class="parrafo">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur voluptate et
+                  dolore magnam ipsum fuga iure voluptates, voluptatum doloremque, magni eveniet deleniti. Quia beatae
+                  perspiciatis vero tenetur! Nesciunt, assumenda accusamus.</p>
+              </div>
+              <div class="vendedor">
+                <p class="font-vendedor">Información del vendedor</p>
+
+                <div class="div-imagen">
+                  <a aria-label="Foto del vendedor" href="#">
+                    <img class="imagen-vendedor" src="../images/joker.jpg" alt="">
+                  </a>
+                </div>
+                <div class="div-nombre">
+                  <p class="font-vendedor"><a href="#">Maynor Bethuell Pineda</a></p>
+                  <p class="registro-de-vendedor">Unido desde 14 Febrero 2010</p>
+
+                  <div class="demo-google-material-icon" style="color:black;">
+                  <span class="icon-name" style="font-size:22px"><strong>Valoración: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </strong>4.5</span>
+                    <i class="material-icons md-18">star_rate</i>
+                  </div>
+                  <div class="demo-google-material-icon pb-5" style="color:black;">
+                    <i class="material-icons md-24">phone</i>
+                    <span class="icon-name" style="font-size:22px"><strong>+504 9619-9660</strong></span>
+                  </div>
+                  <br>
+                  <div>
+                    <div style="margin-left:50%;">
+                    <button class="btn btn-info btn-lg waves-effect" type="submit">Contactar</button>
+                    </div>
+                  </div>     
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Modal para publicar un articulo -->
   <div class="modal fade" id="modalArticulo" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -524,6 +525,8 @@
 
   <!-- Controlador de página Js -->
   <script src="../controlador/vistas-index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+
 
 
 </body>
