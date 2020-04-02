@@ -304,7 +304,7 @@
     </div>
   </section>
   <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
-  <div class="modal show" id="defaultModal" tabindex="-1" role="dialog">
+  <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg " role="document" style="width:80%">
       <div class="modal-content">
         <div class="modal-body">
