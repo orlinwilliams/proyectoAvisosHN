@@ -261,43 +261,11 @@
       </button>
     </div>
 
-    <div id="contenedorTarjetas">
-
-    
-      <!--<div class="col-sm-6 col-md-6 col-lg-3 cards">
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="../images/5e82b609678c10101241D3" alt="Miniatura del anuncio" max-width="100%;" height="auto;"/>
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-              TITULO DEL ARTICULO
-              <small>PRECIO</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula tempus eu. In hendrerit enim sem, in suscipit orci mollis  
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">VER</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>-->
-
-
-
-
-
+    <div id="contenedorTarjetas" class="row clearfix">
     </div>
   </section>
+
+
   <!-- Modal para publicar un articulo -->
   <div class="modal fade" id="modalArticulo" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -416,10 +384,13 @@
   <!-- <script src="../js/index.js"></script> Js -->
   <script src="../js/demo.js"></script>
   
-
+  <script src="../controlador/perfiles.js"></script>
+  
+  <!--<script src="../js/index.js"></script> Demo Js -->
   
   <!-- Waves Effect Plugin Js -->
   <script src="../plugins/node-waves/waves.js"></script>
+  <script src="../js/index.js"></script>
 
   <!-- Input Mask Plugin Js -->
   <script src="../plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
