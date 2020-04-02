@@ -14,9 +14,10 @@ $(document).ready(function () {
 			$("#imagenPerfil").attr("src",resp);
 			$("#imagenPerfil1").attr("src",resp);
 		}
+	
 		
 	});
-	misPublicaciones();
+	
 	$("#confirma-eliminar").click(function (event) {	//Petición ajax para dar de baja cuenta
 		event.preventDefault();
 		$.ajax({
@@ -43,6 +44,7 @@ $(document).ready(function () {
 
 
 	municipios();																			//Llama la funcion municipios
+	misPublicaciones();
 	
 
 	$('#txt_tefelono').inputmask('+999 9999-99-99', { placeholder: '+___ ____-__-__' });	//Da formato al telefono
@@ -147,6 +149,7 @@ misPublicaciones=function(){ //VISTA DE MIS PUBLIACIONES
 	$.ajax({																	
 		url: "../clases/perfil.php?accion=5",
 		success: function (resp) {
+			
 			let datos=JSON.parse(resp);
 			var tarjetas="";
 			for(let item of datos){//RECORRER EL JSON 
@@ -156,7 +159,7 @@ misPublicaciones=function(){ //VISTA DE MIS PUBLIACIONES
 					+"<img class='card__image' src='../images/5e82b609678c10101241D3' alt='Miniatura del anuncio' max-width='100%;' height='auto;'/>"
 				  +"</div>"
 				  +"<div class='card-title'>"
-					+"<a href='#' class='toggle-info btn'>"
+					+"<a  href='#' class='toggle-info btn'>"
 					  +"<span class='left'></span>"
 					  +"<span class='right'></span>"
 					+"</a>"
@@ -179,9 +182,51 @@ misPublicaciones=function(){ //VISTA DE MIS PUBLIACIONES
 			  +"</div>" ;
 			  $("#contenedorTarjetas").html(tarjetas);//INSERTA LAS TARJETAS
 			}
+			var zindex = 10;
+    
+    $("div.card").click(function(e){
+      e.preventDefault();
+  
+      var isShowing = false;
+  
+      if ($(this).hasClass("show")) {
+        isShowing = true
+      }
+  
+      if ($("div.cards").hasClass("showing")) {
+        // a card is already in view
+        $("div.card.show")
+          .removeClass("show");
+  
+        if (isShowing) {
+          // this card was showing - reset the grid
+          $("div.cards")
+            .removeClass("showing");
+        } else {
+          // this card isn't showing - get in with it
+          $(this)
+            .css({zIndex: zindex})
+            .addClass("show");
+  
+        }
+  
+        zindex++;
+  
+      } else {
+        // no cards in view
+        $("div.cards")
+          .addClass("showing");
+        $(this)
+          .css({zIndex:zindex})
+          .addClass("show");
+  
+        zindex++;
+      }
+      
+    });
+
+
 			
-			//console.log(datos);
-			//alert(typeof(datos));
 			
 		},
 		error: function (error) {
@@ -189,6 +234,14 @@ misPublicaciones=function(){ //VISTA DE MIS PUBLIACIONES
 		}
 	});																			
 }
+
+
+	
+
+
+
+
+
 
 
 
