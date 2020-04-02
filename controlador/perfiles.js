@@ -207,7 +207,6 @@ misPublicaciones=function(){ //VISTA DE MIS PUBLIACIONES
           $(this)
             .css({zIndex: zindex})
             .addClass("show");
-  
         }
   
         zindex++;

@@ -262,8 +262,6 @@
     </div>
 
     <div id="contenedorTarjetas" class="row clearfix">
-    
-
     </div>
   </section>
 
