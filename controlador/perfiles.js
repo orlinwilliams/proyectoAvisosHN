@@ -161,7 +161,7 @@ misPublicaciones=function(){ //VISTA DE MIS PUBLIACIONES
 					+"</a>"
 					+"<h2>"+
 					  item.nombre
-					  +"<small>"+item.precio+"</small>"
+					  +"<small>L "+item.precio+"</small>"
 					+"</h2>"
 				  +"</div>"
 				  +"<div class='card-flap flap1'>"

@@ -27,7 +27,7 @@
 
   <!-- Custom Css -->
   <link href="css/style.css" rel="stylesheet">
-  <link href="css/anuncios.css" rel="stylesheet">
+  <link href="css/estilos.css" rel="stylesheet">
 
   <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
   <link href="css/themes/all-themes.css" rel="stylesheet" />
@@ -525,7 +525,7 @@
             <button class="btn btn-block btn-lg bg-pink waves-effect" id="registrar" type="submit">Registrarse</button>
 
             <div class="m-t-25 m-b--5 align-center">
-              <a a data-toggle="modal" data-target="#defaultModal" data-dismiss="modal">¿Ya eres miembro?</a>
+              <a data-toggle="modal" data-target="#defaultModal" data-dismiss="modal">¿Ya eres miembro?</a>
             </div>
           </form>
         </div>

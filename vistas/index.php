@@ -30,7 +30,6 @@
 
   <!-- Custom Css -->
   <link href="../css/style.css" rel="stylesheet">
-  <link href="../css/anuncios.css" rel="stylesheet">
   <link href="../css/estilos.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
 
@@ -258,8 +257,7 @@
   <section class="content">
     <div class="contenedor">
       <button class="botonF1" data-toggle="modal" data-target="#modalArticulo">
-        <span>+
-        </span>
+        <span>+</span>
       </button>
     </div>
 
@@ -305,10 +303,9 @@
   </section>
   <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
   <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg " role="document" style="width:80%">
+    <div class="modal-dialog modal-dialog-per modal-lg " role="document" style="width:70%">
       <div class="modal-content">
-        <div class="modal-body">
-
+        <div class="modal-body modal-body-per">
           <div class="row">
             <div class="col-md-7 col-sm-12 col-xs-12 izquierdo">
               <div class="fotorama" data-width="100%" data-ratio="700/467" data-minwidth="400" data-maxwidth="1000"
@@ -334,8 +331,6 @@
               </div>
               <div class="estado">
                 <p class="font-estado"><strong>Estado:</strong> Nuevo</p>
-              </div>
-              <div class="lugar">
                 <p class="font-estado"><strong>Lugar:</strong> Tegucigalpa</p>
               </div>
               <div class="descripcion">
@@ -346,20 +341,22 @@
               </div>
               <div class="vendedor">
                 <p class="font-vendedor">Información del vendedor</p>
-
                 <div class="div-imagen">
-                  <a aria-label="Foto del vendedor" href="#">
+                  <a aria-label="Foto del vendedor" href="#" data-toggle="modal" data-target="#modalVendedor"
+                      data-dismiss="modal">
                     <img class="imagen-vendedor" src="../images/joker.jpg" alt="">
                   </a>
                 </div>
                 <div class="div-nombre">
-                  <p class="font-vendedor"><a href="#">Maynor Bethuell Pineda</a></p>
+                  <p class="font-vendedor"><a data-toggle="modal" data-target="#modalVendedor"
+                      data-dismiss="modal">Maynor Bethuell Pineda</a></p>
                   <p class="registro-de-vendedor">Unido desde 14 Febrero 2010</p>
 
                   <div class="demo-google-material-icon" style="color:black;">
-                  <span class="icon-name" style="font-size:22px"><strong>Valoración: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </strong>4.5</span>
+                    <span class="icon-name" style="font-size:22px"><strong>Valoración:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      </strong>4.5</span>
                     <i class="material-icons md-18">star_rate</i>
                   </div>
                   <div class="demo-google-material-icon pb-5" style="color:black;">
@@ -368,14 +365,264 @@
                   </div>
                   <br>
                   <div>
-                    <div style="margin-left:50%;">
-                    <button class="btn btn-info btn-lg waves-effect" type="submit">Contactar</button>
+                    <div style="text-align:center;">
+                      <button class="btn btn-info btn-lg waves-effect" type="submit">CONTACTAR</button>
                     </div>
-                  </div>     
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Modal que carga la información del vendedor-->
+  <div class="modal fade" id="modalVendedor" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="text-align:center">
+          <h4 class="modal-title" id="defaultModalLabel"></h4>
+        </div>
+        <div class="modal-body modal-body-per">
+          <div class="card profile-card">
+            <div class="profile-header">&nbsp;</div>
+            <div class="profile-body">
+              <div class="image-area">
+                <img src="../images/joker.jpg" alt="Foto de perfil de Maynor Bethuell Pineda" width="128px"
+                  height="128px" />
+              </div>
+              <div class="content-area">
+                <h3>Maynor Bethuell Pineda</h3>
+                <p>Miembro desde 14 Febrero 2010</p>
+                <p>
+                  <!--Tipo de usuario-->Administrador</p>
+              </div>
+            </div>
+            <div class="profile-footer">
+              <ul>
+                <li>
+                  <span>Valoración</span>
+                  <span>4.5</span>
+                </li>
+                <li>
+                  <span>Articulos publicados</span>
+                  <span>125</span>
+                </li>
+                <li>
+                  <span>Correo Electrónico</span>
+                  <span>sbethuell@gmail.com</span>
+                </li>
+              </ul>
+              <button class="btn btn-primary btn-lg waves-effect btn-block">Contactar</button>
+            </div>
+          </div>
+          <div class="card card-about-me" style="max-height:400px; overflow-y:scroll;">
+            <div class="header" style="text-align:center">
+              <h2>HISTORIAL</h2>
+              <small>(Se mantiene el registro de los últimos 90 días)</small>
+            </div>
+            <div class="body" style="height: auto;">
+              <ul>
+                <li>
+                  <div class="title">
+                    Articulo 1
+                  </div>
+                  <div class="content">
+                    <div style="float:left;">
+                      Publicado el 1 de Diciembre de 2019
+                    </div>
+                    <div style="margin-left:90%">
+                      L 1000
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">
+                    Articulo 1
+                  </div>
+                  <div class="content">
+                    <div style="float:left;">
+                      Publicado el 1 de Diciembre de 2019
+                    </div>
+                    <div style="margin-left:90%">
+                      L 1000
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">
+                    Articulo 1
+                  </div>
+                  <div class="content">
+                    <div style="float:left;">
+                      Publicado el 1 de Diciembre de 2019
+                    </div>
+                    <div style="margin-left:90%">
+                      L 1000
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">
+                    Articulo 1
+                  </div>
+                  <div class="content">
+                    <div style="float:left;">
+                      Publicado el 1 de Diciembre de 2019
+                    </div>
+                    <div style="margin-left:90%">
+                      L 1000
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">
+                    Articulo 1
+                  </div>
+                  <div class="content">
+                    <div style="float:left;">
+                      Publicado el 1 de Diciembre de 2019
+                    </div>
+                    <div style="margin-left:90%">
+                      L 1000
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">
+                    Articulo 1
+                  </div>
+                  <div class="content">
+                    <div style="float:left;">
+                      Publicado el 1 de Diciembre de 2019
+                    </div>
+                    <div style="margin-left:90%">
+                      L 1000
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">
+                    Articulo 1
+                  </div>
+                  <div class="content">
+                    <div style="float:left;">
+                      Publicado el 1 de Diciembre de 2019
+                    </div>
+                    <div style="margin-left:90%">
+                      L 1000
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">
+                    Articulo 1
+                  </div>
+                  <div class="content">
+                    <div style="float:left;">
+                      Publicado el 1 de Diciembre de 2019
+                    </div>
+                    <div style="margin-left:90%">
+                      L 1000
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">
+                    Articulo 1
+                  </div>
+                  <div class="content">
+                    <div style="float:left;">
+                      Publicado el 1 de Diciembre de 2019
+                    </div>
+                    <div style="margin-left:90%">
+                      L 1000
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">
+                    Articulo 1
+                  </div>
+                  <div class="content">
+                    <div style="float:left;">
+                      Publicado el 1 de Diciembre de 2019
+                    </div>
+                    <div style="margin-left:90%">
+                      L 1000
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">
+                    Articulo 1
+                  </div>
+                  <div class="content">
+                    <div style="float:left;">
+                      Publicado el 1 de Diciembre de 2019
+                    </div>
+                    <div style="margin-left:90%">
+                      L 1000
+                    </div>
+                  </div>
+                </li>           
+              </ul>
+            </div>
+          </div>
+          <div class="card card-about-me" style="max-height:400px; overflow-y:scroll;">
+            <div class="header" style="text-align:center">
+              <h2>Últimos comentarios</h2>
+            </div>
+            <div class="body" style="height: auto;">
+              <ul>
+                <li>
+                  <div class="title">
+                    Us**rio
+                  </div>
+                  <div class="content">
+                    <div>
+                    <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in leo.</p>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">
+                    Us**rio
+                  </div>
+                  <div class="content">
+                    <div>
+                    <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in leo.</p>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">
+                    Us**rio
+                  </div>
+                  <div class="content">
+                    <div>
+                    <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in leo.</p>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">
+                    Us**rio
+                  </div>
+                  <div class="content">
+                    <div>
+                    <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in leo.</p>
+                    </div>
+                  </div>
+                </li>       
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#defaultModal"
+            data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
