@@ -178,8 +178,7 @@ misPublicaciones=function(){ //VISTA DE MIS PUBLIACIONES
 				+"</div>" ;
 			  $("#contenedorTarjetas").html(tarjetas);//INSERTA LAS TARJETAS
 			}			
-			//console.log(datos);
-			//alert(typeof(datos));
+			
 			var zindex = 10;
     
     $("div.carde").click(function(e){
