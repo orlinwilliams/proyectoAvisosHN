@@ -389,8 +389,8 @@
             <div class="profile-header">&nbsp;</div>
             <div class="profile-body">
               <div class="image-area">
-                <img src="../images/joker.jpg" alt="Foto de perfil de Maynor Bethuell Pineda" width="128px"
-                  height="128px" />
+                <img src="../images/joker.jpg" alt="Foto de perfil de Maynor Bethuell Pineda" width="200px"
+                  height="200px" />
               </div>
               <div class="content-area">
                 <h3>Maynor Bethuell Pineda</h3>
