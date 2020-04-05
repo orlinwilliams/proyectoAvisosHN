@@ -773,9 +773,5 @@
   <!-- Controlador de página Js -->
   <script src="../controlador/vistas-index.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
-
-
-
 </body>
-
 </html>
