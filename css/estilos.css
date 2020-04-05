@@ -35,7 +35,7 @@ div.carde.show div.flap2{transition: all 0.3s 0.2s ease-out;}
 .titulo{font-size: 32px;font-weight: bold;color: black;}
 .font-categoria{font-size: 12px;}
 .font-precio {color: rgb(53, 53, 53);font-size: 20px;}
-.estado{margin-top: 10%;}
+.estado{margin-top: 0%;}
 .font-estado {color: rgb(49, 49, 49);font-size: 16px;}
 .descripcion{margin-top: 5%;}
 .font-descripcion{font-size: 24px;font-weight: bold;color: black;}
@@ -48,6 +48,6 @@ div.carde.show div.flap2{transition: all 0.3s 0.2s ease-out;}
 .div-imagen{float: left;}
 .div-nombre{float: left;margin-left: 5%;margin-top: 2%;height: 100%;}
 .modal-dialog-per{overflow-y: initial !important}
-.modal-body-per{height: 725px;overflow-y: auto;}
+.modal-body-per{height: 650px;overflow-y: auto;}
 .carousel, .carousel-inner > .item > img {max-height: 700px;max-width: 100%;}
 .registro-de-vendedor{margin-top: -10px;}
