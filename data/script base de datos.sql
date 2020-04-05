@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 26-03-2020 a las 02:17:56
--- Versión del servidor: 8.0.18
+-- Tiempo de generación: 05-04-2020 a las 23:01:22
+-- Versión del servidor: 10.4.10-MariaDB
 -- Versión de PHP: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -195,6 +195,51 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_USUARIO` (IN `pnIdUsuar
         WHERE idusuario = pnIdUsuario;
  END$$
 
+DROP PROCEDURE IF EXISTS `SP_PUBLICAR_ANUNCIO`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PUBLICAR_ANUNCIO` (IN `pcidUsuario` INT, IN `pcCategoria` INT, IN `pcMunicipios` INT, IN `pcNombreArticulo` VARCHAR(50), IN `pcPrecio` FLOAT(10), IN `pcEstado` VARCHAR(10), IN `pcDescripcion` VARCHAR(200), OUT `pcMensaje` VARCHAR(300))  SP:BEGIN
+
+	DECLARE vnConteo INT;
+    DECLARE vcMensajeTemp varchar (200);
+
+    SET vcMensajeTemp ="";
+    
+	IF pcNombreArticulo = "" OR pcNombreArticulo IS NULL THEN
+		SET vcMensajeTemp = CONCAT(vcMensajeTemp, "Nombre");
+	END IF;
+    
+	IF pcPrecio= "" OR pcPrecio IS NULL THEN
+		SET vcMensajeTemp = CONCAT(vcMensajeTemp, "precio");
+	END IF;
+    
+	IF pcEstado= "" OR pcEstado IS NULL THEN
+		SET vcMensajeTemp = CONCAT(vcMensajeTemp, "estado");
+	END IF;
+   
+	IF pcDescripcion= "" OR pcDescripcion IS NULL THEN
+		SET pcDescripcion= NULL;
+	END IF;
+    
+	IF vcMensajeTemp<>'' THEN
+		SET pcMensaje=CONCAT('Se necesita que ingrese los siguientes campos: ', vcMensajeTemp);
+		LEAVE SP;
+    END IF;
+
+
+SELECT 
+    (MAX(idAnuncios) + 1)
+INTO vnConteo FROM
+    anuncios;
+
+    
+    INSERT INTO anuncios (idAnuncios,idUsuario,idcategoria,idMunicipios,precio,nombre,descripcion,fechaPublicacion,estadoArticulo,estadoAnuncio,fechaLimite)
+    VALUES ( vnConteo,pcidUsuario,pcCategoria,pcMunicipios, pcPrecio, pcNombreArticulo , pcDescripcion, curdate(), pcEstado,'A',NULL);
+    
+    COMMIT;
+    SET pcMensaje = "Se ha publicado correctamente";
+    LEAVE SP;
+    
+END$$
+
 DROP PROCEDURE IF EXISTS `SP_REGISTRAR`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR` (IN `pcNombre` VARCHAR(45), IN `pcApellido` VARCHAR(45), IN `pcCorreo` VARCHAR(60), IN `pcContraseña` VARCHAR(500), IN `pcConfirmacion` VARCHAR(500), IN `pcTelefono` VARCHAR(20), IN `pdNacimiento` VARCHAR(10), IN `pcRTN` VARCHAR(16), IN `pcURL` VARCHAR(1000), IN `pnMunicipio` INT, OUT `pcMensaje` VARCHAR(300))  SP:BEGIN
 	DECLARE vnConteo INT;
@@ -284,17 +329,24 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   `idcategoria` int(11) NOT NULL,
   `idMunicipios` int(11) NOT NULL,
   `precio` decimal(45,0) NOT NULL,
-  `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `descripcion` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `nombre` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `descripcion` varchar(45) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `fechaPublicacion` date NOT NULL,
-  `estadoArticulo` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
-  `estadoAnuncio` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `estadoArticulo` varchar(20) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `estadoAnuncio` varchar(1) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT 'A',
   `fechaLimite` date DEFAULT NULL,
   PRIMARY KEY (`idAnuncios`),
   KEY `fk_anuncios_categoria1` (`idcategoria`),
   KEY `fk_anuncios_municipios1` (`idMunicipios`),
   KEY `fk_anuncios_Usuario1` (`idUsuario`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `anuncios`
+--
+
+INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`, `precio`, `nombre`, `descripcion`, `fechaPublicacion`, `estadoArticulo`, `estadoAnuncio`, `fechaLimite`) VALUES
+(47, 4, 4, 110, '131', 'la rana ', NULL, '2020-04-03', 'Nuevo', 'A', NULL);
 
 -- --------------------------------------------------------
 
@@ -306,7 +358,7 @@ DROP TABLE IF EXISTS `calificacionescomprador`;
 CREATE TABLE IF NOT EXISTS `calificacionescomprador` (
   `idcalificacionesComprador` int(11) NOT NULL,
   `cantidadEstrellas` int(1) DEFAULT NULL,
-  `comentarios` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `comentarios` varchar(500) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idcalificacionesComprador`),
   KEY `fk_calificacionesComprador_Usuario1` (`idUsuario`)
@@ -320,9 +372,9 @@ CREATE TABLE IF NOT EXISTS `calificacionescomprador` (
 
 DROP TABLE IF EXISTS `calificacionesvendedor`;
 CREATE TABLE IF NOT EXISTS `calificacionesvendedor` (
-  `idCalificacionVendedor` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `idCalificacionVendedor` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
   `cantidadEstrellas` int(11) DEFAULT NULL,
-  `comentarios` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `comentarios` varchar(500) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idCalificacionVendedor`),
   KEY `fk_calificacionesVendedor_Usuario1` (`idUsuario`)
@@ -337,7 +389,7 @@ CREATE TABLE IF NOT EXISTS `calificacionesvendedor` (
 DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE IF NOT EXISTS `categoria` (
   `idcategoria` int(11) NOT NULL,
-  `nombreCategoria` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `nombreCategoria` varchar(80) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `idgrupocategoria` int(8) NOT NULL,
   PRIMARY KEY (`idcategoria`),
   KEY `fk_categoria_grupocategoria1` (`idgrupocategoria`)
@@ -410,7 +462,7 @@ CREATE TABLE IF NOT EXISTS `denuncias` (
 DROP TABLE IF EXISTS `departamentos`;
 CREATE TABLE IF NOT EXISTS `departamentos` (
   `idDepartamentos` int(11) NOT NULL,
-  `nombreDepartamento` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `nombreDepartamento` varchar(45) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idDepartamentos`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -441,13 +493,35 @@ INSERT INTO `departamentos` (`idDepartamentos`, `nombreDepartamento`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `fotos`
+--
+
+DROP TABLE IF EXISTS `fotos`;
+CREATE TABLE IF NOT EXISTS `fotos` (
+  `idFotos` int(11) NOT NULL AUTO_INCREMENT,
+  `idAnuncios` int(11) NOT NULL,
+  `localizacion` varchar(200) COLLATE utf8mb4_spanish_ci NOT NULL,
+  PRIMARY KEY (`idFotos`),
+  KEY `FK_idAnuncios` (`idAnuncios`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `fotos`
+--
+
+INSERT INTO `fotos` (`idFotos`, `idAnuncios`, `localizacion`) VALUES
+(1, 4, '../images/foto_anuncio/');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `grupocategoria`
 --
 
 DROP TABLE IF EXISTS `grupocategoria`;
 CREATE TABLE IF NOT EXISTS `grupocategoria` (
   `idgrupocategoria` int(11) NOT NULL,
-  `nombregrupo` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `nombregrupo` varchar(80) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idgrupocategoria`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -476,7 +550,7 @@ DROP TABLE IF EXISTS `municipios`;
 CREATE TABLE IF NOT EXISTS `municipios` (
   `idMunicipios` int(11) NOT NULL,
   `idDepartamentos` int(11) NOT NULL,
-  `municipio` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `municipio` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`idMunicipios`),
   KEY `fk_municipios_departamentos1` (`idDepartamentos`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -794,7 +868,7 @@ INSERT INTO `municipios` (`idMunicipios`, `idDepartamentos`, `municipio`) VALUES
 DROP TABLE IF EXISTS `razondenuncia`;
 CREATE TABLE IF NOT EXISTS `razondenuncia` (
   `idrazonDenuncia` int(11) NOT NULL,
-  `descripcion` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `descripcion` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`idrazonDenuncia`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -807,7 +881,7 @@ CREATE TABLE IF NOT EXISTS `razondenuncia` (
 DROP TABLE IF EXISTS `tipousuario`;
 CREATE TABLE IF NOT EXISTS `tipousuario` (
   `idtipoUsuario` int(11) NOT NULL AUTO_INCREMENT,
-  `tipoUsuario` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `tipoUsuario` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`idtipoUsuario`),
   UNIQUE KEY `idtipoUsuario_UNIQUE` (`idtipoUsuario`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -832,17 +906,17 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `idUsuario` int(11) NOT NULL,
   `idtipoUsuario` int(11) NOT NULL,
   `idMunicipios` int(11) NOT NULL,
-  `pNombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `pApellido` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
-  `correoElectronico` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `contrasenia` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `token` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
-  `numTelefono` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `pNombre` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `pApellido` varchar(45) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `correoElectronico` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `contrasenia` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `token` varchar(1000) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `numTelefono` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
   `fechaRegistro` date NOT NULL,
-  `fechaNacimiento` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `RTN` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
-  `urlFoto` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT 'user.png',
-  `estado` tinyint(1) NOT NULL DEFAULT '0',
+  `fechaNacimiento` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `RTN` varchar(45) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `urlFoto` varchar(1000) COLLATE utf8mb4_spanish_ci DEFAULT 'user.png',
+  `estado` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `idPersona_UNIQUE` (`idUsuario`),
   KEY `fk_Usuario_tipoUsuario1` (`idtipoUsuario`),
@@ -855,7 +929,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, `pApellido`, `correoElectronico`, `contrasenia`, `token`, `numTelefono`, `fechaRegistro`, `fechaNacimiento`, `RTN`, `urlFoto`, `estado`) VALUES
 (3, 2, 110, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', NULL, ' 504 9619-96-60', '2020-03-25', '1995-12-01', '', '../images/imgUsuarios/user.png', 0),
-(2, 3, 14, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asdzxc', '', ' 504 9605-01-00', '2020-03-09', '1995-12-01', '', '../images/imgUsuarios/user.png', 1);
+(2, 3, 14, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asdzxc', '', ' 504 9605-01-00', '2020-03-09', '1995-12-01', '', '../images/imgUsuarios/user.png', 1),
+(4, 2, 110, 'Jared', 'Castro', 'jaredcastro13@yahoo.es', 'asd123', NULL, ' 504 9858-00-12', '2020-03-30', '1995-10-03', '', '../images/imgUsuarios/user.png', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
