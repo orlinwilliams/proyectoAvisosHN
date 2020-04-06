@@ -270,9 +270,9 @@
           <h4 class="modal-title" id="largeModalLabel">Publica tu artículo</h4>
         </div>
         <div class="modal-body">
-        <form id="publicarArticulo" >
-          <div action="/" id="subirFotos" class="dropzone" enctype="multipart/form-data">
-            <div class="dz-message">
+        <form id="publicarArticulo" enctype="multipart/form-data">
+            <div action="/" id="subirFotos" class="dropzone"  >
+              <div class="dz-message">
               <div class="drag-icon-cph">
                 <i class="material-icons">touch_app</i>
               </div>
@@ -280,7 +280,7 @@
               <em>(Es <strong>obligatorio</strong> subir al menos una foto del articulo.)</em>
             </div>
             <div class="fallback">
-              <input name="fotos" id='foto[]' type="file" accept="image/*" multiple/>
+              <input name="fotos" id='fotos' type="file"  multiple/>
             </div>
           </div>
             <br>

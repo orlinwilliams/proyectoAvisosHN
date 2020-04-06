@@ -60,101 +60,75 @@
                 $respuesta="Ingrese el estado";
                 echo $respuesta;
             }
+
             
-            if(isset($_POST[$fotos])){
-                $imagenArchivo=$_FILES["fotos"]["tmp_name"];
-                $nombreImagen=$_FILES["fotos"]["name"];
+            if(!isset($_FILES["fotos"])){
+                echo "Debe subir minimo una imagen";
             }
-            /*
-            if (isset($_FILES["foto"])) {
-                $reporte = null;
-                for ($$x=0; $$x < count($_FILES["foto"]["name"]); $$x++) { 
+            //$conexion = new conexion();
+            $imagenArchivo=$_FILES["fotos"]["tmp_name"];
+            $nombreImagen=$_FILES["fotos"]["name"];
+            
+            echo "# de fotos:".count($_FILES["fotos"]["name"]);
+           
+            /*session_start();
+            $idUsuario=$_SESSION["usuario"]["idUsuario"];
+            $idMunicipio=$_SESSION["usuario"]["idMunicipios"];
+            $usuario=$_SESSION["usuario"]["correoElectronico"];
+            
+            $carpetaFoto="fotosAnuncio/";
+            
+            //$ruta="../images/".$carpeta.$nombreImagen;
+            //move_uploaded_file($imagenArchivo,$ruta);
+            
+           
+
+            $sql = "CALL `SP_PUBLICAR_ANUNCIO`('$idUsuario','$idCategoria','$idMunicipio','$nombre','$precio','$estado','$descripcion',@p7);";
+            
+            if($resultadoProcedimiento = $conexion->ejecutarInstruccion($sql)){
+                $carpetaUsuario="../images/".$carpetaFoto.$usuario;
+                if (!file_exists($carpetaUsuario)) {
+                    mkdir($carpetaUsuario, 0777, true);
+                }
                 
-                $file = $_FILES["foto"];
-                $nombreImagen = $file["name"][$x];
-                $tipo = $file["type"][$x];
-                $ruta_provisional = $file["tmp_name"][$x];
-                $size = $file["size"][$x];
-                $dimensiones = getimagesize($ruta_provisional);
-                $width = $dimensiones[0];
-                $heigth = $dimensiones[1];
-                $carpeta = "../foto_anuncio/";
-            
-                if ($tipo != 'image/jpeg' && $tipo != 'image/jpeg' && $tipo != 'image/png' && $tipo != 'image/gif') {
-                    $reporte .= "<p style='color: red'>Error $nombre, el archivo no es una imagen</p";
+               
+                $sql1="SELECT MAX(idAnuncios) AS idAnuncio FROM Anuncios";
+                if($resultadoIdAnuncio=$conexion->ejecutarInstruccion($sql1)){
+                    $row=$resultadoIdAnuncio->fetch_array();
+                    $lastId=$row["idAnuncio"];
+                    
+                    
+                    $ruta=array();
+                    $sqlArray=array();
+                    for($i=0;$i<count($nombreImagen);$i++){
+                        $ruta[$i]="../images/".$carpetaFoto.$carpetaUsuario.$nombreImagen[$i];
+                        move_uploaded_file($imagenArchivo[$i],$ruta[$i]);
+                        $sqlArray[$i]="INSERT INTO fotos (idAnuncios,localizacion) values ('$lastId','$ruta[$i]')";
+                        if($conexion->ejecutarInstruccion($sqlArray[$i])){
+                            $mensajeValidacion=[$i];
+                        }
+                        else{
+                            echo " Erro en foto: ".$nombreImagen[$i];
+                        }
+                        if($mensajeValidacion==count($nombreImagen)){
+                            echo "Anuncio agregado correctamente";
+                        }
+                    }        
+                    
+                    
+
                 }
-                else if($size > 1024*1024)
-                {
-                    $reporte .= "<p style='color: red'>Error $nombre, el tamaño maximo es  1MB</p";
+                else{
+                    echo" no se obtuvo el ultimo id";
                 }
-                else if($width > 500 || $heigth > 500)
-                {
-                    $reporte .= "<p style='color: red'>Error $nombre, la altura y anchura max es de 500px</p";
-                }
-                else if($width < 60 || $heigth < 60)
-                {
-                    $reporte .= "<p style='color: red'>Error $nombre, la altura y anchura min es de 60</p";
-                }
-                else {
-                     $src = $carpeta.$nombreImagen;
-                     move_uploaded_file($ruta_provisional, $src);
-                     echo "<p style='color: blue'>Error $nombreImagen, ha sido subida con exito</p";
-                }
+                
             }
-                echo $reporte;  
-        }    
-        */  
-        //Fin de validación
             else{
-                session_start();
-                $idUsuario=$_SESSION["usuario"]["idUsuario"];
-                $idMunicipio=$_SESSION["usuario"]["idMunicipios"];
-                //$idAnuncio=$_SESSION["usuario"]["idUsuario"];
-         /*   orlin    
-                //pasar al if
-                $carpeta="foto_anuncio/";
-                $ruta1="../images/".$carpeta.$nombreImagen;
-                move_uploaded_file($imagenArchivo,$ruta1);
-                $imagenArchivo[0];
-                $conexion = new Conexion();
-         */       
-                //ESTRUCTURA PROCEDIMIENTO
-                //SET @p0='2'; SET @p1='3'; SET @p2='5'; SET @p3='prueba1'; SET @p4='9999'; SET @p5='nuevo'; SET @p6='qwerty';
-                //CALL `SP_PUBLICAR_ANUNCIO`(@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
-                //SELECT @p7 AS `pcMensaje`;
+                echo "Error en el procediimiento almacenado";
+            }*/
 
-                $sql = "CALL `SP_PUBLICAR_ANUNCIO`('$idUsuario','$idCategoria','$idMunicipio','$nombre','$precio','$estado','$descripcion',@p7);";
-                //$sql = "INSERT INTO 'fotos' (NOMBRE) VALUES($nombre) ";
-               // $salida = "INSERT INTO 'ANUNCIOS' (ESTADO) VALUES ($estado)"; 
-                $salida = "SELECT @p7 AS `pcMensaje`;";  
-
-                ///
-                $sql2="INSERT INTO fotos (idAnuncios,localizacion) values ('$idAnuncio','$ruta1')";
-                                                                 //Llamado al parametro de salida del procedimiento almacenado
-                $resultado = $conexion->ejecutarInstruccion($sql);
-                $respuesta = $conexion->ejecutarInstruccion($salida);
-                $resultado2 = $conexion->ejecutarInstruccion($sql2);
-                   if(!$resultado){
-                    echo "No hay respuesta del procedimiento"; 
-                   }
-                   else{
-                        $fila=$conexion->obtenerFila($respuesta);
-                        //consulta para idAnuncio if
-                        $idAnuncio="SELECT MAX(idAnuncios) FROM anuncios";
-                        
-                        if(!$resultado2){
-                            echo "error al guardar la imagen"; 
-                           }
-                           
-                           else{
-                                echo "la imagen se guardo corretamnete";      
-                           }
-
-                        echo $fila["pcMensaje"];       
-                   }
-
-                    $conexion->cerrarConexion();
-                }
+                
+                
             break;
          
     }
