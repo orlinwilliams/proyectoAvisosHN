@@ -3,53 +3,57 @@ $(document).ready(function () {																//document
 
     
      
-    //Configuracion de DROPZONE 
+    
+    //Configuracion de Parametros de DROPZONE 
+    var arrayImg=[];
     Dropzone.options.subirFotos={
+        
         maxfilezise:2,
+        uploadMultiple:true,
+        autoProcessQueue:true,
         maxThumbnailFilesize:2,
         acceptedFiles:"image/*",
         maxFiles:4,
         addRemoveLinks:true,
-        accept: function(file, done) {
-            console.log(file.name);
-            fileImg = file.name;
-            done();    // !Very important
+        autoProcessQueue:true,
+        accept: function(file, done) {// ARCHIVOS ACEPTADOS
+            //console.log(file);
+            arrayImg.push(file);
+            done();
         },
-        
-
     };
+    
+      
+    
     $("#publicarArticulo").submit(function (event) {
         event.preventDefault();
-        event.stopPropagation();										            //Inicio de evento en el botón submit de registro
-        console.log("Se ha presionado el boton publicar");
+        event.stopPropagation();										            
+        
+        var dataImg= new FormData();
         
 
-    
-        var dataImg= new FormData();		
+        //DATOS SERELIAZADOS 	
         //var datos=   "nombre=" + $("#nombre").val() +
         //             "&precio=" + $("#precio").val() +
         //             "&estado=" + $("#estado").val() +
         //             "&categoria=" + $("#categoria").val() +
         //             "&descripcion=" + $("#descripcion").val();
         
-        //archivos.append($('#subirFotos')[0].dropzone.getAcceptedFiles());
-        //archivos.append($('#subirFotos')[0].dropzone.getAcceptedFiles()[0]);
-        //archivos.append($('#subirFotos')[0].dropzone.getAcceptedFiles()[0]);
-        //archivos.append($('#subirFotos')[0].dropzone.getAcceptedFiles()[0]);
         
-        //AQUI SE DEBE AGREGAR EL ARREGLO DE IMAGES PARA ENVIAR AL SERVIDOR
-        //dataImg.append("fotos",imgFile);
+        //AQUI SE DEBE AGREGAR LOS DATOS Y EL ARREGLO DE IMAGES PARA ENVIAR AL SERVIDOR
         dataImg.append("nombre",$("#nombre").val());
         dataImg.append("precio",$("#precio").val());
         dataImg.append("estado",$("#estado").val());
         dataImg.append("categoria",$("#categoria").val());
         dataImg.append("descripcion",$("#descripcion").val());
         
+        console.log(arrayImg);
+        dataImg.append("File",arrayImg);// SE INTENTA AGREGAR ARREGLO DE DATOS
         
         $.ajax({															
             url: "../clases/vistas-index.php?accion=2",
             method: "POST",
-            data:dataImg,//SE ENVIA TODA LA AL SERVER
+            data:dataImg,//SE ENVIA TODO EL DATAFORM  AL SERVER
             contentType: false,
             processData: false,
             cache: false, 

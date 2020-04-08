@@ -61,15 +61,20 @@
                 echo $respuesta;
             }
 
-            
-            if(!isset($_FILES["fotos"])){
-                echo "Debe subir minimo una imagen";
+            //VALDAR SI EXISTE ARCHIVOS FILE
+            if(is_array($_FILES)){
+                
+                
+                echo print_r($_FILES["File"]);  //CAPTURAR EL ARREGLO DEIMAGENES
+            }
+            else{
+                echo "NO hay files";
             }
             //$conexion = new conexion();
-            $imagenArchivo=$_FILES["fotos"]["tmp_name"];
-            $nombreImagen=$_FILES["fotos"]["name"];
+            //$imagenArchivo=$_FILES["fotos"]["tmp_name"];
+            //$nombreImagen=$_FILES["fotos"]["name"];
             
-            echo "# de fotos:".count($_FILES["fotos"]["name"]);
+            //echo "# de fotos:".count($_FILES["file"]["name"]);
            
             /*session_start();
             $idUsuario=$_SESSION["usuario"]["idUsuario"];
