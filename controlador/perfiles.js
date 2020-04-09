@@ -218,15 +218,116 @@ misPublicaciones = function () { //VISTA DE MIS PUBLIACIONES
 			console.log(error);
 		}
 	});
-}
+};
+cargarDatosEditar = function (parametros) { ////mostrar los datos en el modal del anuncio
+    event.preventDefault();	
+	id=parametros;
+	console.log(id);
+	//var parametros= "idAnuncios= "+document.getElementById("txt_idanuncios").value;
+	
+        $.ajax({ 
+            url:"../clases/perfil.php?accion=7",
+            method: "POST",
+			data: "txt_idanuncios="+id,
+            success:function(resp){
+				let datos=JSON.parse(resp);
+				console.log(datos);
+						var modal="";
+						for(let item of datos){//RECORRER EL JSON 
+							modal+=" <div id='form_validation'>"
+							+"<div class='form-group form-float'>"
+								+"<div class='form-line'>"
+									+"<input type='text' class='form-control' name='name' id='nombre_articulo' "
+									+"placeholder="+item.nombre+" value="+item.nombre+">"
+								
+								+"</div>"
+
+							+"</div>"
+
+							+"<div class='form-group form-float'>"
+							 +" <div class='form-line'>"
+								+"  <input type='number' class='form-control  money-dollar' name='name' id='precioArticulo' "
+								+"  placeholder="+item.precio+" value="+item.precio+" required>"
+							  
+							 +" </div>"
+
+							+"</div>"
 
 
+							+"<div class='form-group form-float'>"
+								+"<div class='form-line'>"
+								+"	<select class='form-control show-tick' name='estado' id='estadoArt' "
+									+"placeholder="+item.estadoArticulo+" value="+item.estadoArticulo+" required>"
+											+"<option value='"+item.estadoArticulo+"'>"+item.estadoArticulo+"</option>"
+											+"<option value='Nuev'>Nuevo</option>"
+											+"<option value='Usado'>Usado</option>"
+											+"<option value='Restaurado'>Restaurado</option>"
+											+"<option value='Dañado'>Dañado</option>"
+									+"</select>"
+									
+								+"</div>"
+							+"</div>"
+
+						+"<div class='form-group form-float'>"
+							+"<div class='form-line'>"
+							+"<select class='form-control show-tick' name='categoria' id='categoriaArt'  placeholder="+item.nombreCategoria+" value="+item.nombreCategoria+" required>"
+							+"<option value="+item.nombreCategoria+">"+item.nombreCategoria+"</option>"
+							+"</select>"
+							
+							+"</div>"
+						+"</div>"
+
+						+"<div class='form-group form-float'>"
+						+"	<div class='form-line'>"
+							+"<textarea name='description' id='descripcionArt' cols='30' rows='4' placeholder="+item.descripcion+" class='form-control no-resize'>"+item.descripcion+"</textarea>"
+
+							+"</div>"
+						+"</div>"
+					+"</div> "
+
+					+"<div class='modal-footer'>"
+						+" <button type='submit' class='btn btn-default waves-effect' id='enviar_datos_editar' onclick='enviarDatosEditar("+item.idAnuncios+")'>Publicar</button>"
+							+"<button type='button' class='btn bg-black waves-effect waves-light' data-dismiss='modal'>Cancelar</button>"
+					+"</div>" ;
+						$("#muestra_datos_editar").html(modal);//INSERTA LAS TARJETAS
+						}		
 
 
+					
+ 
+					
+				}
+					
+        });
+};
 
-
-
-
-
-
-
+enviarDatosEditar = function (parametros) {
+    event.preventDefault();	
+	id=parametros;
+	console.log(id);
+	//Petición ajax para editar anuncios
+		event.preventDefault();
+		$.ajax({
+			url: "../clases/perfil.php?accion=6",										//Accion para editar anuncios
+			method: "POST",
+			data: "nombre_articulo="+$("#nombre_articulo").val()+
+				"&precio="+$("#precioArticulo").val()+
+				"&estado="+$("#estadoArt").val()+
+				"&categoria="+$("#categoriaArt").val()+
+				"&descripcion="+$("#descripcionArt").val()+
+				"&txt_idanuncios="+id,
+			success: function (resultado) {
+				console.log(resultado);
+				
+				
+				$("#cuerpoModal").empty();										//Vacia el cuerpo del modal de mensaje
+				$("#cuerpoModal").html(resultado);								//Imprime el cuerpo del modal de mensaje					
+				$("#ModalMensaje").modal("show");
+				location.reload();
+				
+												//Despliega el modal con el modal
+			}
+		});
+	
+      
+};
