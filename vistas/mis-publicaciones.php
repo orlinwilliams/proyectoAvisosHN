@@ -125,7 +125,7 @@
       <div class="menu">
         <ul class="list">
           <li class="header">Panel de navegación</li>
-          <li >
+          <li>
             <a href="index.php">
               <i class="material-icons">home</i>
               <span>Inicio</span>
@@ -254,7 +254,7 @@
   </section>
 
   <section class="content">
-  <div class="contenedor">
+    <div class="contenedor">
       <button class="botonF1" data-toggle="modal" data-target="#modalArticulo">
         <span>+
         </span>
@@ -288,105 +288,93 @@
               </div>
             </div>
             <br>
-                 <div id="form_validation">
-                      <div class="form-group form-float">
-                        <div class="form-line">
-                          <input type="text" class="form-control" name="name" id="nombre" required>
-                          <label class="form-label">Nombre del articulo</label>
-                        </div>
+            <div id="form_validation">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <input type="text" class="form-control" name="name" id="nombre" required>
+                  <label class="form-label">Nombre del articulo</label>
+                </div>
 
-                      </div>
-
-                      <div class="form-group form-float">
-                      <div class="form-line">
-                        <input type="number" class="form-control money-dollar" id="precio" required>
-                        <label class="form-label">Precio</label>
-                      </div>
-                    </div>
-
-
-                    <div class="form-group form-float">
-                      <div class="form-line">
-                        <select class="form-control show-tick" name="estado" id="estado" required>
-                          <option></option>
-                          <option value="Nuevo">Nuevo</option>
-                          <option value="Usado">Usado</option>
-                          <option value="Restaurado">Restaurado</option>
-                          <option value="Dañado">Dañado</option>
-                        </select>
-                        <label class="form-label">Estado</label>
-                      </div>
-                    </div>
-
-                    <div class="form-group form-float">
-                      <div class="form-line">
-                        <select class="form-control show-tick" name="estado" id="categoria" required>
-                        </select>
-                        <label class="form-label">Categoria</label>
-                      </div>
-                    </div>
-
-                    <div class="form-group form-float">
-                      <div class="form-line">
-                        <textarea name="description" cols="30" rows="4" class="form-control no-resize"></textarea>
-                        <label class="form-label">Descripción (Opcional)</label>
-                      </div>
-                    </div>
-
-                    <div class="modal-footer">
-                      <button type="submit" class="btn btn-default waves-effect">Publicar</button>
-                      <button type="button" class="btn bg-black waves-effect waves-light"
-                        data-dismiss="modal">Cancelar</button>
-                    </div>
               </div>
+
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <input type="number" class="form-control money-dollar" id="precio" required>
+                  <label class="form-label">Precio</label>
+                </div>
+              </div>
+
+
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <select class="form-control show-tick" name="estado" id="estado" required>
+                    <option></option>
+                    <option value="Nuevo">Nuevo</option>
+                    <option value="Usado">Usado</option>
+                    <option value="Restaurado">Restaurado</option>
+                    <option value="Dañado">Dañado</option>
+                  </select>
+                  <label class="form-label">Estado</label>
+                </div>
+              </div>
+
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <select class="form-control show-tick" name="estado" id="categoria" required>
+                  </select>
+                  <label class="form-label">Categoria</label>
+                </div>
+              </div>
+
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <textarea name="description" cols="30" rows="4" class="form-control no-resize"></textarea>
+                  <label class="form-label">Descripción (Opcional)</label>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-default waves-effect">Publicar</button>
+                <button type="button" class="btn bg-black waves-effect waves-light"
+                  data-dismiss="modal">Cancelar</button>
+              </div>
+            </div>
           </form>
         </div>
       </div>
     </div>
   </div>
+  <!----------------------------------->
+  <!-- MODAL DE EDITAR ARTICULO O ANUNCIO-->
+  <div class="modal fade" id="editarPubli" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header br-black">
+          <h4 class="modal-title" id="smallModalLabel"> Edita tu publicación </h4>
+        </div>
+        <div class="modal-body">
+          <form id="editarPublicacion">
 
-   <!----------------------------------->
-  
-
- <!-- MODAL DE EDITAR ARTICULO O ANUNCIO-->
- 
- <div class="modal fade" id="editarPubli" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header br-black">
-                            <h4 class="modal-title" id="smallModalLabel"> Edita tu publicación </h4>
-                        </div>
-                        <div class="modal-body">
-                            <form id="editarPublicacion">
-                              
-                                <div action="/" id="subirFotos" class="dropzone" enctype="multipart/form-data">
-                                  <div class="dz-message">
-                                    <div class="drag-icon-cph">
-                                      <i class="material-icons">touch_app</i>
-                                    </div>
-                                    <h3>Arrastra hacia aquí tus fotos o da click para seleccionar.</h3>
-                                    <em>(Es <strong>obligatorio</strong> subir al menos una foto del articulo.)</em>
-                                  </div>
-                                  <div class="fallback">
-                                    <input name="file" type="file" accept="image/*" requerid />
-                                  </div>
-                                </div>
-                                <br>
-
-                                
-                                       <div id="muestra_datos_editar">  
-                                                 
-                                     </div>
-                                  
-                                  
-
-                              
-                           </form>
-                        </div>
-                        
-                    </div>
+            <div action="/" id="subirFotos" class="dropzone" enctype="multipart/form-data">
+              <div class="dz-message">
+                <div class="drag-icon-cph">
+                  <i class="material-icons">touch_app</i>
                 </div>
+                <h3>Arrastra hacia aquí tus fotos o da click para seleccionar.</h3>
+                <em>(Es <strong>obligatorio</strong> subir al menos una foto del articulo.)</em>
+              </div>
+              <div class="fallback">
+                <input name="file" type="file" accept="image/*" requerid />
+              </div>
             </div>
+            <br>
+            <div id="muestra_datos_editar">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--Modal con el mensaje de respuesta-->
   <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true ">
@@ -414,7 +402,7 @@
   <!-- Slimscroll Plugin Js -->
   <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
-  
+
 
   <!-- Validation Plugin Js -->
   <script src="../plugins/jquery-validation/jquery.validate.js"></script>
@@ -427,14 +415,12 @@
 
   <!-- <script src="../js/index.js"></script> Js -->
   <script src="../js/demo.js"></script>
-  
-  <script src="../controlador/perfiles.js"></script>
-  
+  <script src="../controlador/mis-publicaciones.js"></script>
+
   <!--<script src="../js/index.js"></script> Demo Js -->
-  
+
   <!-- Waves Effect Plugin Js -->
   <script src="../plugins/node-waves/waves.js"></script>
-  <script src="../js/index.js"></script>
 
   <!-- Input Mask Plugin Js -->
   <script src="../plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
@@ -459,7 +445,7 @@
 
   <!-- Dropzone Plugin Js -->
   <script src="../plugins/dropzone/dropzone.js"></script>
-  
+
 
 
 
