@@ -1,78 +1,72 @@
 $(document).ready(function () {																//document
     categoria();																			//Llama la funcion municipios
-
-    
-     
-    
     //Configuracion de Parametros de DROPZONE 
-    var arrayImg=[];
-    Dropzone.options.subirFotos={
-        
-        maxfilezise:2,
-        uploadMultiple:true,
-        autoProcessQueue:true,
-        maxThumbnailFilesize:2,
-        acceptedFiles:"image/*",
-        maxFiles:4,
-        addRemoveLinks:true,
-        autoProcessQueue:true,
-        accept: function(file, done) {// ARCHIVOS ACEPTADOS
-            //console.log(file);
-            arrayImg.push(file);
-            done();
+    Dropzone.autoDiscover = false;
+    //var arrayImg=[];
+    
+    myDropzone = new Dropzone('div#subirFotos', {
+        addRemoveLinks: true,
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        parallelUploads: 100,
+        maxFiles: 4,
+        paramName: 'file',
+        clickable: true,
+        url: '../clases/vistas-index.php?accion=2',
+        init: function () {
+    
+            var myDropzone = this;
+            // Update selector to match your button
+            $("#publicarArticulo").submit(function (e) {
+                event.stopPropagation();
+                e.preventDefault();
+                if ( $("#publicarArticulo").valid() ) {
+                    myDropzone.processQueue();
+                }
+                return false;
+            });
+    
+            this.on('sending', function (file, xhr, formData) {
+                // Append all form inputs to the formData Dropzone will POST
+                var data = $("#publicarArticulo").serializeArray();
+                $.each(data, function (key, el) {
+                    formData.append(el.name, el.value);
+                });
+                //console.log(formData);
+    
+            });
         },
-    };
-    
-      
-    
-    $("#publicarArticulo").submit(function (event) {
-        event.preventDefault();
-        event.stopPropagation();										            
-        
-        var dataImg= new FormData();
-        
-
-        //DATOS SERELIAZADOS 	
-        //var datos=   "nombre=" + $("#nombre").val() +
-        //             "&precio=" + $("#precio").val() +
-        //             "&estado=" + $("#estado").val() +
-        //             "&categoria=" + $("#categoria").val() +
-        //             "&descripcion=" + $("#descripcion").val();
-        
-        
-        //AQUI SE DEBE AGREGAR LOS DATOS Y EL ARREGLO DE IMAGES PARA ENVIAR AL SERVIDOR
-        dataImg.append("nombre",$("#nombre").val());
-        dataImg.append("precio",$("#precio").val());
-        dataImg.append("estado",$("#estado").val());
-        dataImg.append("categoria",$("#categoria").val());
-        dataImg.append("descripcion",$("#descripcion").val());
-        
-        console.log(arrayImg);
-        dataImg.append("File",arrayImg);// SE INTENTA AGREGAR ARREGLO DE DATOS
-        
-        $.ajax({															
-            url: "../clases/vistas-index.php?accion=2",
-            method: "POST",
-            data:dataImg,//SE ENVIA TODO EL DATAFORM  AL SERVER
-            contentType: false,
-            processData: false,
-            cache: false, 
-            success: function (resultado) {
-                console.log(resultado);
-                $("#cuerpoModal").empty();										
-                $("#cuerpoModal").html(resultado);								
-                $("#ModalMensaje").modal("show");								
-            },
-            error: function (error) {
-                console.log(error);
+        error: function (file, response){
+            if ($.type(response) === "string")
+                var message = response; //dropzone sends it's own error messages in string
+            else
+                var message = response.message;
+            file.previewElement.classList.add("dz-error");
+            _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                node = _ref[_i];
+                _results.push(node.textContent = message);
             }
-        });																	
+            return _results;
+        },
+        successmultiple: function (file, response) {
+            console.log(file, response);
+            //$modal.modal("show");
+        },
+        completemultiple: function (file, response) {
+            console.log(file, response, "completemultiple");
+            //$modal.modal("show");
+        },
+        reset: function () {
+            console.log("resetFiles");
+            //this.removeAllFiles(true);
+        }
+      
     });
     
-
-
-
-
+    
+    
 
 });
 
