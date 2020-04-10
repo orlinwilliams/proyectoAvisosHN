@@ -1,6 +1,8 @@
 $(document).ready(function () {
     municipios();																			
     misPublicaciones();
+    categoria();
+
     
     //PUBLICAR ANUNCIOS
     Dropzone.autoDiscover = false;
@@ -66,6 +68,19 @@ $(document).ready(function () {
     });
 
 });
+
+categoria = function () {														//Inicio funcion para llenar las categorias
+	$.ajax({																	//Inicio ajax categorias
+		url: "../clases/vistas-index.php?accion=1",
+		success: function (resultado) {
+            $("#categoria").append(resultado);									//El resultado lo retorna como html
+		},
+		error: function (error) {
+            console.log(error);
+		}
+	});																			//Fin ajax categorias
+
+}			
 municipios = function () {														//Inicio funcion para llenar los municipios
     $.ajax({																	//Inicio ajax municipios
         url: "../clases/index.php?accion=1",
@@ -251,3 +266,5 @@ eliminarPublicacion = function (idAnuncio) { ////mostrar los datos en el modal d
         }
     });
 };
+
+

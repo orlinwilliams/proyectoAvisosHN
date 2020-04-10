@@ -301,7 +301,7 @@
 
               <div class="form-group form-float">
                 <div class="form-line">
-                  <input type="number" class="form-control money-dollar" id="precio" required>
+                  <input type="number" class="form-control money-dollar" name="precio" id="precio" required>
                   <label class="form-label">Precio</label>
                 </div>
               </div>
@@ -447,6 +447,7 @@
   <!-- Dropzone Plugin Js -->
   <script src="../plugins/dropzone/dropzone.js"></script>
   <script src="../plugins/sweetalert/sweetalert.min.js"></script>
+  
 
 
 

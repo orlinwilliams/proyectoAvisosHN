@@ -12,7 +12,7 @@ $(document).ready(function () {																//document
         maxFiles: 4,
         paramName: 'file',
         clickable: true,
-        url: '../clases/vistas-index.php?accion=2',
+        url: '../clases/mis-publicaciones.php?accion=2',
         init: function () {
     
             var myDropzone = this;
