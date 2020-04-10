@@ -632,24 +632,24 @@
           <h4 class="modal-title" id="largeModalLabel">Publica tu artículo</h4>
         </div>
         <div class="modal-body">
-        <form id="publicarArticulo" enctype="multipart/form-data">
-            <div action="/" id="subirFotos" class="dropzone"  >
+          <form id="publicarArticulo">
+            <div action="/" id="subirFotos" class="dropzone" enctype="multipart/form-data">
               <div class="dz-message">
-              <div class="drag-icon-cph">
-                <i class="material-icons">touch_app</i>
+                <div class="drag-icon-cph">
+                  <i class="material-icons">touch_app</i>
+                </div>
+                <h3>Arrastra hacia aquí tus fotos o da click para seleccionar.</h3>
+                <em>(Es <strong>obligatorio</strong> subir al menos una foto del articulo.)</em>
               </div>
-              <h3>Arrastra hacia aquí tus fotos o da click para seleccionar.</h3>
-              <em>(Es <strong>obligatorio</strong> subir al menos una foto del articulo.)</em>
+              <div class="fallback">
+                <input name="file" type="file" accept="image/*" requerid />
+              </div>
             </div>
-            <div class="fallback">
-              <input name="fotos" id='fotos' type="file"  multiple/>
-            </div>
-          </div>
             <br>
             <div id="form_validation">
               <div class="form-group form-float">
                 <div class="form-line">
-                  <input type="text" class="form-control" name="name" id="nombre" required>
+                  <input type="text" class="form-control" name="nombre" id="nombre" required>
                   <label class="form-label">Nombre del articulo</label>
                 </div>
 
@@ -657,7 +657,7 @@
 
               <div class="form-group form-float">
                 <div class="form-line">
-                  <input type="number" class="form-control money-dollar" name='precio' id="precio" required>
+                  <input type="number" class="form-control money-dollar" id="precio" required>
                   <label class="form-label">Precio</label>
                 </div>
               </div>
@@ -678,7 +678,7 @@
 
               <div class="form-group form-float">
                 <div class="form-line">
-                  <select class="form-control show-tick" name="estado" id="categoria" required>
+                  <select class="form-control show-tick" name="categoria" id="categoria" required>
                   </select>
                   <label class="form-label">Categoria</label>
                 </div>
@@ -686,15 +686,16 @@
 
               <div class="form-group form-float">
                 <div class="form-line">
-                  <textarea name="description" id='descripcion' cols="30" rows="4" class="form-control no-resize"></textarea>
+                  <textarea name="descripcion" cols="30" rows="4" class="form-control no-resize"></textarea>
                   <label class="form-label">Descripción (Opcional)</label>
                 </div>
               </div>
 
               <div class="modal-footer">
-              <button type="submit" id='publicar' class="btn btn-default waves-effect">Publicar</button>
-              <button type="button" class="btn bg-black waves-effect waves-light" data-dismiss="modal">Cancelar</button>
-            </div>
+                <button type="submit" id="publicarAnuncio" class="btn btn-default waves-effect">Publicar</button>
+                <button type="button" class="btn bg-black waves-effect waves-light"
+                  data-dismiss="modal">Cancelar</button>
+              </div>
           </form>
         </div>
       </div>

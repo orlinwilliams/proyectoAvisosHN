@@ -1,6 +1,8 @@
 $(document).ready(function () {
-    municipios();																			//Llama la funcion municipios
+    municipios();																			
     misPublicaciones();
+    
+    //PUBLICAR ANUNCIOS
     Dropzone.autoDiscover = false;
     myDropzone = new Dropzone('div#subirFotos', {
         addRemoveLinks: true,
@@ -10,7 +12,7 @@ $(document).ready(function () {
         maxFiles: 4,
         paramName: 'file',
         clickable: true,
-        url: '../clases/vistas-index.php?accion=2',
+        url: '../clases/mis-publicaciones.php?accion=2',
         init: function () {
     
             var myDropzone = this;

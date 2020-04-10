@@ -2,7 +2,95 @@
     require_once("conexion.php");
 
     switch($_GET['accion']){
-        case '4':                   //Eliminar anuncio publicado
+        case '2': //PUBLICAR ANUNCIO
+                                                                                                               
+            if(isset($_POST["categoria"])){                                                                    
+                $idCategoria = $_POST["categoria"];
+            }
+            if(isset($_POST["nombre"])){                                                                        
+                $nombre = $_POST["nombre"];
+            }
+            if(isset($_POST["precio"])){
+                $precio = $_POST["precio"];
+            }
+            if(isset($_POST["estado"])){
+                $estado = $_POST["estado"];
+            }
+            if(isset($_POST["descripcion"])){
+                $descripcion = $_POST["descripcion"];
+            }                                                                                                     
+            
+            if($nombre=="" || $nombre==NULL){                                                                      
+                $respuesta="Ingrese el nombre";
+                echo $respuesta;
+            }
+            if($precio=="" || $precio==NULL){
+                $respuesta="Ingrese el precio";
+                echo $respuesta;
+            }
+            if($estado=="" || $estado==NULL){
+                $respuesta="Ingrese el estado";
+                echo $respuesta;
+            }
+            
+            $conexion = new conexion();
+            $imagenArchivo=$_FILES["file"]["tmp_name"];
+            $nombreImagen=$_FILES["file"]["name"];
+            
+            session_start();
+            $idUsuario=$_SESSION["usuario"]["idUsuario"];
+            $idMunicipio=$_SESSION["usuario"]["idMunicipios"];
+            $usuario=$_SESSION["usuario"]["correoElectronico"];
+            
+            $carpetaFoto="fotosAnuncio/";
+            
+           
+            $sql = "CALL `SP_PUBLICAR_ANUNCIO`('$idUsuario','$idCategoria','$idMunicipio','$nombre','$precio','$estado','$descripcion',@p7);";
+            
+            if($resultadoProcedimiento = $conexion->ejecutarInstruccion($sql)){
+                $carpetaUsuario="../images/".$carpetaFoto.$usuario;
+                if (!file_exists($carpetaUsuario)) {
+                    mkdir($carpetaUsuario, 0777, true);
+                }
+                                
+                $sql1="SELECT MAX(idAnuncios) AS idAnuncio FROM Anuncios";
+                if($resultadoIdAnuncio=$conexion->ejecutarInstruccion($sql1)){
+                    $row=$resultadoIdAnuncio->fetch_array();
+                    $lastId=$row["idAnuncio"];
+                    
+                    $ruta=array();
+                    $sqlArray=array();
+                    for($i=0;$i<=count($_FILES);$i++){
+                        $ruta[$i]="../images/".$carpetaFoto.$usuario."/".$nombreImagen[$i];
+                        
+                            $sqlArray[$i]="INSERT INTO fotos (idAnuncios,localizacion) values ('$lastId','$ruta[$i]')";
+                            if($conexion->ejecutarInstruccion($sqlArray[$i])){
+                                if(!move_uploaded_file($imagenArchivo[$i],$ruta[$i])){
+                                $conexion->cerrarConexion();
+                                echo " Error en foto: ".$nombreImagen[$i];
+                                }
+
+                            }
+                            else{
+                                echo "eror en recorrido de consultas";
+                            }                      
+                    }
+                    $conexion->cerrarConexion();        
+                    echo "Anuncio agregado correctamente";
+                }
+                else{
+                    echo" no se obtuvo el ultimo id";
+                }
+                
+            }
+            else{
+                echo "Error P. almacenado"." nombre:".$nombre." precio: ".$precio." idCategoria: ".$idCategoria."estado: ".$estado."descripcion: ".$descripcion."idUsuario: ".$idUsuario."idMunicipio".$idMunicipio;
+            }               
+                
+        break;
+  
+
+        case '4': //Eliminar anuncio publicado beta
             echo 'Hola q ace';
         break;
         case '5':       //MIS PUBLICACIONES
@@ -67,7 +155,7 @@
             $conexion->cerrarConexion();
 
         break;
-        case '6':                                                                                                   //Actualizar datos del anunicio
+        case '6':              //Actualizar datos del anunicio
             if(isset($_POST["txt_idanuncios"])){                                                                            //Comienza a asignar las variables POST
                 $idanuncios = $_POST["txt_idanuncios"];
             }
