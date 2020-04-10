@@ -31,6 +31,8 @@
   <!-- Custom Css -->
   <link href="../css/style.css" rel="stylesheet">
   <link href="../css/estilos.css" rel="stylesheet">
+  <!-- Sweetalert Css -->
+  <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
   <!-- Dropzone Css -->
   <link href="../plugins/dropzone/dropzone.css" rel="stylesheet">
@@ -445,6 +447,7 @@
 
   <!-- Dropzone Plugin Js -->
   <script src="../plugins/dropzone/dropzone.js"></script>
+  <script src="../plugins/sweetalert/sweetalert.min.js"></script>
 
 
 

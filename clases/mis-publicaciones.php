@@ -2,6 +2,9 @@
     require_once("conexion.php");
 
     switch($_GET['accion']){
+        case '4':                   //Eliminar anuncio publicado
+            echo 'Hola q ace';
+        break;
         case '5'://MIS PUBLICACIONES
             $conexion = new conexion();
             session_start();

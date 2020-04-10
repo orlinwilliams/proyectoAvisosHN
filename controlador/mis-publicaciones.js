@@ -43,7 +43,7 @@ misPublicaciones = function () { //VISTA DE MIS PUBLIACIONES
                     + "<div class='card-flap flap2'>"
                     + "<div class='card-actions'>"
                     + "<button type='buttom' class='btn btn-warning waves-effect' onclick='cargarDatosEditar(" + item.idAnuncios + ")' data-toggle='modal' data-target='#editarPubli'>Editar</button>"
-                    + "<button type='button' class='btn btn-danger waves-effect'>Borrar</button>"
+                    + "<button type='button' class='btn btn-danger waves-effect' onclick='eliminarPublicacion(" + item.idAnuncios + ")'>Borrar</button>"
                     + "</div>"
                     + "</div>"
                     + "</div>"
@@ -172,6 +172,19 @@ enviarDatosEditar = function (parametros) {
             location.reload();
 
             //Despliega el modal con el modal
+        }
+    });
+};
+
+eliminarPublicacion = function (idAnuncio) { ////mostrar los datos en el modal del anuncio
+    event.preventDefault();
+    $.ajax({
+        url: "../clases/mis-publicaciones.php?accion=4",
+        method: "POST",
+        data: "txt_idanuncios=" + idAnuncio,
+        success: function (resp) {
+            console.log(resp);
+            swal("resp");
         }
     });
 };
