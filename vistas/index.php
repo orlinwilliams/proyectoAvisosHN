@@ -254,7 +254,7 @@
     <!-- #END# Right Sidebar -->
   </section>
   <section class="content">
-  <div class="contenedor">
+    <div class="contenedor">
       <button class="botonF1" data-toggle="modal" data-target="#modalArticulo">
         <span>+</span>
       </button>
@@ -263,8 +263,8 @@
       <div class="col-sm-6 col-md-6 col-lg-3 cards">
         <div class="carde">
           <div class="card__image-holder">
-            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" max-width="100%;"
-              height="auto;" />
+            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" width="300px;"
+              height="255px;" />
           </div>
           <div class="card-title">
             <a href="#" class="toggle-info btn">
@@ -289,17 +289,109 @@
             </div>
           </div>
         </div>
-      <!------------------------------------------------------------------------------------
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-3 cards">
+        <div class="carde">
+          <div class="card__image-holder">
+            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" width="300px;"
+              height="255px;" />
+          </div>
+          <div class="card-title">
+            <a href="#" class="toggle-info btn">
+              <span class="left"></span>
+              <span class="right"></span>
+            </a>
+            <h2>
+              TITULO DEL ARTICULO
+              <small>PRECIO</small>
+            </h2>
+          </div>
+          <div class="card-flap flap1">
+            <div class="card-description">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula
+              tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis
+              imperdiet. Phasellus elementum enim et sem ornare commodo.
+            </div>
+            <div class="card-flap flap2">
+              <div class="card-actions">
+                <a href="#" class="btn" data-toggle="modal" data-target="#defaultModal">VER</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-3 cards">
+        <div class="carde">
+          <div class="card__image-holder">
+            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" width="300px;"
+              height="255px;" />
+          </div>
+          <div class="card-title">
+            <a href="#" class="toggle-info btn">
+              <span class="left"></span>
+              <span class="right"></span>
+            </a>
+            <h2>
+              TITULO DEL ARTICULO
+              <small>PRECIO</small>
+            </h2>
+          </div>
+          <div class="card-flap flap1">
+            <div class="card-description">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula
+              tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis
+              imperdiet. Phasellus elementum enim et sem ornare commodo.
+            </div>
+            <div class="card-flap flap2">
+              <div class="card-actions">
+                <a href="#" class="btn" data-toggle="modal" data-target="#defaultModal">VER</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-3 cards">
+        <div class="carde">
+          <div class="card__image-holder">
+            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" width="300px;"
+              height="255px;" />
+          </div>
+          <div class="card-title">
+            <a href="#" class="toggle-info btn">
+              <span class="left"></span>
+              <span class="right"></span>
+            </a>
+            <h2>
+              TITULO DEL ARTICULO
+              <small>PRECIO</small>
+            </h2>
+          </div>
+          <div class="card-flap flap1">
+            <div class="card-description">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula
+              tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis
+              imperdiet. Phasellus elementum enim et sem ornare commodo.
+            </div>
+            <div class="card-flap flap2">
+              <div class="card-actions">
+                <a href="#" class="btn" data-toggle="modal" data-target="#defaultModal">VER</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!------------------------------------------------------------------------------------
                           --------------------------------------------------------------------------------------
                           --------------------------------------------------------------------------------------
                           ---------------------AQUI DEBEN CARGAR LOS ANUNCIOS PUBLICADOS------------------------
                           --------------------------------------------------------------------------------------
                           --------------------------------------------------------------------------------------
                           -------------------------------------------------------------------------------------->
-    </div>
+
   </section>
-   <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
-   <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
+  <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
+  <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-per modal-lg " role="document" style="width:70%">
       <div class="modal-content">
         <div class="modal-body modal-body-per">
@@ -340,7 +432,7 @@
                 <p class="font-vendedor">Información del vendedor</p>
                 <div class="div-imagen">
                   <a aria-label="Foto del vendedor" href="#" data-toggle="modal" data-target="#modalVendedor"
-                      data-dismiss="modal">
+                    data-dismiss="modal">
                     <img class="imagen-vendedor" src="../images/joker.jpg" alt="">
                   </a>
                 </div>
@@ -563,7 +655,7 @@
                       L 1000
                     </div>
                   </div>
-                </li>           
+                </li>
               </ul>
             </div>
           </div>
@@ -579,7 +671,9 @@
                   </div>
                   <div class="content">
                     <div>
-                    <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in leo.</p>
+                      <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas
+                        malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in
+                        leo.</p>
                     </div>
                   </div>
                 </li>
@@ -589,7 +683,9 @@
                   </div>
                   <div class="content">
                     <div>
-                    <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in leo.</p>
+                      <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas
+                        malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in
+                        leo.</p>
                     </div>
                   </div>
                 </li>
@@ -599,7 +695,9 @@
                   </div>
                   <div class="content">
                     <div>
-                    <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in leo.</p>
+                      <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas
+                        malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in
+                        leo.</p>
                     </div>
                   </div>
                 </li>
@@ -609,10 +707,12 @@
                   </div>
                   <div class="content">
                     <div>
-                    <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in leo.</p>
+                      <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas
+                        malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in
+                        leo.</p>
                     </div>
                   </div>
-                </li>       
+                </li>
               </ul>
             </div>
           </div>
