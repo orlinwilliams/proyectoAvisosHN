@@ -34,14 +34,11 @@
                                 }
                                 $datos[$i]["fotos"]=$fotos;
                                 $i++;
-                                
-                            
                             }
                             else{
                                 echo "NO HAY FOTO ";
                                 break;
                             }
-                            
                         }
                         else{
                             echo "Fallo en la consulta de fotos";
