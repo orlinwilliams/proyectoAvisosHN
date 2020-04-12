@@ -254,7 +254,6 @@
     </aside>
     <!-- #END# Right Sidebar -->
   </section>
-
   <section class="content">
     <div class="contenedor">
       <button class="botonF1" data-toggle="modal" data-target="#modalArticulo">
@@ -266,8 +265,35 @@
     <div id="contenedorTarjetas" class="row clearfix">
     </div>
   </section>
-
-
+  <!-- MODAL DE EDITAR ARTICULO O ANUNCIO-->
+  <div class="modal fade" id="editarPubli" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header br-black">
+          <h4 class="modal-title" id="smallModalLabel"> Edita tu publicación </h4>
+        </div>
+        <div class="modal-body">
+          <form id="editarPublicacion">
+            <div action="/" id="subirFotos" class="dropzone" enctype="multipart/form-data">
+              <div class="dz-message">
+                <div class="drag-icon-cph">
+                  <i class="material-icons">touch_app</i>
+                </div>
+                <h3>Arrastra hacia aquí tus fotos o da click para seleccionar.</h3>
+                <em>(Es <strong>obligatorio</strong> subir al menos una foto del articulo.)</em>
+              </div>
+              <div class="fallback">
+                <input name="file" type="file" accept="image/*" requerid />
+              </div>
+            </div>
+            <br>
+            <div id="muestra_datos_editar">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Modal para publicar un articulo -->
   <div class="modal fade" id="modalArticulo" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -337,7 +363,7 @@
 
               <div class="modal-footer">
                 <button type="submit" id="publicarAnuncio" class="btn btn-default waves-effect">Publicar</button>
-                <button type="button" class="btn bg-black waves-effect waves-light"
+                <button class="btn bg-black waves-effect waves-light"
                   data-dismiss="modal">Cancelar</button>
               </div>
           </form>
@@ -346,36 +372,7 @@
     </div>
   </div>
   <!----------------------------------->
-  <!-- MODAL DE EDITAR ARTICULO O ANUNCIO-->
-  <div class="modal fade" id="editarPubli" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header br-black">
-          <h4 class="modal-title" id="smallModalLabel"> Edita tu publicación </h4>
-        </div>
-        <div class="modal-body">
-          <form id="editarPublicacion">
 
-            <div action="/" id="subirFotos" class="dropzone" enctype="multipart/form-data">
-              <div class="dz-message">
-                <div class="drag-icon-cph">
-                  <i class="material-icons">touch_app</i>
-                </div>
-                <h3>Arrastra hacia aquí tus fotos o da click para seleccionar.</h3>
-                <em>(Es <strong>obligatorio</strong> subir al menos una foto del articulo.)</em>
-              </div>
-              <div class="fallback">
-                <input name="file" type="file" accept="image/*" requerid />
-              </div>
-            </div>
-            <br>
-            <div id="muestra_datos_editar">
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
   <!--Modal con el mensaje de respuesta-->
   <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true ">
@@ -447,7 +444,7 @@
   <!-- Dropzone Plugin Js -->
   <script src="../plugins/dropzone/dropzone.js"></script>
   <script src="../plugins/sweetalert/sweetalert.min.js"></script>
-  
+
 
 
 

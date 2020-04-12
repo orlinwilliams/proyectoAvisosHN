@@ -200,7 +200,7 @@ cargarDatosEditar = function (parametros) { ////mostrar los datos en el modal de
                     + "</div>"
                     + "<div class='form-group form-float'>"
                     + " <div class='form-line'>"
-                    + "  <input type='number' class='form-control  money-dollar' name='name' id='precioArticulo' "
+                    + "  <input type='number' class='form-control money-dollar' name='name' id='precioArticulo' "
                     + "  placeholder=" + item.precio + " value=" + item.precio + " required>"
                     + " </div>"
                     + "</div>"
