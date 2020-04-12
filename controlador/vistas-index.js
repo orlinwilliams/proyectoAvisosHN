@@ -8,14 +8,30 @@ $(document).ready(function () {																//document
         addRemoveLinks: true,
         autoProcessQueue: false,
         uploadMultiple: true,
-        parallelUploads: 100,
+        acceptedFiles: 'image/*',
+        parallelUploads: 4,
         maxFiles: 4,
+        maxFilesize: 2,//tamaño maxino de imagen
         paramName: 'file',
         clickable: true,
         url: '../clases/mis-publicaciones.php?accion=2',
         init: function () {
     
             var myDropzone = this;
+            var myDropzone = this;
+            //VALIDAR MININO DE TAMAÑO
+            this.on("thumbnail",function(file){
+                if(file.accepted!==false){
+                    if(file.width<300||file.height<255){
+                        myDropzone.removeFile(file);
+                        $("#cuerpoModal").empty();																		
+					    $("#cuerpoModal").html('Favor ingrese una imagen con un minimo de resolucion de 300x255');													
+					    $("#ModalMensaje").modal("show");
+                    }
+                    
+                }
+            })
+
             // Update selector to match your button
             $("#publicarArticulo").submit(function (e) {
                 event.stopPropagation();
