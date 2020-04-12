@@ -293,7 +293,7 @@
             <div id="form_validation">
               <div class="form-group form-float">
                 <div class="form-line">
-                  <input type="text" class="form-control" name="name" id="nombre" required>
+                  <input type="text" class="form-control" name="nombre" id="nombre" required>
                   <label class="form-label">Nombre del articulo</label>
                 </div>
 
@@ -301,7 +301,7 @@
 
               <div class="form-group form-float">
                 <div class="form-line">
-                  <input type="number" class="form-control money-dollar" id="precio" required>
+                  <input type="number" class="form-control money-dollar" name="precio" id="precio" required>
                   <label class="form-label">Precio</label>
                 </div>
               </div>
@@ -322,7 +322,7 @@
 
               <div class="form-group form-float">
                 <div class="form-line">
-                  <select class="form-control show-tick" name="estado" id="categoria" required>
+                  <select class="form-control show-tick" name="categoria" id="categoria" required>
                   </select>
                   <label class="form-label">Categoria</label>
                 </div>
@@ -330,17 +330,16 @@
 
               <div class="form-group form-float">
                 <div class="form-line">
-                  <textarea name="description" cols="30" rows="4" class="form-control no-resize"></textarea>
+                  <textarea name="descripcion" cols="30" rows="4" class="form-control no-resize"></textarea>
                   <label class="form-label">Descripción (Opcional)</label>
                 </div>
               </div>
 
               <div class="modal-footer">
-                <button type="submit" class="btn btn-default waves-effect">Publicar</button>
+                <button type="submit" id="publicarAnuncio" class="btn btn-default waves-effect">Publicar</button>
                 <button type="button" class="btn bg-black waves-effect waves-light"
                   data-dismiss="modal">Cancelar</button>
               </div>
-            </div>
           </form>
         </div>
       </div>
@@ -448,6 +447,7 @@
   <!-- Dropzone Plugin Js -->
   <script src="../plugins/dropzone/dropzone.js"></script>
   <script src="../plugins/sweetalert/sweetalert.min.js"></script>
+  
 
 
 
