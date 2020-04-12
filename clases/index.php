@@ -215,13 +215,8 @@
             }
             else{
                 echo json_encode(array("error"=>true,"mensaje"=>"Correo Vacio"));;
-            }
-            
+            }        
             $conexion->cerrarConexion();
         break;
-
-
-
-
     }
 ?>

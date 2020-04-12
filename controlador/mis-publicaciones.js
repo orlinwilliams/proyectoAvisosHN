@@ -1,9 +1,9 @@
 $(document).ready(function () {
-    municipios();																			
+    municipios();
     misPublicaciones();
     categoria();
 
-    
+
     //PUBLICAR ANUNCIOS
     Dropzone.autoDiscover = false;
     myDropzone = new Dropzone('div#subirFotos', {
@@ -16,18 +16,18 @@ $(document).ready(function () {
         clickable: true,
         url: '../clases/mis-publicaciones.php?accion=2',
         init: function () {
-    
+
             var myDropzone = this;
             // Update selector to match your button
             $("#publicarArticulo").submit(function (e) {
                 event.stopPropagation();
                 e.preventDefault();
-                if ( $("#publicarArticulo").valid() ) {
+                if ($("#publicarArticulo").valid()) {
                     myDropzone.processQueue();
                 }
                 return false;
             });
-    
+
             this.on('sending', function (file, xhr, formData) {
                 // Append all form inputs to the formData Dropzone will POST
                 var data = $("#publicarArticulo").serializeArray();
@@ -35,10 +35,10 @@ $(document).ready(function () {
                     formData.append(el.name, el.value);
                 });
                 //console.log(formData);
-    
+
             });
         },
-        error: function (file, response){
+        error: function (file, response) {
             if ($.type(response) === "string")
                 var message = response; //dropzone sends it's own error messages in string
             else
@@ -64,23 +64,23 @@ $(document).ready(function () {
             console.log("resetFiles");
             //this.removeAllFiles(true);
         }
-      
+
     });
 
 });
 
 categoria = function () {														//Inicio funcion para llenar las categorias
-	$.ajax({																	//Inicio ajax categorias
-		url: "../clases/vistas-index.php?accion=1",
-		success: function (resultado) {
+    $.ajax({																	//Inicio ajax categorias
+        url: "../clases/vistas-index.php?accion=1",
+        success: function (resultado) {
             $("#categoria").append(resultado);									//El resultado lo retorna como html
-		},
-		error: function (error) {
+        },
+        error: function (error) {
             console.log(error);
-		}
-	});																			//Fin ajax categorias
+        }
+    });																			//Fin ajax categorias
 
-}			
+}
 municipios = function () {														//Inicio funcion para llenar los municipios
     $.ajax({																	//Inicio ajax municipios
         url: "../clases/index.php?accion=1",
@@ -102,7 +102,7 @@ misPublicaciones = function () { //VISTA DE MIS PUBLIACIONES
                 tarjetas += "<div class='col-sm-6 col-md-6 col-lg-3 cards'>"
                     + "<div class='carde'>"
                     + "<div class='card__image-holder'>"
-                    + "<img class='card__image' src='"+item.fotos[0]+"' alt='Miniatura del anuncio' width='300px;' height='255px;'/>"
+                    + "<img class='card__image' src='" + item.fotos[0] + "' alt='Miniatura del anuncio' width='300px;' height='255px;'/>"
                     + "</div>"
                     + "<div class='card-title'>"
                     + "<a  href='#' class='toggle-info btn'>"
@@ -121,7 +121,7 @@ misPublicaciones = function () { //VISTA DE MIS PUBLIACIONES
                     + "<div class='card-flap flap2'>"
                     + "<div class='card-actions'>"
                     + "<button type='buttom' class='btn btn-warning waves-effect' onclick='cargarDatosEditar(" + item.idAnuncios + ")' data-toggle='modal' data-target='#editarPubli'>Editar</button>"
-                    + "<button type='button' class='btn btn-danger waves-effect' onclick='eliminarPublicacion(" + item.idAnuncios + ")'>Borrar</button>"
+                    + "<button class='btn btn-danger waves-effect' onclick='eliminarPublicacion(" + item.idAnuncios + ")'>Borrar</button>"
                     + "</div>"
                     + "</div>"
                     + "</div>"
@@ -130,47 +130,47 @@ misPublicaciones = function () { //VISTA DE MIS PUBLIACIONES
                 $("#contenedorTarjetas").html(tarjetas);//INSERTA LAS TARJETAS
             }
 
-                var zindex = 10;
-                
-                $("div.carde").click(function(e){
-                  e.preventDefault();
-                  var isShowing = false;
-              
-                  if ($(this).hasClass("show")) {
+            var zindex = 10;
+
+            $("div.carde").click(function (e) {
+                e.preventDefault();
+                var isShowing = false;
+
+                if ($(this).hasClass("show")) {
                     isShowing = true
-                  }
-              
-                  if ($("div.cards").hasClass("showing")) {
+                }
+
+                if ($("div.cards").hasClass("showing")) {
                     // a card is already in view
                     $("div.carde.show")
-                      .removeClass("show");
-              
+                        .removeClass("show");
+
                     if (isShowing) {
-                      // this card was showing - reset the grid
-                      $("div.cards")
-                        .removeClass("showing");
+                        // this card was showing - reset the grid
+                        $("div.cards")
+                            .removeClass("showing");
                     } else {
-                      // this card isn't showing - get in with it
-                      $(this)
-                        .css({zIndex: zindex})
-                        .addClass("show");
-              
+                        // this card isn't showing - get in with it
+                        $(this)
+                            .css({ zIndex: zindex })
+                            .addClass("show");
+
                     }
-              
+
                     zindex++;
-              
-                  } else {
+
+                } else {
                     // no cards in view
                     $("div.cards")
-                      .addClass("showing");
+                        .addClass("showing");
                     $(this)
-                      .css({zIndex:zindex})
-                      .addClass("show");
-              
+                        .css({ zIndex: zindex })
+                        .addClass("show");
+
                     zindex++;
-                  }
-                  
-                });
+                }
+
+            });
         },
         error: function (error) {
             console.log(error);
@@ -264,17 +264,27 @@ enviarDatosEditar = function (parametros) {
     });
 };
 
-eliminarPublicacion = function (idAnuncio) { ////mostrar los datos en el modal del anuncio
+eliminarPublicacion = function (idAnuncio) { ////Eliminar el anuncio
     event.preventDefault();
-    $.ajax({
-        url: "../clases/mis-publicaciones.php?accion=4",
-        method: "POST",
-        data: "txt_idanuncios=" + idAnuncio,
-        success: function (resp) {
-            console.log(resp);
-            swal("resp");
-        }
+    swal({
+        title: "¿Estás seguro?",
+        text: "¡No podrá revertir este cambio!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Si, quiero borrarlo!",
+        closeOnConfirm: false
+    }, function () {
+        $.ajax({
+            url: "../clases/mis-publicaciones.php?accion=4",
+            method: "POST",
+            data: "txt_idanuncios=" + idAnuncio,
+            success: function (resp) {
+                console.log(resp);
+                swal("Borrado!",resp, "success" );
+                window.setTimeout("location.reload()",3000);
+
+            }
+        });    
     });
 };
-
-

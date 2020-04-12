@@ -91,13 +91,43 @@
   
 
         case '4': //Eliminar anuncio publicado beta
-            echo 'Hola q ace';
+            if(isset($_POST["txt_idanuncios"])){
+                $idAnuncio=$_POST["txt_idanuncios"];
+            }
+            if($idAnuncio == "" || $idAnuncio == NULL){
+                echo "ingrese el ID del anuncio";
+            }
+            else{
+            $conexion = new conexion();
+            session_start();
+            $idUsuario=$_SESSION["usuario"]["idUsuario"];
+            $urls="SELECT idFotos, idAnuncios, localizacion FROM fotos
+            WHERE idAnuncios=$idAnuncio;";
+            $respuesta=$conexion->ejecutarInstruccion($urls);
+            while($fila =  $conexion->obtenerFila($respuesta)){
+                $direccion=$fila["localizacion"];
+                unlink($direccion);
+            }
+            $sql = "CALL `SP_ELIMINAR_ANUNCIO`('$idAnuncio', '$idUsuario', @p3);";
+            $salida = "SELECT @p3 AS `pcMensaje`;";
+                $resultado = $conexion->ejecutarInstruccion($sql);
+                $respuesta = $conexion->ejecutarInstruccion($salida);
+                if(!$respuesta){
+                    echo "No hay respuesta del procedimiento";
+                }
+                else{
+                    $fila=$conexion->obtenerFila($respuesta);
+                    echo $fila["pcMensaje"];
+                }
+                $conexion->cerrarConexion();
+            }                                     
         break;
+        
         case '5':       //MIS PUBLICACIONES
             $conexion = new conexion();
             session_start();
             $idUsuario=$_SESSION["usuario"]["idUsuario"];
-            $sql="SELECT idAnuncios,idUsuario,nombre,precio,descripcion FROM anuncios WHERE idUsuario='$idUsuario'";//CONSULTA MIS PUBLICACIONES
+            $sql="SELECT idAnuncios,idUsuario,nombre,precio,descripcion FROM anuncios WHERE idUsuario='$idUsuario' ORDER BY fechaPublicacion DESC";//CONSULTA MIS PUBLICACIONES
             if($resultado=$conexion->ejecutarInstruccion($sql)){
                 if($resultado->num_rows!=0){
                     $datos=array();
