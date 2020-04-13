@@ -239,7 +239,7 @@
         </span>
       </button>
     </div>
-    <div id="tarjeta" class="row clearfix">
+    <div id="tarjeta" class="row clearfix cards">
     </div>
   </section>
   <!-- Modal para iniciar sesión -->

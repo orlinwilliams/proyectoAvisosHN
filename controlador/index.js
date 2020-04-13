@@ -81,7 +81,7 @@ publicacionesInicioIndex = function () { //PUBLICACIONES DE INICIO
             let datos = JSON.parse(resp);
             var tarjetas = "";
             for (let item of datos) {//RECORRER EL JSON 
-                tarjetas += "<div class='col-sm-6 col-md-6 col-lg-3 cards'>"
+                tarjetas += "<div class='col-sm-6 col-md-6 col-lg-3'>"
                     + "<div class='carde'>"
                     + "<div class='card__image-holder'>"
                     + "<img class='card__image' src='" + item.fotos[0] + "' alt='Miniatura del anuncio' width='300px;' height='255px;'/>"

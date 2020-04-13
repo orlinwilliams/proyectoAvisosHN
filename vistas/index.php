@@ -261,7 +261,7 @@
       </button>
     </div>
 
-    <div id="contenedorTarjeta" class="row clearfix">
+    <div id="contenedorTarjeta" class="row clearfix cards">
     </div>
   </section>
   
