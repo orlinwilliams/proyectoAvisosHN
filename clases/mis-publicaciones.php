@@ -32,6 +32,9 @@
                 $respuesta="Ingrese el estado";
                 echo $respuesta;
             }
+            if(!isset($_FILES)){
+                echo "Debe ingresar por lo menos una imagen";
+            }
             
             $conexion = new conexion();
             $imagenArchivo=$_FILES["file"]["tmp_name"];
@@ -60,7 +63,7 @@
                     
                     $ruta=array();
                     $sqlArray=array();
-                    for($i=0;$i<=count($_FILES);$i++){
+                    for($i=0;$i<count($nombreImagen);$i++){
                         $ruta[$i]="../images/".$carpetaFoto.$usuario."/".$nombreImagen[$i];
                         
                             $sqlArray[$i]="INSERT INTO fotos (idAnuncios,localizacion) values ('$lastId','$ruta[$i]')";
@@ -85,49 +88,19 @@
             }
             else{
                 echo "Error P. almacenado"." nombre:".$nombre." precio: ".$precio." idCategoria: ".$idCategoria."estado: ".$estado."descripcion: ".$descripcion."idUsuario: ".$idUsuario."idMunicipio".$idMunicipio;
-            }               
+            }            
                 
         break;
   
 
         case '4': //Eliminar anuncio publicado beta
-            if(isset($_POST["txt_idanuncios"])){
-                $idAnuncio=$_POST["txt_idanuncios"];
-            }
-            if($idAnuncio == "" || $idAnuncio == NULL){
-                echo "ingrese el ID del anuncio";
-            }
-            else{
-            $conexion = new conexion();
-            session_start();
-            $idUsuario=$_SESSION["usuario"]["idUsuario"];
-            $urls="SELECT idFotos, idAnuncios, localizacion FROM fotos
-            WHERE idAnuncios=$idAnuncio;";
-            $respuesta=$conexion->ejecutarInstruccion($urls);
-            while($fila =  $conexion->obtenerFila($respuesta)){
-                $direccion=$fila["localizacion"];
-                unlink($direccion);
-            }
-            $sql = "CALL `SP_ELIMINAR_ANUNCIO`('$idAnuncio', '$idUsuario', @p3);";
-            $salida = "SELECT @p3 AS `pcMensaje`;";
-                $resultado = $conexion->ejecutarInstruccion($sql);
-                $respuesta = $conexion->ejecutarInstruccion($salida);
-                if(!$respuesta){
-                    echo "No hay respuesta del procedimiento";
-                }
-                else{
-                    $fila=$conexion->obtenerFila($respuesta);
-                    echo $fila["pcMensaje"];
-                }
-                $conexion->cerrarConexion();
-            }                                     
+            echo 'Hola q ace';
         break;
-        
         case '5':       //MIS PUBLICACIONES
             $conexion = new conexion();
             session_start();
             $idUsuario=$_SESSION["usuario"]["idUsuario"];
-            $sql="SELECT idAnuncios,idUsuario,nombre,precio,descripcion FROM anuncios WHERE idUsuario='$idUsuario' ORDER BY fechaPublicacion DESC";//CONSULTA MIS PUBLICACIONES
+            $sql="SELECT idAnuncios,idUsuario,nombre,precio,descripcion FROM anuncios WHERE idUsuario='$idUsuario'";//CONSULTA MIS PUBLICACIONES
             if($resultado=$conexion->ejecutarInstruccion($sql)){
                 if($resultado->num_rows!=0){
                     $datos=array();
@@ -152,11 +125,14 @@
                                 }
                                 $datos[$i]["fotos"]=$fotos;
                                 $i++;
+                                
+                            
                             }
                             else{
                                 echo "NO HAY FOTO ";
                                 break;
                             }
+                            
                         }
                         else{
                             echo "Fallo en la consulta de fotos";
