@@ -256,140 +256,15 @@
   <section class="content">
     <div class="contenedor">
       <button class="botonF1" data-toggle="modal" data-target="#modalArticulo">
-        <span>+</span>
+        <span>+
+        </span>
       </button>
     </div>
-    <div class="row clearfix cards">
-      <div class="col-sm-6 col-md-6 col-lg-3">
-        <div class="carde">
-          <div class="card__image-holder">
-            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" width="300px;"
-              height="255px;" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-              TITULO DEL ARTICULO
-              <small>PRECIO</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula
-              tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis
-              imperdiet. Phasellus elementum enim et sem ornare commodo.
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn" data-toggle="modal" data-target="#defaultModal">VER</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-6 col-lg-3">
-        <div class="carde">
-          <div class="card__image-holder">
-            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" width="300px;"
-              height="255px;" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-              TITULO DEL ARTICULO
-              <small>PRECIO</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula
-              tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis
-              imperdiet. Phasellus elementum enim et sem ornare commodo.
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn" data-toggle="modal" data-target="#defaultModal">VER</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-6 col-lg-3">
-        <div class="carde">
-          <div class="card__image-holder">
-            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" width="300px;"
-              height="255px;" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-              TITULO DEL ARTICULO
-              <small>PRECIO</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula
-              tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis
-              imperdiet. Phasellus elementum enim et sem ornare commodo.
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn" data-toggle="modal" data-target="#defaultModal">VER</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-6 col-lg-3">
-        <div class="carde">
-          <div class="card__image-holder">
-            <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" width="300px;"
-              height="255px;" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-              TITULO DEL ARTICULO
-              <small>PRECIO</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis ligula sem, mollis ultrices ligula
-              tempus eu. In hendrerit enim sem, in suscipit orci mollis et. Maecenas ullamcorper erat vel nisl mattis
-              imperdiet. Phasellus elementum enim et sem ornare commodo.
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn" data-toggle="modal" data-target="#defaultModal">VER</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!------------------------------------------------------------------------------------
-                          --------------------------------------------------------------------------------------
-                          --------------------------------------------------------------------------------------
-                          ---------------------AQUI DEBEN CARGAR LOS ANUNCIOS PUBLICADOS------------------------
-                          --------------------------------------------------------------------------------------
-                          --------------------------------------------------------------------------------------
-                          -------------------------------------------------------------------------------------->
 
+    <div id="contenedorTarjeta" class="row clearfix">
+    </div>
   </section>
+  
   <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
   <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-per modal-lg " role="document" style="width:70%">
@@ -869,9 +744,10 @@
 
   <!-- Controlador de página Js -->
   <script src="../controlador/vistas-index.js"></script>
+
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
-
-
 </body>
 
 </html>

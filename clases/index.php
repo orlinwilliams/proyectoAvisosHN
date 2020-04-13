@@ -218,5 +218,60 @@
             }        
             $conexion->cerrarConexion();
         break;
+
+        case '5':       // PUBLICACIONES INICIO
+            $conexion = new conexion();
+            $sql="SELECT idAnuncios,nombre,precio,descripcion 
+                  FROM anuncios ORDER BY idAnuncios DESC";//CONSULTA PUBLICACIONES INICIO
+            if($resultado=$conexion->ejecutarInstruccion($sql)){
+                if($resultado->num_rows!=0){
+                    $datos=array();                    
+                    $i=0;
+                    while($row=$resultado->fetch_array()){
+                        $datos[]=array("idAnuncios"=>$row["idAnuncios"],"nombre"=>$row["nombre"],
+                        "precio"=>$row["precio"],"descripcion"=>$row["descripcion"],"fotos"=>"");
+                        
+                        $idAnuncio=$row["idAnuncios"];
+
+                        $sql1="SELECT localizacion FROM fotos WHERE idAnuncios='$idAnuncio'";
+                        if($resultado1=$conexion->ejecutarInstruccion($sql1)){
+                            if($resultado1->num_rows!=0){
+                                
+                                $fotos=array();
+                                while($row1=$resultado1->fetch_array()){
+                                $fotos[] = str_replace("../", " ", $row1["localizacion"]);
+                                }
+                                $datos[$i]["fotos"]=$fotos;
+                                $i++;
+                            }
+                            else{
+                                echo "NO HAY FOTO ";
+                                break;
+                            }
+                        }
+                        else{
+                            echo "Fallo en la consulta de fotos";
+                            break;
+                        }
+                        
+                                
+                    }
+                    //for($i=0; $i<count($datos); $i++){
+                    //    $datos[$i]["fotos"]=array("f1","f2");
+                    //}
+                    echo json_encode($datos) ; 
+                    
+                    
+                }
+                else{
+                    echo json_encode(array("error"=>true,"mensaje"=>"No hay anuncios"));
+                }
+            }
+            else{
+                echo json_encode(array("error"=>true,"mensaje"=>"fallo en la consulta"));
+            }
+            $conexion->cerrarConexion();
+
+        break;
     }
 ?>

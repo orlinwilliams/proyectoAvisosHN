@@ -1,37 +1,21 @@
 $(document).ready(function () {																//document
-    categoria();																			//Llama la funcion municipios
-    //Configuracion de Parametros de DROPZONE 
+    categoria();
+    publicacionesInicio();			
+    																//Llama la funcion municipios
     Dropzone.autoDiscover = false;
-    //var arrayImg=[];
     
     myDropzone = new Dropzone('div#subirFotos', {
         addRemoveLinks: true,
         autoProcessQueue: false,
         uploadMultiple: true,
-        acceptedFiles: 'image/*',
-        parallelUploads: 4,
+        parallelUploads: 100,
         maxFiles: 4,
-        maxFilesize: 2,//tamaño maxino de imagen
         paramName: 'file',
         clickable: true,
         url: '../clases/mis-publicaciones.php?accion=2',
         init: function () {
     
             var myDropzone = this;
-            var myDropzone = this;
-            //VALIDAR MININO DE TAMAÑO
-            this.on("thumbnail",function(file){
-                if(file.accepted!==false){
-                    if(file.width<300||file.height<255){
-                        myDropzone.removeFile(file);
-                        $("#cuerpoModal").empty();																		
-					    $("#cuerpoModal").html('Favor ingrese una imagen con un minimo de resolucion de 300x255');													
-					    $("#ModalMensaje").modal("show");
-                    }
-                    
-                }
-            })
-
             // Update selector to match your button
             $("#publicarArticulo").submit(function (e) {
                 event.stopPropagation();
@@ -81,11 +65,8 @@ $(document).ready(function () {																//document
       
     });
     
-    
-    
 
 });
-
 
 categoria = function () {														//Inicio funcion para llenar las categorias
 	$.ajax({																	//Inicio ajax categorias
@@ -98,7 +79,92 @@ categoria = function () {														//Inicio funcion para llenar las categori
 		}
 	});																			//Fin ajax categorias
 
-}			
+}		
+
+publicacionesInicio = function () { //PUBLICACIONES DE INICIO USUARIO
+    $.ajax({
+        url: "../clases/vistas-index.php?accion=3",
+        success: function (resp) {
+            let datos = JSON.parse(resp);
+            var tarjetas = "";
+            for (let item of datos) {//RECORRER EL JSON 
+                tarjetas += "<div class='col-sm-6 col-md-6 col-lg-3 cards'>"
+                    + "<div class='carde'>"
+                    + "<div class='card__image-holder'>"
+                    + "<img class='card__image' src='" + item.fotos[0] + "' alt='Miniatura del anuncio' width='300px;' height='255px;'/>"
+                    + "</div>"
+                    + "<div class='card-title'>"
+                    + "<a  href='#' class='toggle-info btn'>"
+                    + "<span class='left'></span>"
+                    + "<span class='right'></span>"
+                    + "</a>"
+                    + "<h2>" +
+                    item.nombre
+                    + "<small>L " + item.precio + "</small>"
+                    + "</h2>"
+                    + "</div>"
+                    + "<div class='card-flap flap1'>"
+                    + "<div class='card-description'>" +
+                    item.descripcion
+                    + "</div>"
+                    + "<div class='card-flap flap2'>"
+                    + "<div class='card-actions'>"
+                    + "<a href='#' class='btn' data-toggle='modal' data-target='#defaultModal'>Ver</a>"
+                    + "</div>"
+                    + "</div>"
+                    + "</div>"
+                    + "</div>"
+                    + "</div>";
+                $("#contenedorTarjeta").html(tarjetas);//INSERTA LAS TARJETAS
+            }
+
+            var zindex = 10;
+
+            $("div.carde").click(function (e) {
+                e.preventDefault();
+                var isShowing = false;
+
+                if ($(this).hasClass("show")) {
+                    isShowing = true
+                }
+
+                if ($("div.cards").hasClass("showing")) {
+                    // a card is already in view
+                    $("div.carde.show")
+                        .removeClass("show");
+
+                    if (isShowing) {
+                        // this card was showing - reset the grid
+                        $("div.cards")
+                            .removeClass("showing");
+                    } else {
+                        // this card isn't showing - get in with it
+                        $(this)
+                            .css({ zIndex: zindex })
+                            .addClass("show");
+
+                    }
+
+                    zindex++;
+
+                } else {
+                    // no cards in view
+                    $("div.cards")
+                        .addClass("showing");
+                    $(this)
+                        .css({ zIndex: zindex })
+                        .addClass("show");
+
+                    zindex++;
+                }
+
+            });
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+};
 																	//Fin funcion para llenar las categorias
 $(function () {
     $('#publicarArticulo').validate({
@@ -115,6 +181,8 @@ $(function () {
         }
     });
 });
+
+
 
 
 		

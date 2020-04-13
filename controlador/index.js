@@ -1,12 +1,11 @@
 $(document).ready(function () {																//document
-
-	municipios();																			//Llama la funcion municipios
+	municipios();	
+	publicacionesInicioIndex();																		//Llama la funcion municipios
 
 	$('#txt_tefelono').inputmask('+504 9999-99-99', { placeholder: '+___ ____-__-__' });	//Da formato al telefono
 	$('#date_fecha').inputmask('dd/mm/yyyy', { placeholder: '__/__/____' });				//Da formato a la fecha
 
-
-
+	
 	//Funcioón al presionar el botón de registro
 	$("#sign_up").submit(function (event) {										//Inicio de evento en el botón submit de registro
 
@@ -74,6 +73,90 @@ $(document).ready(function () {																//document
 	});																			//Fin de evento en el botón submit de registro
 });																				//document
 
+
+publicacionesInicioIndex = function () { //PUBLICACIONES DE INICIO
+    $.ajax({
+        url: "clases/index.php?accion=5",
+        success: function (resp) {
+            let datos = JSON.parse(resp);
+            var tarjetas = "";
+            for (let item of datos) {//RECORRER EL JSON 
+                tarjetas += "<div class='col-sm-6 col-md-6 col-lg-3 cards'>"
+                    + "<div class='carde'>"
+                    + "<div class='card__image-holder'>"
+                    + "<img class='card__image' src='" + item.fotos[0] + "' alt='Miniatura del anuncio' width='300px;' height='255px;'/>"
+                    + "</div>"
+                    + "<div class='card-title'>"
+                    + "<a  href='#' class='toggle-info btn'>"
+                    + "<span class='left'></span>"
+                    + "<span class='right'></span>"
+                    + "</a>"
+                    + "<h2>" +
+                    item.nombre
+                    + "<small>L " + item.precio + "</small>"
+                    + "</h2>"
+                    + "</div>"
+                    + "<div class='card-flap flap1'>"
+                    + "<div class='card-description'>" +
+                    item.descripcion
+                    + "</div>"
+                    + "<div class='card-flap flap2'>"
+                    + "<div class='card-actions'>"
+                    + "</div>"
+                    + "</div>"
+                    + "</div>"
+                    + "</div>"
+                    + "</div>";
+                $("#tarjeta").html(tarjetas);//INSERTA LAS TARJETAS
+            }
+
+            var zindex = 10;
+
+            $("div.carde").click(function (e) {
+                e.preventDefault();
+                var isShowing = false;
+
+                if ($(this).hasClass("show")) {
+                    isShowing = true
+                }
+
+                if ($("div.cards").hasClass("showing")) {
+                    // a card is already in view
+                    $("div.carde.show")
+                        .removeClass("show");
+
+                    if (isShowing) {
+                        // this card was showing - reset the grid
+                        $("div.cards")
+                            .removeClass("showing");
+                    } else {
+                        // this card isn't showing - get in with it
+                        $(this)
+                            .css({ zIndex: zindex })
+                            .addClass("show");
+
+                    }
+
+                    zindex++;
+
+                } else {
+                    // no cards in view
+                    $("div.cards")
+                        .addClass("showing");
+                    $(this)
+                        .css({ zIndex: zindex })
+                        .addClass("show");
+
+                    zindex++;
+                }
+
+            });
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+};
 
 municipios = function () {														//Inicio funcion para llenar los municipios
 	$.ajax({																	//Inicio ajax municipios
