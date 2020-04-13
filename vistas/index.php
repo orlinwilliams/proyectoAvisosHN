@@ -30,8 +30,9 @@
 
   <!-- Custom Css -->
   <link href="../css/style.css" rel="stylesheet">
-  <link href="../css/estilos.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+  <link href="../css/estilos.css" rel="stylesheet">
+
 
   <!-- Dropzone Css -->
   <link href="../plugins/dropzone/dropzone.css" rel="stylesheet">
@@ -269,7 +270,7 @@
   <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-per modal-lg " role="document" style="width:70%">
       <div class="modal-content">
-        <div class="modal-body modal-body-per">
+        <div class="modal-body modal-body-per" id="infoArticulo">
           <div class="row">
             <div class="col-md-7 col-sm-12 col-xs-12 izquierdo">
               <div class="fotorama" data-width="100%" data-ratio="700/467" data-minwidth="400" data-maxwidth="1000"
@@ -743,11 +744,10 @@
   <script src="../plugins/dropzone/dropzone.js"></script>
 
   <!-- Controlador de página Js -->
-  <script src="../controlador/vistas-index.js"></script>
-
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+  <script src="../controlador/vistas-index.js"></script>
+  
+
 </body>
 
 </html>

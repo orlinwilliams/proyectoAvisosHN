@@ -134,66 +134,116 @@
 
                 
                 
-            break;
+        break;
          
-            case '3':       //PUBLICACIONES INICIOUSUARIO
-                $conexion = new conexion();
-                $sql="SELECT idAnuncios,nombre,precio,descripcion 
-                      FROM anuncios ORDER BY idAnuncios DESC";//CONSULTA PUBLICACIONES INICIO
-                if($resultado=$conexion->ejecutarInstruccion($sql)){
-                    if($resultado->num_rows!=0){
-                        $datos=array();
+        case '3':       //PUBLICACIONES INICIOUSUARIO
+            $conexion = new conexion();
+            $sql="SELECT idAnuncios,nombre,precio,descripcion 
+                    FROM anuncios ORDER BY idAnuncios DESC";//CONSULTA PUBLICACIONES INICIO
+            if($resultado=$conexion->ejecutarInstruccion($sql)){
+                if($resultado->num_rows!=0){
+                    $datos=array();
+                    
+                    //$idAnuncio=$datos["idAnuncios"];
+                    $i=0;
+                    while($row=$resultado->fetch_array()){
+
+                        $datos[]=array("idAnuncios"=>$row["idAnuncios"],"nombre"=>$row["nombre"],
+                        "precio"=>$row["precio"],"descripcion"=>$row["descripcion"],"fotos"=>"");
                         
-                        //$idAnuncio=$datos["idAnuncios"];
-                        $i=0;
-                        while($row=$resultado->fetch_array()){
-    
-                            $datos[]=array("idAnuncios"=>$row["idAnuncios"],"nombre"=>$row["nombre"],
-                            "precio"=>$row["precio"],"descripcion"=>$row["descripcion"],"fotos"=>"");
-                            
-                            $idAnuncio=$row["idAnuncios"];
-    
-                            $sql1="SELECT localizacion FROM fotos WHERE idAnuncios='$idAnuncio'";
-                            if($resultado1=$conexion->ejecutarInstruccion($sql1)){
-                                if($resultado1->num_rows!=0){
-                                    
-                                    $fotos=array();
-                                    while($row1=$resultado1->fetch_array()){   
-                                    $fotos[]=$row1["localizacion"];
+                        $idAnuncio=$row["idAnuncios"];
+
+                        $sql1="SELECT localizacion FROM fotos WHERE idAnuncios='$idAnuncio'";
+                        if($resultado1=$conexion->ejecutarInstruccion($sql1)){
+                            if($resultado1->num_rows!=0){
                                 
-                                    }
-                                    $datos[$i]["fotos"]=$fotos;
-                                    $i++;
+                                $fotos=array();
+                                while($row1=$resultado1->fetch_array()){   
+                                $fotos[]=$row1["localizacion"];
+                            
                                 }
-                                else{
-                                    echo "NO HAY FOTO ";
-                                    break;
-                                }
+                                $datos[$i]["fotos"]=$fotos;
+                                $i++;
                             }
                             else{
-                                echo "Fallo en la consulta de fotos";
+                                echo "NO HAY FOTO ";
                                 break;
                             }
-                            
-                                    
                         }
-                        //for($i=0; $i<count($datos); $i++){
-                        //    $datos[$i]["fotos"]=array("f1","f2");
-                        //}
-                        echo json_encode($datos) ; 
+                        else{
+                            echo "Fallo en la consulta de fotos";
+                            break;
+                        }
                         
-                        
+                                
                     }
-                    else{
-                        echo json_encode(array("error"=>true,"mensaje"=>"No hay anuncios"));
-                    }
+                    //for($i=0; $i<count($datos); $i++){
+                    //    $datos[$i]["fotos"]=array("f1","f2");
+                    //}
+                    echo json_encode($datos) ; 
+                    
+                    
                 }
                 else{
-                    echo json_encode(array("error"=>true,"mensaje"=>"fallo en la consulta"));
+                    echo json_encode(array("error"=>true,"mensaje"=>"No hay anuncios"));
                 }
-                $conexion->cerrarConexion();
-    
-            break;
-    }
+            }
+            else{
+                echo json_encode(array("error"=>true,"mensaje"=>"fallo en la consulta"));
+            }
+            $conexion->cerrarConexion();
+
+        break;
+            
+        case '4':
+            //$_GET["idAnuncio"]=57;
+            if (isset($_GET["idAnuncio"])){
+                $idAnuncio=$_GET["idAnuncio"];
+            }
+            if($idAnuncio == "" | $idAnuncio == NULL){
+                echo "idAnuncio no ingresado";
+            }
+            else{
+                $conexion = new conexion();
+                $sql = "SELECT idAnuncios, nombre, precio, descripcion, estadoArticulo, c.nombreCategoria,
+                                g.nombregrupo, u.idUsuario, concat_ws(' ',u.pnombre, u.papellido) as nombreUsuario,
+                                m.municipio, cv.cantidadEstrellas, u.numTelefono, u.fechaRegistro, u.urlFoto FROM anuncios a
+                                INNER JOIN categoria c ON c.idcategoria=a.idcategoria
+                                INNER JOIN grupoCategoria g ON g.idgrupocategoria=c.idgrupocategoria
+                                INNER JOIN usuario u ON u.idUsuario=a.idUsuario
+                                INNER JOIN municipios m ON m.idmunicipios=a.idmunicipios
+                                INNER JOIN calificacionesvendedor cv ON cv.idUsuario=a.idUsuario
+                                WHERE a.idAnuncios = $idAnuncio;";
+                $respuesta=$conexion->ejecutarInstruccion($sql);
+                if(!$respuesta){
+                    echo "Oops, ha ocurrido un error";
+                }
+                else{
+                    $datos = $conexion->obtenerFila($respuesta);
+                    $fila["info"]=array("idAnuncios"=>$datos["idAnuncios"],"nombre"=>$datos["nombre"],"precio"=>$datos["precio"],
+                        "descripcion"=>$datos["descripcion"],"estadoArticulo"=>$datos["estadoArticulo"],"nombreCategoria"=>$datos["nombreCategoria"],
+                        "nombregrupo"=>$datos["nombregrupo"],"idUsuario"=>$datos["idUsuario"],"nombreUsuario"=>$datos["nombreUsuario"],
+                        "municipio"=>$datos["municipio"],"cantidadEstrellas"=>$datos["cantidadEstrellas"],"numTelefono"=>$datos["numTelefono"],
+                        "fechaRegistro"=>$datos["fechaRegistro"],"urlFoto"=>$datos["urlFoto"],"fotos"=>"");
+                    $sql = "SELECT localizacion FROM fotos
+                            WHERE idAnuncios=$idAnuncio;";
+                    $respuesta=$conexion->ejecutarInstruccion($sql);
+                    if(!$respuesta){
+                        echo "No se encontraron fotos";
+                    }
+                    else{
+                        while($row = $conexion->obtenerFila($respuesta)){
+                            $fotos[]=$row["localizacion"];
+                        }
+                        $fila["info"]["fotos"]=$fotos;
+                    }
+                    echo json_encode($fila);
+                }
+                
+                
+            }
+        break;
+     
+        }
 
 ?>

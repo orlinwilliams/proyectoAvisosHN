@@ -1,9 +1,7 @@
 $(document).ready(function () {																//document
     categoria();
     publicacionesInicio();			
-    																//Llama la funcion municipios
-    Dropzone.autoDiscover = false;
-    
+    Dropzone.autoDiscover = false; 
     myDropzone = new Dropzone('div#subirFotos', {
         addRemoveLinks: true,
         autoProcessQueue: false,
@@ -64,8 +62,6 @@ $(document).ready(function () {																//document
         }
       
     });
-    
-
 });
 
 categoria = function () {														//Inicio funcion para llenar las categorias
@@ -79,7 +75,75 @@ categoria = function () {														//Inicio funcion para llenar las categori
 		}
 	});																			//Fin ajax categorias
 
-}		
+}	
+
+cargarArticulo = function(idAnuncio){
+    event.preventDefault();
+    $.ajax({
+        url: "../clases/vistas-index.php?accion=4",
+        method: "GET",
+        data: "idAnuncio="+idAnuncio,
+        success: function(resultado){
+            let datos = JSON.parse(resultado);
+            var img = "";
+            for (var i=0; i<(datos.info.fotos).length; i++){
+                img += "<img src='"+datos.info.fotos[i]+"'/>";
+            }
+            $("#infoArticulo").empty();
+            $("#infoArticulo").html(
+                "<div class='row'>"
+                    +"<div class='col-md-7 col-sm-12 col-xs-12 izquierdo'>"
+                        +"<div class='fotorama' data-width='100%' data-ratio='700/467' data-minwidth='400' data-maxwidth='1000' data-minheight='300' data-maxheight='100%' data-nav='thumbs' data-fit='cover' data-loop='true'>"
+                            +img
+                        +"</div>"
+                    +"</div>"
+                    +"<div class='col-md-5 col-sm-12 col-xs-12 derecho'>"
+                        +"<div>"
+                            +"<p class='font-categoria'><a class='links-categorias' href='#'>Categoria</a> > <a class='links-categorias' href='#'>"+datos.info.nombregrupo+"</a>> <a class='links-categorias' href='#'>"+datos.info.nombreCategoria+"</a></p>"
+                        +"</div>"
+                        +"<div>"
+                            +"<p class='titulo'>"+datos.info.nombre+"</p>"
+                        +"</div>"
+                        +"<div class='precio'>"
+                            +"<p class='font-precio'>"+datos.info.precio+"</p>"
+                        +"</div>"
+                        +"<div class='estado'>"
+                            +"<p class='font-estado'><strong>Estado:</strong> "+datos.info.estadoArticulo+"</p>"
+                            +"<p class='font-estado'><strong>Lugar:</strong> "+datos.info.municipio+"</p>"
+                        +"</div>"
+                        +"<div class='descripcion'>"
+                            +"<p class='font-descripcion'><strong>Descripción:</strong></p>"
+                            +"<p class='parrafo'>"+datos.info.descripcion+"</p>"
+                        +"</div>"
+                        +"<div class='vendedor'>"
+                            +"<p class='font-vendedor'>Información del vendedor</p>"
+                        +"<div class='div-imagen'>"
+                            +"<a aria-label='Foto del vendedor' href='#' data-toggle='modal' data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor("+datos.info.idUsuario+")> <img class='imagen-vendedor' src='"+datos.info.urlFoto+"' alt=''> </a>"
+                        +"</div>"
+                        +"<div class='div-nombre'>"
+                            +"<p class='font-vendedor'><a data-toggle='modal' data-target='#modalVendedor' data-dismiss='modal'>"+datos.info.nombreUsuario+"</a></p>"
+                            +"<p class='registro-de-vendedor'>Unido desde "+datos.info.fechaRegistro+"</p>"
+                            +"<div class='demo-google-material-icon' style='color:black;'>"
+                                +"<span class='icon-name' style='font-size:22px'><strong>Valoración:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>"+datos.info.cantidadEstrellas+"</span>"
+                                    +"<i class='material-icons md-18'>star_rate</i>"
+                            +"</div>"
+                            +"<div class='demo-google-material-icon pb-5' style='color:black;'>"
+                                +"<i class='material-icons md-24'>phone</i>"
+                                    +"<span class='icon-name' style='font-size:22px'><strong>+"+datos.info.numTelefono+"</strong></span>"
+                            +"</div>"
+                            +"<br>"
+                            +"<div>"
+                                +"<div style='text-align:center;'>"
+                                    +"<button class='btn btn-info btn-lg waves-effect' type='submit'>CONTACTAR</button>"
+                                +"</div>"
+                            +"</div>"
+                        +"</div>"
+                    +"</div>"
+                +"</div>"
+            +"</div>");
+        }
+    });
+};
 
 publicacionesInicio = function () { //PUBLICACIONES DE INICIO USUARIO
     $.ajax({
@@ -109,7 +173,7 @@ publicacionesInicio = function () { //PUBLICACIONES DE INICIO USUARIO
                     + "</div>"
                     + "<div class='card-flap flap2'>"
                     + "<div class='card-actions'>"
-                    + "<a href='#' class='btn' data-toggle='modal' data-target='#defaultModal'>Ver</a>"
+                    + "<a href='#' class='btn' data-toggle='modal' data-target='#defaultModal' onclick='cargarArticulo("+item.idAnuncios+")'>Ver</a>"
                     + "</div>"
                     + "</div>"
                     + "</div>"
@@ -119,20 +183,16 @@ publicacionesInicio = function () { //PUBLICACIONES DE INICIO USUARIO
             }
 
             var zindex = 10;
-
             $("div.carde").click(function (e) {
                 e.preventDefault();
                 var isShowing = false;
-
                 if ($(this).hasClass("show")) {
                     isShowing = true
                 }
-
                 if ($("div.cards").hasClass("showing")) {
                     // a card is already in view
                     $("div.carde.show")
                         .removeClass("show");
-
                     if (isShowing) {
                         // this card was showing - reset the grid
                         $("div.cards")
@@ -142,11 +202,8 @@ publicacionesInicio = function () { //PUBLICACIONES DE INICIO USUARIO
                         $(this)
                             .css({ zIndex: zindex })
                             .addClass("show");
-
                     }
-
                     zindex++;
-
                 } else {
                     // no cards in view
                     $("div.cards")
@@ -157,7 +214,6 @@ publicacionesInicio = function () { //PUBLICACIONES DE INICIO USUARIO
 
                     zindex++;
                 }
-
             });
         },
         error: function (error) {
@@ -165,7 +221,9 @@ publicacionesInicio = function () { //PUBLICACIONES DE INICIO USUARIO
         }
     });
 };
-																	//Fin funcion para llenar las categorias
+
+
+
 $(function () {
     $('#publicarArticulo').validate({
         highlight: function (input) {
