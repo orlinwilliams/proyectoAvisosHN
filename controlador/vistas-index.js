@@ -140,7 +140,8 @@ cargarArticulo = function(idAnuncio){
                         +"</div>"
                     +"</div>"
                 +"</div>"
-            +"</div>");
+            +"</div>"
+            +"<script src='https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js'></script>");
         }
     });
 };
