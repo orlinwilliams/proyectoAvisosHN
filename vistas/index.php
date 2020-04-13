@@ -259,8 +259,8 @@
         <span>+</span>
       </button>
     </div>
-    <div class="row clearfix">
-      <div class="col-sm-6 col-md-6 col-lg-3 cards">
+    <div class="row clearfix cards">
+      <div class="col-sm-6 col-md-6 col-lg-3">
         <div class="carde">
           <div class="card__image-holder">
             <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" width="300px;"
@@ -290,7 +290,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-md-6 col-lg-3 cards">
+      <div class="col-sm-6 col-md-6 col-lg-3">
         <div class="carde">
           <div class="card__image-holder">
             <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" width="300px;"
@@ -320,7 +320,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-md-6 col-lg-3 cards">
+      <div class="col-sm-6 col-md-6 col-lg-3">
         <div class="carde">
           <div class="card__image-holder">
             <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" width="300px;"
@@ -350,7 +350,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-md-6 col-lg-3 cards">
+      <div class="col-sm-6 col-md-6 col-lg-3">
         <div class="carde">
           <div class="card__image-holder">
             <img class="card__image" src="../images/joker.jpg" alt="Miniatura del anuncio" width="300px;"

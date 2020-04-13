@@ -262,7 +262,7 @@
       </button>
     </div>
 
-    <div id="contenedorTarjetas" class="row clearfix">
+    <div id="contenedorTarjetas" class="row clearfix cards">
     </div>
   </section>
   <!-- MODAL DE EDITAR ARTICULO O ANUNCIO-->
