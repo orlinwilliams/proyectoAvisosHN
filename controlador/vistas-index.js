@@ -14,6 +14,19 @@ $(document).ready(function () {																//document
         init: function () {
     
             var myDropzone = this;
+            //valide minimum size image
+            this.on("thumbnail",function(file){
+                if(file.accepted!==false){
+                    if(file.width<300||file.height<255){
+                        myDropzone.removeFile(file);
+                        $("#cuerpoModal").empty();																		
+					    $("#cuerpoModal").html('Favor ingrese una imagen con un minimo de resolucion de 300x255');													
+					    $("#ModalMensaje").modal("show");
+                    }
+                    
+                }
+            })
+
             // Update selector to match your button
             $("#publicarArticulo").submit(function (e) {
                 event.stopPropagation();
