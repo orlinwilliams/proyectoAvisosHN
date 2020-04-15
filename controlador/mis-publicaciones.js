@@ -6,7 +6,7 @@ $(document).ready(function () {
     
     //PUBLICAR ANUNCIOS
     Dropzone.autoDiscover = false;
-    myDropzone = new Dropzone('div#subirFotos', {
+    myDropzone = new Dropzone('div#cargarFotos', {
         addRemoveLinks: true,
         autoProcessQueue: false,
         uploadMultiple: true,

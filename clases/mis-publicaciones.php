@@ -171,12 +171,7 @@
                         
                                 
                     }
-                    //for($i=0; $i<count($datos); $i++){
-                    //    $datos[$i]["fotos"]=array("f1","f2");
-                    //}
                     echo json_encode($datos) ; 
-                    
-                    
                 }
                 else{
                     echo json_encode(array("error"=>true,"mensaje"=>"No hay anuncios"));

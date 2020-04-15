@@ -303,7 +303,7 @@
         </div>
         <div class="modal-body">
           <form id="publicarArticulo">
-            <div action="/" id="subirFotos" class="dropzone" enctype="multipart/form-data">
+            <div action="/" id="cargarFotos" class="dropzone" enctype="multipart/form-data">
               <div class="dz-message">
                 <div class="drag-icon-cph">
                   <i class="material-icons">touch_app</i>
@@ -322,17 +322,13 @@
                   <input type="text" class="form-control" name="nombre" id="nombre" required>
                   <label class="form-label">Nombre del articulo</label>
                 </div>
-
               </div>
-
               <div class="form-group form-float">
                 <div class="form-line">
                   <input type="number" class="form-control money-dollar" name="precio" id="precio" required>
                   <label class="form-label">Precio</label>
                 </div>
               </div>
-
-
               <div class="form-group form-float">
                 <div class="form-line">
                   <select class="form-control show-tick" name="estado" id="estado" required>
@@ -345,7 +341,6 @@
                   <label class="form-label">Estado</label>
                 </div>
               </div>
-
               <div class="form-group form-float">
                 <div class="form-line">
                   <select class="form-control show-tick" name="categoria" id="categoria" required>
@@ -353,14 +348,12 @@
                   <label class="form-label">Categoria</label>
                 </div>
               </div>
-
               <div class="form-group form-float">
                 <div class="form-line">
                   <textarea name="descripcion" cols="30" rows="4" class="form-control no-resize"></textarea>
                   <label class="form-label">Descripción (Opcional)</label>
                 </div>
               </div>
-
               <div class="modal-footer">
                 <button type="submit" id="publicarAnuncio" class="btn btn-default waves-effect">Publicar</button>
                 <button class="btn bg-black waves-effect waves-light"
