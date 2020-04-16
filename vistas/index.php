@@ -345,7 +345,7 @@
   <!--Modal que carga la información del vendedor-->
   <div class="modal fade" id="modalVendedor" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
+      <div class="modal-content" id="contenidoModalVendedor">
         <div class="modal-header" style="text-align:center">
           <h4 class="modal-title" id="defaultModalLabel"></h4>
         </div>

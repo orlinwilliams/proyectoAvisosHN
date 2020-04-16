@@ -71,6 +71,7 @@
                         
                                 
                     }
+                    
                     echo json_encode($datos) ; 
                 }
                 else{
@@ -100,7 +101,7 @@
                                 INNER JOIN grupoCategoria g ON g.idgrupocategoria=c.idgrupocategoria
                                 INNER JOIN usuario u ON u.idUsuario=a.idUsuario
                                 INNER JOIN municipios m ON m.idmunicipios=a.idmunicipios
-                                INNER JOIN calificacionesvendedor cv ON cv.idUsuario=a.idUsuario
+                                LEFT JOIN calificacionesvendedor cv ON cv.idUsuario=a.idUsuario
                                 WHERE a.idAnuncios = $idAnuncio;";
                 $respuesta=$conexion->ejecutarInstruccion($sql);
                 if(!$respuesta){
@@ -125,10 +126,11 @@
                         }
                         $fila["info"]["fotos"]=$fotos;
                     }
+                    
                     echo json_encode($fila);
                 }
                 
-                
+                $conexion->cerrarConexion();                
             }
         break;
         case '5':
@@ -140,10 +142,10 @@
             }
             else{
                 $conexion = new conexion();
-                $sql = "SELECT U.idUsuario, U.pNombre,U.pApellido,U.urlFoto, U.correoElectronico,U.fechaRegistro, T.tipoUsuario, CV.cantidadEstrellas, CV.comentarios,(SELECT COUNT(idUsuario) FROM anuncios WHERE U.idUsuario) as cantidadAnuncio FROM usuario as U
+                $sql = "SELECT U.idUsuario, U.pNombre,U.pApellido,U.urlFoto, U.correoElectronico,U.fechaRegistro, T.tipoUsuario, CV.cantidadEstrellas, CV.comentarios,(SELECT COUNT(idUsuario) FROM anuncios WHERE idUsuario='$idUsuario') as cantidadAnuncio FROM usuario as U
                 INNER JOIN tipoUsuario as T
                 ON T.idTipoUsuario=U.idTipoUsuario
-                INNER JOIN calificacionesvendedor as CV
+                LEFT JOIN calificacionesvendedor as CV
                 ON U.idUsuario=CV.idUsuario
                 WHERE U.idUsuario='$idUsuario';";
                 
@@ -153,7 +155,7 @@
                 }
                 else{
                     $datos = $conexion->obtenerFila($respuesta);
-
+                    
                     echo json_encode(array("idUsuario"=>$datos["idUsuario"],"pNombre"=>$datos["pNombre"],"pApellido"=>$datos["pApellido"],"urlFoto"=>$datos["urlFoto"],
                     "correoElectronico"=>$datos["correoElectronico"],"fechaRegistro"=>$datos["fechaRegistro"],"tipoUsuario"=>$datos["tipoUsuario"],"cantidadEstrellas"=>$datos["cantidadEstrellas"],
                     "comentarios"=>$datos["comentarios"],"cantidadAnuncio"=>$datos["cantidadAnuncio"]
@@ -164,6 +166,7 @@
                 
                 
             }
+            $conexion->cerrarConexion();
         break;
      
         }

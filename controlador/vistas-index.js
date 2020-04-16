@@ -241,7 +241,7 @@ cargarArticulo = function(idAnuncio){
                             +"<a aria-label='Foto del vendedor' data-toggle='modal'  data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor("+datos.info.idUsuario+")>"+"<img class='imagen-vendedor' src='"+datos.info.urlFoto+"' alt=''> </a>"
                         +"</div>"
                         +"<div class='div-nombre'>"
-                            +"<p class='font-vendedor'><a data-toggle='modal' data-target='#modalVendedor' data-dismiss='modal'>"+datos.info.nombreUsuario+"</a></p>"
+                            +"<p class='font-vendedor'><a data-toggle='modal' data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor("+datos.info.idUsuario+")>"+datos.info.nombreUsuario+"</a></p>"
                             +"<p class='registro-de-vendedor'>Unido desde "+datos.info.fechaRegistro+"</p>"
                             +"<div class='demo-google-material-icon' style='color:black;'>"
                                 +"<span class='icon-name' style='font-size:22px'><strong>Valoración:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>"+datos.info.cantidadEstrellas+"</span>"
