@@ -274,10 +274,10 @@ publicacionesInicio = function () { //PUBLICACIONES DE INICIO USUARIO
             let datos = JSON.parse(resp);
             var tarjetas = "";
             for (let item of datos) {//RECORRER EL JSON 
-                tarjetas += "<div class='col-sm-6 col-md-6 col-lg-3'>"
+                tarjetas += "<div class='col-sm-6 col-md-6 col-lg-4'>"
                     + "<div class='carde'>"
                     + "<div class='card__image-holder'>"
-                    + "<img class='card__image' src='" + item.fotos[0] + "' alt='Miniatura del anuncio' width='300px;' height='255px;'/>"
+                    + "<img class='card__image' src='" + item.fotos[0] + "' alt='Miniatura del anuncio' width='320px;' height='255px;'/>"
                     + "</div>"
                     + "<div class='card-title'>"
                     + "<a  href='#' class='toggle-info btn'>"

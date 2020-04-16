@@ -356,8 +356,7 @@
               </div>
               <div class="modal-footer">
                 <button type="submit" id="publicarAnuncio" class="btn btn-default waves-effect">Publicar</button>
-                <button class="btn bg-black waves-effect waves-light"
-                  data-dismiss="modal">Cancelar</button>
+                <button class="btn bg-black waves-effect waves-light" data-dismiss="modal">Cancelar</button>
               </div>
           </form>
         </div>

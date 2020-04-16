@@ -5,8 +5,8 @@ a.btn {background: #0096a0;border-radius: 4px;box-shadow: 0 2px 0px 0 rgba(0, 0,
 .no-touch a.btn:active,
 a.btn:active {background: #008a93;box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.25);transform: translate3d(0, 1px, 0);transition: all 0.025s 0s ease-out;}
 div.cards {margin: 40px auto;max-width: 1600px;text-align: center;}
-div.carde {background: #ffffff;display: inline-block;margin: 8px;max-width: 300px;perspective: 1000;position: relative;text-align: left;transition: all 0.3s 0s ease-in;width: 300px;z-index: 1;}
-div.carde img {max-width: 300px;}
+div.carde {background: #ffffff;display: inline-block;margin: 8px;max-width: 320px;perspective: 1000;position: relative;text-align: left;transition: all 0.3s 0s ease-in;width: 320px;z-index: 1;}
+div.carde img {max-width: 320px;}
 div.carde .card__image-holder {background: rgba(0, 0, 0, 0.1);height: 0;padding-bottom: 75%;}
 div.carde div.card-title {background: #ffffff;padding: 6px 15px 10px;position: relative;z-index: 0;}
 div.carde div.card-title a.toggle-info {border-radius: 32px;height: 32px;padding: 0;position: absolute;right: 15px;top: 10px;width: 32px;}
