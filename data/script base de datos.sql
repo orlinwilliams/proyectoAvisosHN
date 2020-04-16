@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 14-04-2020 a las 04:15:45
+-- Tiempo de generación: 16-04-2020 a las 04:59:36
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -478,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   KEY `fk_anuncios_categoria1` (`idcategoria`),
   KEY `fk_anuncios_municipios1` (`idMunicipios`),
   KEY `fk_anuncios_Usuario1` (`idUsuario`)
-) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `anuncios`
@@ -487,7 +487,12 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
 INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`, `precio`, `nombre`, `descripcion`, `estadoArticulo`, `estadoAnuncio`, `fechaLimite`) VALUES
 (52, 3, 3, 110, '1500', 'Prueba articulo 5', 'Esta seria la descripcion del articulo 5', 'Usado', 'A', NULL),
 (57, 3, 0, 110, '8000', 'iPhone X', 'iPhone X con 3 meses de uso, doy 2 meses de garantía', 'Usado', 'A', NULL),
-(56, 3, 2, 110, '1800', 'Prueba 8', 'Nueva descripcion', 'Usado', 'A', NULL);
+(56, 3, 2, 110, '1800', 'Prueba 8', 'Nueva descripcion', 'Usado', 'A', NULL),
+(58, 3, 0, 110, '100', 'pruebaHomero', 'pruebaHomero', 'Nuevo', 'A', NULL),
+(59, 3, 0, 110, '1000', 'prueba2', 'prueba2', 'Nuevo', 'A', NULL),
+(60, 4, 0, 110, '10000', 'pruebaFinal3', 'articulo de prueba', 'Nuevo', 'A', NULL),
+(61, 4, 1, 110, '4000', 'Television Lg', 'Tv nuevo', 'Nuevo', 'A', NULL),
+(62, 4, 3, 110, '100000', 'PS4', 'play station 4 nueva', 'Nuevo', 'A', NULL);
 
 -- --------------------------------------------------------
 
@@ -651,7 +656,7 @@ CREATE TABLE IF NOT EXISTS `fotos` (
   `localizacion` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`idFotos`),
   KEY `FK_idAnuncios` (`idAnuncios`)
-) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `fotos`
@@ -664,7 +669,14 @@ INSERT INTO `fotos` (`idFotos`, `idAnuncios`, `localizacion`) VALUES
 (35, 57, '../images/fotosAnuncio/sbethuell@gmail.com/2.jpg'),
 (34, 57, '../images/fotosAnuncio/sbethuell@gmail.com/1.JPG'),
 (26, 56, '../images/fotosAnuncio/sbethuell@gmail.com/4BE.png'),
-(27, 56, '../images/fotosAnuncio/sbethuell@gmail.com/4FB.jpg');
+(27, 56, '../images/fotosAnuncio/sbethuell@gmail.com/4FB.jpg'),
+(37, 58, '../images/fotosAnuncio/sbethuell@gmail.com/homero.jpg'),
+(38, 59, '../images/fotosAnuncio/sbethuell@gmail.com/corazon.jpg'),
+(39, 60, '../images/fotosAnuncio/jaredcastro13@yahoo.es/tutorial.jpg'),
+(40, 61, '../images/fotosAnuncio/jaredcastro13@yahoo.es/tv.jpg'),
+(41, 61, '../images/fotosAnuncio/jaredcastro13@yahoo.es/tv1.png'),
+(42, 62, '../images/fotosAnuncio/jaredcastro13@yahoo.es/ps4.jpg'),
+(43, 62, '../images/fotosAnuncio/jaredcastro13@yahoo.es/ps41.jpg');
 
 -- --------------------------------------------------------
 
@@ -1084,7 +1096,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, `pApellido`, `correoElectronico`, `contrasenia`, `token`, `numTelefono`, `fechaRegistro`, `fechaNacimiento`, `RTN`, `urlFoto`, `estado`) VALUES
 (3, 2, 110, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', NULL, ' 504 9619-96-60', '2020-03-25', '1995-12-01', '', '../images/imgUsuarios/5e94d52855d5b5e713b9d83aebIMG_20160714_170043.jpg', 1),
 (2, 3, 14, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asdzxc', '', ' 504 9605-01-00', '2020-03-09', '1995-12-01', '', '../images/imgUsuarios/user.png', 1),
-(4, 2, 110, 'Jared', 'Castro', 'jaredcastro13@yahoo.es', 'asd123', NULL, ' 504 9858-00-12', '2020-03-30', '1995-10-03', '', '../images/imgUsuarios/user.png', 1);
+(4, 2, 110, 'Jared', 'Castro', 'jaredcastro13@yahoo.es', 'asd123', NULL, ' 504 9858-00-12', '2020-03-30', '1995-10-03', '', '../images/imgUsuarios/5e97defbe9b51user.jpg', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
