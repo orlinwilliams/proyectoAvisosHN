@@ -95,7 +95,7 @@
                 $conexion = new conexion();
                 $sql = "SELECT idAnuncios, nombre, precio, descripcion, estadoArticulo, c.nombreCategoria,
                                 g.nombregrupo, u.idUsuario, concat_ws(' ',u.pnombre, u.papellido) as nombreUsuario,
-                                m.municipio, cv.cantidadEstrellas, u.numTelefono, u.fechaRegistro, u.urlFoto FROM anuncios a
+                                m.municipio, cv.cantidadEstrellas,u.correoElectronico, u.numTelefono, u.fechaRegistro, u.urlFoto FROM anuncios a
                                 INNER JOIN categoria c ON c.idcategoria=a.idcategoria
                                 INNER JOIN grupoCategoria g ON g.idgrupocategoria=c.idgrupocategoria
                                 INNER JOIN usuario u ON u.idUsuario=a.idUsuario
@@ -110,7 +110,7 @@
                     $datos = $conexion->obtenerFila($respuesta);
                     $fila["info"]=array("idAnuncios"=>$datos["idAnuncios"],"nombre"=>$datos["nombre"],"precio"=>$datos["precio"],
                         "descripcion"=>$datos["descripcion"],"estadoArticulo"=>$datos["estadoArticulo"],"nombreCategoria"=>$datos["nombreCategoria"],
-                        "nombregrupo"=>$datos["nombregrupo"],"idUsuario"=>$datos["idUsuario"],"nombreUsuario"=>$datos["nombreUsuario"],
+                        "nombregrupo"=>$datos["nombregrupo"],"idUsuario"=>$datos["idUsuario"],"correoElectronico"=>$datos["correoElectronico"],"nombreUsuario"=>$datos["nombreUsuario"],
                         "municipio"=>$datos["municipio"],"cantidadEstrellas"=>$datos["cantidadEstrellas"],"numTelefono"=>$datos["numTelefono"],
                         "fechaRegistro"=>$datos["fechaRegistro"],"urlFoto"=>$datos["urlFoto"],"fotos"=>"");
                     $sql = "SELECT localizacion FROM fotos
@@ -126,6 +126,40 @@
                         $fila["info"]["fotos"]=$fotos;
                     }
                     echo json_encode($fila);
+                }
+                
+                
+            }
+        break;
+        case '5':
+            if (isset($_GET["idUsuario"])){
+                $idUsuario=$_GET["idUsuario"];
+            }
+            if($idUsuario == "" | $idUsuario == NULL){
+                echo "idUsuario no ingresado";
+            }
+            else{
+                $conexion = new conexion();
+                $sql = "SELECT U.idUsuario, U.pNombre,U.pApellido,U.urlFoto, U.correoElectronico,U.fechaRegistro, T.tipoUsuario, CV.cantidadEstrellas, CV.comentarios,(SELECT COUNT(idUsuario) FROM anuncios WHERE U.idUsuario) as cantidadAnuncio FROM usuario as U
+                INNER JOIN tipoUsuario as T
+                ON T.idTipoUsuario=U.idTipoUsuario
+                INNER JOIN calificacionesvendedor as CV
+                ON U.idUsuario=CV.idUsuario
+                WHERE U.idUsuario='$idUsuario';";
+                
+                $respuesta=$conexion->ejecutarInstruccion($sql);
+                if(!$respuesta){
+                    echo "Error en consulta vendedor";
+                }
+                else{
+                    $datos = $conexion->obtenerFila($respuesta);
+
+                    echo json_encode(array("idUsuario"=>$datos["idUsuario"],"pNombre"=>$datos["pNombre"],"pApellido"=>$datos["pApellido"],"urlFoto"=>$datos["urlFoto"],
+                    "correoElectronico"=>$datos["correoElectronico"],"fechaRegistro"=>$datos["fechaRegistro"],"tipoUsuario"=>$datos["tipoUsuario"],"cantidadEstrellas"=>$datos["cantidadEstrellas"],
+                    "comentarios"=>$datos["comentarios"],"cantidadAnuncio"=>$datos["cantidadAnuncio"]
+                ));
+                    
+                    
                 }
                 
                 
