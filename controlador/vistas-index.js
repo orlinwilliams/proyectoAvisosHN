@@ -90,6 +90,112 @@ categoria = function () {														//Inicio funcion para llenar las categori
 
 }	
 
+infoVendedor=function(idUsuario){
+    
+    $.ajax({
+        url: "../clases/vistas-index.php?accion=5",
+        method: "GET",
+        data: "idUsuario="+idUsuario,
+        success: function(resp){
+            var datos=JSON.parse(resp) ;
+            var nombreCompleto=datos.pNombre+" "+datos.pApellido;
+            console.log(datos)
+            var modal="<div class='modal-header' style='text-align:center'>"
+        +"<h4 class='modal-title' id='defaultModalLabel'></h4>"
+        +"</div>"
+        +"<div class='modal-body modal-body-per'>"
+        +"<div class='card profile-card'>"
+            +"<div class='profile-header'>&nbsp;</div>"
+            +"<div class='profile-body'>"
+            +"<div class='image-area'>"
+                +"<img src="+datos.urlFoto+" alt="+nombreCompleto+" width='200px' height='200px' />"
+            +"</div>"
+            +"<div class='content-area'>"
+                +"<h3>"+nombreCompleto+"</h3>"
+                +"<p>"+datos.fechaRegistro+"</p>"
+                +"<p>"+datos.tipoUsuario+"</p>"
+            +"</div>"
+            +"</div>"
+            +"<div class='profile-footer'>"
+                +"<ul>"
+                    +"<li>"
+                    +"<span>Valoración</span>"
+                    +"<span>"+datos.cantidadEstrellas+"</span>"
+                    +"</li>"
+                    +"<li>"
+                    +"<span>ArticulosPublicados</span>"
+                    +"<span>"+datos.cantidadAnuncio+"</span>"
+                    +"</li>"
+                    +"<li>"
+                    +"<span>Correo Electrónico</span>"
+                    +"<span>"+datos.correoElectronico+"</span>"
+                    +"</li>"
+                +"</ul>"
+            +"</div>"
+        +"</div>"
+        +"<div class='card card-about-me' style='max-height:400px; overflow-y:scroll;'>"
+            +"<div class='header' style='text-align:center'>"
+            +"<h2>HISTORIAL</h2>"
+            +"<small>(Se mantiene el registro de los últimos 90 días)</small>"
+            +"</div>"
+            +"<div class='body' style='height: auto;'>"
+            +"<ul>"
+                +"<li>"
+                +"<div class='title'>"
+                    +"Articulo 1"
+                +"</div>"
+                +"<div class='content'>"
+                    +"<div style='float:left;'>"
+                    +"Publicado el 1 de Diciembre de 2019"
+                    +"</div>"
+                    +"<div style='margin-left:90%'>"
+                    +"L 1000"
+                    +"</div>"
+                +"</div>"
+            +"</ul>"
+            +"</div>"
+        +"</div>"
+        +"<div class='card card-about-me' style='max-height:400px; overflow-y:scroll;'>"
+            +"<div class='header' style='text-align:center'>"
+            +"<h2>Últimos comentarios</h2>"
+            +"</div>"
+            +"<div class='body' style='height: auto;'>"
+            +"<ul>"
+                +"<li>"
+                +"<div class='title'>"
+                    +"Usuario"
+                +"</div>"
+                +"<div class='content'>"
+                    +"<div>"
+                    +"<p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas"
+                        +"malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in"
+                        +"leo.</p>"
+                    +"</div>"
+                +"</div>"
+                +"</li>"    
+            +"</ul>"
+            +"</div>"
+        +"</div>"
+        +"</div>"
+        +"<div class='modal-footer'>"
+        +"<button type='button' class='btn btn-link waves-effect' data-toggle='modal' data-target='#defaultModal'"
+            +"data-dismiss='modal'>Cerrar</button>"
+        +"</div>"
+        +"<script src='https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js'></script>";
+        $("#contenidoModalVendedor").empty();
+        $("#contenidoModalVendedor").html(modal);
+    
+
+        },
+        error: function(error){
+            console.log(error);
+        }
+    })
+
+}
+    
+
+
 cargarArticulo = function(idAnuncio){
     event.preventDefault();
     $.ajax({
@@ -99,6 +205,7 @@ cargarArticulo = function(idAnuncio){
         success: function(resultado){
             let datos = JSON.parse(resultado);
             var img = "";
+            console.log(resultado);
             for (var i=0; i<(datos.info.fotos).length; i++){
                 img += "<img src='"+datos.info.fotos[i]+"'/>";
             }
@@ -131,7 +238,7 @@ cargarArticulo = function(idAnuncio){
                         +"<div class='vendedor'>"
                             +"<p class='font-vendedor'>Información del vendedor</p>"
                         +"<div class='div-imagen'>"
-                            +"<a aria-label='Foto del vendedor' href='#' data-toggle='modal' data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor("+datos.info.idUsuario+")> <img class='imagen-vendedor' src='"+datos.info.urlFoto+"' alt=''> </a>"
+                            +"<a aria-label='Foto del vendedor' data-toggle='modal'  data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor("+datos.info.idUsuario+")>"+"<img class='imagen-vendedor' src='"+datos.info.urlFoto+"' alt=''> </a>"
                         +"</div>"
                         +"<div class='div-nombre'>"
                             +"<p class='font-vendedor'><a data-toggle='modal' data-target='#modalVendedor' data-dismiss='modal'>"+datos.info.nombreUsuario+"</a></p>"
@@ -158,6 +265,7 @@ cargarArticulo = function(idAnuncio){
         }
     });
 };
+
 
 publicacionesInicio = function () { //PUBLICACIONES DE INICIO USUARIO
     $.ajax({
