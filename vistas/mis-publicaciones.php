@@ -265,16 +265,18 @@
     <div id="contenedorTarjetas" class="row clearfix cards">
     </div>
   </section>
-  <!-- MODAL DE EDITAR ARTICULO O ANUNCIO-->
-  <div class="modal fade" id="editarPubli" tabindex="-1" role="dialog">
+   <!-- MODAL DE EDITAR ARTICULO O ANUNCIO-->
+ <div class="modal fade" id="editarPubli" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header br-black">
+        <div class="modal-header ">
           <h4 class="modal-title" id="smallModalLabel"> Edita tu publicación </h4>
         </div>
         <div class="modal-body">
           <form id="editarPublicacion">
             <div action="/" id="subirFotos" class="dropzone" enctype="multipart/form-data">
+              <div id="modal_foto_editar"> 
+              </div>
               <div class="dz-message">
                 <div class="drag-icon-cph">
                   <i class="material-icons">touch_app</i>
@@ -358,6 +360,7 @@
                 <button type="submit" id="publicarAnuncio" class="btn btn-default waves-effect">Publicar</button>
                 <button class="btn bg-black waves-effect waves-light" data-dismiss="modal">Cancelar</button>
               </div>
+            </div>
           </form>
         </div>
       </div>
@@ -406,7 +409,7 @@
   <!-- <script src="../js/index.js"></script> Js -->
   <script src="../js/demo.js"></script>
   <script src="../controlador/mis-publicaciones.js"></script>
-
+  <script src="../controlador/editarfoto.js"></script>
   <!--<script src="../js/index.js"></script> Demo Js -->
 
   <!-- Waves Effect Plugin Js -->

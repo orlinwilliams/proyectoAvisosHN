@@ -3,7 +3,7 @@ $(document).ready(function () {
     misPublicaciones();
     categoria();
 
-    
+    var myDropzone = new Dropzone("div#subirFotos", { url: "../vistas/mis-publicaciones.php"});
     //PUBLICAR ANUNCIOS
     Dropzone.autoDiscover = false;
     myDropzone = new Dropzone('div#cargarFotos', {
@@ -88,7 +88,9 @@ categoria = function () {														//Inicio funcion para llenar las categori
 	$.ajax({																	//Inicio ajax categorias
 		url: "../clases/vistas-index.php?accion=1",
 		success: function (resultado) {
-            $("#categoria").append(resultado);									//El resultado lo retorna como html
+            $("#categoria").append(resultado);
+            $("#categoriaArt").append(resultado);
+            									//El resultado lo retorna como html
 		},
 		error: function (error) {
             console.log(error);
@@ -150,7 +152,7 @@ misPublicaciones = function () { //VISTA DE MIS PUBLIACIONES
                         + "</div>"
                         + "<div class='card-flap flap2'>"
                         + "<div class='card-actions'>"
-                        + "<button type='buttom' class='btn btn-warning waves-effect' onclick='cargarDatosEditar(" + item.idAnuncios + ")' data-toggle='modal' data-target='#editarPubli'>Editar</button>"
+                        + "<button type='buttom' class='btn btn-warning waves-effect' onclick='cargarDatosEditar(" + item.idAnuncios + ");cargarFotosEditar(" + item.idAnuncios + ")' data-toggle='modal' data-target='#editarPubli'>Editar</button>"
                         + "<button type='button' class='btn btn-danger waves-effect' onclick='eliminarPublicacion(" + item.idAnuncios + ")'>Borrar</button>"
                         + "</div>"
                         + "</div>"
@@ -209,6 +211,7 @@ cargarDatosEditar = function (parametros) { ////mostrar los datos en el modal de
         method: "POST",
         data: "txt_idanuncios=" + id,
         success: function (resp) {
+            categoria();
             let datos = JSON.parse(resp);
             console.log(datos);
             var modal = "";
@@ -250,11 +253,11 @@ cargarDatosEditar = function (parametros) { ////mostrar los datos en el modal de
                     + "<textarea name='description' id='descripcionArt' cols='30' rows='4' placeholder=" + item.descripcion + " class='form-control no-resize'>" + item.descripcion + "</textarea>"
                     + "</div>"
                     + "</div>"
-                    + "</div> "
                     + "<div class='modal-footer'>"
                     + " <button type='submit' class='btn btn-default waves-effect' id='enviar_datos_editar' onclick='enviarDatosEditar(" + item.idAnuncios + ")'>Publicar</button>"
                     + "<button class='btn bg-black waves-effect waves-light' data-dismiss='modal'>Cancelar</button>"
-                    + "</div>";
+                    + "</div>"
+                    + "</div> " ;
                 $("#muestra_datos_editar").html(modal);//INSERTA LAS TARJETAS
             }
         }

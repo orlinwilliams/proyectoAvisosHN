@@ -1,5 +1,6 @@
 <?php
     require_once("conexion.php");
+    require_once("correo.php");
     switch ($_GET["accion"]){
         case '1':                                                                                                   //Obtiene las categorias
             $conexion = new conexion();
@@ -168,6 +169,63 @@
             }
             $conexion->cerrarConexion();
         break;
+        case '6':///Datos para hacer contacto con vendedor
+            $conexion = new Conexion();
+            session_start();
+            $idUsuario=$_SESSION["usuario"]["idUsuario"];
+            $pNombre=$_SESSION["usuario"]["pNombre"];
+            $pApellido=$_SESSION["usuario"]["pApellido"];
+            if (isset($_POST["idAnuncio2"])){
+             $idAnuncio=$_POST["idAnuncio2"];
+             }
+             $sql = "SELECT nombre FROM anuncios a
+             WHERE a.idAnuncios= '$idAnuncio'";
+             $salida = "SELECT @p10 AS `mensaje`;";                                                                //Llamado al parametro de salida del procedimiento almacenado
+             $resultado = $conexion->ejecutarInstruccion($sql);
+             $respuesta = $conexion->ejecutarInstruccion($salida);
+             $fila5=$conexion->obtenerFila($resultado);
+             $nombreAnun=$fila5["nombre"];
+             echo $nombreAnun;
+             $conexion->cerrarConexion();
+         break;
+         case '7':///se envia correo para hacer contacto con vendedor
+             $conexion = new Conexion();
+             session_start();
+             $idUsuario=$_SESSION["usuario"]["idUsuario"];
+             $pNombre=$_SESSION["usuario"]["pNombre"];
+             $pApellido=$_SESSION["usuario"]["pApellido"];
+             $correoCliente=$_SESSION["usuario"]["correoElectronico"];
+             if (isset($_POST["idanuncio3"])){
+              $idAnuncio=$_POST["idanuncio3"];
+              }
+             if (isset($_POST["mensaje1"])){
+                 $mensaje1=$_POST["mensaje1"];
+                 }
+             if($mensaje1=="" || $mensaje1==NULL){
+                     $respuesta="Ingrese su mensaje a enviar.";
+                     echo $respuesta;
+             }
+              $sql = "SELECT nombre, u.correoElectronico, concat_ws(' ',u.pnombre, u.papellido) as nombreVendedor FROM anuncios a 
+              INNER JOIN usuario u on u.idUsuario=a.idUsuario WHERE a.idAnuncios= '$idAnuncio'";
+              $salida = "SELECT @p10 AS `mensaje`;";                                                                //Llamado al parametro de salida del procedimiento almacenado
+              $resultado = $conexion->ejecutarInstruccion($sql);
+              $respuesta = $conexion->ejecutarInstruccion($salida);
+              $fila5=$conexion->obtenerFila($resultado);
+              $fila4=$conexion->obtenerFila($respuesta);
+              $correoVendedor=$fila5["correoElectronico"];
+              $nombreVendedor=$fila5["nombreVendedor"];
+                      $nombreServer=$_SERVER['SERVER_NAME'];
+                      $mensajeEncabezado="<br>Somos MARKETHN<br><br>";
+                      $mensaje=$mensajeEncabezado."El usuario: ".$pNombre." ".$pApellido." con correo: ".$correoCliente." dice:<br>".$mensaje1." <br> ";
+                      $correo= new Correo($correoVendedor,$nombreVendedor,"Cliente interesado",$mensaje);
+                          if($correo->enviarCorreo()){//SE ENVIA CORREO
+                              echo $fila4["mensaje"]."Correo enviado";
+                          }
+                          else{
+                              echo "FALLO EN ENVIO DE CORREO";
+                          }
+              $conexion->cerrarConexion();
+          break;
      
         }
 
