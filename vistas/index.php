@@ -672,6 +672,7 @@
                 <button type="button" class="btn bg-black waves-effect waves-light"
                   data-dismiss="modal">Cancelar</button>
               </div>
+              </div>
           </form>
         </div>
       </div>
