@@ -139,7 +139,7 @@ publicacionesInicioIndex = function () { //PUBLICACIONES DE INICIO
                     $(this)
                         .css({ zIndex: 2 })
                         .addClass("show");
-                    zindex++;
+                    //zindex++;
                 }
 
             });

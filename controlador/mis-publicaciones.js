@@ -190,7 +190,7 @@ misPublicaciones = function () { //VISTA DE MIS PUBLIACIONES
                         $(this)
                             .css({ zIndex: 2 })
                             .addClass("show");
-                        zindex++;
+                        //zindex++;
                     }
                 });
             }
