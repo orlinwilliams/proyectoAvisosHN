@@ -254,7 +254,7 @@ cargarArticulo = function(idAnuncio){
                             +"<br>"
                             +"<div>"
                                 +"<div style='text-align:center;'>"
-                                    +"<button class='btn btn-info btn-lg waves-effect' type='submit'>CONTACTAR</button>"
+                                +"<button class='btn btn-info btn-lg waves-effect' type='submit' data-toggle='modal' data-target='#modalContacto'onclick='cargarDatosContacto("+idAnuncio+")' >CONTACTAR</button>"
                                 +"</div>"
                             +"</div>"
                         +"</div>"
@@ -336,7 +336,52 @@ publicacionesInicio = function () { //PUBLICACIONES DE INICIO USUARIO
         }
     });
 };
+cargarDatosContacto = function (parametros) { ////mostrar los datos en el de contacto con vendedor
+    event.preventDefault();
+    id = parametros;
+    $.ajax({
+        url: "../clases/vistas-index.php?accion=6",
+        method: "POST",
+        data: "idAnuncio2=" + id,
+            
+        success: function (resp) {
+            let dato = resp;
+            console.log(dato);
+            var modal = "";
+              modal +=  "<div class='form-group'>"
+                +"<div class='form-line' id='descrip'>"
+                +"<textarea rows='2' id='mensaje1' class='form-control no-resize' placeholder=''>Me siento interesado en el articulo" + dato + "</textarea>"   
+                +"</div>"
+                +"</div>"
+                +"<div class='modal-footer'>"
+                +"<button type='button' class='btn btn-link  waves-effect' onclick='enviarCorreoContacto("+id+")'>ENVIAR</button>"
+                +"<button type='button' class='btn btn-link  bg-red waves-effect' data-dismiss='modal'>CANCELAR</button>"
+                +"</div>";
+                $("#descrip").html(modal);
+            
+        }
+    });
+};
+enviarCorreoContacto = function (parametros) {
+    event.preventDefault();
+    id = parametros;
+    //Petición ajax enviar correo al vendedor
+    event.preventDefault();
+    $.ajax({
+        url: "../clases/vistas-index.php?accion=7",										//Accion para editar anuncios
+        method: "POST",
+        data: "mensaje1=" + $("#mensaje1").val() +
+            "&idanuncio3=" + id,
+        success: function (resultado) {
+            $("#cuerpoModal").empty();										//Vacia el cuerpo del modal de mensaje
+            $("#cuerpoModal").html(resultado);								//Imprime el cuerpo del modal de mensaje					
+            $("#ModalMensaje").modal("show");
+            location.reload();
 
+            //Despliega el modal con el modal
+        }
+    });
+};
 
 
 $(function () {

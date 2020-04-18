@@ -672,11 +672,45 @@
                 <button type="button" class="btn bg-black waves-effect waves-light"
                   data-dismiss="modal">Cancelar</button>
               </div>
+              </div>
           </form>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- modal para hacer contacto con el vendedor -->
+ <div class="modal fade" id="modalContacto" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">¡Hazlo, contacta con el vendedor!</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div style="padding:5px; ">
+                                     <div class="input-group input-group-sm">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">person</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" id ="nombreUsuario"class="form-control" placeholder="<?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?>" readonly="readonly">
+                                        </div>
+                                      </div>
+                                      <div class="input-group input-group-sm">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">mail</i>
+                                        </span>
+                                        <div class="form-line">
+                                        <input type="text" class="form-control" id ="correoUsuario"placeholder="<?php echo $_SESSION["usuario"]["correoElectronico"];?>" readonly="readonly">
+                                        </div>
+                                      </div>
+                                      <div id="descrip">
+                                       </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
   <!--Modal con el mensaje de respuesta-->
   <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true ">
