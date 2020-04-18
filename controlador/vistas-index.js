@@ -311,23 +311,29 @@ publicacionesInicio = function () { //PUBLICACIONES DE INICIO USUARIO
                 if ($(this).hasClass("show")) {
                     isShowing = true
                 }
+                console.log(this);
                 if ($("div.cards").hasClass("showing")) {
                     // a card is already in view
                     $("div.carde.show").removeClass("show");
                     if (isShowing) {
                         // this card was showing - reset the grid
                         $("div.cards").removeClass("showing");
-                    } else {
+                        console.log(this);
+                        
+                    } 
+                    else {
                         // this card isn't showing - get in with it
                         $(this).css({ zIndex: 1 }).addClass("show");
+                        console.log(this);
                     }
                     //zindex++;
                 } else {
                     // no cards in view
                     $("div.cards").addClass("showing");
-                    $(this).css({ zIndex: 2 }).addClass("show");
+                    $(this).css({ zIndex: 2}).addClass("show");
+                    console.log(this);
 
-                    zindex++;
+                    //zindex++;
                 }
             });
         },
