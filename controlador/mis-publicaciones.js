@@ -159,7 +159,7 @@ misPublicaciones = function () { //VISTA DE MIS PUBLIACIONES
                         + "</div>";
                     $("#contenedorTarjetas").html(tarjetas);//INSERTA LAS TARJETAS
                 }
-                var zindex = 10;
+                //var zindex = 1;
                 $("div.carde").click(function (e) {
                     e.preventDefault();
                     var isShowing = false;
@@ -177,16 +177,16 @@ misPublicaciones = function () { //VISTA DE MIS PUBLIACIONES
                         } else {
                             // this card isn't showing - get in with it
                             $(this)
-                                .css({ zIndex: zindex })
+                                .css({ zIndex: 1 })
                                 .addClass("show");
                         }
-                        zindex++;
+                        //zindex++;
                     } else {
                         // no cards in view
                         $("div.cards")
                             .addClass("showing");
                         $(this)
-                            .css({ zIndex: zindex })
+                            .css({ zIndex: 2 })
                             .addClass("show");
                         zindex++;
                     }

@@ -304,7 +304,7 @@ publicacionesInicio = function () { //PUBLICACIONES DE INICIO USUARIO
                 $("#contenedorTarjeta").html(tarjetas);//INSERTA LAS TARJETAS
             }
 
-            var zindex = 10;
+            //var zindex = 10;
             $("div.carde").click(function (e) {
                 e.preventDefault();
                 var isShowing = false;
@@ -313,26 +313,19 @@ publicacionesInicio = function () { //PUBLICACIONES DE INICIO USUARIO
                 }
                 if ($("div.cards").hasClass("showing")) {
                     // a card is already in view
-                    $("div.carde.show")
-                        .removeClass("show");
+                    $("div.carde.show").removeClass("show");
                     if (isShowing) {
                         // this card was showing - reset the grid
-                        $("div.cards")
-                            .removeClass("showing");
+                        $("div.cards").removeClass("showing");
                     } else {
                         // this card isn't showing - get in with it
-                        $(this)
-                            .css({ zIndex: zindex })
-                            .addClass("show");
+                        $(this).css({ zIndex: 1 }).addClass("show");
                     }
-                    zindex++;
+                    //zindex++;
                 } else {
                     // no cards in view
-                    $("div.cards")
-                        .addClass("showing");
-                    $(this)
-                        .css({ zIndex: zindex })
-                        .addClass("show");
+                    $("div.cards").addClass("showing");
+                    $(this).css({ zIndex: 2 }).addClass("show");
 
                     zindex++;
                 }

@@ -110,21 +110,17 @@ publicacionesInicioIndex = function () { //PUBLICACIONES DE INICIO
                 $("#tarjeta").html(tarjetas);//INSERTA LAS TARJETAS
             }
 
-            var zindex = 10;
-
+            //var zindex = 1;
             $("div.carde").click(function (e) {
                 e.preventDefault();
                 var isShowing = false;
-
                 if ($(this).hasClass("show")) {
                     isShowing = true
                 }
-
                 if ($("div.cards").hasClass("showing")) {
                     // a card is already in view
                     $("div.carde.show")
                         .removeClass("show");
-
                     if (isShowing) {
                         // this card was showing - reset the grid
                         $("div.cards")
@@ -132,21 +128,17 @@ publicacionesInicioIndex = function () { //PUBLICACIONES DE INICIO
                     } else {
                         // this card isn't showing - get in with it
                         $(this)
-                            .css({ zIndex: zindex })
+                            .css({ zIndex: 1 })
                             .addClass("show");
-
                     }
-
-                    zindex++;
-
+                    //zindex++;
                 } else {
                     // no cards in view
                     $("div.cards")
                         .addClass("showing");
                     $(this)
-                        .css({ zIndex: zindex })
+                        .css({ zIndex: 2 })
                         .addClass("show");
-
                     zindex++;
                 }
 
