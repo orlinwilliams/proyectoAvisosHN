@@ -52,3 +52,6 @@ div.carde.show div.flap2 {transition: all 0.3s 0.2s ease-out;}
 .modal-body-per{height: 650px;overflow-y: auto;}
 .carousel, .carousel-inner > .item > img {max-height: 700px;max-width: 100%;}
 .registro-de-vendedor{margin-top: -10px;}
+.barra{
+    max-width: 100px;
+}
