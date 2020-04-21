@@ -272,26 +272,10 @@
         <div class="modal-header ">
           <h4 class="modal-title" id="smallModalLabel"> Edita tu publicación </h4>
         </div>
-        <div class="modal-body">
-          <form id="editarPublicacion">
-            <div action="/" id="subirFotos" class="dropzone" enctype="multipart/form-data">
-              <div id="modal_foto_editar"> 
-              </div>
-              <div class="dz-message">
-                <div class="drag-icon-cph">
-                  <i class="material-icons">touch_app</i>
-                </div>
-                <h3>Arrastra hacia aquí tus fotos o da click para seleccionar.</h3>
-                <em>(Es <strong>obligatorio</strong> subir al menos una foto del articulo.)</em>
-              </div>
-              <div class="fallback">
-                <input name="file" type="file" accept="image/*" requerid />
-              </div>
-            </div>
-            <br>
-            <div id="muestra_datos_editar">
-            </div>
-          </form>
+        <div class="modal-body" id='agregarFormularios'>
+        
+        
+          
         </div>
       </div>
     </div>

@@ -280,12 +280,14 @@
                   return _this.removeFile(file);
                 });
               } else {
-                if (_this.options.dictRemoveFileConfirmation) {
-                  return Dropzone.confirm(_this.options.dictRemoveFileConfirmation, function() {
+                if(confirm("Esta seguro que desea eliminar la imagen")){
+                  if (_this.options.dictRemoveFileConfirmation) {
+                    return Dropzone.confirm(_this.options.dictRemoveFileConfirmation, function() {
+                      return _this.removeFile(file);
+                    });
+                  } else {
                     return _this.removeFile(file);
-                  });
-                } else {
-                  return _this.removeFile(file);
+                  }
                 }
               }
             };

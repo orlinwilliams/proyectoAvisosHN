@@ -1,110 +1,250 @@
+categoria = function () {														//Inicio funcion para llenar las categorias
+	$.ajax({																	//Inicio ajax categorias
+		url: "../clases/vistas-index.php?accion=1",
+		success: function (resultado) {
+            $("#categoriaActualizar").append(resultado);
+            //$("#categoriaArt").append(resultado);
+            									//El resultado lo retorna como html
+		},
+		error: function (error) {
+            console.log(error);
+		}
+	});																			
 
-$(document).ready(function () {
+}
 
-});
-
-cargarFotosEditar = function (parametros) { ////Carga las fotos para ser editadas
-    event.preventDefault();
-    id = parametros;
- 
+//FUNCION QUE EJECUTA LA OPCION EDITAR Y HACE CALLBACKK PARA CREAR MODAL CON LOS DATOS
+cargarDatosFormulario=function(id){
     $.ajax({
         url: "../clases/editarfoto.php?accion=1",
         method: "POST",
         data: "txt_idanuncios=" + id,
         success: function (resp) {
-            let datosFotos = JSON.parse(resp);
-            console.log(datosFotos);
-            var modal = "";
-            $i=0; 
-            for (let item of datosFotos) {//RECORRER EL JSON
-                
-                console.log(datosFotos[$i]);
-                modal += "<script src='../plugins/dropzone/dropzone.js'></script>"
-                +"<div class='dz-preview dz-processing dz-success dz-complete dz-image-preview'>"
-                +"<div class='dz-image'>"
-                +"<img data-dz-thumbnail src="+datosFotos[$i]+" alt='' >"
-                +"</div>"
-                +"<div class='dz-details'>"
-                    +"<div class='dz-filename'><span data-dz-name=''></span></div>"
-                    +"<div class='dz-size' data-dz-size>"
-                    +"</div>"
-                +"</div>" 
-                +"<div class='dz-progress'><span class='dz-upload' data-dz-uploadprogress></span>"
-                +"</div>"
-                +"<div class='dz-success-mark'>"
-                +"<svg width='54px' height='54px' viewBox='0 0 54 54' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:sketch='http://www.bohemiancoding.com/sketch/ns'>"
-                +"<title>Check</title>"
-                +"<defs></defs>"
-                +"<g id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' sketch:type='MSPage'>"
-                +"<path id='Oval-2' d='M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z' stroke-opacity='0.198794158' stroke='#747474' fill-opacity='0.816519475' fill='#FFFFFF' sketch:type='MSShapeGroup'> </path>"
-                +"</g>"
-                +"</svg >"
-                +"</div>"
-                +"<div class='dz-error-mark'>"
-                +"<svg width='54px' height='54px' viewBox='0 0 54 54' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:sketch='http://www.bohemiancoding.com/sketch/ns'>"
-                +"<title>Check</title>"
-                +"<defs></defs>"
-                +"<g id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' sketch:type='MSPage'>"
-                +"<g id='Check-+-Oval-2' sketch:type='MSLayerGroup' stroke='#747474' stroke-opacity='0.198794158' fill='#FFFFFF' fill-opacity='0.816519475' >"
-                +"<path id='Oval-2' d='M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z' sketch:type='MSShapeGroup'></path>"
-                +"</g>"
-                +"</g>"
-                +"</svg>"
-                +"</div>"
-                +"<a class='dz-remove' href='javascript:undefined;' data-dz-remove>Remove file</a>"
-                +"<div class='dz-error-message'><span data-dz-errormessage=''></span>"
-                +"</div>"
-                +"</div>" ;
-                $("#subirFotos").html(modal);//INSERTA LAS TARJETAS
-                $i++;
-            }
+            categoria();
+            let datos = JSON.parse(resp);
+            cargarFotosEditar(id,resp);// se ejecuta la funcion con esos parametros
+            //console.log(datos.info);
         }
     });
-};
+}
 
+//CREAR EL FORMULARIO CON LOS DATOS
+cargarFotosEditar = function (id,callback ) {
+    
+    var datos =JSON.parse(callback);
+    console.log(datos);
+    categoria();
+    var myDropzoneModal="<form id='formularioDropzone'>"
+                +"<hr style='margin-top:0px;'>"
+                +"<h5 class='modal-title' style='text-align:center'> Edita tus imagenes </h5>"
+                +"<hr>"
+                +"<div action='/' id='subirFotos' class='dropzone' enctype='multipart/form-data'>"
+                    +"<div class='dz-message'>"
+                        +"<div class='drag-icon-cph'>"
+                            +"<i class='material-icons'>touch_app</i>"
+                        +"</div>"
+                    +"<h3>Arrastra hacia aquí tus fotos o da click para seleccionar.</h3>"
+                        +"<em>(Es <strong>obligatorio</strong> subir al menos una foto del articulo.)</em>"
+                +"</div>"
+                    +"<div class='fallback'>"
+                        +"<input name='file' type='file' accept='image/*' requerid />"
+                    +"</div>"
+                +"</div>"
+                +"<br>"
+                +"<div class='buttom-demo' style='text-align: right' >"
+                    +"<button type='submit'  style='display:inline-block' class='btn btn-default btn-sm waves-effect'>ACTUALIZAR IMAGEN</button>"
+                  +"</div>"
+                +"</form><br></br>" 
+               +"<form id='editarPublicacion'>"
+                +"<hr style='margin-top:2px;'>"
+                    +"<h5 class='modal-title' style='text-align:center'> Edita tus datos</h5>"
+                    +"<hr>"
+                +"<div id='muestra_datos_editar'>"
+                +"<div id='form_validationActualizar'>"
+                +"<div class='form-group form-float'>"
+                    +"<div class='form-line'>"
+                    +"<input type='text' class='form-control' id='nombreActualizar' value='"+datos.info.nombre +"'name='nombre'  required>"                        
+                    +"</div>"
+                +"</div>"
+                +"<div class='form-group form-float'>"
+                    +"<div class='form-line'>"
+                    +"<input type='number' class='form-control money-dollar' id='precioActualizar'value='"+datos.info.precio+"' name='precio'  required>"
+                    +"</div>"
+                +"</div>"
+                +"<div class='form-group form-float'>"
+                    +"<div class='form-line'>"
+                    +"<select class='form-control show-tick name='estado' id='estadoArticulo' required>"
+                        + "<option value='" + datos.info.estadoArticulo + "'>" + datos.info.estadoArticulo + "</option>"
+                        +"<option value='Nuevo'>Nuevo</option>"
+                        +"<option value='Usado'>Usado</option>"
+                        +"<option value='Restaurado'>Restaurado</option>"
+                        +"<option value='Dañado'>Dañado</option>"
+                    +"</select>"
+                    +"</div>"
+                +"</div>"
+                +"<div class='form-group form-float'>"
+                    +"<div class='form-line'>"
+                    +"<select class='form-control show-tick' name='categoria' id='categoriaActualizar'  required>"
+                    +"<option value=" + datos.info.nombreCategoria + ">" + datos.info.nombreCategoria + "</option>"
+                    +"</select>"
+                    +"<label class='form-label'></label>"
+                    +"</div>"
+                +"</div>"
+                +"<div class='form-group form-float'>"
+                    +"<div class='form-line'>"
+                    +"<textarea name='descripcion' cols='30' rows='4' id='descripcionActualizar' value='"+datos.info.descripcion+"' class='form-control no-resize'>"+datos.info.descripcion+"</textarea>"
+                    +"</div>"
+                +"</div>"
+                +"<div class='modal-footer'>"
+                    +"<button type='submit' id='publicarActualizar' class='btn btn-default waves-effect'>Actualizar</button>"
+                    +"<button class='btn bg-black waves-effect waves-light' data-dismiss='modal'id='cancelarActualizarArticulo'>Cancelar</button>"
+                +"</div>"
+            +"</div>"
+                +"</div>"
+                +"</form '>" ;                 
+                $("#agregarFormularios").html(myDropzoneModal);
+            //ajax enviar datos
 
-cargarFotosEditar2 = function (parametros) { ////mostrar los datos en el modal del anuncio
-    event.preventDefault();
+    $("#editarPublicacion").submit(function(event){
+        console.log($("#categoriaActualizar").val());
+        event.preventDefault();
+        $.ajax({
+            url: "../clases/mis-publicaciones.php?accion=6",										//Accion para editar anuncios
+            method: "POST",
+            data: "nombre=" + $("#nombreActualizar").val() +
+                "&precio=" + $("#precioActualizar").val() +
+                "&estado=" + $("#estadoArticulo").val() +
+                "&categoria=" + $("#categoriaActualizar").val() +
+                "&descripcion=" + $("#descripcionActualizar").val() +
+                "&txt_idanuncios=" + id,
+
+            success: function (resultado) {
+                $("#cuerpoModal").empty();										//Vacia el cuerpo del modal de mensaje
+                $("#cuerpoModal").html(resultado);								//Imprime el cuerpo del modal de mensaje					
+                $("#ModalMensaje").modal("show");
+                location.reload();
+    
+                //Despliega el modal con el modal
+            }
+        });
+    
+    })
+    
     Dropzone.autoDiscover = false;
-       
-            $(function() {
-                // Now that the DOM is fully loaded, create the dropzone, and setup the
-                // event listeners
+    var myDropzone = new Dropzone("div#subirFotos", {
+        addRemoveLinks: true,
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        parallelUploads: 4,
+        acceptedFiles: 'image/*',
+        maxFiles: 4,
+        maxFilesize: 2,//tamaño maxino de imagen
+        clickable: true,
+        paramName: 'file',
+        url: "../clases/editarfoto.php?accion=3",
+        accept: function(file, done) {
+            console.log(file);
+            return done();
+          },
+        
+        init:function(){
+             myDropzone = this;
+
+        
+            this.on('removedfile', function(file) {
+                    //console.log(file.name+id);
+                    $.ajax({
+                    url: "../clases/editarfoto.php?accion=2",
+                    method: 'POST',
+                    data: {nombre: file.name,id:id},
+                    success: function(resp){
+                        console.log(resp);
+                        datos=JSON.parse(resp);
+                        if(datos.error==false){
+                            alert(datos.mensaje);
+                            
+                        }
+                        if(datos.error==true){
+                            alert(datos.mensaje);
+                        }
+                    },
+                    error:function(error){
+                        console.log("error en: "+error);
+                    }
+                });
+            
+                           
+            });
+
+            $.each(datos.fotos, function(key,value) {
+                var mockFile = { name: value.name, size: value.size,accept:true } ;
+               
                 
-                var myDropzone = new Dropzone('div#subirFotos',{
+                myDropzone.emit("addedfile", mockFile);
+                myDropzone.createThumbnailFromUrl(mockFile, value.path);
+                myDropzone.emit("thumbnail", mockFile, value.path);
+                myDropzone.emit("complete", mockFile);
+                myDropzone.files.push(mockFile);      
+            });
+            console.log(myDropzone.files);
+            //console.log(myDropzone.getAcceptedFiles());
+            //console.log(myDropzone.processQueue());
+            
+            
+            
 
-                    url: '../clases/editarfoto.php?accion=1',
-                    method: "POST",
-                    data: "txt_idanuncios=" + parametros,
-                });
-                myDropzone.on("addedfile", function(resp) {
-                    
-                    event.preventDefault();
-                    
-                       
-                    console.log(parametros);
-                   
-                        
-                       
-                            let datosFotos = JSON.parse(resp);
-                            console.log(datosFotos);
-                            myDropzone = this;
-                            $i=0;
-                            for (let item of datosFotos) {//RECORRER EL JSON 
-                                let mockFile = { name: "Filename", size: 12345 };
-                                myDropzone.displayExistingFile(mockFile, item[$i]);
-                                $i++;
-                               
-                            }
-                        
-                   
+            //envio de formulario
+            $("#formularioDropzone").submit(function (e) {
+                event.stopPropagation();
+                e.preventDefault();
+                myDropzone.processQueue();
+                
+            });
+        
+            
+            this.on('sending', function (file, xhr, formData) {
+                // Append all form inputs to the formData Dropzone will POST
+                formData.append("idAnuncio", id);
+                /*formData.append("nombre", $("#nombreActualizar").val());
+                formData.append("precio", $("#precioActualizar").val());
+                formData.append("estado", $("#estadoArticulo").val());
+                formData.append("categoria", $("#categoriaActualizar").val());
+                formData.append("descripcion", $("#descripcionActualizar").val());*/
+    
+            });
+            
 
-                });
-              });
-            //VALIDAR MININO DE TAMAÑO
-   
-};
+        },
+        error: function (file, response){
+            if ($.type(response) === "string")
+                var message = response; //dropzone sends it's own error messages in string
+            else
+                var message = response.message;
+            file.previewElement.classList.add("dz-error");
+            _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                node = _ref[_i];
+                _results.push(node.textContent = message);
+            }
+            return _results;
+        },
+        successmultiple: function (file, response) {
+            console.log(file, response);
+            //$modal.modal("show");
+        },
+        completemultiple: function (file, response) {
+            console.log(file, response, "completemultiple");
+            //$modal.modal("show");
+        },
+        reset: function () {
+            console.log("resetFiles");
+            //this.removeAllFiles(true);
+        }
+        
+        
+        
+    });
 
-
-
+}
 
