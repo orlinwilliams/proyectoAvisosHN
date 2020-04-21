@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 16-04-2020 a las 04:59:36
+-- Tiempo de generación: 21-04-2020 a las 18:33:56
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -478,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   KEY `fk_anuncios_categoria1` (`idcategoria`),
   KEY `fk_anuncios_municipios1` (`idMunicipios`),
   KEY `fk_anuncios_Usuario1` (`idUsuario`)
-) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `anuncios`
@@ -490,9 +490,9 @@ INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`
 (56, 3, 2, 110, '1800', 'Prueba 8', 'Nueva descripcion', 'Usado', 'A', NULL),
 (58, 3, 0, 110, '100', 'pruebaHomero', 'pruebaHomero', 'Nuevo', 'A', NULL),
 (59, 3, 0, 110, '1000', 'prueba2', 'prueba2', 'Nuevo', 'A', NULL),
-(60, 4, 0, 110, '10000', 'pruebaFinal3', 'articulo de prueba', 'Nuevo', 'A', NULL),
-(61, 4, 1, 110, '4000', 'Television Lg', 'Tv nuevo', 'Nuevo', 'A', NULL),
-(62, 4, 3, 110, '100000', 'PS4', 'play station 4 nueva', 'Nuevo', 'A', NULL);
+(62, 4, 0, 110, '50000', 'Lapotop 1', 'PROBANDO ACTUALIZAR DATOS 2', 'Restaurado', 'A', NULL),
+(61, 4, 0, 110, '40000', 'PS4', 'intentando corregir datos', 'Restaurado', 'A', NULL),
+(60, 4, 0, 110, '100000', 'Celular SAMSUNG', 'testing 3 name', 'Nuevo', 'A', NULL);
 
 -- --------------------------------------------------------
 
@@ -653,30 +653,31 @@ DROP TABLE IF EXISTS `fotos`;
 CREATE TABLE IF NOT EXISTS `fotos` (
   `idFotos` int(11) NOT NULL AUTO_INCREMENT,
   `idAnuncios` int(11) NOT NULL,
+  `nombre` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
   `localizacion` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `size` float NOT NULL,
   PRIMARY KEY (`idFotos`),
   KEY `FK_idAnuncios` (`idAnuncios`)
-) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `fotos`
 --
 
-INSERT INTO `fotos` (`idFotos`, `idAnuncios`, `localizacion`) VALUES
-(16, 52, '../images/fotosAnuncio/sbethuell@gmail.com/Banner El Doctorcito-01.jpg'),
-(17, 52, '../images/fotosAnuncio/sbethuell@gmail.com/inge.png'),
-(36, 57, '../images/fotosAnuncio/sbethuell@gmail.com/3.jpg'),
-(35, 57, '../images/fotosAnuncio/sbethuell@gmail.com/2.jpg'),
-(34, 57, '../images/fotosAnuncio/sbethuell@gmail.com/1.JPG'),
-(26, 56, '../images/fotosAnuncio/sbethuell@gmail.com/4BE.png'),
-(27, 56, '../images/fotosAnuncio/sbethuell@gmail.com/4FB.jpg'),
-(37, 58, '../images/fotosAnuncio/sbethuell@gmail.com/homero.jpg'),
-(38, 59, '../images/fotosAnuncio/sbethuell@gmail.com/corazon.jpg'),
-(39, 60, '../images/fotosAnuncio/jaredcastro13@yahoo.es/tutorial.jpg'),
-(40, 61, '../images/fotosAnuncio/jaredcastro13@yahoo.es/tv.jpg'),
-(41, 61, '../images/fotosAnuncio/jaredcastro13@yahoo.es/tv1.png'),
-(42, 62, '../images/fotosAnuncio/jaredcastro13@yahoo.es/ps4.jpg'),
-(43, 62, '../images/fotosAnuncio/jaredcastro13@yahoo.es/ps41.jpg');
+INSERT INTO `fotos` (`idFotos`, `idAnuncios`, `nombre`, `localizacion`, `size`) VALUES
+(16, 52, '', '../images/fotosAnuncio/sbethuell@gmail.com/Banner El Doctorcito-01.jpg', 0),
+(17, 52, '', '../images/fotosAnuncio/sbethuell@gmail.com/inge.png', 0),
+(36, 57, '', '../images/fotosAnuncio/sbethuell@gmail.com/3.jpg', 0),
+(35, 57, '', '../images/fotosAnuncio/sbethuell@gmail.com/2.jpg', 0),
+(34, 57, '', '../images/fotosAnuncio/sbethuell@gmail.com/1.JPG', 0),
+(26, 56, '', '../images/fotosAnuncio/sbethuell@gmail.com/4BE.png', 0),
+(27, 56, '', '../images/fotosAnuncio/sbethuell@gmail.com/4FB.jpg', 0),
+(37, 58, '', '../images/fotosAnuncio/sbethuell@gmail.com/homero.jpg', 0),
+(38, 59, '', '../images/fotosAnuncio/sbethuell@gmail.com/corazon.jpg', 0),
+(45, 60, 'sm1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/sm1.jpg', 71738),
+(57, 61, 'laptop1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop1.jpg', 71738),
+(61, 62, 'laptop.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop.jpg', 408132),
+(54, 62, 'laptop1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop1.jpg', 71738);
 
 -- --------------------------------------------------------
 
