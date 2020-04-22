@@ -3,7 +3,7 @@ $(document).ready(function () {
     misPublicaciones();
     categoria();
 
-    var myDropzone = new Dropzone("div#subirFotos", { url: "../vistas/mis-publicaciones.php"});
+    
     //PUBLICAR ANUNCIOS
     Dropzone.autoDiscover = false;
     myDropzone = new Dropzone('div#cargarFotos', {
@@ -152,7 +152,7 @@ misPublicaciones = function () { //VISTA DE MIS PUBLIACIONES
                         + "</div>"
                         + "<div class='card-flap flap2'>"
                         + "<div class='card-actions'>"
-                        + "<button type='buttom' class='btn btn-warning waves-effect' onclick='cargarDatosEditar(" + item.idAnuncios + ");cargarFotosEditar(" + item.idAnuncios + ")' data-toggle='modal' data-target='#editarPubli'>Editar</button>"
+                        + "<button type='buttom' class='btn btn-warning waves-effect' onclick='cargarDatosFormulario(" + item.idAnuncios + ")' data-toggle='modal' data-target='#editarPubli'>Editar</button>"
                         + "<button type='button' class='btn btn-danger waves-effect' onclick='eliminarPublicacion(" + item.idAnuncios + ")'>Borrar</button>"
                         + "</div>"
                         + "</div>"
@@ -264,7 +264,7 @@ cargarDatosEditar = function (parametros) { ////mostrar los datos en el modal de
     });
 };
 
-enviarDatosEditar = function (parametros) {
+/*enviarDatosEditar = function (parametros) {
     event.preventDefault();
     id = parametros;
     //Petición ajax para editar anuncios
@@ -287,7 +287,7 @@ enviarDatosEditar = function (parametros) {
             //Despliega el modal con el modal
         }
     });
-};
+};*/
 
 eliminarPublicacion = function (idAnuncio) { ////Eliminar el anuncio
     event.preventDefault();

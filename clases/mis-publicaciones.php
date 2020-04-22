@@ -39,6 +39,7 @@
             $conexion = new conexion();
             $imagenArchivo=$_FILES["file"]["tmp_name"];
             $nombreImagen=$_FILES["file"]["name"];
+            $sizeImagen=$_FILES["file"]["size"];
             
             session_start();
             $idUsuario=$_SESSION["usuario"]["idUsuario"];
@@ -66,7 +67,7 @@
                     for($i=0;$i<count($nombreImagen);$i++){
                         $ruta[$i]="../images/".$carpetaFoto.$usuario."/".$nombreImagen[$i];
                         
-                            $sqlArray[$i]="INSERT INTO fotos (idAnuncios,localizacion) values ('$lastId','$ruta[$i]')";
+                        $sqlArray[$i]="INSERT INTO fotos (idAnuncios,nombre,localizacion,size) values ('$lastId','$nombreImagen[$i]','$ruta[$i]','$sizeImagen[$i]')";
                             if($conexion->ejecutarInstruccion($sqlArray[$i])){
                                 if(!move_uploaded_file($imagenArchivo[$i],$ruta[$i])){
                                 $conexion->cerrarConexion();
@@ -187,8 +188,8 @@
             if(isset($_POST["txt_idanuncios"])){                                                                            //Comienza a asignar las variables POST
                 $idanuncios = $_POST["txt_idanuncios"];
             }
-            if(isset($_POST["nombre_articulo"])){                                                                            //Comienza a asignar las variables POST
-                $nombre_articulo = $_POST["nombre_articulo"];
+            if(isset($_POST["nombre"])){                                                                            //Comienza a asignar las variables POST
+                $nombre_articulo = $_POST["nombre"];
             }
             if(isset($_POST["precio"])){                                                                            //Comienza a asignar las variables POST
                 $precio = $_POST["precio"];
