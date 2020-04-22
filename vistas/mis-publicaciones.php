@@ -1,5 +1,5 @@
-<?php 
-    session_start();
+<?php
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,8 +12,7 @@
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
-    type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
   <!-- Bootstrap Core Css -->
@@ -77,8 +76,7 @@
   <nav class="navbar">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
-          data-target="#navbar-collapse" aria-expanded="false"></a>
+        <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
         <a href="javascript:void(0);" class="bars"></a>
         <a class="navbar-brand" href="index.php">MarketHN</a>
       </div>
@@ -91,8 +89,7 @@
           <!-- Tasks -->
           <li><a href="../clases/cerrarSesion.php"><i class="material-icons">input</i></a></li>
           <!-- #END# Tasks -->
-          <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i
-                class="material-icons">more_vert</i></a></li>
+          <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
         </ul>
       </div>
     </div>
@@ -104,15 +101,14 @@
       <!-- User Info -->
       <div class="user-info">
         <div class="image">
-          <img src="<?php echo $_SESSION["usuario"]["urlFoto"]?>" width="48" height="48" alt="User" />
+          <img src="<?php echo $_SESSION["usuario"]["urlFoto"] ?>" width="48" height="48" alt="User" />
         </div>
         <div class="info-container">
           <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?></div>
-          <div class="email"><?php echo $_SESSION["usuario"]["correoElectronico"];?></div>
+            <?php echo $_SESSION["usuario"]["pNombre"] . ' ' . $_SESSION["usuario"]["pApellido"]; ?></div>
+          <div class="email"><?php echo $_SESSION["usuario"]["correoElectronico"]; ?></div>
           <div class="btn-group user-helper-dropdown">
-            <i class="material-icons" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="true">keyboard_arrow_down</i>
+            <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
             <ul class="dropdown-menu pull-right">
               <li><a href="perfil.php"><i class="material-icons">person</i>Perfil</a></li>
               <li role="separator" class="divider"></li>
@@ -265,17 +261,17 @@
     <div id="contenedorTarjetas" class="row clearfix cards">
     </div>
   </section>
-   <!-- MODAL DE EDITAR ARTICULO O ANUNCIO-->
- <div class="modal fade" id="editarPubli" tabindex="-1" role="dialog">
+  <!-- MODAL DE EDITAR ARTICULO O ANUNCIO-->
+  <div class="modal fade" id="editarPubli" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header ">
           <h4 class="modal-title" id="smallModalLabel"> Edita tu publicación </h4>
         </div>
         <div class="modal-body" id='agregarFormularios'>
-        
-        
-          
+
+
+
         </div>
       </div>
     </div>
@@ -353,8 +349,7 @@
   <!----------------------------------->
 
   <!--Modal con el mensaje de respuesta-->
-  <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true ">
+  <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true ">
     <div class="modal-dialog modal-dialog-centered" role="document ">
       <div class="modal-content">
         <div class="modal-header">
@@ -378,8 +373,6 @@
 
   <!-- Slimscroll Plugin Js -->
   <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
-
 
   <!-- Validation Plugin Js -->
   <script src="../plugins/jquery-validation/jquery.validate.js"></script>
@@ -411,22 +404,12 @@
   <!-- Moment Plugin Js -->
   <script src="../plugins/momentjs/moment.js"></script>
 
-  <!-- Bootstrap Material Datetime Picker Plugin Js -->
-  <script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-
-  <!-- Bootstrap Datepicker Plugin Js -->
-  <script src="../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-
   <!-- Custom Js -->
   <script src="../js/pages/ui/modals.js"></script>
 
   <!-- Dropzone Plugin Js -->
   <script src="../plugins/dropzone/dropzone.js"></script>
   <script src="../plugins/sweetalert/sweetalert.min.js"></script>
-
-
-
-
 
 </body>
 

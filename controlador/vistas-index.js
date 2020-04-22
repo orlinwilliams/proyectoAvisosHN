@@ -94,7 +94,7 @@ categoria = function () {
     url: "../clases/vistas-index.php?accion=1",
     success: function (resultado) {
         console.log(resultado);
-      $("#categoria").append(resultado); //El resultado lo retorna como html
+      $("#f-categoria").append(resultado); //El resultado lo retorna como html
     },
     error: function (error) {
       console.log(error);

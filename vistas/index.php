@@ -342,7 +342,7 @@ session_start();
                   <p>
                     <b>Categoría</b>
                   </p>
-                  <select class="form-control show-tick">
+                  <select class="form-control show-tick" id="f-categoria">
                     <optgroup label="Picnic">
                       <option>Mustard</option>
                       <option>Ketchup</option>
@@ -708,7 +708,7 @@ session_start();
               </div>
               <div class="form-group form-float">
                 <div class="form-line">
-                  <select class="form-control show-tick" name="categoria" id="categoria">
+                  <select class="form-control" name="categoria" id="categoria">
                     <option></option>
                   </select>
                   <label class="form-label">Categoria</label>
@@ -720,7 +720,6 @@ session_start();
                   <label class="form-label">Descripción (Opcional)</label>
                 </div>
               </div>
-
               <div class="modal-footer">
                 <button type="submit" id="publicarAnuncio" class="btn btn-default waves-effect">Publicar</button>
                 <button type="button" class="btn bg-black waves-effect waves-light" data-dismiss="modal">Cancelar</button>
@@ -807,8 +806,6 @@ session_start();
   <script src="../js/demo.js"></script>
   <script src="../js/index.js"></script>
 
-  <!-- Input Mask Plugin Js -->
-  <script src="../plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
 
   <!-- Bootstrap Tags Input Plugin Js -->
   <script src="../plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
@@ -819,12 +816,6 @@ session_start();
   <!-- Moment Plugin Js -->
   <script src="../plugins/momentjs/moment.js"></script>
 
-  <!-- Bootstrap Material Datetime Picker Plugin Js -->
-  <script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-
-  <!-- Bootstrap Datepicker Plugin Js -->
-  <script src="../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-
   <!-- Custom Js -->
   <script src="../js/pages/ui/modals.js"></script>
 
@@ -832,7 +823,6 @@ session_start();
   <script src="../plugins/dropzone/dropzone.js"></script>
 
   <!-- Controlador de página Js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
   <script src="../plugins/nouislider/nouislider.js"></script>
   <script src="../controlador/vistas-index.js"></script>
 
