@@ -18,9 +18,6 @@ session_start();
   <!-- Bootstrap Core Css -->
   <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-  <!-- Bootstrap Select Css -->
-  <link href="../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
-
   <!-- Botón flotante css -->
   <link href="../plugins/bootstrap/css/botonflotante.css" rel="stylesheet">
 
@@ -42,6 +39,9 @@ session_start();
 
   <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
   <link href="../css/themes/all-themes.css" rel="stylesheet" />
+
+  <!-- Bootstrap Select Css -->
+  <link href="../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 </head>
 
 <body class="theme-black">
@@ -321,56 +321,35 @@ session_start();
             <div class="body">
               <div class="row clearfix">
                 <div class="col-md-3">
-                  <p>
-                    <b>Lugar</b>
-                  </p>
-                  <select class="form-control show-tick" id="lugar">
-                    <!--<optgroup label="Picnic">
-                      <option>Mustard</option>
-                      <option>Ketchup</option>
-                      <option>Relish</option>
-                    </optgroup>
-                    <optgroup label="Camping">
-                      <option>Tent</option>
-                      <option>Flashlight</option>
-                      <option>Toilet Paper</option>
-                    </optgroup>-->
-                  </select>
+                  <div class="form-group form-float">
+                    <div class="form-line">
+                      <select class="form-control show-tick" name="lugar" id="lugar">
+                        <option></option>
+                      </select>
+                      <label class="form-label">Lugar</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                      <select class="form-control show-tick" name="categoria" id="f-categoria">
+                        <option></option>
+                      </select>
+                      <label class="form-label">Categoría</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
 
-                </div>
-                <div class="col-md-3">
-                  <p>
-                    <b>Categoría</b>
-                  </p>
-                  <select class="form-control show-tick" id="f-categoria">
-                    <optgroup label="Picnic">
-                      <option>Mustard</option>
-                      <option>Ketchup</option>
-                      <option>Relish</option>
-                    </optgroup>
-                    <optgroup label="Camping">
-                      <option>Tent</option>
-                      <option>Flashlight</option>
-                      <option>Toilet Paper</option>
-                    </optgroup>
-                  </select>
-                </div>
-                <div class="col-md-3">
-                  <p>
-                    <b>Valoración</b>
-                  </p>
-                  <select class="form-control show-tick">
-                    <optgroup label="Picnic">
-                      <option>Mustard</option>
-                      <option>Ketchup</option>
-                      <option>Relish</option>
-                    </optgroup>
-                    <optgroup label="Camping">
-                      <option>Tent</option>
-                      <option>Flashlight</option>
-                      <option>Toilet Paper</option>
-                    </optgroup>
-                  </select>
+                  <div class="form-group form-float">
+                    <div class="form-line">
+                      <select class="form-control show-tick" name="valoracion" id="valoracion">
+                        <option></option>
+                      </select>
+                      <label class="form-label">Valoración</label>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-3">
                   <p><b>Rango de precio</b></p>
@@ -708,7 +687,7 @@ session_start();
               </div>
               <div class="form-group form-float">
                 <div class="form-line">
-                  <select class="form-control" name="categoria" id="categoria">
+                  <select class="form-control show-tick" name="categoria" id="categoria">
                     <option></option>
                   </select>
                   <label class="form-label">Categoria</label>
@@ -784,8 +763,6 @@ session_start();
 
   <!-- Bootstrap Core Js -->
   <script src="../plugins/bootstrap/js/bootstrap.js"></script>
-  <!-- Select Plugin Js -->
-  <script src="../plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
   <!-- Slimscroll Plugin Js -->
   <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
@@ -806,10 +783,6 @@ session_start();
   <script src="../js/demo.js"></script>
   <script src="../js/index.js"></script>
 
-
-  <!-- Bootstrap Tags Input Plugin Js -->
-  <script src="../plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
-
   <!-- Autosize Plugin Js -->
   <script src="../plugins/autosize/autosize.js"></script>
 
@@ -825,7 +798,6 @@ session_start();
   <!-- Controlador de página Js -->
   <script src="../plugins/nouislider/nouislider.js"></script>
   <script src="../controlador/vistas-index.js"></script>
-
 
 </body>
 

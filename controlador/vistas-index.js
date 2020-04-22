@@ -95,6 +95,7 @@ categoria = function () {
     success: function (resultado) {
         console.log(resultado);
       $("#f-categoria").append(resultado); //El resultado lo retorna como html
+      $("#categoria").append(resultado); //El resultado lo retorna como html
     },
     error: function (error) {
       console.log(error);
@@ -480,7 +481,7 @@ function getNoUISliderValue(slider, percentage) {
 
 municipios = function () {														//Inicio funcion para llenar los municipios
 	$.ajax({																	//Inicio ajax municipios
-		url: "../clases/index.php?accion=1",
+		url: "../clases/vistas-index.php?accion=2",
 		success: function (resultado) {
       console.log(resultado);
 			$("#lugar").append(resultado);								//El resultado lo retorna como html

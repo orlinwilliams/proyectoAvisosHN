@@ -30,6 +30,33 @@
             }
             $conexion->cerrarConexion();
         break;
+        case '2':
+            $conexion = new conexion();
+            $sql = "SELECT iddepartamentos, nombredepartamento FROM `departamentos`
+                ORDER by iddepartamentos ASC;";
+            $resultado = $conexion->ejecutarInstruccion($sql);
+            if (!$resultado) {
+                echo "No hay municipios";
+            } else {
+                while ($fila = $conexion->obtenerFila($resultado)) {                                                    //Recorre todas las filas de departamentos
+                    $iddepartamento = $fila["iddepartamentos"];
+                    echo '<optgroup label="' . $fila["nombredepartamento"] . '">';
+    
+                    $sql2 = "SELECT idmunicipios, municipio FROM `municipios`
+                        WHERE iddepartamentos=$iddepartamento
+                        ORDER by idmunicipios ASC;";                                                                    //Por cada departamento consultará los municipios que pertenecen al departamento
+    
+                    $resultado2 = $conexion->ejecutarInstruccion($sql2);
+                    if ($resultado2) {
+                        while ($fila2 = $conexion->obtenerFila($resultado2)) {                                          //Recorre todas las filas de municipio según el departamento
+                            echo '<option value="' . $fila2["idmunicipios"] . '">' . $fila2["municipio"] . '</option>';
+                        }
+                    }
+                    echo '</optgroup>';
+                }
+            }
+            $conexion->cerrarConexion();
+        break;
          
         case '3':       //PUBLICACIONES INICIOUSUARIO
             $conexion = new conexion();
