@@ -29,8 +29,6 @@ switch ($_GET["accion"]) {                                                      
                 echo '</optgroup>';
             }
         }
-        $conexion->liberarResultado($sql);
-        $conexion->liberarResultado($sql2);
         $conexion->cerrarConexion();
         break;
 

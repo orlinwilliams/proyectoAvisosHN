@@ -1,5 +1,6 @@
 $(document).ready(function () {
   //document
+  municipios();
   categoria();
   publicacionesInicio();
   Dropzone.autoDiscover = false;
@@ -476,3 +477,18 @@ function getNoUISliderValue(slider, percentage) {
         $(slider).parent().find('span.js-nouislider-value').text("L "+val);
     });
 }
+
+municipios = function () {														//Inicio funcion para llenar los municipios
+	$.ajax({																	//Inicio ajax municipios
+		url: "../clases/index.php?accion=1",
+		success: function (resultado) {
+      console.log(resultado);
+			$("#lugar").append(resultado);								//El resultado lo retorna como html
+		},
+		error: function (error) {
+			console.log(error);
+		}
+	});																			//Fin ajax municipios
+
+}																				//Fin funcion para llenar los municipios
+

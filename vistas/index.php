@@ -324,8 +324,8 @@ session_start();
                   <p>
                     <b>Lugar</b>
                   </p>
-                  <select class="form-control show-tick">
-                    <optgroup label="Picnic">
+                  <select class="form-control show-tick" id="lugar">
+                    <!--<optgroup label="Picnic">
                       <option>Mustard</option>
                       <option>Ketchup</option>
                       <option>Relish</option>
@@ -334,7 +334,7 @@ session_start();
                       <option>Tent</option>
                       <option>Flashlight</option>
                       <option>Toilet Paper</option>
-                    </optgroup>
+                    </optgroup>-->
                   </select>
 
                 </div>
@@ -382,15 +382,15 @@ session_start();
           </div>
         </div>
       </div>
-      <div class="contenedor">
-        <button class="botonF1" data-toggle="modal" data-target="#modalArticulo">
-          <span>+
-          </span>
-        </button>
-      </div>
-
-      <div id="contenedorTarjeta" class="row clearfix cards">
-      </div>
+    </div>
+    <div class="contenedor">
+      <button class="botonF1" data-toggle="modal" data-target="#modalArticulo">
+        <span>+
+        </span>
+      </button>
+    </div>
+    <div id="contenedorTarjeta" class="row clearfix cards">
+    </div>
   </section>
 
   <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
@@ -398,69 +398,6 @@ session_start();
     <div class="modal-dialog modal-dialog-per modal-lg " role="document" style="width:70%">
       <div class="modal-content">
         <div class="modal-body modal-body-per" id="infoArticulo">
-          <div class="row">
-            <div class="col-md-7 col-sm-12 col-xs-12 izquierdo">
-              <div class="fotorama" data-width="100%" data-ratio="700/467" data-minwidth="400" data-maxwidth="1000" data-minheight="300" data-maxheight="100%" data-nav="thumbs" data-fit="cover" data-loop="true">
-                <img src="../images/joker.jpg">
-                <img src="../images/image-gallery/12.jpg">
-                <img src="../images/image-gallery/19.jpg" />
-              </div>
-            </div>
-            <div class="col-md-5 col-sm-12 col-xs-12 derecho">
-              <div>
-                <!--ESTOS SE DEBEN CAMBIAR POR LINKS QUE ENVIEN A TODOS LOS ANUNCIONS DE ESA CATEGORIA
-                <a href="http://"> </a>-->
-                <p class="font-categoria"><a class="links-categorias" href="#">Categoria</a> > <a class="links-categorias" href="#">Tecnología</a>> <a class="links-categorias" href="#">Móviles y
-                    Telefonía</a></p>
-              </div>
-              <div>
-                <p class="titulo">Samsung Galaxy S20</p>
-              </div>
-              <div class="precio">
-                <p class="font-precio">L 19,000</p>
-              </div>
-              <div class="estado">
-                <p class="font-estado"><strong>Estado:</strong> Nuevo</p>
-                <p class="font-estado"><strong>Lugar:</strong> Tegucigalpa</p>
-              </div>
-              <div class="descripcion">
-                <p class="font-descripcion"><strong>Descripción:</strong></p>
-                <p class="parrafo">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur voluptate et
-                  dolore magnam ipsum fuga iure voluptates, voluptatum doloremque, magni eveniet deleniti. Quia beatae
-                  perspiciatis vero tenetur! Nesciunt, assumenda accusamus.</p>
-              </div>
-              <div class="vendedor">
-                <p class="font-vendedor">Información del vendedor</p>
-                <div class="div-imagen">
-                  <a aria-label="Foto del vendedor" href="#" data-toggle="modal" data-target="#modalVendedor" data-dismiss="modal">
-                    <img class="imagen-vendedor" src="../images/joker.jpg" alt="">
-                  </a>
-                </div>
-                <div class="div-nombre">
-                  <p class="font-vendedor"><a data-toggle="modal" data-target="#modalVendedor" data-dismiss="modal">Maynor Bethuell Pineda</a></p>
-                  <p class="registro-de-vendedor">Unido desde 14 Febrero 2010</p>
-
-                  <div class="demo-google-material-icon" style="color:black;">
-                    <span class="icon-name" style="font-size:22px"><strong>Valoración:
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      </strong>4.5</span>
-                    <i class="material-icons md-18">star_rate</i>
-                  </div>
-                  <div class="demo-google-material-icon pb-5" style="color:black;">
-                    <i class="material-icons md-24">phone</i>
-                    <span class="icon-name" style="font-size:22px"><strong>+504 9619-9660</strong></span>
-                  </div>
-                  <br>
-                  <div>
-                    <div style="text-align:center;">
-                      <button class="btn btn-info btn-lg waves-effect" type="submit">CONTACTAR</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -772,7 +709,7 @@ session_start();
               <div class="form-group form-float">
                 <div class="form-line">
                   <select class="form-control show-tick" name="categoria" id="categoria">
-                  <option></option>
+                    <option></option>
                   </select>
                   <label class="form-label">Categoria</label>
                 </div>
