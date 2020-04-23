@@ -144,7 +144,7 @@ infoVendedor = function (idUsuario) {
         "<li>" +
         "<span>Valoración</span>" +
         "<span>" +
-        datos.Valoración +
+        datos.cantidadEstrellas +
         "</span>" +
         "</li>" +
         "<li>" +
@@ -293,10 +293,9 @@ cargarArticulo = function (idAnuncio) {
           "</p>" +
           "<div class='demo-google-material-icon' style='color:black;'>" +
           "<span class='icon-name' style='font-size:22px'><strong>Valoración:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>" +
-          datos.info.Valoración +
+          datos.info.cantidadEstrellas +
           "</span>" +
-          "<script>$('#estrella').starrr({rating:3,change:function(e,valor){console.log(valor); var estrellas=valor; $.ajax({url:'../clases/vistas-index.php?accion=8',method: 'post', data: 'valoracion='+estrellas,success: function(resp){console.log(resp)}})}});</script>"+ 
-          "<span id='estrella'></span>"+
+          "<i class='material-icons md-18'>star_rate</i>" +
           "</div>" +
           "<div class='demo-google-material-icon pb-5' style='color:black;'>" +
           "<i class='material-icons md-24'>phone</i>" +
