@@ -1,5 +1,5 @@
-<?php
-session_start();
+<?php 
+    session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,8 @@ session_start();
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
+    type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
   <!-- Bootstrap Core Css -->
@@ -26,24 +27,24 @@ session_start();
 
   <!-- Animation Css -->
   <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
-  <!-- noUISlider Css -->
-  <link href="../plugins/nouislider/nouislider.min.css" rel="stylesheet" />
+
+   <!-- estrellas Css -->
+   <link href="../plugins/star/css/starrr.css" rel="stylesheet" />
+   <link href="../plugins/star/css/bootstrap.min.css" rel="stylesheet" />
+   <link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
 
   <!-- Custom Css -->
   <link href="../css/style.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
   <link href="../css/estilos.css" rel="stylesheet">
 
+
   <!-- Dropzone Css -->
   <link href="../plugins/dropzone/dropzone.css" rel="stylesheet">
 
   <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
   <link href="../css/themes/all-themes.css" rel="stylesheet" />
-
-  <!-- Bootstrap Select Css -->
-  <link href="../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 </head>
-
 <body class="theme-black">
   <!-- Page Loader -->
   <div class="page-loader-wrapper">
@@ -79,9 +80,9 @@ session_start();
   <!-- Top Bar -->
   <nav class="navbar">
     <div class="container-fluid">
-
       <div class="navbar-header">
-        <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+        <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
+          data-target="#navbar-collapse" aria-expanded="false"></a>
         <a href="javascript:void(0);" class="bars"></a>
         <a class="navbar-brand" href="index.php">MarketHN</a>
       </div>
@@ -94,10 +95,10 @@ session_start();
           <!-- Tasks -->
           <li><a href="../clases/cerrarSesion.php"><i class="material-icons">input</i></a></li>
           <!-- #END# Tasks -->
-          <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
+          <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i
+                class="material-icons">more_vert</i></a></li>
         </ul>
       </div>
-
     </div>
   </nav>
   <!-- #Top Bar -->
@@ -107,14 +108,15 @@ session_start();
       <!-- User Info -->
       <div class="user-info">
         <div class="image">
-          <img src="<?php echo $_SESSION["usuario"]["urlFoto"] ?>" width="48" height="48" alt="User" />
+          <img src="<?php echo $_SESSION["usuario"]["urlFoto"]?>" width="48" height="48" alt="User" />
         </div>
         <div class="info-container">
           <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <?php echo $_SESSION["usuario"]["pNombre"] . ' ' . $_SESSION["usuario"]["pApellido"]; ?></div>
-          <div class="email"><?php echo $_SESSION["usuario"]["correoElectronico"]; ?></div>
+            <?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?></div>
+          <div class="email"><?php echo $_SESSION["usuario"]["correoElectronico"];?></div>
           <div class="btn-group user-helper-dropdown">
-            <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+            <i class="material-icons" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="true">keyboard_arrow_down</i>
             <ul class="dropdown-menu pull-right">
               <li><a href="perfil.php"><i class="material-icons">person</i>Perfil</a></li>
               <li role="separator" class="divider"></li>
@@ -256,127 +258,90 @@ session_start();
     </aside>
     <!-- #END# Right Sidebar -->
   </section>
-  <!-- #Contenido -->
   <section class="content">
-    <!--<div class="row clearfix" style="max-width:90%; margin-left:auto; margin-right:auto; max-height:140px;">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-          <div class="header">
-
-          </div>
-        </div>
-        <div class="body">
-          <div class="row clearfix">
-            <div class="col-md-3">
-              <p>
-                <b>Lugar</b>
-              </p>
-              <select class="form-control show-tick">
-                <optgroup label="Picnic">
-                  <option>Mustard</option>
-                  <option>Ketchup</option>
-                  <option>Relish</option>
-                </optgroup>
-                <optgroup label="Camping">
-                  <option>Tent</option>
-                  <option>Flashlight</option>
-                  <option>Toilet Paper</option>
-                </optgroup>
-              </select>
-
-            </div>
-            <div class="col-md-3">
-              <p>
-                <b>Categoría</b>
-              </p>
-              <select class="form-control show-tick">
-                <optgroup label="Picnic">
-                  <option>Mustard</option>
-                  <option>Ketchup</option>
-                  <option>Relish</option>
-                </optgroup>
-                <optgroup label="Camping">
-                  <option>Tent</option>
-                  <option>Flashlight</option>
-                  <option>Toilet Paper</option>
-                </optgroup>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>-->
-    <div class="row clearfix" style="max-width:90% !important; margin-left:auto !important; margin-right:auto !important; max-height:140px !important;">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-          <div class="Header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only" style="background-color:black">Toggle navigation</span>
-              <span class="icon-bar" style="background-color:black"></span>
-              <span class="icon-bar" style="background-color:black"></span>
-              <span class="icon-bar" style="background-color:black"></span>
-            </button>
-          </div>
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <div class="body">
-              <div class="row clearfix">
-                <div class="col-md-3">
-                  <div class="form-group form-float">
-                    <div class="form-line">
-                      <select class="form-control show-tick" name="lugar" id="lugar">
-                        <option></option>
-                      </select>
-                      <label class="form-label">Lugar</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                <div class="form-group form-float">
-                    <div class="form-line">
-                      <select class="form-control show-tick" name="categoria" id="f-categoria">
-                        <option></option>
-                      </select>
-                      <label class="form-label">Categoría</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-
-                  <div class="form-group form-float">
-                    <div class="form-line">
-                      <select class="form-control show-tick" name="valoracion" id="valoracion">
-                        <option></option>
-                      </select>
-                      <label class="form-label">Valoración</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <p><b>Rango de precio</b></p>
-                  <div id="nouislider_range_example"></div>
-                  <div class="m-t-20 font-12"><b>Rango: </b><span class="js-nouislider-value"></span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="contenedor">
       <button class="botonF1" data-toggle="modal" data-target="#modalArticulo">
         <span>+
         </span>
       </button>
     </div>
+
     <div id="contenedorTarjeta" class="row clearfix cards">
     </div>
   </section>
-
+  
   <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
   <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-per modal-lg " role="document" style="width:70%">
       <div class="modal-content">
         <div class="modal-body modal-body-per" id="infoArticulo">
+          <div class="row">
+            <div class="col-md-7 col-sm-12 col-xs-12 izquierdo">
+              <div class="fotorama" data-width="100%" data-ratio="700/467" data-minwidth="400" data-maxwidth="1000"
+                data-minheight="300" data-maxheight="100%" data-nav="thumbs" data-fit="cover" data-loop="true">
+                <img src="../images/joker.jpg">
+                <img src="../images/image-gallery/12.jpg">
+                <img src="../images/image-gallery/19.jpg" />
+              </div>
+            </div>
+            <div class="col-md-5 col-sm-12 col-xs-12 derecho">
+              <div>
+                <!--ESTOS SE DEBEN CAMBIAR POR LINKS QUE ENVIEN A TODOS LOS ANUNCIONS DE ESA CATEGORIA
+                <a href="http://"> </a>-->
+                <p class="font-categoria"><a class="links-categorias" href="#">Categoria</a> > <a
+                    class="links-categorias" href="#">Tecnología</a>> <a class="links-categorias" href="#">Móviles y
+                    Telefonía</a></p>
+              </div>
+              <div>
+                <p class="titulo">Samsung Galaxy S20</p>
+              </div>
+              <div class="precio">
+                <p class="font-precio">L 19,000</p>
+              </div>
+              <div class="estado">
+                <p class="font-estado"><strong>Estado:</strong> Nuevo</p>
+                <p class="font-estado"><strong>Lugar:</strong> Tegucigalpa</p>
+              </div>
+              <div class="descripcion">
+                <p class="font-descripcion"><strong>Descripción:</strong></p>
+                <p class="parrafo">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur voluptate et
+                  dolore magnam ipsum fuga iure voluptates, voluptatum doloremque, magni eveniet deleniti. Quia beatae
+                  perspiciatis vero tenetur! Nesciunt, assumenda accusamus.</p>
+              </div>
+              <div class="vendedor">
+                <p class="font-vendedor">Información del vendedor</p>
+                <div class="div-imagen">
+                  <a aria-label="Foto del vendedor" href="#" data-toggle="modal" data-target="#modalVendedor"
+                    data-dismiss="modal">
+                    <img class="imagen-vendedor" src="../images/joker.jpg" alt="">
+                  </a>
+                </div>
+                <div class="div-nombre">
+                  <p class="font-vendedor"><a data-toggle="modal" data-target="#modalVendedor"
+                      data-dismiss="modal">Maynor Bethuell Pineda</a></p>
+                  <p class="registro-de-vendedor">Unido desde 14 Febrero 2010 </p>
+
+                  <div class="demo-google-material-icon" style="color:black;">
+                    <span class="icon-name" style="font-size:22px"><strong>Valoración:
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      </strong>4.5</span>
+                    <i class="material-icons md-18"> aqui</i>
+                  </div>
+                  <div class="demo-google-material-icon pb-5" style="color:black;">
+                    <i class="material-icons md-24">phone</i>
+                    <span class="icon-name" style="font-size:22px"><strong>+504 9619-9660</strong></span>
+                  </div>
+                  <br>
+                  <div>
+                    <div style="text-align:center;">
+                      <button class="btn btn-info btn-lg waves-effect" type="submit">CONTACTAR</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -393,7 +358,8 @@ session_start();
             <div class="profile-header">&nbsp;</div>
             <div class="profile-body">
               <div class="image-area">
-                <img src="../images/joker.jpg" alt="Foto de perfil de Maynor Bethuell Pineda" width="200px" height="200px" />
+                <img src="../images/joker.jpg" alt="Foto de perfil de Maynor Bethuell Pineda" width="200px"
+                  height="200px" />
               </div>
               <div class="content-area">
                 <h3>Maynor Bethuell Pineda</h3>
@@ -632,7 +598,8 @@ session_start();
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#defaultModal" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#defaultModal"
+            data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
@@ -667,12 +634,15 @@ session_start();
                 </div>
 
               </div>
+
               <div class="form-group form-float">
                 <div class="form-line">
                   <input type="number" class="form-control money-dollar" name="precio" id="precio" required>
                   <label class="form-label">Precio</label>
                 </div>
               </div>
+
+
               <div class="form-group form-float">
                 <div class="form-line">
                   <select class="form-control show-tick" name="estado" id="estado" required>
@@ -685,25 +655,28 @@ session_start();
                   <label class="form-label">Estado</label>
                 </div>
               </div>
+
               <div class="form-group form-float">
                 <div class="form-line">
-                  <select class="form-control show-tick" name="categoria" id="categoria">
-                    <option></option>
+                  <select class="form-control show-tick" name="categoria" id="categoria" required>
                   </select>
                   <label class="form-label">Categoria</label>
                 </div>
               </div>
+
               <div class="form-group form-float">
                 <div class="form-line">
                   <textarea name="descripcion" cols="30" rows="4" class="form-control no-resize"></textarea>
                   <label class="form-label">Descripción (Opcional)</label>
                 </div>
               </div>
+
               <div class="modal-footer">
                 <button type="submit" id="publicarAnuncio" class="btn btn-default waves-effect">Publicar</button>
-                <button type="button" class="btn bg-black waves-effect waves-light" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn bg-black waves-effect waves-light"
+                  data-dismiss="modal">Cancelar</button>
               </div>
-            </div>
+              </div>
           </form>
         </div>
       </div>
@@ -711,39 +684,40 @@ session_start();
   </div>
 
   <!-- modal para hacer contacto con el vendedor -->
-  <div class="modal fade" id="modalContacto" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="smallModalLabel">¡Hazlo, contacta con el vendedor!</h4>
-        </div>
-        <div class="modal-body">
-          <div style="padding:5px; ">
-            <div class="input-group input-group-sm">
-              <span class="input-group-addon">
-                <i class="material-icons">person</i>
-              </span>
-              <div class="form-line">
-                <input type="text" id="nombreUsuario" class="form-control" placeholder="<?php echo $_SESSION["usuario"]["pNombre"] . ' ' . $_SESSION["usuario"]["pApellido"]; ?>" readonly="readonly">
-              </div>
+ <div class="modal fade" id="modalContacto" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">¡Hazlo, contacta con el vendedor!</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div style="padding:5px; ">
+                                     <div class="input-group input-group-sm">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">person</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" id ="nombreUsuario"class="form-control" placeholder="<?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?>" readonly="readonly">
+                                        </div>
+                                      </div>
+                                      <div class="input-group input-group-sm">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">mail</i>
+                                        </span>
+                                        <div class="form-line">
+                                        <input type="text" class="form-control" id ="correoUsuario"placeholder="<?php echo $_SESSION["usuario"]["correoElectronico"];?>" readonly="readonly">
+                                        </div>
+                                      </div>
+                                      <div id="descrip">
+                                       </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="input-group input-group-sm">
-              <span class="input-group-addon">
-                <i class="material-icons">mail</i>
-              </span>
-              <div class="form-line">
-                <input type="text" class="form-control" id="correoUsuario" placeholder="<?php echo $_SESSION["usuario"]["correoElectronico"]; ?>" readonly="readonly">
-              </div>
-            </div>
-            <div id="descrip">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <!--Modal con el mensaje de respuesta-->
-  <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true ">
+  <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true ">
     <div class="modal-dialog modal-dialog-centered" role="document ">
       <div class="modal-content">
         <div class="modal-header">
@@ -783,11 +757,23 @@ session_start();
   <script src="../js/demo.js"></script>
   <script src="../js/index.js"></script>
 
+  <!-- Input Mask Plugin Js -->
+  <script src="../plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+
+  <!-- Bootstrap Tags Input Plugin Js -->
+  <script src="../plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+
   <!-- Autosize Plugin Js -->
   <script src="../plugins/autosize/autosize.js"></script>
 
   <!-- Moment Plugin Js -->
   <script src="../plugins/momentjs/moment.js"></script>
+
+  <!-- Bootstrap Material Datetime Picker Plugin Js -->
+  <script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+  <!-- Bootstrap Datepicker Plugin Js -->
+  <script src="../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 
   <!-- Custom Js -->
   <script src="../js/pages/ui/modals.js"></script>
@@ -796,8 +782,10 @@ session_start();
   <script src="../plugins/dropzone/dropzone.js"></script>
 
   <!-- Controlador de página Js -->
-  <script src="../plugins/nouislider/nouislider.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
   <script src="../controlador/vistas-index.js"></script>
+  <!-- Star Plugin Js -->
+  <script src="../plugins/star/js/starrr.js"></script>
 
 </body>
 
