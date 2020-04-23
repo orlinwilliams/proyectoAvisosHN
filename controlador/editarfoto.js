@@ -3,7 +3,7 @@ categoria = function () {														//Inicio funcion para llenar las categori
 		url: "../clases/vistas-index.php?accion=1",
 		success: function (resultado) {
             $("#categoriaActualizar").append(resultado);
-            //$("#categoriaArt").append(resultado);
+            $("#categoria").append(resultado);
             									//El resultado lo retorna como html
 		},
 		error: function (error) {
