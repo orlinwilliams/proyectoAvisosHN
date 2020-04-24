@@ -184,10 +184,24 @@
                 else{
                     $datos = $conexion->obtenerFila($respuesta);
                     
-                    echo json_encode(array("idUsuario"=>$datos["idUsuario"],"pNombre"=>$datos["pNombre"],"pApellido"=>$datos["pApellido"],"urlFoto"=>$datos["urlFoto"],
+                    $datosVendedor=array("idUsuario"=>$datos["idUsuario"],"pNombre"=>$datos["pNombre"],"pApellido"=>$datos["pApellido"],"urlFoto"=>$datos["urlFoto"],
                     "correoElectronico"=>$datos["correoElectronico"],"fechaRegistro"=>$datos["fechaRegistro"],"tipoUsuario"=>$datos["tipoUsuario"],"cantidadEstrellas"=>$datos["cantidadEstrellas"],
-                    "comentarios"=>$datos["comentarios"],"cantidadAnuncio"=>$datos["cantidadAnuncio"]
-                ));
+                    "cantidadAnuncio"=>$datos["cantidadAnuncio"]
+                );
+                
+                $sql1="SELECT nombre,fechaPublicacion,precio FROM anuncios WHERE idUsuario='$idUsuario'";
+                if($respuesta1=$conexion->ejecutarInstruccion($sql1)){
+                    $anunciosVendedor=array();
+                    while($row1=$conexion->obtenerFila($respuesta1)){
+                        $anunciosVendedor[]=array("nombreAnuncio"=>$row1["nombre"],"fechaAnuncio"=>$row1["fechaPublicacion"],"precioAnuncio"=>$row1["precio"]);
+                    }
+                    echo json_encode(array("datosVendedor"=>$datosVendedor,"anunciosVendedor"=>$anunciosVendedor));
+
+                }
+                else{
+                    echo "error en consulta de anuncios de usuario";
+                }
+
                     
                     
                 }

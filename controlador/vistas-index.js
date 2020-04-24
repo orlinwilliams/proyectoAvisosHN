@@ -93,7 +93,7 @@ categoria = function () {
     //Inicio ajax categorias
     url: "../clases/vistas-index.php?accion=1",
     success: function (resultado) {
-        console.log(resultado);
+        //console.log(resultado);
       $("#f-categoria").append(resultado); //El resultado lo retorna como html
       $("#categoria").append(resultado); //El resultado lo retorna como html
     },
@@ -110,19 +110,36 @@ infoVendedor = function (idUsuario) {
     data: "idUsuario=" + idUsuario,
     success: function (resp) {
       var datos = JSON.parse(resp);
-      var nombreCompleto = datos.pNombre + " " + datos.pApellido;
+      historialAnuncios="";
+      for (var i = 0; i < datos.anunciosVendedor.length; i++) {
+        historialAnuncios+="<li>" +
+          "<div class='title'>" +
+          datos.anunciosVendedor[i].nombreAnuncio +
+          "</div>" +
+          "<div class='content'>" +
+          "<div style='float:left;'>" +
+          datos.anunciosVendedor[i].fechaAnuncio +
+          "</div>" +
+          "<div style='margin-left:90%'>" +
+          datos.anunciosVendedor[i].precioAnuncio +
+          "</div>" +
+          "</div>" +
+          "</li>";
+      }
+      
+      var nombreCompleto = datos.datosVendedor.pNombre + " " + datos.datosVendedor.pApellido;
       console.log(datos);
       var modal =
         "<div class='modal-header' style='text-align:center'>" +
         "<h4 class='modal-title' id='defaultModalLabel'></h4>" +
-        "</div>" +
+        "</div>" + 
         "<div class='modal-body modal-body-per'>" +
         "<div class='card profile-card'>" +
         "<div class='profile-header'>&nbsp;</div>" +
         "<div class='profile-body'>" +
         "<div class='image-area'>" +
         "<img src=" +
-        datos.urlFoto +
+        datos.datosVendedor.urlFoto +
         " alt=" +
         nombreCompleto +
         " width='200px' height='200px' />" +
@@ -132,10 +149,10 @@ infoVendedor = function (idUsuario) {
         nombreCompleto +
         "</h3>" +
         "<p>" +
-        datos.fechaRegistro +
+        datos.datosVendedor.fechaRegistro +
         "</p>" +
         "<p>" +
-        datos.tipoUsuario +
+        datos.datosVendedor.tipoUsuario +
         "</p>" +
         "</div>" +
         "</div>" +
@@ -144,49 +161,37 @@ infoVendedor = function (idUsuario) {
         "<li>" +
         "<span>Valoración</span>" +
         "<span>" +
-        datos.cantidadEstrellas +
+        datos.datosVendedor.cantidadEstrellas +
         "</span>" +
         "</li>" +
         "<li>" +
         "<span>ArticulosPublicados</span>" +
         "<span>" +
-        datos.cantidadAnuncio +
+        datos.datosVendedor.cantidadAnuncio +
         "</span>" +
         "</li>" +
         "<li>" +
         "<span>Correo Electrónico</span>" +
         "<span>" +
-        datos.correoElectronico +
+        datos.datosVendedor.correoElectronico +
         "</span>" +
         "</li>" +
-        "</ul>" +
-        "</div>" +
-        "</div>" +
-        "<div class='card card-about-me' style='max-height:400px; overflow-y:scroll;'>" +
-        "<div class='header' style='text-align:center'>" +
-        "<h2>HISTORIAL</h2>" +
-        "<small>(Se mantiene el registro de los últimos 90 días)</small>" +
-        "</div>" +
-        "<div class='body' style='height: auto;'>" +
-        "<ul>" +
-        "<li>" +
-        "<div class='title'>" +
-        "Articulo 1" +
-        "</div>" +
-        "<div class='content'>" +
-        "<div style='float:left;'>" +
-        "Publicado el 1 de Diciembre de 2019" +
-        "</div>" +
-        "<div style='margin-left:90%'>" +
-        "L 1000" +
-        "</div>" +
-        "</div>" +
         "</ul>" +
         "</div>" +
         "</div>" +
         "<div class='card card-about-me' style='max-height:400px; overflow-y:scroll;'>" +
         "<div class='header' style='text-align:center'>" +
         "<h2>Últimos comentarios</h2>" +
+        "<p><button type='button' class='btn bg-light-green btn-circle waves-effect waves-circle waves-float' data-toggle='collapse' href='#collapseExample' aria-expanded='false'"+
+        "aria-controls='collapseExample'>"+
+        "<i class='material-icons'>chat</i>"+
+        "</button></p>"+
+        "<div class='collapse' id='collapseExample'>"+
+        "<div class='well'>"+
+        "<textarea id='comentario' name='comentario' cols='30' rows='4' class='form-control no-resize'></textarea>"+ 
+        "</div>"+
+        "<button class='btn btn-default waves-effect'>AGREGAR COMENTARIO</button>"+
+        "</div>"+
         "</div>" +
         "<div class='body' style='height: auto;'>" +
         "<ul>" +
@@ -202,6 +207,17 @@ infoVendedor = function (idUsuario) {
         "</div>" +
         "</div>" +
         "</li>" +
+        "</ul>" +
+        "</div>" +
+        "</div>" +
+        "<div class='card card-about-me' style='max-height:400px; overflow-y:scroll;'>" +
+        "<div class='header' style='text-align:center'>" +
+        "<h2>HISTORIAL</h2>" +
+        "<small>(Se mantiene el registro de los últimos 90 días)</small>" +
+        "</div>" +        
+        "<div class='body' style='height: auto;'>" +
+        "<ul>" +
+        historialAnuncios+
         "</ul>" +
         "</div>" +
         "</div>" +
@@ -483,7 +499,7 @@ municipios = function () {														//Inicio funcion para llenar los municip
 	$.ajax({																	//Inicio ajax municipios
 		url: "../clases/vistas-index.php?accion=2",
 		success: function (resultado) {
-      console.log(resultado);
+      //console.log(resultado);
 			$("#lugar").append(resultado);								//El resultado lo retorna como html
 		},
 		error: function (error) {
