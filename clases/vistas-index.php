@@ -160,7 +160,7 @@
                 $conexion->cerrarConexion();                
             }
         break;
-        case '5':
+        case '5'://INFROMACION DEL VENDEDOR
             if (isset($_GET["idUsuario"])){
                 $idUsuario=$_GET["idUsuario"];
             }
@@ -168,12 +168,10 @@
                 echo "idUsuario no ingresado";
             }
             else{
-                $conexion = new conexion();
-                $sql = "SELECT U.idUsuario, U.pNombre,U.pApellido,U.urlFoto, U.correoElectronico,U.fechaRegistro, T.tipoUsuario, CV.cantidadEstrellas, CV.comentarios,(SELECT COUNT(idUsuario) FROM anuncios WHERE idUsuario='$idUsuario') as cantidadAnuncio FROM usuario as U
+                $conexion = new conexion(); //INFORMACION DEL VENDEDOR
+                $sql = "SELECT U.idUsuario, U.pNombre,U.pApellido,U.urlFoto, U.correoElectronico,U.fechaRegistro, T.tipoUsuario,(SELECT COUNT(idUsuario) FROM anuncios WHERE idUsuario='$idUsuario') as cantidadAnuncio FROM usuario as U
                 INNER JOIN tipoUsuario as T
                 ON T.idTipoUsuario=U.idTipoUsuario
-                LEFT JOIN calificacionesvendedor as CV
-                ON U.idUsuario=CV.idUsuario
                 WHERE U.idUsuario='$idUsuario';";
                 
                 $respuesta=$conexion->ejecutarInstruccion($sql);
@@ -184,29 +182,57 @@
                     $datos = $conexion->obtenerFila($respuesta);
                     
                     $datosVendedor=array("idUsuario"=>$datos["idUsuario"],"pNombre"=>$datos["pNombre"],"pApellido"=>$datos["pApellido"],"urlFoto"=>$datos["urlFoto"],
-                    "correoElectronico"=>$datos["correoElectronico"],"fechaRegistro"=>$datos["fechaRegistro"],"tipoUsuario"=>$datos["tipoUsuario"],"cantidadEstrellas"=>$datos["cantidadEstrellas"],
+                    "correoElectronico"=>$datos["correoElectronico"],"fechaRegistro"=>$datos["fechaRegistro"],"tipoUsuario"=>$datos["tipoUsuario"],
                     "cantidadAnuncio"=>$datos["cantidadAnuncio"]
                 );
                 
-                $sql1="SELECT nombre,fechaPublicacion,precio FROM anuncios WHERE idUsuario='$idUsuario'";
+                $sql1="SELECT nombre,fechaPublicacion,precio FROM anuncios WHERE idUsuario='$idUsuario'";//INFORMACION DE LAS PUBLICACIONES
                 if($respuesta1=$conexion->ejecutarInstruccion($sql1)){
                     $anunciosVendedor=array();
-                    while($row1=$conexion->obtenerFila($respuesta1)){
-                        $anunciosVendedor[]=array("nombreAnuncio"=>$row1["nombre"],"fechaAnuncio"=>$row1["fechaPublicacion"],"precioAnuncio"=>$row1["precio"]);
+                    if($respuesta1->num_rows!=0){
+                        while($row1=$conexion->obtenerFila($respuesta1)){
+                            $anunciosVendedor[]=array("nombreAnuncio"=>$row1["nombre"],"fechaAnuncio"=>$row1["fechaPublicacion"],"precioAnuncio"=>$row1["precio"]);
+                        }
+                        $sql3="SELECT concat_ws(' ',U.pNombre,U.pApellido) as nombreComprador,C.comentario  FROM comentariosvendedor C
+                        INNER JOIN usuario U
+                        ON C.idUsuarioCalificado=U.idUsuario
+                        WHERE idUsuarioCalificado='$idUsuario' ORDER BY idComentariosVendedor DESC";//INFORMACION DE COMENTARIOS
+                        
+                        if($respuesta2=$conexion->ejecutarInstruccion($sql3)){
+                            $comentariosVendedor=array();
+                                if($respuesta2->num_rows!=0){
+                                    while($row2=$conexion->obtenerFila($respuesta2)){
+                                    $comentariosVendedor[]=array("comentario"=>$row2["comentario"],"nombreComprador"=>$row2["nombreComprador"]);
+                                    }
+                                    echo json_encode(array("datosVendedor"=>$datosVendedor,"anunciosVendedor"=>$anunciosVendedor,"comentariosVendedor"=>$comentariosVendedor));
+                                }   
+                            else{
+                                echo json_encode(array("datosVendedor"=>$datosVendedor,"anunciosVendedor"=>$anunciosVendedor,"comentariosVendedor"=>array("error"=>true,"mensaje"=>"No hay comentarios todavia")));
+                            }
+            
+                        }   
+                        else{
+                            echo "error en consulta de comentarios";
+                        }
+                    
+                    
                     }
-                    echo json_encode(array("datosVendedor"=>$datosVendedor,"anunciosVendedor"=>$anunciosVendedor));
+                    else{
+                        echo json_encode(array("datosVendedor"=>$datosVendedor,"anunciosVendedor"=>array("error"=>true,"mensaje"=>"Vendedor no ha publicado todavia")));
+                    }
+                    
+                    //echo json_encode(array("datosVendedor"=>$datosVendedor,"anunciosVendedor"=>$anunciosVendedor));
 
                 }
                 else{
                     echo "error en consulta de anuncios de usuario";
                 }
-
+                                
                     
-                    
-                }
-                
-                
             }
+                
+                
+        }
             $conexion->cerrarConexion();
         break;
         case '6'://Datos para hacer contacto con vendedor
@@ -266,6 +292,49 @@
                           }
               $conexion->cerrarConexion();
           break;
+          case'8'://INGRESA COMENTARIO
+            
+            if(!isset($_POST["idUsuario"])){
+                echo "falta idUsuario del vendedor";
+            }
+            else{
+                $idUsuario=$_POST["idUsuario"]; //idVendedor
+            }
+
+            if(!isset($_POST["comentario"])){
+                echo "falta Comentario del vendedor";
+            }
+            else{
+                $comentario=$_POST["comentario"];
+            }
+
+            if($comentario=="" && $comentario==null){
+                echo "comentario vacio";
+
+            }
+            
+            $conexion = new Conexion();
+            session_start();
+            $pNombre=$_SESSION["usuario"]["pNombre"];
+            $pApellido=$_SESSION["usuario"]["pApellido"];
+            $nombreComprador=$pNombre." ".$pApellido;
+            $idComprador=$_SESSION["usuario"]["idUsuario"];
+            
+            if($idComprador==$idUsuario){
+                echo json_encode(array("error"=>true, "mensaje"=>"No puedes camentarte a ti mismo"));
+            }
+            else{
+                $sql="INSERT INTO comentariosvendedor(comentario, idUsuarioCalificador, idUsuarioCalificado) VALUES('$comentario','$idComprador','$idUsuario')";
+                if($resultado=$conexion->ejecutarInstruccion($sql)){
+                    echo json_encode(array("error"=>false, "mensaje"=>"Comentario agregado con exito","nombreComprador"=>$nombreComprador));
+                }
+                else{
+                    echo json_encode(array("error"=>true, "mensaje"=>"Erro en consulta de insert Comentario"));;
+                }
+            }
+
+            $conexion->cerrarConexion();
+        break;
      
         }
 
