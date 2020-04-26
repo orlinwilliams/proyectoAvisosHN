@@ -371,7 +371,6 @@ session_start();
     <div id="contenedorTarjeta" class="row clearfix cards">
     </div>
   </section>
-
   <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
   <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-per modal-lg " role="document" style="width:70%">
@@ -709,7 +708,6 @@ session_start();
       </div>
     </div>
   </div>
-
   <!-- modal para hacer contacto con el vendedor -->
   <div class="modal fade" id="modalContacto" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm" role="document">
@@ -758,43 +756,34 @@ session_start();
     </div>
   </div>
 
+
+
+
   <!-- Jquery Core Js -->
   <script src="../plugins/jquery/jquery.min.js"></script>
-
   <!-- Bootstrap Core Js -->
   <script src="../plugins/bootstrap/js/bootstrap.js"></script>
-
   <!-- Slimscroll Plugin Js -->
   <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
   <!-- Waves Effect Plugin Js -->
   <script src="../plugins/node-waves/waves.js"></script>
-
   <!-- Validation Plugin Js -->
   <script src="../plugins/jquery-validation/jquery.validate.js"></script>
-
   <!-- Wait Me Plugin Js -->
   <script src="../plugins/waitme/waitMe.js"></script>
-
   <!-- Custom Js -->
   <script src="../js/admin.js"></script>
-
   <!-- Demo Js -->
   <script src="../js/demo.js"></script>
   <script src="../js/index.js"></script>
-
   <!-- Autosize Plugin Js -->
   <script src="../plugins/autosize/autosize.js"></script>
-
   <!-- Moment Plugin Js -->
   <script src="../plugins/momentjs/moment.js"></script>
-
   <!-- Custom Js -->
   <script src="../js/pages/ui/modals.js"></script>
-
   <!-- Dropzone Plugin Js -->
   <script src="../plugins/dropzone/dropzone.js"></script>
-
   <!-- Controlador de página Js -->
   <script src="../plugins/nouislider/nouislider.js"></script>
   <script src="../controlador/vistas-index.js"></script>

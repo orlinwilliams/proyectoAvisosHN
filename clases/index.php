@@ -128,7 +128,6 @@ switch ($_GET["accion"]) {                                                      
             $conexion->cerrarConexion();
         }
         break;
-
     case '3':
 
         if (isset($_POST["correo"])) {                                                                            //Comienza a asignar las variables POST

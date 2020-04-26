@@ -1,6 +1,7 @@
 <?php
     require_once("conexion.php");
     require_once("correo.php");
+    
     switch ($_GET["accion"]){
         case '1':                                                                                                   //Obtiene las categorias
             $conexion = new conexion();
@@ -57,7 +58,6 @@
             }
             $conexion->cerrarConexion();
         break;
-         
         case '3':       //PUBLICACIONES INICIOUSUARIO
             $conexion = new conexion();
             $sql="SELECT idAnuncios,nombre,precio,descripcion 
@@ -112,7 +112,6 @@
             $conexion->cerrarConexion();
 
         break;
-            
         case '4':
             if (isset($_GET["idAnuncio"])){
                 $idAnuncio=$_GET["idAnuncio"];
@@ -196,7 +195,7 @@
             }
             $conexion->cerrarConexion();
         break;
-        case '6':///Datos para hacer contacto con vendedor
+        case '6'://Datos para hacer contacto con vendedor
             $conexion = new Conexion();
             session_start();
             $idUsuario=$_SESSION["usuario"]["idUsuario"];

@@ -269,9 +269,6 @@ session_start();
           <h4 class="modal-title" id="smallModalLabel"> Edita tu publicación </h4>
         </div>
         <div class="modal-body" id='agregarFormularios'>
-
-
-
         </div>
       </div>
     </div>

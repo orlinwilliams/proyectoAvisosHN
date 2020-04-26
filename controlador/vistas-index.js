@@ -144,7 +144,7 @@ infoVendedor = function (idUsuario) {
         "<li>" +
         "<span>Valoración</span>" +
         "<span>" +
-        datos.cantidadEstrellas +
+        datos.cantidadEstrellas +       
         "</span>" +
         "</li>" +
         "<li>" +
@@ -466,7 +466,6 @@ $(function () {
     },
   });
 });
-
 //Get noUISlider Value and write on
 function getNoUISliderValue(slider, percentage) {
     slider.noUiSlider.on('update', function () {
@@ -491,5 +490,4 @@ municipios = function () {														//Inicio funcion para llenar los municip
 		}
 	});																			//Fin ajax municipios
 
-}																				//Fin funcion para llenar los municipios
-
+}																				              //Fin funcion para llenar los municipios
