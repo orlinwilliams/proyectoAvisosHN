@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 23-04-2020 a las 07:45:20
+-- Tiempo de generación: 26-04-2020 a las 03:35:29
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -78,102 +78,73 @@ LEAVE SP;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_EDITAR_ANUNCIO`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EDITAR_ANUNCIO` (IN `pnIdAnuncios` INT, IN `pnIdUsuario` INT, IN `pcCategoria` VARCHAR(45), IN `pnPrecio` INT, IN `pcNombreArticulo` VARCHAR(45), IN `pcDescripcion` VARCHAR(500), IN `pcEstado` VARCHAR(45), OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(45))  SP:
-BEGIN
-    DECLARE
-        vnConteo,
-        vnIdUsuario,
-        vnIdCategoria,
-        vnIdAnuncios INT ; DECLARE tempMensaje VARCHAR(2000) ;
-    SET
-        autocommit = 0 ;
-    START TRANSACTION
-        ;
-    SET
-        tempMensaje = '' ;
-    SET
-        pbOcurrioError = TRUE ; IF pcNombreArticulo = '' OR pcNombreArticulo IS NULL THEN
-    SET
-        tempMensaje = 'Nombre del articulo, ' ;
-END IF ; IF pcCategoria = '' OR pcCategoria IS NULL THEN
-SET
-    tempMensaje = 'Categoria, ' ;
-END IF ; IF pnPrecio = '' OR pnPrecio IS NULL THEN
-SET
-    tempMensaje = 'Precio, ' ;
-END IF ; IF pcEstado = '' OR pcEstado IS NULL THEN
-SET
-    tempMensaje = 'Estado, ' ;
-END IF ; IF tempMensaje <> '' THEN
-SET
-    pcMensaje = CONCAT(
-        'Faltan los siguientes campos: ',
-        tempMensaje
-    ) ; LEAVE SP ;
-END IF ; IF pnIdUsuario = '' OR pnIdUsuario IS NULL THEN
-SET
-    tempMensaje = 'idUsuario, ' ;
-END IF ;
-SELECT
-    COUNT(*)
-INTO vnConteo
-FROM
-    usuario u
-WHERE
-    u.idUsuario = pnIdUsuario ; IF vnConteo = 0 THEN
-SET
-    pcMensaje = 'Usuario no existe' ; LEAVE SP ;
-END IF ; IF pnIdAnuncios = '' OR pnIdAnuncios IS NULL THEN
-SET
-    tempMensaje = 'idAnuncios, ' ;
-END IF ;
-SELECT
-    COUNT(*)
-INTO vnConteo
-FROM
-    anuncios a
-WHERE
-    a.idAnuncios = pnIdAnuncios ; IF vnConteo = 0 THEN
-SET
-    pcMensaje = 'Anuncio no existe' ; LEAVE SP ;
-END IF ;
-SELECT
-    u.idUsuario
-INTO vnIdUsuario
-FROM
-    usuario u
-WHERE
-    u.idUsuario = pnIdUsuario ;
-SELECT
-    a.idAnuncios
-INTO vnIdAnuncios
-FROM
-    anuncios a
-WHERE
-    a.idAnuncios = pnIdAnuncios ;
-SELECT
-    c.idcategoria
-INTO vnIdCategoria
-FROM
-    categoria c
-WHERE
-    c.nombreCategoria = pcCategoria ;
-UPDATE
-    anuncios
-SET
-    idcategoria = vnIdCategoria,
-    Nombre = pcNombreArticulo,
-    precio = pnPrecio,
-    descripcion = pcDescripcion,
-    estadoArticulo = pcEstado
-WHERE
-    idUsuario = vnIdUsuario AND idAnuncios = vnIdAnuncios ;
-COMMIT
-    ;
-SET
-    pcMensaje = 'Anuncio  actualizado con exito.' ;
-SET
-    pbOcurrioError = FALSE ; LEAVE SP ;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EDITAR_ANUNCIO` (IN `pnIdAnuncios` INT, IN `pnIdUsuario` INT, IN `pnIdCategoria` INT, IN `pnPrecio` INT, IN `pcNombreArticulo` VARCHAR(45), IN `pcDescripcion` VARCHAR(45), IN `pcEstado` VARCHAR(45), OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(45))  SP:BEGIN
+    DECLARE  vnConteo, vnIdUsuario, vnIdAnuncios INT;
+    DECLARE tempMensaje VARCHAR (2000);
+SET autocommit=0;
+START TRANSACTION;
+SET tempMensaje='';
+SET pbOcurrioError=TRUE;
+
+IF pcNombreArticulo = '' OR pcNombreArticulo  IS NULL THEN
+    SET tempMensaje= 'Nombre del articulo, ';
+END IF;
+
+IF pnIdCategoria = '' OR pnIdCategoria  IS NULL THEN
+    SET tempMensaje = 'Categoria, ';
+END IF;
+
+IF pnPrecio = '' OR pnPrecio  IS NULL THEN
+    SET tempMensaje = 'Precio, ';
+END IF;
+
+IF pcEstado = '' OR pcEstado  IS NULL THEN
+    SET tempMensaje= 'Estado, ';
+END IF;
+
+IF tempMensaje <> '' THEN
+    SET pcMensaje= CONCAT('Faltan los siguientes campos: ', tempMensaje);
+    LEAVE SP;
+END IF;
+
+IF pnIdUsuario = '' OR pnIdUsuario IS NULL THEN
+    SET tempMensaje='idUsuario, ';
+END IF;
+
+SELECT COUNT(*) INTO vnConteo FROM usuario u
+WHERE u.idUsuario=pnIdUsuario;
+
+IF vnConteo = 0 THEN
+    SET pcMensaje='Usuario no existe';
+    LEAVE SP;
+END IF;
+
+IF pnIdAnuncios = '' OR pnIdAnuncios IS NULL THEN
+    SET tempMensaje='idAnuncios, ';
+END IF;
+
+SELECT COUNT(*) INTO vnConteo FROM anuncios a
+WHERE a.idAnuncios=pnIdAnuncios;
+
+IF vnConteo = 0 THEN
+    SET pcMensaje = 'Anuncio no existe';
+    LEAVE SP;
+END IF;
+
+SELECT u.idUsuario INTO vnIdUsuario FROM usuario u
+WHERE u.idUsuario=pnIdUsuario;
+
+SELECT a.idAnuncios INTO vnIdAnuncios FROM anuncios a
+WHERE a.idAnuncios=pnIdAnuncios;
+
+
+
+UPDATE anuncios SET idcategoria= pnIdCategoria, Nombre= pcNombreArticulo, precio=pnPrecio, descripcion=pcDescripcion, estadoArticulo=pcEstado
+    WHERE idUsuario= vnIdUsuario and idAnuncios=vnIdAnuncios;
+COMMIT;
+SET pcMensaje = 'Anuncio  actualizado con exito.';
+SET pbOcurrioError = FALSE;
+LEAVE SP;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_EDITAR_USUARIO`$$
@@ -478,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   KEY `fk_anuncios_categoria1` (`idcategoria`),
   KEY `fk_anuncios_municipios1` (`idMunicipios`),
   KEY `fk_anuncios_Usuario1` (`idUsuario`)
-) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `anuncios`
@@ -489,130 +460,9 @@ INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`
 (56, 3, 2, 110, '1800', 'Prueba 8', 'Nueva descripcion', 'Usado', 'A', NULL),
 (58, 3, 0, 110, '100', 'pruebaHomero', 'pruebaHomero', 'Nuevo', 'A', NULL),
 (59, 3, 0, 110, '1000', 'prueba2', 'prueba2', 'Nuevo', 'A', NULL),
-(60, 4, 0, 110, '10000', 'pruebaFinal3', 'articulo de prueba', 'Nuevo', 'A', NULL),
-(61, 4, 1, 110, '4000', 'Television Lg', 'Tv nuevo', 'Nuevo', 'A', NULL),
-(62, 4, 3, 110, '100000', 'PS4', 'play station 4 nueva', 'Nuevo', 'A', NULL);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `calificacionanuncio`
---
-
-DROP TABLE IF EXISTS `calificacionanuncio`;
-CREATE TABLE IF NOT EXISTS `calificacionanuncio` (
-  `idCalificacionAnuncio` int(11) NOT NULL AUTO_INCREMENT,
-  `idAnuncios` int(11) NOT NULL,
-  `valoracion` float DEFAULT NULL,
-  PRIMARY KEY (`idCalificacionAnuncio`),
-  KEY `idAnuncios` (`idAnuncios`)
-) ENGINE=MyISAM AUTO_INCREMENT=156 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- Volcado de datos para la tabla `calificacionanuncio`
---
-
-INSERT INTO `calificacionanuncio` (`idCalificacionAnuncio`, `idAnuncios`, `valoracion`) VALUES
-(56, 56, 5),
-(57, 57, 3),
-(75, 61, 5),
-(74, 61, 5),
-(73, 61, 2),
-(72, 61, 5),
-(71, 62, 2),
-(70, 62, 5),
-(69, 62, 4),
-(68, 62, 2),
-(67, 62, 2),
-(66, 62, 4),
-(65, 61, 2),
-(64, 62, 4),
-(63, 62, 2),
-(58, 58, 4),
-(59, 59, 5),
-(60, 60, 1),
-(61, 61, 2),
-(62, 62, 2),
-(76, 61, 5),
-(77, 61, 5),
-(78, 61, 5),
-(79, 61, 5),
-(80, 61, 5),
-(81, 61, 5),
-(82, 62, 5),
-(83, 62, 5),
-(84, 62, 5),
-(85, 62, 5),
-(86, 62, 5),
-(87, 62, 5),
-(88, 62, 5),
-(89, 62, 5),
-(90, 62, 5),
-(91, 62, 5),
-(92, 62, 5),
-(93, 62, 5),
-(94, 62, 5),
-(95, 62, 5),
-(96, 62, 5),
-(97, 62, 5),
-(98, 62, 5),
-(99, 62, 5),
-(100, 62, 5),
-(101, 62, 5),
-(102, 62, 5),
-(103, 62, 3),
-(104, 62, 5),
-(105, 62, 5),
-(106, 62, 5),
-(107, 62, 1),
-(108, 62, 1),
-(109, 62, 5),
-(110, 62, 5),
-(111, 62, 5),
-(112, 62, 5),
-(113, 62, 5),
-(114, 62, 5),
-(115, 62, 5),
-(116, 62, 5),
-(117, 62, 5),
-(118, 62, 5),
-(119, 62, 5),
-(120, 62, 5),
-(121, 62, 5),
-(122, 62, 5),
-(123, 62, 5),
-(124, 62, 5),
-(125, 62, 5),
-(126, 62, 5),
-(127, 62, 5),
-(128, 62, 5),
-(129, 62, 5),
-(130, 62, 5),
-(131, 62, 5),
-(132, 62, 5),
-(133, 62, 5),
-(134, 62, 5),
-(135, 62, 5),
-(136, 62, 5),
-(137, 62, 5),
-(138, 62, 5),
-(139, 62, 5),
-(140, 62, 5),
-(141, 62, 5),
-(142, 62, 5),
-(143, 62, 5),
-(144, 62, 5),
-(145, 62, 5),
-(146, 62, 5),
-(147, 62, 5),
-(148, 62, 5),
-(149, 62, 5),
-(150, 62, 5),
-(151, 62, 5),
-(152, 62, 5),
-(153, 62, 5),
-(154, 62, 5),
-(155, 62, 5);
+(62, 4, 0, 110, '50000', 'Lapotop 1', 'PROBANDO ACTUALIZAR DATOS 2', 'Restaurado', 'A', NULL),
+(61, 4, 0, 110, '40000', 'PS4', 'intentando corregir datos', 'Restaurado', 'A', NULL),
+(60, 4, 0, 110, '100000', 'Celular SAMSUNG', 'testing 3 name', 'Nuevo', 'A', NULL);
 
 -- --------------------------------------------------------
 
@@ -638,26 +488,19 @@ CREATE TABLE IF NOT EXISTS `calificacionescomprador` (
 
 DROP TABLE IF EXISTS `calificacionesvendedor`;
 CREATE TABLE IF NOT EXISTS `calificacionesvendedor` (
-  `idCalificacionVendedor` int(11) NOT NULL AUTO_INCREMENT,
+  `idCalificacionVendedor` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `cantidadEstrellas` int(11) DEFAULT NULL,
-  `comentarios` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idCalificacionVendedor`),
   KEY `fk_calificacionesVendedor_Usuario1` (`idUsuario`)
-) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `calificacionesvendedor`
 --
 
-INSERT INTO `calificacionesvendedor` (`idCalificacionVendedor`, `cantidadEstrellas`, `comentarios`, `idUsuario`) VALUES
-(1, 4, NULL, 3),
-(85, 2, NULL, 4),
-(84, 4, NULL, 4),
-(83, 3, NULL, 4),
-(82, 4, NULL, 4),
-(81, 5, NULL, 4),
-(80, 5, NULL, 4);
+INSERT INTO `calificacionesvendedor` (`idCalificacionVendedor`, `cantidadEstrellas`, `idUsuario`) VALUES
+('1', 4, 3);
 
 -- --------------------------------------------------------
 
@@ -715,6 +558,23 @@ INSERT INTO `categoria` (`idcategoria`, `nombreCategoria`, `idgrupocategoria`) V
 (33, 'Bebés', 8),
 (34, 'Equipamento y Maquinaría', 8),
 (35, 'Artículos para animales', 8);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comentariosvendedor`
+--
+
+DROP TABLE IF EXISTS `comentariosvendedor`;
+CREATE TABLE IF NOT EXISTS `comentariosvendedor` (
+  `idComentariosVendedor` int(11) NOT NULL,
+  `comentario` varchar(600) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `idusuarioCalificador` int(11) NOT NULL,
+  `idUsuarioCalificado` int(11) NOT NULL,
+  PRIMARY KEY (`idComentariosVendedor`),
+  KEY `idusuarioCalificador` (`idusuarioCalificador`),
+  KEY `idUsuarioCalificado` (`idUsuarioCalificado`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -779,28 +639,29 @@ DROP TABLE IF EXISTS `fotos`;
 CREATE TABLE IF NOT EXISTS `fotos` (
   `idFotos` int(11) NOT NULL AUTO_INCREMENT,
   `idAnuncios` int(11) NOT NULL,
+  `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `localizacion` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `size` float NOT NULL,
   PRIMARY KEY (`idFotos`),
   KEY `FK_idAnuncios` (`idAnuncios`)
-) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `fotos`
 --
 
-INSERT INTO `fotos` (`idFotos`, `idAnuncios`, `localizacion`) VALUES
-(36, 57, '../images/fotosAnuncio/sbethuell@gmail.com/3.jpg'),
-(35, 57, '../images/fotosAnuncio/sbethuell@gmail.com/2.jpg'),
-(34, 57, '../images/fotosAnuncio/sbethuell@gmail.com/1.JPG'),
-(26, 56, '../images/fotosAnuncio/sbethuell@gmail.com/4BE.png'),
-(27, 56, '../images/fotosAnuncio/sbethuell@gmail.com/4FB.jpg'),
-(37, 58, '../images/fotosAnuncio/sbethuell@gmail.com/homero.jpg'),
-(38, 59, '../images/fotosAnuncio/sbethuell@gmail.com/corazon.jpg'),
-(39, 60, '../images/fotosAnuncio/jaredcastro13@yahoo.es/tutorial.jpg'),
-(40, 61, '../images/fotosAnuncio/jaredcastro13@yahoo.es/tv.jpg'),
-(41, 61, '../images/fotosAnuncio/jaredcastro13@yahoo.es/tv1.png'),
-(42, 62, '../images/fotosAnuncio/jaredcastro13@yahoo.es/ps4.jpg'),
-(43, 62, '../images/fotosAnuncio/jaredcastro13@yahoo.es/ps41.jpg');
+INSERT INTO `fotos` (`idFotos`, `idAnuncios`, `nombre`, `localizacion`, `size`) VALUES
+(36, 57, '', '../images/fotosAnuncio/sbethuell@gmail.com/3.jpg', 0),
+(35, 57, '', '../images/fotosAnuncio/sbethuell@gmail.com/2.jpg', 0),
+(34, 57, '', '../images/fotosAnuncio/sbethuell@gmail.com/1.JPG', 0),
+(26, 56, '', '../images/fotosAnuncio/sbethuell@gmail.com/4BE.png', 0),
+(27, 56, '', '../images/fotosAnuncio/sbethuell@gmail.com/4FB.jpg', 0),
+(37, 58, '', '../images/fotosAnuncio/sbethuell@gmail.com/homero.jpg', 0),
+(38, 59, '', '../images/fotosAnuncio/sbethuell@gmail.com/corazon.jpg', 0),
+(45, 60, 'sm1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/sm1.jpg', 71738),
+(57, 61, 'laptop1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop1.jpg', 71738),
+(61, 62, 'laptop.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop.jpg', 408132),
+(54, 62, 'laptop1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop1.jpg', 71738);
 
 -- --------------------------------------------------------
 
