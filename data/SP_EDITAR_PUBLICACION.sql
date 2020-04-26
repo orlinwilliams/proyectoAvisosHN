@@ -2,7 +2,7 @@ DELIMITER $$
 CREATE PROCEDURE SP_EDITAR_ANUNCIO(
 IN      pnIdAnuncios        INT,  
 IN		pnIdUsuario		    INT,
-IN		pcCategoria         VARCHAR(45),
+IN		pnIdCategoria       INT,
 IN		pnPrecio	        INT,
 IN		pcNombreArticulo    VARCHAR(45),
 IN		pcDescripcion	    VARCHAR(45),
@@ -11,7 +11,7 @@ OUT		pbOcurrioError		BOOLEAN,
 OUT		pcMensaje		    VARCHAR(45)
 )
 SP:BEGIN
-    DECLARE  vnConteo, vnIdUsuario, vnIdCategoria, vnIdAnuncios INT;
+    DECLARE  vnConteo, vnIdUsuario, vnIdAnuncios INT;
     DECLARE tempMensaje VARCHAR (2000);
 SET autocommit=0;
 START TRANSACTION;
@@ -22,7 +22,7 @@ IF pcNombreArticulo = '' OR pcNombreArticulo  IS NULL THEN
     SET tempMensaje= 'Nombre del articulo, ';
 END IF;
 
-IF pcCategoria = '' OR pcCategoria  IS NULL THEN
+IF pnIdCategoria = '' OR pnIdCategoria  IS NULL THEN
     SET tempMensaje = 'Categoria, ';
 END IF;
 
@@ -69,10 +69,9 @@ WHERE u.idUsuario=pnIdUsuario;
 SELECT a.idAnuncios INTO vnIdAnuncios FROM anuncios a
 WHERE a.idAnuncios=pnIdAnuncios;
 
-SELECT c.idcategoria INTO vnIdCategoria FROM categoria c
-WHERE c.nombreCategoria=pcCategoria;
 
-UPDATE anuncios SET idcategoria= vnIdCategoria, Nombre= pcNombreArticulo, precio=pnPrecio, descripcion=pcDescripcion, estadoArticulo=pcEstado
+
+UPDATE anuncios SET idcategoria= pnIdCategoria, Nombre= pcNombreArticulo, precio=pnPrecio, descripcion=pcDescripcion, estadoArticulo=pcEstado
     WHERE idUsuario= vnIdUsuario and idAnuncios=vnIdAnuncios;
 COMMIT;
 SET pcMensaje = 'Anuncio  actualizado con exito.';

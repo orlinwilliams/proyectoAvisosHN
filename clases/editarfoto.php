@@ -13,7 +13,7 @@
 
            
                    
-            $sql="SELECT idAnuncios, idUsuario, nombre, precio, nombreCategoria, descripcion, estadoArticulo 
+            $sql="SELECT idAnuncios, idUsuario, nombre, precio, anuncios.idCategoria, nombreCategoria, descripcion, estadoArticulo 
             FROM anuncios INNER JOIN categoria ON categoria.idcategoria= anuncios.idcategoria 
             WHERE idUsuario=$idUsuario and idAnuncios=$idanuncios";//CONSULTA
             
