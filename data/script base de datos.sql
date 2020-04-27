@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 26-04-2020 a las 03:35:29
+-- Tiempo de generación: 27-04-2020 a las 22:31:31
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -26,6 +26,43 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+DROP PROCEDURE IF EXISTS `SP_CALIFICACION_VENDEDOR`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CALIFICACION_VENDEDOR` (IN `pnIdAnuncio` INT, OUT `MensajeError` VARCHAR(200))  SP:BEGIN
+    DECLARE vnConteo, vnIdUsuario        INT;
+    DECLARE vnPromedio                   FLOAT;
+
+    IF pnIdAnuncio = '' OR pnIdAnuncio IS NULL THEN
+        SET MensajeError = 'Ingrese el idAnuncio ';
+        LEAVE SP;
+    END IF;
+
+    SELECT idUsuario INTO vnIdUsuario FROM anuncios
+    WHERE idAnuncios = pnIdAnuncio;
+
+    SELECT COUNT(*) INTO vnConteo FROM calificacionesvendedor
+    WHERE idUsuario=vnIdUsuario;
+
+    SELECT ROUND((SELECT AVG(valoracion) FROM calificacionanuncio ca
+    INNER JOIN anuncios a ON a.idAnuncios=ca.idAnuncios
+    WHERE a.idUsuario=vnIdUsuario),1) INTO vnPromedio;
+
+    IF vnConteo = 0 THEN 
+        INSERT INTO calificacionesvendedor(idUsuario, cantidadEstrellas) VALUES (vnIdUsuario, vnPromedio);
+        COMMIT;
+        SET MensajeError = 'Valoracion insertada.';
+        LEAVE SP;
+    END IF;
+
+    IF vnConteo=1 THEN
+        UPDATE calificacionesvendedor SET cantidadEstrellas=vnPromedio
+        WHERE idUsuario=vnIdUsuario;
+        COMMIT;
+        SET MensajeError = 'Valoracion actualizada.';
+        LEAVE SP;
+    END IF;
+
+END$$
+
 DROP PROCEDURE IF EXISTS `SP_CONTRASENIA`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CONTRASENIA` (IN `pnIdUsuario` INT, IN `pcContraseniaActual` VARCHAR(200), IN `pcContraseniaNueva` VARCHAR(200), IN `pcConfirmación` VARCHAR(200), OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(45))  SP:BEGIN
     DECLARE vnIdUsuario, vnConteo INT;
@@ -467,6 +504,156 @@ INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `calificacionanuncio`
+--
+
+DROP TABLE IF EXISTS `calificacionanuncio`;
+CREATE TABLE IF NOT EXISTS `calificacionanuncio` (
+  `idCalificacionAnuncio` int(11) NOT NULL AUTO_INCREMENT,
+  `idAnuncios` int(11) NOT NULL,
+  `valoracion` int(11) NOT NULL,
+  PRIMARY KEY (`idCalificacionAnuncio`),
+  KEY `idAnuncios` (`idAnuncios`)
+) ENGINE=MyISAM AUTO_INCREMENT=186 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `calificacionanuncio`
+--
+
+INSERT INTO `calificacionanuncio` (`idCalificacionAnuncio`, `idAnuncios`, `valoracion`) VALUES
+(56, 56, 5),
+(57, 57, 3),
+(75, 61, 5),
+(74, 61, 5),
+(73, 61, 2),
+(72, 61, 5),
+(71, 62, 2),
+(70, 62, 5),
+(69, 62, 4),
+(68, 62, 2),
+(67, 62, 2),
+(66, 62, 4),
+(65, 61, 2),
+(64, 62, 4),
+(63, 62, 2),
+(58, 58, 4),
+(59, 59, 5),
+(60, 60, 1),
+(61, 61, 2),
+(62, 62, 2),
+(76, 61, 5),
+(77, 61, 5),
+(78, 61, 5),
+(79, 61, 5),
+(158, 4, 4),
+(81, 61, 5),
+(82, 62, 5),
+(83, 62, 5),
+(84, 62, 5),
+(85, 62, 5),
+(86, 62, 5),
+(87, 62, 5),
+(88, 62, 5),
+(89, 62, 5),
+(90, 62, 5),
+(91, 62, 5),
+(92, 62, 5),
+(93, 62, 5),
+(94, 62, 5),
+(95, 62, 5),
+(96, 62, 5),
+(97, 62, 5),
+(98, 62, 5),
+(99, 62, 5),
+(100, 62, 5),
+(101, 62, 5),
+(102, 62, 5),
+(103, 62, 3),
+(104, 62, 5),
+(105, 62, 5),
+(106, 62, 5),
+(107, 62, 1),
+(108, 62, 1),
+(109, 62, 5),
+(110, 62, 5),
+(111, 62, 5),
+(112, 62, 5),
+(113, 62, 5),
+(114, 62, 5),
+(115, 62, 5),
+(116, 62, 5),
+(117, 62, 5),
+(118, 62, 5),
+(119, 62, 5),
+(120, 62, 5),
+(121, 62, 5),
+(122, 62, 5),
+(123, 62, 5),
+(124, 62, 5),
+(125, 62, 5),
+(126, 62, 5),
+(127, 62, 5),
+(128, 62, 5),
+(129, 62, 5),
+(130, 62, 5),
+(131, 62, 5),
+(132, 62, 5),
+(133, 62, 5),
+(134, 62, 5),
+(135, 62, 5),
+(136, 62, 5),
+(137, 62, 5),
+(138, 62, 5),
+(139, 62, 5),
+(140, 62, 5),
+(141, 62, 5),
+(142, 62, 5),
+(143, 62, 5),
+(144, 62, 5),
+(145, 62, 5),
+(146, 62, 5),
+(147, 62, 5),
+(148, 62, 5),
+(149, 62, 5),
+(150, 62, 5),
+(151, 62, 5),
+(152, 62, 5),
+(153, 62, 5),
+(154, 62, 5),
+(155, 62, 5),
+(156, 62, 5),
+(157, 80, 4),
+(159, 62, 5),
+(160, 62, 3),
+(161, 62, 5),
+(162, 62, 2),
+(163, 62, 1),
+(164, 62, 5),
+(165, 62, 1),
+(166, 62, 1),
+(167, 62, 1),
+(168, 62, 1),
+(169, 62, 1),
+(170, 62, 1),
+(171, 62, 1),
+(172, 62, 5),
+(173, 62, 5),
+(174, 62, 5),
+(175, 62, 5),
+(176, 62, 5),
+(177, 62, 5),
+(178, 62, 5),
+(179, 62, 5),
+(180, 62, 5),
+(181, 62, 5),
+(182, 62, 5),
+(183, 62, 5),
+(184, 62, 5),
+(185, 62, 5);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `calificacionescomprador`
 --
 
@@ -488,19 +675,20 @@ CREATE TABLE IF NOT EXISTS `calificacionescomprador` (
 
 DROP TABLE IF EXISTS `calificacionesvendedor`;
 CREATE TABLE IF NOT EXISTS `calificacionesvendedor` (
-  `idCalificacionVendedor` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `cantidadEstrellas` int(11) DEFAULT NULL,
+  `idCalificacionVendedor` int(11) NOT NULL AUTO_INCREMENT,
+  `cantidadEstrellas` float DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idCalificacionVendedor`),
   KEY `fk_calificacionesVendedor_Usuario1` (`idUsuario`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `calificacionesvendedor`
 --
 
 INSERT INTO `calificacionesvendedor` (`idCalificacionVendedor`, `cantidadEstrellas`, `idUsuario`) VALUES
-('1', 4, 3);
+(3, 4.4, 4),
+(2, 4.3, 3);
 
 -- --------------------------------------------------------
 
@@ -568,13 +756,20 @@ INSERT INTO `categoria` (`idcategoria`, `nombreCategoria`, `idgrupocategoria`) V
 DROP TABLE IF EXISTS `comentariosvendedor`;
 CREATE TABLE IF NOT EXISTS `comentariosvendedor` (
   `idComentariosVendedor` int(11) NOT NULL,
-  `comentario` varchar(600) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `comentario` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `idusuarioCalificador` int(11) NOT NULL,
   `idUsuarioCalificado` int(11) NOT NULL,
   PRIMARY KEY (`idComentariosVendedor`),
   KEY `idusuarioCalificador` (`idusuarioCalificador`),
   KEY `idUsuarioCalificado` (`idUsuarioCalificado`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `comentariosvendedor`
+--
+
+INSERT INTO `comentariosvendedor` (`idComentariosVendedor`, `comentario`, `idusuarioCalificador`, `idUsuarioCalificado`) VALUES
+(0, '', 4, 0);
 
 -- --------------------------------------------------------
 

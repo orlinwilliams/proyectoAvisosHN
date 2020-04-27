@@ -197,8 +197,8 @@ infoVendedor = function (idUsuario) {
         "<ul>" +
         "<li>" +
         "<span>Valoración</span>" +
-        "<span>" +
-        "3.5 beta"+//datos.datosVendedor.cantidadEstrellas +
+        "<span>" + 
+         datos.datosVendedor.cantidadEstrellas +
         "</span>" +
         "</li>" +
         "<li>" +
@@ -395,10 +395,9 @@ cargarArticulo = function (idAnuncio) {
           datos.info.fechaRegistro +
           "</p>" +
           "<div class='demo-google-material-icon' style='color:black;'>" +
-          "<span class='icon-name' style='font-size:22px'><strong>Valoración:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>" +
-          datos.info.cantidadEstrellas +
-          "</span>" +
-          "<i class='material-icons md-18'>star_rate</i>" +
+          "<span class='icon-name' style='font-size:22px'><strong>Valoración:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>" + datos.info.valoración +"</span>" +
+          "<script>$('#estrella').starrr({rating:" + datos.info.valoración +",change:function(e,valor){console.log(valor); var estrellas=valor; $.ajax({url:'../clases/vistas-index.php?accion=9',method: 'post', data: 'valoracion='+estrellas,success: function(resp){console.log(resp)}})}});</script>"+
+          "<span id='estrella'></span>"+
           "</div>" +
           "<div class='demo-google-material-icon pb-5' style='color:black;'>" +
           "<i class='material-icons md-24'>phone</i>" +

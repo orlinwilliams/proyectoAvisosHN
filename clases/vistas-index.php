@@ -121,25 +121,28 @@
             }
             else{
                 $conexion = new conexion();
-                $sql = "SELECT idAnuncios, nombre, precio, descripcion, estadoArticulo, c.nombreCategoria,
-                                g.nombregrupo, u.idUsuario, concat_ws(' ',u.pnombre, u.papellido) as nombreUsuario,
-                                m.municipio, cv.cantidadEstrellas,u.correoElectronico, u.numTelefono, u.fechaRegistro, u.urlFoto FROM anuncios a
-                                INNER JOIN categoria c ON c.idcategoria=a.idcategoria
-                                INNER JOIN grupoCategoria g ON g.idgrupocategoria=c.idgrupocategoria
-                                INNER JOIN usuario u ON u.idUsuario=a.idUsuario
-                                INNER JOIN municipios m ON m.idmunicipios=a.idmunicipios
-                                LEFT JOIN calificacionesvendedor cv ON cv.idUsuario=a.idUsuario
-                                WHERE a.idAnuncios = $idAnuncio;";
-                $respuesta=$conexion->ejecutarInstruccion($sql);
+                $sql = "SELECT  a.idAnuncios,ROUND((SELECT AVG(valoracion) FROM calificacionanuncio WHERE idAnuncios=$idAnuncio),1) AS valoración,nombre, precio, descripcion, estadoArticulo, c.nombreCategoria,
+                     g.nombregrupo, u.idUsuario, concat_ws(' ',u.pnombre, u.papellido) as nombreUsuario,
+                     m.municipio,u.correoElectronico, u.numTelefono, u.fechaRegistro, u.urlFoto FROM anuncios a
+                     INNER JOIN categoria c ON c.idcategoria=a.idcategoria
+                     INNER JOIN grupoCategoria g ON g.idgrupocategoria=c.idgrupocategoria
+                     INNER JOIN usuario u ON u.idUsuario=a.idUsuario
+                     INNER JOIN municipios m ON m.idmunicipios=a.idmunicipios
+                     INNER JOIN calificacionanuncio can ON can.idAnuncios=a.idAnuncios
+                     LEFT JOIN calificacionesvendedor cv ON cv.idUsuario=a.idUsuario
+                 WHERE a.idAnuncios = $idAnuncio;";
+            $respuesta = $conexion->ejecutarInstruccion($sql);
                 if(!$respuesta){
                     echo "Oops, ha ocurrido un error";
                 }
                 else{
                     $datos = $conexion->obtenerFila($respuesta);
+                    session_start();
+                    $_SESSION["usuario"]["idAnuncio"] = $datos["idAnuncios"];
                     $fila["info"]=array("idAnuncios"=>$datos["idAnuncios"],"nombre"=>$datos["nombre"],"precio"=>$datos["precio"],
                         "descripcion"=>$datos["descripcion"],"estadoArticulo"=>$datos["estadoArticulo"],"nombreCategoria"=>$datos["nombreCategoria"],
                         "nombregrupo"=>$datos["nombregrupo"],"idUsuario"=>$datos["idUsuario"],"correoElectronico"=>$datos["correoElectronico"],"nombreUsuario"=>$datos["nombreUsuario"],
-                        "municipio"=>$datos["municipio"],"cantidadEstrellas"=>$datos["cantidadEstrellas"],"numTelefono"=>$datos["numTelefono"],
+                        "municipio"=>$datos["municipio"],"valoración"=>$datos["valoración"],"numTelefono"=>$datos["numTelefono"],
                         "fechaRegistro"=>$datos["fechaRegistro"],"urlFoto"=>$datos["urlFoto"],"fotos"=>"");
                     $sql = "SELECT localizacion FROM fotos
                             WHERE idAnuncios=$idAnuncio;";
@@ -169,9 +172,11 @@
             }
             else{
                 $conexion = new conexion(); //INFORMACION DEL VENDEDOR
-                $sql = "SELECT U.idUsuario, U.pNombre,U.pApellido,U.urlFoto, U.correoElectronico,U.fechaRegistro, T.tipoUsuario,(SELECT COUNT(idUsuario) FROM anuncios WHERE idUsuario='$idUsuario') as cantidadAnuncio FROM usuario as U
+                $sql = "SELECT cv.cantidadEstrellas, U.idUsuario, U.pNombre,U.pApellido,U.urlFoto, U.correoElectronico,U.fechaRegistro, T.tipoUsuario,(SELECT COUNT(idUsuario) FROM anuncios WHERE idUsuario='$idUsuario') as cantidadAnuncio FROM usuario as U
                 INNER JOIN tipoUsuario as T
                 ON T.idTipoUsuario=U.idTipoUsuario
+                INNER JOIN calificacionesvendedor as cv
+                ON cv.idUsuario=U.idUsuario
                 WHERE U.idUsuario='$idUsuario';";
                 
                 $respuesta=$conexion->ejecutarInstruccion($sql);
@@ -183,7 +188,7 @@
                     
                     $datosVendedor=array("idUsuario"=>$datos["idUsuario"],"pNombre"=>$datos["pNombre"],"pApellido"=>$datos["pApellido"],"urlFoto"=>$datos["urlFoto"],
                     "correoElectronico"=>$datos["correoElectronico"],"fechaRegistro"=>$datos["fechaRegistro"],"tipoUsuario"=>$datos["tipoUsuario"],
-                    "cantidadAnuncio"=>$datos["cantidadAnuncio"]
+                    "cantidadAnuncio"=>$datos["cantidadAnuncio"],"cantidadEstrellas"=>$datos["cantidadEstrellas"]
                 );
                 
                 $sql1="SELECT nombre,fechaPublicacion,precio FROM anuncios WHERE idUsuario='$idUsuario'";//INFORMACION DE LAS PUBLICACIONES
@@ -336,6 +341,35 @@
             $conexion->cerrarConexion();
         break;
      
-        }
-
+        case '9':  //se inserta la calificacion del anuncio
+            session_start();
+            $idAnuncio = $_SESSION["usuario"]["idAnuncio"];
+            echo $idAnuncio;
+            if (isset($_POST["valoracion"])) {
+                $estrellas = $_POST["valoracion"];
+            }
+            if ($estrellas == "" | $estrellas == NULL) {
+                echo "debe valorar el anuncio";
+            } else {
+                $conexion = new conexion();
+                $sql = "INSERT INTO calificacionanuncio (idAnuncios, valoracion) VALUES ($idAnuncio, $estrellas);";
+                $respuesta = $conexion->ejecutarInstruccion($sql);
+                if (!$respuesta) {
+                    echo  "No hay respuesta del servidor";
+                } else {
+                    //CALL `SP_CALIFICACION_VENDEDOR`(@p0, @p1); SELECT @p1 AS `MensajeError`;
+                     $sql = "CALL `SP_CALIFICACION_VENDEDOR`('$idAnuncio', @p1);";
+                     $salida = "SELECT @p1 AS `MensajeError`";                                                                //Llamado al parametro de salida del procedimiento almacenado
+                     $resultado = $conexion->ejecutarInstruccion($sql);
+                     $respuesta = $conexion->ejecutarInstruccion($salida);
+                     if (!$respuesta) {
+                        echo "No hay respuesta del procedimiento";
+                    } else {
+                        echo "valorado correctamente";
+                    }
+                }
+            }
+            $conexion->cerrarConexion();
+            break;
+    }
 ?>
