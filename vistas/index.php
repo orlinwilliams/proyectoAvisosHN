@@ -34,6 +34,11 @@ session_start();
   <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
   <link href="../css/estilos.css" rel="stylesheet">
 
+   <!-- estrellas Css -->
+   <link href="../plugins/star/css/starrr.css" rel="stylesheet" />
+   <link href="../plugins/star/css/bootstrap.min.css" rel="stylesheet" />
+   <link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+
   <!-- Dropzone Css -->
   <link href="../plugins/dropzone/dropzone.css" rel="stylesheet">
 
@@ -784,6 +789,8 @@ session_start();
   <script src="../js/pages/ui/modals.js"></script>
   <!-- Dropzone Plugin Js -->
   <script src="../plugins/dropzone/dropzone.js"></script>
+  <!-- Star Plugin Js -->
+  <script src="../plugins/star/js/starrr.js"></script>
   <!-- Controlador de página Js -->
   <script src="../plugins/nouislider/nouislider.js"></script>
   <script src="../controlador/vistas-index.js"></script>

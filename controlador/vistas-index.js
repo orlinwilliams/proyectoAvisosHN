@@ -110,7 +110,9 @@ infoVendedor = function (idUsuario) {
     data: "idUsuario=" + idUsuario,
     success: function (resp) {
       var datos = JSON.parse(resp);
+      console.log(datos);
       historialAnuncios="";
+
       for (var i = 0; i < datos.anunciosVendedor.length; i++) {
         historialAnuncios+="<li>" +
           "<div class='title'>" +
@@ -121,14 +123,49 @@ infoVendedor = function (idUsuario) {
           datos.anunciosVendedor[i].fechaAnuncio +
           "</div>" +
           "<div style='margin-left:90%'>" +
-          datos.anunciosVendedor[i].precioAnuncio +
+         "L "+datos.anunciosVendedor[i].precioAnuncio +
           "</div>" +
           "</div>" +
           "</li>";
       }
+      comentarios="";
+      if(datos.comentariosVendedor.error==true){
+        comentarios="<li>" +
+        "<div class='title'>" +
+        "</div>" +
+        "<div class='content'>" +
+        "<div>" +
+        "<p>"+
+        "Sin comentarios todavia"+
+        "</p>" +
+        "</div>" +
+        "</div>" +
+        "</li>" ;
+      }
+      else{
+        for (var i = 0; i < datos.comentariosVendedor.length; i++) {
+          comentarios+="<li>" +
+          "<div class='title'>" +
+          datos.comentariosVendedor[i].nombreComprador +
+          "</div>" +
+          "<div class='content'>" +
+          "<div>" +
+          "<p>"+
+          datos.comentariosVendedor[i].comentario+
+          "</p>" +
+          "</div>" +
+          "</div>" +
+          "</li>" ;
+  
+  
+        }
+      }
+      
+      
+      
       
       var nombreCompleto = datos.datosVendedor.pNombre + " " + datos.datosVendedor.pApellido;
-      console.log(datos);
+      //console.log(datos);
       var modal =
         "<div class='modal-header' style='text-align:center'>" +
         "<h4 class='modal-title' id='defaultModalLabel'></h4>" +
@@ -160,8 +197,8 @@ infoVendedor = function (idUsuario) {
         "<ul>" +
         "<li>" +
         "<span>Valoración</span>" +
-        "<span>" +
-        datos.datosVendedor.cantidadEstrellas +
+        "<span>" + 
+         datos.datosVendedor.cantidadEstrellas +
         "</span>" +
         "</li>" +
         "<li>" +
@@ -182,7 +219,7 @@ infoVendedor = function (idUsuario) {
         "<div class='card card-about-me' style='max-height:400px; overflow-y:scroll;'>" +
         "<div class='header' style='text-align:center'>" +
         "<h2>Últimos comentarios</h2>" +
-        "<p><button type='button' class='btn bg-light-green btn-circle waves-effect waves-circle waves-float' data-toggle='collapse' href='#collapseExample' aria-expanded='false'"+
+        "<p><button type='button' class='btn bg-light-green btn-circle waves-effect waves-circle waves-float' data-toggle='collapse' href='#collapseExample' id='botonComentario' aria-expanded='false'"+
         "aria-controls='collapseExample'>"+
         "<i class='material-icons'>chat</i>"+
         "</button></p>"+
@@ -190,23 +227,13 @@ infoVendedor = function (idUsuario) {
         "<div class='well'>"+
         "<textarea id='comentario' name='comentario' cols='30' rows='4' class='form-control no-resize'></textarea>"+ 
         "</div>"+
-        "<button class='btn btn-default waves-effect'>AGREGAR COMENTARIO</button>"+
+        "<button id='enviarComentario' class='btn btn-default waves-effect'>AGREGAR COMENTARIO</button>"+
         "</div>"+
+        "<p id='mensajeComentario'></p>"+
         "</div>" +
         "<div class='body' style='height: auto;'>" +
-        "<ul>" +
-        "<li>" +
-        "<div class='title'>" +
-        "Usuario" +
-        "</div>" +
-        "<div class='content'>" +
-        "<div>" +
-        "<p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas" +
-        "malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in" +
-        "leo.</p>" +
-        "</div>" +
-        "</div>" +
-        "</li>" +
+        "<ul id='agregarComentario'>" +
+        comentarios+
         "</ul>" +
         "</div>" +
         "</div>" +
@@ -229,12 +256,72 @@ infoVendedor = function (idUsuario) {
         "<script src='https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js'></script>";
       $("#contenidoModalVendedor").empty();
       $("#contenidoModalVendedor").html(modal);
+
+      $("#enviarComentario").click(function(e){
+        e.preventDefault();
+        comentario=$("#comentario").val();
+        if(comentario!="" && comentario!=null){
+          $.ajax({
+            url:"../clases/vistas-index.php?accion=8",
+            method: "POST",
+            data: "comentario="+comentario+"&idUsuario="+idUsuario,
+            success:function(resp){
+              //console.log(resp);
+              datos=JSON.parse(resp);
+              if(datos.error==false){
+                $("#agregarComentario").prepend("<li>" +
+                "<div class='title'>" +
+                datos.nombreComprador+
+                "</div>" +
+                "<div class='content'>" +
+                "<div>" +
+                "<p>"+
+                comentario+
+                "</p>" +
+                "</div>" +
+                "</div>" +
+                "</li>" 
+
+                );
+
+                //console.log("comentario agregado con exito");
+                $("#mensajeComentario").html(datos.mensaje);
+                $("#comentario").val("");
+                $("#botonComentario").click();
+
+
+              }
+              if(datos.error==true){
+                $("#mensajeComentario").html(datos.mensaje);
+                $("#comentario").val("");
+                $("#botonComentario").click();
+              }
+
+
+  
+            },
+            error:function(error){
+              console.log(error);
+  
+            }
+    
+          });
+        }
+        else{
+          $("#mensajeComentario").html("Favor ingrese su comentario");
+        }
+        
+      })
+      
     },
+ 
+
     error: function (error) {
       console.log(error);
     },
   });
 };
+
 
 cargarArticulo = function (idAnuncio) {
   event.preventDefault();
@@ -308,10 +395,9 @@ cargarArticulo = function (idAnuncio) {
           datos.info.fechaRegistro +
           "</p>" +
           "<div class='demo-google-material-icon' style='color:black;'>" +
-          "<span class='icon-name' style='font-size:22px'><strong>Valoración:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>" +
-          datos.info.cantidadEstrellas +
-          "</span>" +
-          "<i class='material-icons md-18'>star_rate</i>" +
+          "<span class='icon-name' style='font-size:22px'><strong>Valoración:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>" + datos.info.valoración +"</span>" +
+          "<script>$('#estrella').starrr({rating:" + datos.info.valoración +",change:function(e,valor){console.log(valor); var estrellas=valor; $.ajax({url:'../clases/vistas-index.php?accion=9',method: 'post', data: 'valoracion='+estrellas,success: function(resp){console.log(resp)}})}});</script>"+
+          "<span id='estrella'></span>"+
           "</div>" +
           "<div class='demo-google-material-icon pb-5' style='color:black;'>" +
           "<i class='material-icons md-24'>phone</i>" +
