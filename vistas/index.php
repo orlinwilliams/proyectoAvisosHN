@@ -331,7 +331,7 @@ session_start();
                   </div>
                 </div>
                 <div class="col-md-3">
-                <div class="form-group form-float">
+                  <div class="form-group form-float">
                     <div class="form-line">
                       <select class="form-control show-tick" name="categoria" id="f-categoria">
                         <option></option>
