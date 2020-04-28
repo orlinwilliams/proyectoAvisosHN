@@ -384,7 +384,7 @@ session_start();
   <script src="../js/demo.js"></script>
   <script src="../controlador/mis-publicaciones.js"></script>
   <script src="../controlador/editarfoto.js"></script>
-  <script src="../controlador/buscador.js"></script>
+  
   <!--<script src="../js/index.js"></script> Demo Js -->
 
   <!-- Waves Effect Plugin Js -->
