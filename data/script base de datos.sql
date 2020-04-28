@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 27-04-2020 a las 22:31:31
+-- Tiempo de generación: 28-04-2020 a las 20:16:47
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -755,21 +755,23 @@ INSERT INTO `categoria` (`idcategoria`, `nombreCategoria`, `idgrupocategoria`) V
 
 DROP TABLE IF EXISTS `comentariosvendedor`;
 CREATE TABLE IF NOT EXISTS `comentariosvendedor` (
-  `idComentariosVendedor` int(11) NOT NULL,
+  `idComentariosVendedor` int(11) NOT NULL AUTO_INCREMENT,
   `comentario` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `idusuarioCalificador` int(11) NOT NULL,
   `idUsuarioCalificado` int(11) NOT NULL,
   PRIMARY KEY (`idComentariosVendedor`),
   KEY `idusuarioCalificador` (`idusuarioCalificador`),
   KEY `idUsuarioCalificado` (`idUsuarioCalificado`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `comentariosvendedor`
 --
 
 INSERT INTO `comentariosvendedor` (`idComentariosVendedor`, `comentario`, `idusuarioCalificador`, `idUsuarioCalificado`) VALUES
-(0, '', 4, 0);
+(1, '', 4, 0),
+(2, 'probando comentario 1', 4, 3),
+(3, 'probando comentario 2', 4, 3);
 
 -- --------------------------------------------------------
 
