@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 27-04-2020 a las 22:31:31
+-- Tiempo de generación: 28-04-2020 a las 23:39:16
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -389,7 +389,7 @@ END$$
 
 DROP PROCEDURE IF EXISTS `SP_REGISTRAR`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRAR` (IN `pcNombre` VARCHAR(45), IN `pcApellido` VARCHAR(45), IN `pcCorreo` VARCHAR(60), IN `pcContraseña` VARCHAR(500), IN `pcConfirmacion` VARCHAR(500), IN `pcTelefono` VARCHAR(20), IN `pdNacimiento` VARCHAR(10), IN `pcRTN` VARCHAR(16), IN `pcURL` VARCHAR(1000), IN `pnMunicipio` INT, OUT `pcMensaje` VARCHAR(300))  SP:BEGIN
-	DECLARE vnConteo INT;
+	DECLARE vnConteo, vnConteo2 INT;
     DECLARE vcMensajeTemp varchar (200);
     SET vcMensajeTemp ="";
     
@@ -455,6 +455,10 @@ INTO vnConteo FROM
     INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, `pApellido`, `correoElectronico`, `contrasenia`, `numTelefono`, `fechaRegistro`, `fechaNacimiento`, `RTN`, `urlFoto`)
     VALUES ( vnConteo, 2, pnMunicipio, pcNombre, pcApellido, pcCorreo, pcContraseña, pcTelefono, curdate(), pdNacimiento, '', '../images/imgUsuarios/user.png');
     
+    SELECT (MAX(idCalificacionVendedor)+1) INTO vnConteo2 FROM calificacionesvendedor;
+    
+    INSERT INTO `calificacionesvendedor` (`idCalificacionVendedor`,`cantidadEstrellas`, `idUsuario`) VALUES (vnConteo2 ,0 , vnConteo);
+    
     COMMIT;
     SET pcMensaje = "Se ha registrado correctamente";
     LEAVE SP;
@@ -514,7 +518,7 @@ CREATE TABLE IF NOT EXISTS `calificacionanuncio` (
   `valoracion` int(11) NOT NULL,
   PRIMARY KEY (`idCalificacionAnuncio`),
   KEY `idAnuncios` (`idAnuncios`)
-) ENGINE=MyISAM AUTO_INCREMENT=186 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=208 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `calificacionanuncio`
@@ -649,7 +653,29 @@ INSERT INTO `calificacionanuncio` (`idCalificacionAnuncio`, `idAnuncios`, `valor
 (182, 62, 5),
 (183, 62, 5),
 (184, 62, 5),
-(185, 62, 5);
+(185, 62, 5),
+(186, 62, 1),
+(187, 62, 1),
+(188, 62, 1),
+(189, 62, 1),
+(190, 62, 1),
+(191, 62, 1),
+(192, 62, 1),
+(193, 62, 1),
+(194, 62, 1),
+(195, 62, 1),
+(196, 62, 1),
+(197, 62, 1),
+(198, 62, 1),
+(199, 62, 1),
+(200, 62, 1),
+(201, 62, 1),
+(202, 62, 1),
+(203, 62, 1),
+(204, 62, 1),
+(205, 62, 1),
+(206, 57, 5),
+(207, 57, 1);
 
 -- --------------------------------------------------------
 
@@ -687,8 +713,8 @@ CREATE TABLE IF NOT EXISTS `calificacionesvendedor` (
 --
 
 INSERT INTO `calificacionesvendedor` (`idCalificacionVendedor`, `cantidadEstrellas`, `idUsuario`) VALUES
-(3, 4.4, 4),
-(2, 4.3, 3);
+(3, 3.9, 4),
+(2, 3.8, 3);
 
 -- --------------------------------------------------------
 
@@ -755,21 +781,14 @@ INSERT INTO `categoria` (`idcategoria`, `nombreCategoria`, `idgrupocategoria`) V
 
 DROP TABLE IF EXISTS `comentariosvendedor`;
 CREATE TABLE IF NOT EXISTS `comentariosvendedor` (
-  `idComentariosVendedor` int(11) NOT NULL,
+  `idComentariosVendedor` int(11) NOT NULL AUTO_INCREMENT,
   `comentario` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `idusuarioCalificador` int(11) NOT NULL,
   `idUsuarioCalificado` int(11) NOT NULL,
   PRIMARY KEY (`idComentariosVendedor`),
   KEY `idusuarioCalificador` (`idusuarioCalificador`),
   KEY `idUsuarioCalificado` (`idUsuarioCalificado`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- Volcado de datos para la tabla `comentariosvendedor`
---
-
-INSERT INTO `comentariosvendedor` (`idComentariosVendedor`, `comentario`, `idusuarioCalificador`, `idUsuarioCalificado`) VALUES
-(0, '', 4, 0);
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -781,10 +800,11 @@ DROP TABLE IF EXISTS `denuncias`;
 CREATE TABLE IF NOT EXISTS `denuncias` (
   `idDenuncias` int(11) NOT NULL AUTO_INCREMENT,
   `idrazonDenuncia` int(11) NOT NULL,
-  `idUsuario` int(11) NOT NULL,
+  `idAnuncios` int(11) NOT NULL,
+  `comentarios` varchar(600) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idDenuncias`),
-  KEY `fk_Denuncias_razonDenuncia1` (`idrazonDenuncia`),
-  KEY `fk_Denuncias_Usuario1` (`idUsuario`)
+  KEY `idrazonDenuncia` (`idrazonDenuncia`),
+  KEY `idAnuncios` (`idAnuncios`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -1213,10 +1233,24 @@ INSERT INTO `municipios` (`idMunicipios`, `idDepartamentos`, `municipio`) VALUES
 
 DROP TABLE IF EXISTS `razondenuncia`;
 CREATE TABLE IF NOT EXISTS `razondenuncia` (
-  `idrazonDenuncia` int(11) NOT NULL,
+  `idrazonDenuncia` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`idrazonDenuncia`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `razondenuncia`
+--
+
+INSERT INTO `razondenuncia` (`idrazonDenuncia`, `descripcion`) VALUES
+(1, 'Descripción imprecisa'),
+(2, 'Contenido ofensivo o dañino'),
+(3, 'Estafa'),
+(4, 'Articulo falso'),
+(5, 'Contenido sexual'),
+(6, 'Venta de armas o drogas'),
+(7, 'Publicación discriminatoria'),
+(8, 'Sin intención de venta');
 
 -- --------------------------------------------------------
 
@@ -1274,8 +1308,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, `pApellido`, `correoElectronico`, `contrasenia`, `token`, `numTelefono`, `fechaRegistro`, `fechaNacimiento`, `RTN`, `urlFoto`, `estado`) VALUES
-(3, 2, 110, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', NULL, ' 504 9619-96-60', '2020-03-25', '1995-12-01', '', '../images/imgUsuarios/5e94d52855d5b5e713b9d83aebIMG_20160714_170043.jpg', 1),
-(2, 3, 14, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asdzxc', '', ' 504 9605-01-00', '2020-03-09', '1995-12-01', '', '../images/imgUsuarios/user.png', 1),
+(3, 3, 110, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', NULL, ' 504 9619-96-60', '2020-03-25', '1995-12-01', '', '../images/imgUsuarios/5e94d52855d5b5e713b9d83aebIMG_20160714_170043.jpg', 1),
+(2, 2, 14, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asdzxc', '', ' 504 9605-01-00', '2020-03-09', '1995-12-01', '', '../images/imgUsuarios/user.png', 1),
 (4, 2, 110, 'Jared', 'Castro', 'jaredcastro13@yahoo.es', 'asd123', NULL, ' 504 9858-00-12', '2020-03-30', '1995-10-03', '', '../images/imgUsuarios/5e97defbe9b51user.jpg', 1);
 COMMIT;
 

@@ -93,7 +93,7 @@ categoria = function () {
     //Inicio ajax categorias
     url: "../clases/vistas-index.php?accion=1",
     success: function (resultado) {
-        //console.log(resultado);
+      //console.log(resultado);
       $("#f-categoria").append(resultado); //El resultado lo retorna como html
       $("#categoria").append(resultado); //El resultado lo retorna como html
     },
@@ -111,10 +111,10 @@ infoVendedor = function (idUsuario) {
     success: function (resp) {
       var datos = JSON.parse(resp);
       console.log(datos);
-      historialAnuncios="";
-
+      historialAnuncios = "";
       for (var i = 0; i < datos.anunciosVendedor.length; i++) {
-        historialAnuncios+="<li>" +
+        historialAnuncios +=
+          "<li>" +
           "<div class='title'>" +
           datos.anunciosVendedor[i].nombreAnuncio +
           "</div>" +
@@ -123,53 +123,50 @@ infoVendedor = function (idUsuario) {
           datos.anunciosVendedor[i].fechaAnuncio +
           "</div>" +
           "<div style='margin-left:90%'>" +
-         "L "+datos.anunciosVendedor[i].precioAnuncio +
+          "L " +
+          datos.anunciosVendedor[i].precioAnuncio +
           "</div>" +
           "</div>" +
           "</li>";
       }
-      comentarios="";
-      if(datos.comentariosVendedor.error==true){
-        comentarios="<li>" +
-        "<div class='title'>" +
-        "</div>" +
-        "<div class='content'>" +
-        "<div>" +
-        "<p>"+
-        "Sin comentarios todavia"+
-        "</p>" +
-        "</div>" +
-        "</div>" +
-        "</li>" ;
-      }
-      else{
-        for (var i = 0; i < datos.comentariosVendedor.length; i++) {
-          comentarios+="<li>" +
+      comentarios = "";
+      if (datos.comentariosVendedor.error == true) {
+        comentarios =
+          "<li>" +
           "<div class='title'>" +
-          datos.comentariosVendedor[i].nombreComprador +
           "</div>" +
           "<div class='content'>" +
           "<div>" +
-          "<p>"+
-          datos.comentariosVendedor[i].comentario+
+          "<p>" +
+          "Sin comentarios todavia" +
           "</p>" +
           "</div>" +
           "</div>" +
-          "</li>" ;
-  
-  
+          "</li>";
+      } else {
+        for (var i = 0; i < datos.comentariosVendedor.length; i++) {
+          comentarios +=
+            "<li>" +
+            "<div class='title'>" +
+            datos.comentariosVendedor[i].nombreComprador +
+            "</div>" +
+            "<div class='content'>" +
+            "<div>" +
+            "<p>" +
+            datos.comentariosVendedor[i].comentario +
+            "</p>" +
+            "</div>" +
+            "</div>" +
+            "</li>";
         }
       }
-      
-      
-      
-      
-      var nombreCompleto = datos.datosVendedor.pNombre + " " + datos.datosVendedor.pApellido;
+      var nombreCompleto =
+        datos.datosVendedor.pNombre + " " + datos.datosVendedor.pApellido;
       //console.log(datos);
       var modal =
         "<div class='modal-header' style='text-align:center'>" +
         "<h4 class='modal-title' id='defaultModalLabel'></h4>" +
-        "</div>" + 
+        "</div>" +
         "<div class='modal-body modal-body-per'>" +
         "<div class='card profile-card'>" +
         "<div class='profile-header'>&nbsp;</div>" +
@@ -197,8 +194,8 @@ infoVendedor = function (idUsuario) {
         "<ul>" +
         "<li>" +
         "<span>Valoración</span>" +
-        "<span>" + 
-         datos.datosVendedor.cantidadEstrellas +
+        "<span>" +
+        datos.datosVendedor.cantidadEstrellas +
         "</span>" +
         "</li>" +
         "<li>" +
@@ -219,21 +216,21 @@ infoVendedor = function (idUsuario) {
         "<div class='card card-about-me' style='max-height:400px; overflow-y:scroll;'>" +
         "<div class='header' style='text-align:center'>" +
         "<h2>Últimos comentarios</h2>" +
-        "<p><button type='button' class='btn bg-light-green btn-circle waves-effect waves-circle waves-float' data-toggle='collapse' href='#collapseExample' id='botonComentario' aria-expanded='false'"+
-        "aria-controls='collapseExample'>"+
-        "<i class='material-icons'>chat</i>"+
-        "</button></p>"+
-        "<div class='collapse' id='collapseExample'>"+
-        "<div class='well'>"+
-        "<textarea id='comentario' name='comentario' cols='30' rows='4' class='form-control no-resize'></textarea>"+ 
-        "</div>"+
-        "<button id='enviarComentario' class='btn btn-default waves-effect'>AGREGAR COMENTARIO</button>"+
-        "</div>"+
-        "<p id='mensajeComentario'></p>"+
+        "<p><button type='button' class='btn bg-light-green btn-circle waves-effect waves-circle waves-float' data-toggle='collapse' href='#collapseExample' id='botonComentario' aria-expanded='false'" +
+        "aria-controls='collapseExample'>" +
+        "<i class='material-icons'>chat</i>" +
+        "</button></p>" +
+        "<div class='collapse' id='collapseExample'>" +
+        "<div class='well'>" +
+        "<textarea id='comentario' name='comentario' cols='30' rows='4' class='form-control no-resize'></textarea>" +
+        "</div>" +
+        "<button id='enviarComentario' class='btn btn-default waves-effect'>AGREGAR COMENTARIO</button>" +
+        "</div>" +
+        "<p id='mensajeComentario'></p>" +
         "</div>" +
         "<div class='body' style='height: auto;'>" +
         "<ul id='agregarComentario'>" +
-        comentarios+
+        comentarios +
         "</ul>" +
         "</div>" +
         "</div>" +
@@ -241,10 +238,10 @@ infoVendedor = function (idUsuario) {
         "<div class='header' style='text-align:center'>" +
         "<h2>HISTORIAL</h2>" +
         "<small>(Se mantiene el registro de los últimos 90 días)</small>" +
-        "</div>" +        
+        "</div>" +
         "<div class='body' style='height: auto;'>" +
         "<ul>" +
-        historialAnuncios+
+        historialAnuncios +
         "</ul>" +
         "</div>" +
         "</div>" +
@@ -257,71 +254,57 @@ infoVendedor = function (idUsuario) {
       $("#contenidoModalVendedor").empty();
       $("#contenidoModalVendedor").html(modal);
 
-      $("#enviarComentario").click(function(e){
+      $("#enviarComentario").click(function (e) {
         e.preventDefault();
-        comentario=$("#comentario").val();
-        if(comentario!="" && comentario!=null){
+        comentario = $("#comentario").val();
+        if (comentario != "" && comentario != null) {
           $.ajax({
-            url:"../clases/vistas-index.php?accion=8",
+            url: "../clases/vistas-index.php?accion=8",
             method: "POST",
-            data: "comentario="+comentario+"&idUsuario="+idUsuario,
-            success:function(resp){
+            data: "comentario=" + comentario + "&idUsuario=" + idUsuario,
+            success: function (resp) {
               //console.log(resp);
-              datos=JSON.parse(resp);
-              if(datos.error==false){
-                $("#agregarComentario").prepend("<li>" +
-                "<div class='title'>" +
-                datos.nombreComprador+
-                "</div>" +
-                "<div class='content'>" +
-                "<div>" +
-                "<p>"+
-                comentario+
-                "</p>" +
-                "</div>" +
-                "</div>" +
-                "</li>" 
-
+              datos = JSON.parse(resp);
+              if (datos.error == false) {
+                $("#agregarComentario").prepend(
+                  "<li>" +
+                    "<div class='title'>" +
+                    datos.nombreComprador +
+                    "</div>" +
+                    "<div class='content'>" +
+                    "<div>" +
+                    "<p>" +
+                    comentario +
+                    "</p>" +
+                    "</div>" +
+                    "</div>" +
+                    "</li>"
                 );
-
                 //console.log("comentario agregado con exito");
                 $("#mensajeComentario").html(datos.mensaje);
                 $("#comentario").val("");
                 $("#botonComentario").click();
-
-
               }
-              if(datos.error==true){
+              if (datos.error == true) {
                 $("#mensajeComentario").html(datos.mensaje);
                 $("#comentario").val("");
                 $("#botonComentario").click();
               }
-
-
-  
             },
-            error:function(error){
+            error: function (error) {
               console.log(error);
-  
-            }
-    
+            },
           });
-        }
-        else{
+        } else {
           $("#mensajeComentario").html("Favor ingrese su comentario");
         }
-        
-      })
-      
+      });
     },
- 
-
     error: function (error) {
       console.log(error);
     },
   });
 };
-
 
 cargarArticulo = function (idAnuncio) {
   event.preventDefault();
@@ -339,30 +322,37 @@ cargarArticulo = function (idAnuncio) {
       $("#infoArticulo").html(
         "<div class='row'>" +
           "<div class='col-md-7 col-sm-12 col-xs-12 izquierdo'>" +
-            "<div class='fotorama' data-width='100%' data-ratio='700/467' data-minwidth='400' data-maxwidth='1000' data-minheight='300' data-maxheight='100%' data-nav='thumbs' data-fit='cover' data-loop='true'>" +
-              img +
-            "</div>" +
+          "<div class='fotorama' data-width='100%' data-ratio='700/467' data-minwidth='400' data-maxwidth='1000' data-minheight='300' data-maxheight='100%' data-nav='thumbs' data-fit='cover' data-loop='true'>" +
+          img +
+          "</div>" +
           "</div>" +
           "<div class='col-md-5 col-sm-12 col-xs-12 derecho'>" +
-            "<div>" +
-              "<p class='font-categoria'><a class='links-categorias' href='#'>Categoria</a> <a class='links-categorias' href='#'>" + datos.info.nombregrupo + "</a> <a class='links-categorias' href='#'>" + datos.info.nombreCategoria +"</a></p>" +
-                "<ul class='header-dropdown m-r--5' style='margin-top:-30px; margin-left:88%;  list-style:none;'>"+
-                  "<li class='dropdown'>"+
-                      "<a href='javascript:void(0);' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>"+
-                          "<i class='material-icons'>more_vert</i>"+
-                      "</a>"+
-                      "<ul class='dropdown-menu pull-right'>"+
-                          "<li><a href='javascript:void(0);'>Denunciar</a></li>"+
-                          "<li><a href='javascript:void(0);'>Agregar a favoritos</a></li>"+                    
-                      "</ul>"+
-                  "</li>"+
-              "</ul>"+
           "<div>" +
-            "<p class='titulo'>" + datos.info.nombre +
-            "</p>" +
+          "<p class='font-categoria'><a class='links-categorias' href='#'>Categoria</a> <a class='links-categorias' href='#'>" +
+          datos.info.nombregrupo +
+          "</a> <a class='links-categorias' href='#'>" +
+          datos.info.nombreCategoria +
+          "</a></p>" +
+          "<ul class='header-dropdown m-r--5' style='margin-top:-30px; margin-left:88%;  list-style:none;'>" +
+          "<li class='dropdown'>" +
+          "<a href='javascript:void(0);' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>" +
+          "<i class='material-icons'>more_vert</i>" +
+          "</a>" +
+          "<ul class='dropdown-menu pull-right'>" +
+          "<li><a href='#' data-toggle='modal' data-target='#denuncias'>Denunciar</a></li>" +
+          "<li><a href='javascript:void(0);'>Agregar a favoritos</a></li>" +
+          "</ul>" +
+          "</li>" +
+          "</ul>" +
+          "<div>" +
+          "<p class='titulo'>" +
+          datos.info.nombre +
+          "</p>" +
           "</div>" +
           "<div class='precio'>" +
-            "<p class='font-precio'>" + datos.info.precio +"</p>" +
+          "<p class='font-precio'>" +
+          datos.info.precio +
+          "</p>" +
           "</div>" +
           "<div class='estado'>" +
           "<p class='font-estado'><strong>Estado:</strong> " +
@@ -398,9 +388,13 @@ cargarArticulo = function (idAnuncio) {
           datos.info.fechaRegistro +
           "</p>" +
           "<div class='demo-google-material-icon' style='color:black;'>" +
-          "<span class='icon-name' style='font-size:22px'><strong>Valoración:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>" + datos.info.valoración +"</span>" +
-          "<script>$('#estrella').starrr({rating:" + datos.info.valoración +",change:function(e,valor){console.log(valor); var estrellas=valor; $.ajax({url:'../clases/vistas-index.php?accion=9',method: 'post', data: 'valoracion='+estrellas,success: function(resp){console.log(resp)}})}});</script>"+
-          "<span id='estrella'></span>"+
+          "<span class='icon-name' style='font-size:22px'><strong>Valoración:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>" +
+          datos.info.valoración +
+          "</span>" +
+          "<script>$('#estrella').starrr({rating:" +
+          datos.info.valoración +
+          ",change:function(e,valor){console.log(valor); var estrellas=valor; $.ajax({url:'../clases/vistas-index.php?accion=9',method: 'post', data: 'valoracion='+estrellas,success: function(resp){console.log(resp)}})}});</script>" +
+          "<span id='estrella'></span>" +
           "</div>" +
           "<div class='demo-google-material-icon pb-5' style='color:black;'>" +
           "<i class='material-icons md-24'>phone</i>" +
@@ -531,6 +525,7 @@ cargarDatosContacto = function (parametros) {
         ")'>ENVIAR</button>" +
         "<button type='button' class='btn btn-link  bg-red waves-effect' data-dismiss='modal'>CANCELAR</button>" +
         "</div>";
+      $("#descrip").empty(modal);
       $("#descrip").html(modal);
     },
   });
@@ -573,26 +568,30 @@ $(function () {
 });
 //Get noUISlider Value and write on
 function getNoUISliderValue(slider, percentage) {
-    slider.noUiSlider.on('update', function () {
-        var val = slider.noUiSlider.get();
-        if (percentage) {
-            val = +parseInt(val);
-            val += '%';
-        }
-        $(slider).parent().find('span.js-nouislider-value').text("L "+val);
-    });
+  slider.noUiSlider.on("update", function () {
+    var val = slider.noUiSlider.get();
+    if (percentage) {
+      val = +parseInt(val);
+      val += "%";
+    }
+    $(slider)
+      .parent()
+      .find("span.js-nouislider-value")
+      .text("L " + val);
+  });
 }
 
-municipios = function () {														//Inicio funcion para llenar los municipios
-	$.ajax({																	//Inicio ajax municipios
-		url: "../clases/vistas-index.php?accion=2",
-		success: function (resultado) {
+municipios = function () {
+  //Inicio funcion para llenar los municipios
+  $.ajax({
+    //Inicio ajax municipios
+    url: "../clases/vistas-index.php?accion=2",
+    success: function (resultado) {
       //console.log(resultado);
-			$("#lugar").append(resultado);								//El resultado lo retorna como html
-		},
-		error: function (error) {
-			console.log(error);
-		}
-	});																			//Fin ajax municipios
-
-}																				              //Fin funcion para llenar los municipios
+      $("#lugar").append(resultado); //El resultado lo retorna como html
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  }); //Fin ajax municipios
+}; //Fin funcion para llenar los municipios

@@ -1,5 +1,5 @@
 <?php
-  session_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,8 +12,7 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
-    type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
   <!-- Bootstrap Core Css -->
@@ -21,7 +20,7 @@
 
   <!-- Botón flotante css -->
   <link href="plugins/bootstrap/css/botonflotante.css" rel="stylesheet">
-  
+
   <!-- Waves Effect Css -->
   <link href="plugins/node-waves/waves.css" rel="stylesheet" />
 
@@ -72,8 +71,7 @@
   <nav class="navbar">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
-          data-target="#navbar-collapse" aria-expanded="false"></a>
+        <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
         <a href="javascript:void(0);" class="bars"></a>
         <a class="navbar-brand" href="index.php">MarketHN</a>
       </div>
@@ -95,8 +93,7 @@
             </a>
           </li>
           <!-- #END# Tasks -->
-          <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i
-                class="material-icons">more_vert</i></a></li>
+          <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
         </ul>
       </div>
     </div>
@@ -258,8 +255,7 @@
                 <i class="material-icons">person</i>
               </span>
               <div class="form-line">
-                <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electrónico"
-                  required autofocus>
+                <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electrónico" required autofocus>
               </div>
             </div>
             <div class="input-group">
@@ -267,8 +263,7 @@
                 <i class="material-icons">lock</i>
               </span>
               <div class="form-line">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña"
-                  required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required>
               </div>
             </div>
             <div class="row">
@@ -309,8 +304,7 @@
                 <i class="material-icons">person</i>
               </span>
               <div class="form-line">
-                <input type="text" class="form-control" id="txt_nombre" name="first-name" placeholder="Nombre" value=""
-                  required autofocus>
+                <input type="text" class="form-control" id="txt_nombre" name="first-name" placeholder="Nombre" value="" required autofocus>
               </div>
             </div>
 
@@ -319,8 +313,7 @@
                 <i class="material-icons">person</i>
               </span>
               <div class="form-line">
-                <input type="text" class="form-control" id="txt_apellido" name="last-name" placeholder="Apellido"
-                  required autofocus>
+                <input type="text" class="form-control" id="txt_apellido" name="last-name" placeholder="Apellido" required autofocus>
               </div>
             </div>
 
@@ -329,8 +322,7 @@
                 <i class="material-icons">date_range</i>
               </span>
               <div class="form-line">
-                <input type="text" class="form-control date" id="date_fecha" placeholder="Fecha de nacimiento" required
-                  autofocus>
+                <input type="text" class="form-control date" id="date_fecha" placeholder="Fecha de nacimiento" required autofocus>
               </div>
             </div>
             <div class="input-group">
@@ -338,8 +330,7 @@
                 <i class="material-icons">email</i>
               </span>
               <div class="form-line">
-                <input type="email" class="form-control" id="txt_correo" name="email" placeholder="Correo electrónico"
-                  required>
+                <input type="email" class="form-control" id="txt_correo" name="email" placeholder="Correo electrónico" required>
               </div>
             </div>
             <div class="input-group">
@@ -347,8 +338,7 @@
                 <i class="material-icons">phone_iphone</i>
               </span>
               <div class="form-line">
-                <input type="text" id="txt_tefelono" name="phone" class="form-control mobile-phone-number"
-                  placeholder="Ex: +504 9999-9999" required autofocus>
+                <input type="text" id="txt_tefelono" name="phone" class="form-control mobile-phone-number" placeholder="Ex: +504 9999-9999" required autofocus>
               </div>
             </div>
             <!-------------------------------------------------
@@ -380,8 +370,7 @@
                 <i class="material-icons">lock</i>
               </span>
               <div class="form-line">
-                <input type="password" class="form-control" name="password2" id="txt_contraseña" minlength="6"
-                  placeholder="Contraseña" required>
+                <input type="password" class="form-control" name="password2" id="txt_contraseña" minlength="6" placeholder="Contraseña" required>
               </div>
             </div>
             <div class="input-group">
@@ -389,14 +378,12 @@
                 <i class="material-icons">lock</i>
               </span>
               <div class="form-line">
-                <input type="password" class="form-control" name="confirm" id="txt_contraseña2" minlength="6"
-                  placeholder="Confirme contraseña" required>
+                <input type="password" class="form-control" name="confirm" id="txt_contraseña2" minlength="6" placeholder="Confirme contraseña" required>
               </div>
             </div>
             <div class="form-group">
               <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink" required>
-              <label for="terms">Acepto los <a href="javascript:void(0);" data-toggle="modal"
-                  data-target="#politicas">terminos de usuario</a>.</label>
+              <label for="terms">Acepto los <a href="javascript:void(0);" data-toggle="modal" data-target="#politicas">terminos de usuario</a>.</label>
 
             </div>
 
@@ -413,8 +400,7 @@
     </div>
   </div>
   <!--Modal con el mensaje de respuesta-->
-  <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true ">
+  <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true ">
     <div class="modal-dialog modal-dialog-centered" role="document ">
       <div class="modal-content">
         <div class="modal-header">
@@ -610,7 +596,7 @@
     </div>
   </div>
   <!-- Modal para restablecer contraseña-->
-    <div class="modal fade" id=modalRecuperar tabindex="-1" role="dialog">
+  <div class="modal fade" id=modalRecuperar tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -618,18 +604,17 @@
         </div>
         <br>
         <div class="modal-body">
-        <p ALIGN="justify">
-        Ingrese su dirección de correo electrónico que utilizó para registrarse. Le enviaremos un correo electrónico con su nombre de usuario y un enlace para restablecer su contraseña.
-        </p>
-        <br>
+          <p ALIGN="justify">
+            Ingrese su dirección de correo electrónico que utilizó para registrarse. Le enviaremos un correo electrónico con su nombre de usuario y un enlace para restablecer su contraseña.
+          </p>
+          <br>
           <form id="restablecer">
             <div class="input-group">
               <span class="input-group-addon">
                 <i class="material-icons">email</i>
               </span>
               <div class="form-line">
-                <input type="email" class="form-control" id="enviar_correo" name="correo" placeholder="Correo electrónico"
-                  required autofocus>
+                <input type="email" class="form-control" id="enviar_correo" name="correo" placeholder="Correo electrónico" required autofocus>
               </div>
             </div>
             <br>

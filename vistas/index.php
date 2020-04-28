@@ -365,252 +365,6 @@ session_start();
   <div class="modal fade" id="modalVendedor" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content" id="contenidoModalVendedor">
-        <div class="modal-header" style="text-align:center">
-          <h4 class="modal-title" id="defaultModalLabel"></h4>
-        </div>
-        <div class="modal-body modal-body-per">
-          <div class="card profile-card">
-            <div class="profile-header">&nbsp;</div>
-            <div class="profile-body">
-              <div class="image-area">
-                <img src="../images/joker.jpg" alt="Foto de perfil de Maynor Bethuell Pineda" width="200px" height="200px" />
-              </div>
-              <div class="content-area">
-                <h3>Maynor Bethuell Pineda</h3>
-                <p>Miembro desde 14 Febrero 2010</p>
-                <p>
-                  <!--Tipo de usuario-->Administrador</p>
-              </div>
-            </div>
-            <div class="profile-footer">
-              <ul>
-                <li>
-                  <span>Valoración</span>
-                  <span>4.5</span>
-                </li>
-                <li>
-                  <span>Articulos publicados</span>
-                  <span>125</span>
-                </li>
-                <li>
-                  <span>Correo Electrónico</span>
-                  <span>sbethuell@gmail.com</span>
-                </li>
-              </ul>
-              <button class="btn btn-primary btn-lg waves-effect btn-block">Contactar</button>
-            </div>
-          </div>
-          <div class="card card-about-me" style="max-height:400px; overflow-y:scroll;">
-            <div class="header" style="text-align:center">
-              <h2>HISTORIAL</h2>
-              <small>(Se mantiene el registro de los últimos 90 días)</small>
-            </div>
-            <div class="body" style="height: auto;">
-              <ul>
-                <li>
-                  <div class="title">
-                    Articulo 1
-                  </div>
-                  <div class="content">
-                    <div style="float:left;">
-                      Publicado el 1 de Diciembre de 2019
-                    </div>
-                    <div style="margin-left:90%">
-                      L 1000
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="title">
-                    Articulo 1
-                  </div>
-                  <div class="content">
-                    <div style="float:left;">
-                      Publicado el 1 de Diciembre de 2019
-                    </div>
-                    <div style="margin-left:90%">
-                      L 1000
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="title">
-                    Articulo 1
-                  </div>
-                  <div class="content">
-                    <div style="float:left;">
-                      Publicado el 1 de Diciembre de 2019
-                    </div>
-                    <div style="margin-left:90%">
-                      L 1000
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="title">
-                    Articulo 1
-                  </div>
-                  <div class="content">
-                    <div style="float:left;">
-                      Publicado el 1 de Diciembre de 2019
-                    </div>
-                    <div style="margin-left:90%">
-                      L 1000
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="title">
-                    Articulo 1
-                  </div>
-                  <div class="content">
-                    <div style="float:left;">
-                      Publicado el 1 de Diciembre de 2019
-                    </div>
-                    <div style="margin-left:90%">
-                      L 1000
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="title">
-                    Articulo 1
-                  </div>
-                  <div class="content">
-                    <div style="float:left;">
-                      Publicado el 1 de Diciembre de 2019
-                    </div>
-                    <div style="margin-left:90%">
-                      L 1000
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="title">
-                    Articulo 1
-                  </div>
-                  <div class="content">
-                    <div style="float:left;">
-                      Publicado el 1 de Diciembre de 2019
-                    </div>
-                    <div style="margin-left:90%">
-                      L 1000
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="title">
-                    Articulo 1
-                  </div>
-                  <div class="content">
-                    <div style="float:left;">
-                      Publicado el 1 de Diciembre de 2019
-                    </div>
-                    <div style="margin-left:90%">
-                      L 1000
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="title">
-                    Articulo 1
-                  </div>
-                  <div class="content">
-                    <div style="float:left;">
-                      Publicado el 1 de Diciembre de 2019
-                    </div>
-                    <div style="margin-left:90%">
-                      L 1000
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="title">
-                    Articulo 1
-                  </div>
-                  <div class="content">
-                    <div style="float:left;">
-                      Publicado el 1 de Diciembre de 2019
-                    </div>
-                    <div style="margin-left:90%">
-                      L 1000
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="title">
-                    Articulo 1
-                  </div>
-                  <div class="content">
-                    <div style="float:left;">
-                      Publicado el 1 de Diciembre de 2019
-                    </div>
-                    <div style="margin-left:90%">
-                      L 1000
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="card card-about-me" style="max-height:400px; overflow-y:scroll;">
-            <div class="header" style="text-align:center">
-              <h2>Últimos comentarios</h2>
-            </div>
-            <div class="body" style="height: auto;">
-              <ul>
-                <li>
-                  <div class="title">
-                    Us**rio
-                  </div>
-                  <div class="content">
-                    <div>
-                      <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas
-                        malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in
-                        leo.</p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="title">
-                    Us**rio
-                  </div>
-                  <div class="content">
-                    <div>
-                      <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas
-                        malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in
-                        leo.</p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="title">
-                    Us**rio
-                  </div>
-                  <div class="content">
-                    <div>
-                      <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas
-                        malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in
-                        leo.</p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="title">
-                    Us**rio
-                  </div>
-                  <div class="content">
-                    <div>
-                      <p>orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius vehicula luctus. Maecenas
-                        malesuada, quam sit amet sagittis posuere, sapien leo tempor quam, non rutrum lectus urna in
-                        leo.</p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#defaultModal" data-dismiss="modal">Cerrar</button>
         </div>
@@ -732,6 +486,49 @@ session_start();
           </button>
         </div>
         <div class="modal-body" id="cuerpoModal">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Modal para las denuncias-->
+  <div class="modal fade" id="denuncias" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="smallModalLabel" style="text-align:center;">¡Cuentanos tu denuncia!</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row clearfix">
+            <div class="col-sm-12">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <select class="form-control show-tick" name="razónDenuncia" id="razónDenuncia">
+                    <option value=""></option>
+                    <option value="1">Descripción imprecisa</option>
+                    <option value="2">Contenido ofensivo o dañino</option>
+                    <option value="3">Estafa</option>
+                    <option value="4">Articulo falso</option>
+                    <option value="5">Contenido sexual</option>
+                    <option value="6">Venta de armas o drogas</option>
+                    <option value="7">Publicación discriminatoria</option>
+                    <option value="8">Sin intención de venta</option>
+                  </select>
+                  <label class="form-label">Razón</label>
+                </div>
+              </div>
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <textarea name="descripcion" cols="30" rows="4" class="form-control no-resize"></textarea>
+                  <label class="form-label">Tu comentario es valioso</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn bg-pink waves-effect">DENUNCIAR</button>
+          <button type="button" class="btn bg-black waves-effect" data-dismiss="modal">CANCELAR</button>
+          <!--data-target='#denuncias' data-dismiss='#defaultModal'-->
         </div>
       </div>
     </div>

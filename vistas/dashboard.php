@@ -330,6 +330,31 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
           </div>
         </div>
       </div>
+      <div class="row">
+        <!-- Pie Chart -->
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="header">
+              <h2>PIE CHART</h2>
+              <ul class="header-dropdown m-r--5">
+                <li class="dropdown">
+                  <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="material-icons">more_vert</i>
+                  </a>
+                  <ul class="dropdown-menu pull-right">
+                    <li><a href="javascript:void(0);">Action</a></li>
+                    <li><a href="javascript:void(0);">Another action</a></li>
+                    <li><a href="javascript:void(0);">Something else here</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div class="body">
+              <div id="pie_chart" class="flot-chart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -347,25 +372,24 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
       </div>
     </div>
   </div>
-
   <!-- Jquery Core Js -->
   <script src="../plugins/jquery/jquery.min.js"></script>
-
   <!-- Bootstrap Core Js -->
   <script src="../plugins/bootstrap/js/bootstrap.js"></script>
-
   <!-- Slimscroll Plugin Js -->
   <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
   <!-- Waves Effect Plugin Js -->
   <script src="../plugins/node-waves/waves.js"></script>
-
   <!-- Demo Js -->
   <script src="../js/demo.js"></script>
   <!-- Custom Js -->
   <script src="../js/admin.js"></script>
   <script src="../js/helpers.js"></script>
+  <!-- Jquery CountTo Plugin Js -->
+  <script src="../plugins/jquery-countto/jquery.countTo.js"></script>
   <script src="../js/pages/widgets/infobox/infobox-5.js"></script>
+
+
 
 </body>
 
