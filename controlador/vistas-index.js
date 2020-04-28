@@ -339,27 +339,30 @@ cargarArticulo = function (idAnuncio) {
       $("#infoArticulo").html(
         "<div class='row'>" +
           "<div class='col-md-7 col-sm-12 col-xs-12 izquierdo'>" +
-          "<div class='fotorama' data-width='100%' data-ratio='700/467' data-minwidth='400' data-maxwidth='1000' data-minheight='300' data-maxheight='100%' data-nav='thumbs' data-fit='cover' data-loop='true'>" +
-          img +
-          "</div>" +
+            "<div class='fotorama' data-width='100%' data-ratio='700/467' data-minwidth='400' data-maxwidth='1000' data-minheight='300' data-maxheight='100%' data-nav='thumbs' data-fit='cover' data-loop='true'>" +
+              img +
+            "</div>" +
           "</div>" +
           "<div class='col-md-5 col-sm-12 col-xs-12 derecho'>" +
+            "<div>" +
+              "<p class='font-categoria'><a class='links-categorias' href='#'>Categoria</a> <a class='links-categorias' href='#'>" + datos.info.nombregrupo + "</a> <a class='links-categorias' href='#'>" + datos.info.nombreCategoria +"</a></p>" +
+                "<ul class='header-dropdown m-r--5' style='margin-top:-30px; margin-left:88%;  list-style:none;'>"+
+                  "<li class='dropdown'>"+
+                      "<a href='javascript:void(0);' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>"+
+                          "<i class='material-icons'>more_vert</i>"+
+                      "</a>"+
+                      "<ul class='dropdown-menu pull-right'>"+
+                          "<li><a href='javascript:void(0);'>Denunciar</a></li>"+
+                          "<li><a href='javascript:void(0);'>Agregar a favoritos</a></li>"+                    
+                      "</ul>"+
+                  "</li>"+
+              "</ul>"+
           "<div>" +
-          "<p class='font-categoria'><a class='links-categorias' href='#'>Categoria</a> > <a class='links-categorias' href='#'>" +
-          datos.info.nombregrupo +
-          "</a>> <a class='links-categorias' href='#'>" +
-          datos.info.nombreCategoria +
-          "</a></p>" +
-          "</div>" +
-          "<div>" +
-          "<p class='titulo'>" +
-          datos.info.nombre +
-          "</p>" +
+            "<p class='titulo'>" + datos.info.nombre +
+            "</p>" +
           "</div>" +
           "<div class='precio'>" +
-          "<p class='font-precio'>" +
-          datos.info.precio +
-          "</p>" +
+            "<p class='font-precio'>" + datos.info.precio +"</p>" +
           "</div>" +
           "<div class='estado'>" +
           "<p class='font-estado'><strong>Estado:</strong> " +

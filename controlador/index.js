@@ -56,7 +56,7 @@ $(document).ready(function () {																//document
 						$("#ModalMensaje").modal("show");
 					}
 					else{
-						location.href = "vistas/index.php";
+						location.href = "vistas/dashboard.php";
 					}
 
 				}

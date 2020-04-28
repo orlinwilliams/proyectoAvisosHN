@@ -1,5 +1,8 @@
 <?php
 session_start();
+if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
+  header('location: index.php');
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -126,6 +129,16 @@ session_start();
       <div class="menu">
         <ul class="list" id="menu-lista">
           <li class="header">Panel de navegación</li>
+
+
+          <li class="active">
+            <a href="dashboard.php">
+              <i class="material-icons">pie_chart</i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+
+
           <li>
             <a href="index.php">
               <i class="material-icons">home</i>
@@ -144,21 +157,18 @@ session_start();
               <span>Mis publicaciones</span>
             </a>
           </li>
-          <?php
-          if ($_SESSION["usuario"]["tipousuario"] == "Administrador") {
-            echo '<li class="active">
-                    <a href="javascript:void(0);" class="menu-toggle">
-                      <i class="material-icons">pie_chart</i>
-                      <span>Administración</span>
-                    </a>
-                    <ul class="ml-menu">
-                      <li class="active">
-                        <a href="Pizarra.html">Dashboard</a>
-                      </li>
-                    </ul>
-                  </li>';
-          }
-          ?>
+
+          <li>
+            <a href="javascript:void(0);" class="menu-toggle">
+              <i class="material-icons">widgets</i>
+              <span>Administración</span>
+            </a>
+            <ul class="ml-menu">
+              <li class="active">
+                <a href="dashboard.php">Dashboard</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
       <!-- #Menu -->

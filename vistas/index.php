@@ -34,10 +34,9 @@ session_start();
   <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
   <link href="../css/estilos.css" rel="stylesheet">
 
-   <!-- estrellas Css -->
-   <link href="../plugins/star/css/starrr.css" rel="stylesheet" />
-   <link href="../plugins/star/css/bootstrap.min.css" rel="stylesheet" />
-   <link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+  <!-- estrellas Css -->
+  <link href="../plugins/star/css/starrr.css" rel="stylesheet" />
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
 
   <!-- Dropzone Css -->
   <link href="../plugins/dropzone/dropzone.css" rel="stylesheet">
@@ -134,6 +133,16 @@ session_start();
       <div class="menu">
         <ul class="list">
           <li class="header">Panel de navegación</li>
+          <?php
+          if ($_SESSION["usuario"]["tipousuario"] == "Administrador") {
+            echo '<li ">
+                    <a href="dashboard.php">
+                      <i class="material-icons">pie_chart</i>
+                      <span>Dashboard</span>
+                    </a>
+                  </li>';
+          }
+          ?>
           <li class="active">
             <a href="index.php">
               <i class="material-icons">home</i>
@@ -152,6 +161,21 @@ session_start();
               <span>Mis publicaciones</span>
             </a>
           </li>
+          <?php
+          if ($_SESSION["usuario"]["tipousuario"] == "Administrador") {
+            echo '<li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                      <i class="material-icons">widgets</i>
+                      <span>Administración</span>
+                    </a>
+                    <ul class="ml-menu">
+                      <li>
+                        <a href="dashboard.php">Dashboard</a>
+                      </li>
+                    </ul>
+                  </li>';
+          }
+          ?>
         </ul>
       </div>
       <!-- #Menu -->
@@ -263,54 +287,6 @@ session_start();
   </section>
   <!-- #Contenido -->
   <section class="content">
-    <!--<div class="row clearfix" style="max-width:90%; margin-left:auto; margin-right:auto; max-height:140px;">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-          <div class="header">
-
-          </div>
-        </div>
-        <div class="body">
-          <div class="row clearfix">
-            <div class="col-md-3">
-              <p>
-                <b>Lugar</b>
-              </p>
-              <select class="form-control show-tick">
-                <optgroup label="Picnic">
-                  <option>Mustard</option>
-                  <option>Ketchup</option>
-                  <option>Relish</option>
-                </optgroup>
-                <optgroup label="Camping">
-                  <option>Tent</option>
-                  <option>Flashlight</option>
-                  <option>Toilet Paper</option>
-                </optgroup>
-              </select>
-
-            </div>
-            <div class="col-md-3">
-              <p>
-                <b>Categoría</b>
-              </p>
-              <select class="form-control show-tick">
-                <optgroup label="Picnic">
-                  <option>Mustard</option>
-                  <option>Ketchup</option>
-                  <option>Relish</option>
-                </optgroup>
-                <optgroup label="Camping">
-                  <option>Tent</option>
-                  <option>Flashlight</option>
-                  <option>Toilet Paper</option>
-                </optgroup>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>-->
     <div class="row clearfix" style="max-width:90% !important; margin-left:auto !important; margin-right:auto !important; max-height:140px !important;">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
@@ -760,8 +736,6 @@ session_start();
       </div>
     </div>
   </div>
-
-
 
 
   <!-- Jquery Core Js -->
