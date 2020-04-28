@@ -66,7 +66,7 @@ session_start();
     <div class="search-icon">
       <i class="material-icons">search</i>
     </div>
-    <input type="text" placeholder="START TYPING...">
+    <input id="buscaAnuncio" type="text" placeholder="START TYPING...">
     <div class="close-search">
       <i class="material-icons">close</i>
     </div>
@@ -384,6 +384,7 @@ session_start();
   <script src="../js/demo.js"></script>
   <script src="../controlador/mis-publicaciones.js"></script>
   <script src="../controlador/editarfoto.js"></script>
+  <script src="../controlador/buscador.js"></script>
   <!--<script src="../js/index.js"></script> Demo Js -->
 
   <!-- Waves Effect Plugin Js -->
