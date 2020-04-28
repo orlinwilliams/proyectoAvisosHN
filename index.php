@@ -61,7 +61,7 @@ session_start();
     <div class="search-icon">
       <i class="material-icons">search</i>
     </div>
-    <input type="text" placeholder="START TYPING...">
+    <input id="buscaAnuncio"  type="text" placeholder="START TYPING...">
     <div class="close-search">
       <i class="material-icons">close</i>
     </div>
@@ -684,6 +684,7 @@ session_start();
   <script src="js/pages/examples/sign-in.js"></script>
   <script src="controlador/actualizar-contraseña.js"></script>
   <script src="js/index.js"></script>
+  
 
 </body>
 

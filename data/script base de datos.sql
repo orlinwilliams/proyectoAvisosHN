@@ -788,7 +788,16 @@ CREATE TABLE IF NOT EXISTS `comentariosvendedor` (
   PRIMARY KEY (`idComentariosVendedor`),
   KEY `idusuarioCalificador` (`idusuarioCalificador`),
   KEY `idUsuarioCalificado` (`idUsuarioCalificado`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `comentariosvendedor`
+--
+
+INSERT INTO `comentariosvendedor` (`idComentariosVendedor`, `comentario`, `idusuarioCalificador`, `idUsuarioCalificado`) VALUES
+(1, '', 4, 0),
+(2, 'probando comentario 1', 4, 3),
+(3, 'probando comentario 2', 4, 3);
 
 -- --------------------------------------------------------
 

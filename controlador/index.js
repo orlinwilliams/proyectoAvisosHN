@@ -70,8 +70,109 @@ $(document).ready(function () {																//document
 				console.log(error);
 			}
 		});																		//Fin de Ajax 
-	});																			//Fin de evento en el botón submit de registro
-});																				//document
+    });
+
+    //BUSCADOR  
+    $("#buscaAnuncio").keyup(function(){
+        var value=$("#buscaAnuncio").val();
+        //console.log(value);
+        $.ajax({
+            url: "clases/buscador.php?accion=1",
+            method:'POST',
+            data:"value="+value,
+            success: function (resp) {
+
+                let datos = JSON.parse(resp);
+                //console.log(resp);
+                var tarjetas = "";
+                
+                if(datos.error==true){
+                    console.log("no se encontraron coincidencias");
+                }
+                else{
+                    
+                    for (let item of datos) {
+                        //RECORRER EL JSON
+                        
+                        tarjetas +=
+                          "<div class='col-sm-6 col-md-6 col-lg-4'>" +
+                          "<div class='carde'>" +
+                          "<div class='card__image-holder'>" +
+                          "<img class='card__image' src='" +
+                          item.fotos[0].substring(3) +
+                          "' alt='Miniatura del anuncio' width='320px;' height='255px;'/>" +
+                          "</div>" +
+                          "<div class='card-title'>" +
+                          "<a  href='#' class='toggle-info btn'>" +
+                          "<span class='left'></span>" +
+                          "<span class='right'></span>" +
+                          "</a>" +
+                          "<h2>" +
+                          item.nombre +
+                          "<small>L " +
+                          item.precio +
+                          "</small>" +
+                          "</h2>" +
+                          "</div>" +
+                          "<div class='card-flap flap1'>" +
+                          "<div class='card-description'>" +
+                          item.descripcion +
+                          "</div>" +
+                          "<div class='card-flap flap2'>" +
+                          "<div class='card-actions'>" +
+                          "<a href='#' class='btn' data-toggle='modal' data-target='#defaultModal' onclick='cargarArticulo(" +
+                          item.idAnuncios +
+                          ")'>Ver</a>" +
+                          "</div>" +
+                          "</div>" +
+                          "</div>" +
+                          "</div>" +
+                          "</div>";
+                        $("#tarjeta").html(tarjetas); //INSERTA LAS TARJETAS
+                    }
+                    $("div.carde").click(function (e) {
+                        e.preventDefault();
+                        var isShowing = false;
+                        if ($(this).hasClass("show")) {
+                          isShowing = true;
+                        }
+                        if ($("div.cards").hasClass("showing")) {
+                          // a card is already in view
+                          $("div.carde.show").removeClass("show");
+                          if (isShowing) {
+                            // this card was showing - reset the grid
+                            $("div.cards").removeClass("showing");
+                          } else {
+                            // this card isn't showing - get in with it
+                            $(this).css({ zIndex: 1 }).addClass("show");
+                          }
+                          //zindex++;
+                        } else {
+                          // no cards in view
+                          $("div.cards").addClass("showing");
+                          $(this).css({ zIndex: 2 }).addClass("show");
+                          //zindex++;
+                        }
+                    });
+
+
+
+                }
+                
+    
+                
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });	
+    })
+
+
+    
+    
+});			
+
 
 
 publicacionesInicioIndex = function () { //PUBLICACIONES DE INICIO
@@ -80,6 +181,7 @@ publicacionesInicioIndex = function () { //PUBLICACIONES DE INICIO
         success: function (resp) {
             let datos = JSON.parse(resp);
             var tarjetas = "";
+            
             for (let item of datos) {//RECORRER EL JSON 
                 tarjetas += "<div class='col-sm-6 col-md-6 col-lg-4'>"
                     + "<div class='carde'>"
