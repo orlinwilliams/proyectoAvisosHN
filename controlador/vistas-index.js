@@ -437,6 +437,7 @@ cargarArticulo = function (idAnuncio) {
           "<ul class='dropdown-menu pull-right'>" +
           "<li><a href='#' data-toggle='modal' data-target='#denuncias'>Denunciar</a></li>" +
           "<li><a href='javascript:void(0);'>Agregar a favoritos</a></li>" +
+          "<li><a href='#' data-toggle='modal' data-target='#modalCompartir'>Compartir</a></li>" +
           "</ul>" +
           "</li>" +
           "</ul>" +

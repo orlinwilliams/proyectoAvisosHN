@@ -33,6 +33,7 @@ session_start();
   <link href="../css/style.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
   <link href="../css/estilos.css" rel="stylesheet">
+  <link href="../css/font.css" rel="stylesheet">
 
   <!-- estrellas Css -->
   <link href="../plugins/star/css/starrr.css" rel="stylesheet" />
@@ -553,6 +554,29 @@ session_start();
           <button type="button" class="btn bg-black waves-effect" data-dismiss="modal">CANCELAR</button>
           <!--data-target='#denuncias' data-dismiss='#defaultModal'-->
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Modal para compartir-->
+  <div class="modal fade" id="modalCompartir" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="smallModalLabel" style="text-align:center;">¡Comparte MarketHN!</h4>
+        </div>
+        <div class="modal-body">
+          <div class="social">
+            <ul>
+              <li><a href="http://www.facebook.com/sharer/sharer.php?u=https://e-markethn.com/" class="icon-facebook" target="_blank"></a></li>
+              <li><a href="https://www.instagram.com/" class="icon-instagram" target="_blank"></a></li>
+            </ul>
+          </div>
+        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn bg-black waves-effect" data-dismiss="modal">CANCELAR</button>
+        </div>        
       </div>
     </div>
   </div>

@@ -1,0 +1,74 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?f4pxao');
+  src:  url('fonts/icomoon.eot?f4pxao#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?f4pxao') format('truetype'),
+    url('fonts/icomoon.woff?f4pxao') format('woff'),
+    url('fonts/icomoon.svg?f4pxao#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering ========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-facebook:before {
+  content: "\ea90";
+}
+.icon-instagram:before {
+  content: "\ea92";
+}
+
+.social{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+  
+}
+
+.social ul li{
+  display: inline-block;
+  margin:0 5px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+
+    
+}
+.social ul li a{
+  display: block;
+  padding: 0 10px;
+  background: #333;
+  color: #fff;
+  line-height: 50px;
+
+}
+.social ul li a:hover{
+  transform: translateY(-3px) scale(1.05);
+}
+.social ul li .icon-facebook:hover{
+  background: #3b5998;
+}
+.social ul li .icon-instagram:hover{
+  background: #e4405f;
+}
+/*.social ul li .icon-facebook{
+  background: #3b5998;
+}
+.social ul li .icon-instagram{
+  background: #e4405f;
+}*/
