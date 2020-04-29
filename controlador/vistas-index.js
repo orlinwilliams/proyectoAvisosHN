@@ -684,6 +684,7 @@ municipios = function () {
     success: function (resultado) {
       //console.log(resultado);
       $("#lugar").append(resultado); //El resultado lo retorna como html
+      $("#f-lugar").append(resultado);
     },
     error: function (error) {
       console.log(error);
