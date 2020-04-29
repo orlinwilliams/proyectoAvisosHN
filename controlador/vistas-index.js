@@ -177,6 +177,8 @@ $(document).ready(function () {
         }
     });	
   })
+   
+
 });
 
 valorSlider=100;
@@ -398,6 +400,8 @@ infoVendedor = function (idUsuario) {
     },
   });
 };
+
+
 cargarArticulo = function (idAnuncio) {
   event.preventDefault();
   $.ajax({
@@ -668,7 +672,10 @@ function getNoUISliderValue(slider, percentage) {
       .find("span.js-nouislider-value")
       .text("L " + val);
   });
-}
+};
+
+
+
 municipios = function () {
   //Inicio funcion para llenar los municipios
   $.ajax({

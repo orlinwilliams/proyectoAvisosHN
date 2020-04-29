@@ -287,7 +287,7 @@ session_start();
   </section>
   <!-- #Contenido -->
   <section class="content">
-    <div class="row clearfix" style="max-width:90% !important; margin-left:auto !important; margin-right:auto !important; max-height:140px !important;">
+  <div class="row clearfix" style="max-width:100% !important; margin-left:auto !important; margin-right:auto !important; max-height:140px !important;">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
           <div class="Header">
@@ -299,12 +299,12 @@ session_start();
             </button>
           </div>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <div class="body">
-              <div class="row clearfix">
+            <div class="body" style="padding: 20px 5px 20px 5px">
+              <div class="row clearfix" style="margin:0px">
                 <div class="col-md-3">
                   <div class="form-group form-float">
                     <div class="form-line">
-                      <select class="form-control show-tick" name="lugar" id="lugar">
+                      <select class="form-control show-tick" name="lugar" id="f-lugar">
                         <option></option>
                       </select>
                       <label class="form-label">Lugar</label>
@@ -321,24 +321,45 @@ session_start();
                     </div>
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
 
                   <div class="form-group form-float">
                     <div class="form-line">
                       <select class="form-control show-tick" name="valoracion" id="valoracion">
-                        <option></option>
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                       </select>
                       <label class="form-label">Valoración</label>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" style="margin-bottom:0px">
                   <p><b>Rango de precio</b></p>
-                  <div id="nouislider_range_example"></div>
-                  <div class="m-t-20 font-12"><b>Rango: </b>
-                    <span class="js-nouislider-value"></span>
+                  <div id="nouislider_range_example" class="col-md-12">
+                  
+                  </div><br>
+                  <span class="js-nouislider-value"></span>
+                  <div class="col-md-12" style="padding:0px; margin-bottom:0px">
+                      
+                      <div class="col-md-6" style="padding:0px; margin-bottom:0px">
+                        <input type="hidden"class="col-md-12" style="padding:2px; margin-bottom:0px" readonly ="readonly" name="" id="lower-value">
+                      </div>
+                      <div class="col-md-6" style="padding:0px; margin-bottom:0px">
+                      
+                      <input type="hidden" class="col-md-12" style="padding:2px; margin-bottom:0px" readonly ="readonly" name=""id="upper-value">
+                      </div>
                   </div>
+                  
+                  
                 </div>
+                
+                 <button type="button" style="margin:6px" id="filtrar" onclick="publicacionesFiltradas();" class="btn bg-black btn-circle-lg waves-effect waves-circle waves-float waves-light col-md-1 ">
+                                    <i class="material-icons">publish</i>
+                 </button>
               </div>
             </div>
           </div>
@@ -567,6 +588,7 @@ session_start();
   <!-- Controlador de página Js -->
   <script src="../plugins/nouislider/nouislider.js"></script>
   <script src="../controlador/vistas-index.js"></script>
+  <script src="../controlador/filtros.js"></script>
 
 
 </body>
