@@ -74,7 +74,7 @@ session_start();
     <div class="search-icon">
       <i class="material-icons">search</i>
     </div>
-    <input id ="buscaAnuncio" type="text" placeholder="START TYPING...">
+    <input id="buscaAnuncio" type="text" placeholder="START TYPING...">
     <div class="close-search">
       <i class="material-icons">close</i>
     </div>
@@ -335,7 +335,9 @@ session_start();
                 <div class="col-md-3">
                   <p><b>Rango de precio</b></p>
                   <div id="nouislider_range_example"></div>
-                  <div class="m-t-20 font-12"><b>Rango: </b><span class="js-nouislider-value"></span></div>
+                  <div class="m-t-20 font-12"><b>Rango: </b>
+                    <span class="js-nouislider-value"></span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -502,7 +504,7 @@ session_start();
             <div class="col-sm-12">
               <div class="form-group form-float">
                 <div class="form-line">
-                  <select class="form-control show-tick" name="razónDenuncia" id="razónDenuncia">
+                  <select class="form-control show-tick" id="razónDenuncia">
                     <option value=""></option>
                     <option value="1">Descripción imprecisa</option>
                     <option value="2">Contenido ofensivo o dañino</option>
@@ -518,7 +520,7 @@ session_start();
               </div>
               <div class="form-group form-float">
                 <div class="form-line">
-                  <textarea name="descripcion" cols="30" rows="4" class="form-control no-resize"></textarea>
+                  <textarea name="descripcion" cols="30" rows="4" class="form-control no-resize" id="comentario-denuncia"></textarea>
                   <label class="form-label">Tu comentario es valioso</label>
                 </div>
               </div>
@@ -565,7 +567,7 @@ session_start();
   <!-- Controlador de página Js -->
   <script src="../plugins/nouislider/nouislider.js"></script>
   <script src="../controlador/vistas-index.js"></script>
-  
+
 
 </body>
 

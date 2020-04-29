@@ -74,7 +74,6 @@ $(document).ready(function () {
       //this.removeAllFiles(true);
     },
   });
-
   var rangeSlider = document.getElementById("nouislider_range_example");
   noUiSlider.create(rangeSlider, {
     start: [0, 25000],
@@ -85,7 +84,6 @@ $(document).ready(function () {
     },
   });
   getNoUISliderValue(rangeSlider, false);
-
   //BUSCADOR
   $("#buscaAnuncio").keyup(function(){
     var value=$("#buscaAnuncio").val();
@@ -178,16 +176,11 @@ $(document).ready(function () {
             console.log(error);
         }
     });	
-})
-
-
-
-
-
-
-
+  })
 });
 
+valorSlider=100;
+console.log(valorSlider);
 categoria = function () {
   //Inicio funcion para llenar las categorias
   $.ajax({
@@ -203,7 +196,6 @@ categoria = function () {
     },
   }); //Fin ajax categorias
 };
-
 infoVendedor = function (idUsuario) {
   $.ajax({
     url: "../clases/vistas-index.php?accion=5",
@@ -406,7 +398,6 @@ infoVendedor = function (idUsuario) {
     },
   });
 };
-
 cargarArticulo = function (idAnuncio) {
   event.preventDefault();
   $.ajax({
@@ -520,7 +511,6 @@ cargarArticulo = function (idAnuncio) {
     },
   });
 };
-
 publicacionesInicio = function () {
   //PUBLICACIONES DE INICIO USUARIO
   $.ajax({
@@ -598,7 +588,6 @@ publicacionesInicio = function () {
     },
   });
 };
-
 cargarDatosContacto = function (parametros) {
   ////mostrar los datos en el de contacto con vendedor
   event.preventDefault();
@@ -631,7 +620,6 @@ cargarDatosContacto = function (parametros) {
     },
   });
 };
-
 enviarCorreoContacto = function (parametros) {
   event.preventDefault();
   id = parametros;
@@ -651,7 +639,6 @@ enviarCorreoContacto = function (parametros) {
     },
   });
 };
-
 $(function () {
   $("#publicarArticulo").validate({
     highlight: function (input) {
@@ -674,6 +661,7 @@ function getNoUISliderValue(slider, percentage) {
     if (percentage) {
       val = +parseInt(val);
       val += "%";
+      console.log(valorSlider);
     }
     $(slider)
       .parent()
@@ -681,7 +669,6 @@ function getNoUISliderValue(slider, percentage) {
       .text("L " + val);
   });
 }
-
 municipios = function () {
   //Inicio funcion para llenar los municipios
   $.ajax({

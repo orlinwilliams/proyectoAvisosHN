@@ -93,7 +93,6 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
       </div>
     </div>
   </nav>
-  av>
   <!-- #Top Bar -->
   <section>
     <!-- Left Sidebar -->
@@ -164,8 +163,8 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
               <span>Administración</span>
             </a>
             <ul class="ml-menu">
-              <li class="active">
-                <a href="dashboard.php">Dashboard</a>
+              <li>
+                <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
               </li>
             </ul>
           </li>
@@ -331,26 +330,47 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
         </div>
       </div>
       <div class="row">
-        <!-- Pie Chart -->
+        <!-- carga los numeros de las categorias más publicadas-->
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
           <div class="card">
             <div class="header">
-              <h2>PIE CHART</h2>
-              <ul class="header-dropdown m-r--5">
-                <li class="dropdown">
-                  <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="material-icons">more_vert</i>
-                  </a>
-                  <ul class="dropdown-menu pull-right">
-                    <li><a href="javascript:void(0);">Action</a></li>
-                    <li><a href="javascript:void(0);">Another action</a></li>
-                    <li><a href="javascript:void(0);">Something else here</a></li>
-                  </ul>
-                </li>
-              </ul>
+              <h2>PUBLICACIONES POR MES</h2>
             </div>
             <div class="body">
-              <div id="pie_chart" class="flot-chart"></div>
+              <canvas id="pie_chart" height="150"></canvas>
+            </div>
+          </div>
+        </div>
+        <!-- carga los numeros de las categorias más publicadas-->
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="header">
+              <h2>PUBLICACIONES POR DÍA</h2>
+            </div>
+            <div class="body">
+              <canvas id="bar_chart_2" height="150"></canvas>
+            </div>
+          </div>
+        </div>
+        <!-- Pie Chart que carga el porcentaje de grupo de categorías-->
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="header">
+              <h2>PUBLICACIONES POR GRUPO DE CATEGORÍA</h2>
+            </div>
+            <div class="body">
+              <canvas id="bar_chart" height="150"></canvas>
+            </div>
+          </div>
+        </div>
+        <!-- carga los numeros de las categorias más publicadas-->
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="header">
+              <h2>PUBLICACIONES POR DEPARTAMENTO</h2>
+            </div>
+            <div class="body">
+              <canvas id="pie_chart_2" height="150"></canvas>
             </div>
           </div>
         </div>
@@ -380,14 +400,17 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
   <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
   <!-- Waves Effect Plugin Js -->
   <script src="../plugins/node-waves/waves.js"></script>
-  <!-- Demo Js -->
-  <script src="../js/demo.js"></script>
   <!-- Custom Js -->
   <script src="../js/admin.js"></script>
   <script src="../js/helpers.js"></script>
   <!-- Jquery CountTo Plugin Js -->
   <script src="../plugins/jquery-countto/jquery.countTo.js"></script>
   <script src="../js/pages/widgets/infobox/infobox-5.js"></script>
+  <!-- Chart Plugins Js -->
+  <script src="../plugins/chartjs/Chart.bundle.js"></script>
+  <script src="../controlador/dashboard.js"></script>
+  <!-- Demo Js -->
+  <script src="../js/demo.js"></script>
 
 
 
