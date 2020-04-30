@@ -1,5 +1,5 @@
 <?php
-    session_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,8 +12,7 @@
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
-        type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
@@ -68,16 +67,14 @@
     <nav class="navbar">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
                 <a class="navbar-brand" href="index.php">AvisosHN User</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Call Search -->
-                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i
-                                class="material-icons">search</i></a></li>
+                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
                     <!-- #END# Call Search -->
                     <!-- Notifications -->
                     <li class="dropdown">
@@ -189,8 +186,7 @@
                     </li>
                     <!-- #END# Notifications -->
                     <li><a href="../clases/cerrarSesion.php"><i class="material-icons">input</i></a></li>
-                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i
-                                class="material-icons">more_vert</i></a></li>
+                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
                 </ul>
             </div>
         </div>
@@ -206,11 +202,10 @@
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?></div>
-                    <div class="email"><?php echo $_SESSION["usuario"]["correoElectronico"];?></div>
+                        <?php echo $_SESSION["usuario"]["pNombre"] . ' ' . $_SESSION["usuario"]["pApellido"]; ?></div>
+                    <div class="email"><?php echo $_SESSION["usuario"]["correoElectronico"]; ?></div>
                     <div class="btn-group user-helper-dropdown">
-                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="true">keyboard_arrow_down</i>
+                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
                             <li><a href="perfil.php"><i class="material-icons">person</i>Perfil</a></li>
                             <li role="separator" class="divider"></li>
@@ -225,6 +220,16 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
+                    <?php
+                    if ($_SESSION["usuario"]["tipousuario"] == "Administrador") {
+                        echo '<li ">
+                                <a href="dashboard.php">
+                                <i class="material-icons">pie_chart</i>
+                                <span>Dashboard</span>
+                                </a>
+                            </li>';
+                    }
+                    ?>
                     <li>
                         <a href="index.php">
                             <i class="material-icons">home</i>
@@ -239,11 +244,31 @@
                     </li>
                     <li>
                         <a href="mis-publicaciones.php">
-                        <i class="material-icons">list</i>
-                        <span>Mis publicaciones</span>
+                            <i class="material-icons">list</i>
+                            <span>Mis publicaciones</span>
                         </a>
                     </li>
-
+                    <?php
+                    if ($_SESSION["usuario"]["tipousuario"] == "Administrador") {
+                        echo '<li>
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">widgets</i>
+                                <span>Administración</span>
+                                </a>
+                                <ul class="ml-menu">
+                                <li>
+                                    <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
+                                </li>
+                                <li>
+                                    <a href="gestion-usuarios.php">Gestión de usuarios</a>
+                                </li>
+                                <li>
+                                    <a href="gestion-denuncias.php">Gestión de denuncias</a>
+                                </li>
+                                </ul>
+                            </li>';
+                    }
+                    ?>
                 </ul>
             </div>
             <!-- #Menu -->
@@ -361,19 +386,20 @@
                 <div class="col-xs-12 col-sm-3">
                     <div class="card profile-card">
                         <div class="profile-header">&nbsp;</div>
-                                <form id="formAtualizarImagen" style="display:none" enctype="multipart/form-data"> <!-- ACTUALIZAR IMAGEN -->
-                                    <input type="file" name="imagen" accept="image/*" id="imagenActualizar">
-                                </form>
-                            <div class="profile-body">
-                                <div class="image-area">
-                                    <img id="imagenPerfil"  alt="AdminBSB - Profile Image" height=128px width=128px/>
-                                </div>
-                                <div class="content-area">
-                                    <h3><?php echo $_SESSION["usuario"]["pNombre"].' '.$_SESSION["usuario"]["pApellido"];?>
-                                    </h3>
-                                    <p><?php echo $_SESSION["usuario"]["tipousuario"]?></p>
-                                </div>
+                        <form id="formAtualizarImagen" style="display:none" enctype="multipart/form-data">
+                            <!-- ACTUALIZAR IMAGEN -->
+                            <input type="file" name="imagen" accept="image/*" id="imagenActualizar">
+                        </form>
+                        <div class="profile-body">
+                            <div class="image-area">
+                                <img id="imagenPerfil" alt="AdminBSB - Profile Image" height=128px width=128px />
                             </div>
+                            <div class="content-area">
+                                <h3><?php echo $_SESSION["usuario"]["pNombre"] . ' ' . $_SESSION["usuario"]["pApellido"]; ?>
+                                </h3>
+                                <p><?php echo $_SESSION["usuario"]["tipousuario"] ?></p>
+                            </div>
+                        </div>
                         <div class="profile-footer">
                             <ul>
                                 <li>
@@ -393,21 +419,20 @@
                         </div>
                     </div>
                     <a href="eliminarCuenta.php">
-                    <button type="submit" class="btn bg-red btn-block waves-effect" data-toggle="modal" data-target="#defaultModal">
+                        <button type="submit" class="btn bg-red btn-block waves-effect" data-toggle="modal" data-target="#defaultModal">
                             <span>Eliminar cuenta</span></button>
-                        </a> <br>
-                        <br></div> 
+                    </a> <br>
+                    <br>
+                </div>
                 <div class="col-xs-12 col-sm-9">
                     <div class="card">
                         <div class="body">
                             <div>
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation" class="active"><a href="#profile_settings"
-                                            aria-controls="settings" role="tab" data-toggle="tab">Configuración de
+                                    <li role="presentation" class="active"><a href="#profile_settings" aria-controls="settings" role="tab" data-toggle="tab">Configuración de
                                             perfil</a>
                                     </li>
-                                    <li role="presentation"><a href="#change_password_settings" aria-controls="settings"
-                                            role="tab" data-toggle="tab">Cambiar contraseña</a></li>
+                                    <li role="presentation"><a href="#change_password_settings" aria-controls="settings" role="tab" data-toggle="tab">Cambiar contraseña</a></li>
                                 </ul>
 
                                 <div class="tab-content">
@@ -417,11 +442,7 @@
                                                 <label for="first-name" class="col-sm-2 control-label">Nombre</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <input type="text" id="txt_nombre" class="form-control"
-                                                            name="first-name"
-                                                            placeholder="<?php echo $_SESSION["usuario"]["pNombre"];?>"
-                                                            value="<?php echo $_SESSION["usuario"]["pNombre"];?>"
-                                                            required>
+                                                        <input type="text" id="txt_nombre" class="form-control" name="first-name" placeholder="<?php echo $_SESSION["usuario"]["pNombre"]; ?>" value="<?php echo $_SESSION["usuario"]["pNombre"]; ?>" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -429,11 +450,7 @@
                                                 <label for="last-name" class="col-sm-2 control-label">Apellido</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <input type="text" class="form-control" id="txt_apellido"
-                                                            name="last-name"
-                                                            placeholder="<?php echo $_SESSION["usuario"]["pApellido"];?>"
-                                                            value="<?php echo $_SESSION["usuario"]["pApellido"];?>"
-                                                            required>
+                                                        <input type="text" class="form-control" id="txt_apellido" name="last-name" placeholder="<?php echo $_SESSION["usuario"]["pApellido"]; ?>" value="<?php echo $_SESSION["usuario"]["pApellido"]; ?>" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -442,27 +459,21 @@
                                                     electrónico</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <input type="email" class="form-control" id="txt_correo"
-                                                            name="Email"
-                                                            placeholder="<?php echo $_SESSION["usuario"]["correoElectronico"];?>"
-                                                            value="<?php echo $_SESSION["usuario"]["correoElectronico"];?>"
-                                                            required>
+                                                        <input type="email" class="form-control" id="txt_correo" name="Email" placeholder="<?php echo $_SESSION["usuario"]["correoElectronico"]; ?>" value="<?php echo $_SESSION["usuario"]["correoElectronico"]; ?>" required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <?php   
-                                                $fechaTemp=$_SESSION["usuario"]["fechaNacimiento"];
-                                                $date = str_replace('-', '/', $fechaTemp); 
-                                                $fechaTemp = date('d-m-Y', strtotime($date)); 
+                                            <?php
+                                            $fechaTemp = $_SESSION["usuario"]["fechaNacimiento"];
+                                            $date = str_replace('-', '/', $fechaTemp);
+                                            $fechaTemp = date('d-m-Y', strtotime($date));
                                             ?>
                                             <div class="form-group">
                                                 <label for="fecha" class="col-sm-2 control-label">Fecha de
                                                     Nacimiento</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <input type="text" id="date_fecha" class="form-control date"
-                                                            value="<?php echo $fechaTemp;?>"
-                                                            placeholder="<?php echo $fechaTemp;?>" required>
+                                                        <input type="text" id="date_fecha" class="form-control date" value="<?php echo $fechaTemp; ?>" placeholder="<?php echo $fechaTemp; ?>" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -471,8 +482,7 @@
                                                 <label class="col-sm-2 control-label">municipio</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <select id="int_municipio" class="form-control show-tick"
-                                                            required>
+                                                        <select id="int_municipio" class="form-control show-tick" required>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -482,11 +492,7 @@
                                                 <label class="col-sm-2 control-label">Teléfono</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <input type="text" id="txt_tefelono"
-                                                            class="form-control mobile-phone-number"
-                                                            value="<?php echo $_SESSION["usuario"]["numTelefono"];?>"
-                                                            placeholder="<?php echo $_SESSION["usuario"]["numTelefono"];?>"
-                                                            required>
+                                                        <input type="text" id="txt_tefelono" class="form-control mobile-phone-number" value="<?php echo $_SESSION["usuario"]["numTelefono"]; ?>" placeholder="<?php echo $_SESSION["usuario"]["numTelefono"]; ?>" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -494,12 +500,12 @@
 
 
                                             <div class="form-group">
-                                            <label class="col-sm-2 control-label">RTN (Opcional)</label>
-                                            <div class="col-sm-10">
+                                                <label class="col-sm-2 control-label">RTN (Opcional)</label>
+                                                <div class="col-sm-10">
                                                     <div class="form-line">
-                                                        <input type="text" class="form-control" value="<?php echo $_SESSION["usuario"]["RTN"];?>" placeholder="<?php echo $_SESSION["usuario"]["RTN"];?>" id="txt_rtn">
+                                                        <input type="text" class="form-control" value="<?php echo $_SESSION["usuario"]["RTN"]; ?>" placeholder="<?php echo $_SESSION["usuario"]["RTN"]; ?>" id="txt_rtn">
                                                     </div>
-                                            </div>
+                                                </div>
                                             </div>
 
 
@@ -517,9 +523,7 @@
                                                     actual</label>
                                                 <div class="col-sm-9">
                                                     <div class="form-line">
-                                                        <input type="password" class="form-control"
-                                                            id="contraseñaActual" name="OldPassword"
-                                                            placeholder="Contraseña actual" required>
+                                                        <input type="password" class="form-control" id="contraseñaActual" name="OldPassword" placeholder="Contraseña actual" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -528,8 +532,7 @@
                                                     contraseña</label>
                                                 <div class="col-sm-9">
                                                     <div class="form-line">
-                                                        <input type="password" class="form-control" id="txt_contraseña"
-                                                            name="NewPassword" placeholder="Nueva contraseña" required>
+                                                        <input type="password" class="form-control" id="txt_contraseña" name="NewPassword" placeholder="Nueva contraseña" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -538,9 +541,7 @@
                                                     contraseña (Confirmación)</label>
                                                 <div class="col-sm-9">
                                                     <div class="form-line">
-                                                        <input type="password" class="form-control" id="txt_contraseña2"
-                                                            name="NewPasswordConfirm"
-                                                            placeholder="Confirme la contraseña" required>
+                                                        <input type="password" class="form-control" id="txt_contraseña2" name="NewPasswordConfirm" placeholder="Confirme la contraseña" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -560,19 +561,19 @@
             </div>
         </div>
         <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true ">
-    <div class="modal-dialog modal-dialog-centered" role="document ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true ">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="cuerpoModal">
+            <div class="modal-dialog modal-dialog-centered" role="document ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true ">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="cuerpoModal">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
     </section>
 
     <!-- Jquery Core Js -->
@@ -616,7 +617,7 @@
 
     <!-- Demo Js -->
     <script src="../controlador/perfiles.js"></script>
-    
+
 
 </body>
 

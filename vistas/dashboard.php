@@ -128,16 +128,16 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
       <div class="menu">
         <ul class="list" id="menu-lista">
           <li class="header">Panel de navegación</li>
-
-
-          <li class="active">
-            <a href="dashboard.php">
-              <i class="material-icons">pie_chart</i>
-              <span>Dashboard</span>
-            </a>
-          </li>
-
-
+          <?php
+          if ($_SESSION["usuario"]["tipousuario"] == "Administrador") {
+            echo '<li class="active">
+                    <a href="dashboard.php">
+                      <i class="material-icons">pie_chart</i>
+                      <span>Dashboard</span>
+                    </a>
+                  </li>';
+          }
+          ?>
           <li>
             <a href="index.php">
               <i class="material-icons">home</i>
@@ -156,24 +156,27 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
               <span>Mis publicaciones</span>
             </a>
           </li>
-
-          <li>
-            <a href="javascript:void(0);" class="menu-toggle">
-              <i class="material-icons">widgets</i>
-              <span>Administración</span>
-            </a>
-            <ul class="ml-menu">
-              <li>
-                <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
-              </li>
-              <li>
-                <a href="gestion-usuarios.php">Gestión de usuarios</a>
-              </li>
-              <li>
-                <a href="gestion-denuncias.php">Gestión de denuncias</a>
-              </li>
-            </ul>
-          </li>
+          <?php
+          if ($_SESSION["usuario"]["tipousuario"] == "Administrador") {
+            echo '<li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                      <i class="material-icons">widgets</i>
+                      <span>Administración</span>
+                    </a>
+                    <ul class="ml-menu">
+                      <li>
+                        <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
+                      </li>
+                      <li>
+                        <a href="gestion-usuarios.php">Gestión de usuarios</a>
+                      </li>
+                      <li>
+                        <a href="gestion-denuncias.php">Gestión de denuncias</a>
+                      </li>
+                    </ul>
+                  </li>';
+          }
+          ?>
         </ul>
       </div>
       <!-- #Menu -->
