@@ -164,13 +164,7 @@ $(document).ready(function () {
                       //zindex++;
                     }
                 });
-
-
-
             }
-            
-
-            
         },
         error: function (error) {
             console.log(error);

@@ -10,7 +10,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
 <head>
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
-    <title>Gestión de Publicaciones | AvisosHN</title>
+    <title>Gestión de Usuarios | AvisosHN</title>
     <!-- Favicon-->
     <link rel="icon" href="../favicon.ico" type="image/x-icon" />
 
@@ -129,12 +129,16 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
             <div class="menu">
                 <ul class="list" id="menu-lista">
                     <li class="header">Panel de navegación</li>
+
+
                     <li>
                         <a href="dashboard.php">
                             <i class="material-icons">pie_chart</i>
                             <span>Dashboard</span>
                         </a>
                     </li>
+
+
                     <li>
                         <a href="index.php">
                             <i class="material-icons">home</i>
@@ -153,16 +157,17 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                             <span>Mis publicaciones</span>
                         </a>
                     </li>
+
                     <li class="active">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">widgets</i>
                             <span>Administración</span>
                         </a>
                         <ul class="ml-menu">
-                            <li class="active">
+                            <li>
                                 <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a href="gestion-usuarios.php">Gestión de usuarios</a>
                             </li>
                         </ul>
@@ -280,7 +285,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>GESTIÓN DE PUBLICACIONES</h2>
+                <h2>GESTIÓN DE USUARIOS</h2>
             </div>
             <!-- Basic Examples -->
             <div class="row clearfix">
@@ -288,7 +293,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                     <div class="card">
                         <div class="header">
                             <h2>
-                                PUBLICACIONES
+                                USUARIOS
                             </h2>
                         </div>
                         <div class="body">
@@ -296,23 +301,27 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                         <tr>
+                                            <th>Id</th>
                                             <th>Nombre</th>
-                                            <th>Categoria</th>
-                                            <th>Precio</th>
-                                            <th>Usuario</th>
-                                            <th>Fecha de publicacion</th>
-                                            <th>Fecha límite</th>
+                                            <th>Correo</th>
+                                            <th>Teléfono</th>
+                                            <th>Tipo usuario</th>
+                                            <th>Fecha Registro</th>
+                                            <th>Publicaciones</th>
+                                            <th>Denuncias</th>
                                             <th>Eliminar</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>Id</th>
                                             <th>Nombre</th>
-                                            <th>Categoria</th>
-                                            <th>Precio</th>
-                                            <th>Usuario</th>
-                                            <th>Fecha de publicacion</th>
-                                            <th>Fecha límite</th>
+                                            <th>Correo</th>
+                                            <th>Teléfono</th>
+                                            <th>Tipo usuario</th>
+                                            <th>Fecha Registro</th>
+                                            <th>Publicaciones</th>
+                                            <th>Denuncias</th>
                                             <th>Eliminar</th>
                                         </tr>
                                     </tfoot>
@@ -321,34 +330,15 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                     <!----------------------->
                                     <tbody id="tabla">
                                         <tr>
-                                            <td>iPhone X</td>
-                                            <td>Móviles y Telefonía</td>
-                                            <td>21000</td>
+                                            <td>1</td>
                                             <td>Maynor Pineda</td>
+                                            <td>sbethuell@gmail.com</td>
+                                            <td>+504 9619-9660</td>
+                                            <td>Administrador</td>
                                             <td>2020-04-27 16:52:44</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input type="text" class="datetimepicker form-control" placeholder="Escoge una fecha y hora..." value="">
-                                                    <!--EN EL VALUE DEBE CARGAR LA HORA DE LA BASE DE DATOS-->
-                                                </div>
-                                            </td>
-                                            <td style=" text-align:center;"> <button type="button" class="btn bg-red waves-effect" onclick="eliminarPublicacion(ID_DEL_ANUNCIO)">
-                                                    <i class="material-icons">delete_forever</i>
-                                                </button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>iPhone X</td>
-                                            <td>Móviles y Telefonía</td>
-                                            <td>21000</td>
-                                            <td>Maynor Pineda</td>
-                                            <td>2020-04-27 16:52:44</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input type="text" class="datetimepicker form-control" placeholder="Escoge una fecha y hora..." value="">
-                                                    <!--EN EL VALUE DEBE CARGAR LA HORA DE LA BASE DE DATOS-->
-                                                </div>
-                                            </td>
-                                            <td style=" text-align:center;"> <button type="button" class="btn bg-red waves-effect" onclick="eliminarPublicacion(ID_DEL_ANUNCIO_2)">
+                                            <td>120</td>
+                                            <td>3</td>
+                                            <td style=" text-align:center;"> <button type="button" class="btn bg-red waves-effect" onclick="eliminarUsuario(ID_DEL_USUARIO)">
                                                     <i class="material-icons">delete_forever</i>
                                                 </button></td>
                                         </tr>
@@ -403,7 +393,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <script src="../plugins/jquery-datatable/jquery.dataTables.js"></script>
     <script src="../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
     <!--Controlador-->
-    <script src="../controlador/gestion-publicaciones.js"></script>
+    <script src="../controlador/gestion-usuarios.js"></script>
 
 </body>
 
