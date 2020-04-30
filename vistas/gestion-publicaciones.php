@@ -17,21 +17,20 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
-
     <!-- Bootstrap Core Css -->
     <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
-
     <!-- Waves Effect Css -->
     <link href="../plugins/node-waves/waves.css" rel="stylesheet" />
-
     <!-- Animation Css -->
     <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
-
     <!-- Custom Css -->
     <link href="../css/style.css" rel="stylesheet" />
     <!-- JQuery DataTable Css -->
     <link href="../plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-
+    <!-- Bootstrap DatePicker Css -->
+    <link href="../plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="../plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../css/themes/all-themes.css" rel="stylesheet" />
 </head>
@@ -311,42 +310,66 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Nombre</th>
+                                            <th>Categoria</th>
+                                            <th>Precio</th>
+                                            <th>Usuario</th>
+                                            <th>Fecha de publicacion</th>
+                                            <th>Fecha límite</th>
+                                            <th>Eliminar</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Nombre</th>
+                                            <th>Categoria</th>
+                                            <th>Precio</th>
+                                            <th>Usuario</th>
+                                            <th>Fecha de publicacion</th>
+                                            <th>Fecha límite</th>
+                                            <th>Eliminar</th>
                                         </tr>
                                     </tfoot>
-                                    <tbody>
+                                    <!----------------------->
+                                    <!------CARGAR DATOS----->
+                                    <!----------------------->
+                                    <tbody id="tabla">
                                         <tr>
-                                            <td>Michael Bruce</td>
-                                            <td>Javascript Developer</td>
-                                            <td>Singapore</td>
-                                            <td>29</td>
-                                            <td>2011/06/27</td>
-                                            <td>$183,000</td>
+                                            <td>iPhone X</td>
+                                            <td>Móviles y Telefonía</td>
+                                            <td>21000</td>
+                                            <td>Maynor Pineda</td>
+                                            <td>2020-04-27 16:52:44</td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="text" class="datetimepicker form-control" placeholder="Escoge una fecha y hora..." value="">
+                                                    <!--EN EL VALUE DEBE CARGAR LA HORA DE LA BASE DE DATOS-->
+                                                </div>
+                                            </td>
+                                            <td style=" text-align:center;"> <button type="button" class="btn bg-red waves-effect" onclick="eliminarPublicacion(ID_DEL_ANUNCIO)">
+                                                    <i class="material-icons">delete_forever</i>
+                                                </button></td>
                                         </tr>
                                         <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$112,000</td>
+                                            <td>iPhone X</td>
+                                            <td>Móviles y Telefonía</td>
+                                            <td>21000</td>
+                                            <td>Maynor Pineda</td>
+                                            <td>2020-04-27 16:52:44</td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="text" class="datetimepicker form-control" placeholder="Escoge una fecha y hora..." value="">
+                                                    <!--EN EL VALUE DEBE CARGAR LA HORA DE LA BASE DE DATOS-->
+                                                </div>
+                                            </td>
+                                            <td style=" text-align:center;"> <button type="button" class="btn bg-red waves-effect" onclick="eliminarPublicacion(ID_DEL_ANUNCIO_2)">
+                                                    <i class="material-icons">delete_forever</i>
+                                                </button></td>
                                         </tr>
                                     </tbody>
+
+
+
                                 </table>
                             </div>
                         </div>
@@ -378,15 +401,23 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
     <!-- Waves Effect Plugin Js -->
     <script src="../plugins/node-waves/waves.js"></script>
+    <!-- Autosize Plugin Js -->
+    <script src="../plugins/autosize/autosize.js"></script>
+    <!-- Moment Plugin Js -->
+    <script src="../plugins/momentjs/moment-with-locales.js"></script>
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <!-- Bootstrap Datepicker Plugin Js -->
+    <script src="../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <!-- Custom Js -->
     <script src="../js/admin.js"></script>
     <!-- Demo Js -->
     <script src="../js/demo.js"></script>
-    <!--Controlador-->
-    <script src="../controlador/gestion-publicaciones.js"></script>
     <!-- Jquery DataTable Plugin Js -->
     <script src="../plugins/jquery-datatable/jquery.dataTables.js"></script>
     <script src="../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <!--Controlador-->
+    <script src="../controlador/gestion-publicaciones.js"></script>
 
 </body>
 

@@ -76,7 +76,7 @@ $(document).ready(function () {
   });
   var rangeSlider = document.getElementById("nouislider_range_example");
   noUiSlider.create(rangeSlider, {
-    start: [0, 25000],
+    start: [0, 100000],
     connect: true,
     range: {
       min: 0,
@@ -177,12 +177,7 @@ $(document).ready(function () {
         }
     });	
   })
-   
-
 });
-
-valorSlider=100;
-console.log(valorSlider);
 categoria = function () {
   //Inicio funcion para llenar las categorias
   $.ajax({
@@ -400,8 +395,6 @@ infoVendedor = function (idUsuario) {
     },
   });
 };
-
-
 cargarArticulo = function (idAnuncio) {
   event.preventDefault();
   $.ajax({
@@ -551,9 +544,7 @@ publicacionesInicio = function () {
           "</div>" +
           "<div class='card-flap flap2'>" +
           "<div class='card-actions'>" +
-          "<a href='#' class='btn' data-toggle='modal' data-target='#defaultModal' onclick='cargarArticulo(" +
-          item.idAnuncios +
-          ")'>Ver</a>" +
+          "<a href='#' class='btn' data-toggle='modal' data-target='#defaultModal' onclick='cargarArticulo("+item.idAnuncios+")'>Ver</a>" +
           "</div>" +
           "</div>" +
           "</div>" +
@@ -666,7 +657,6 @@ function getNoUISliderValue(slider, percentage) {
     if (percentage) {
       val = +parseInt(val);
       val += "%";
-      console.log(valorSlider);
     }
     $(slider)
       .parent()
@@ -674,9 +664,6 @@ function getNoUISliderValue(slider, percentage) {
       .text("L " + val);
   });
 };
-
-
-
 municipios = function () {
   //Inicio funcion para llenar los municipios
   $.ajax({

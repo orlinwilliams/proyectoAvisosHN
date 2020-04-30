@@ -171,7 +171,7 @@ session_start();
                     </a>
                     <ul class="ml-menu">
                       <li>
-                        <a href="dashboard.php">Dashboard</a>
+                        <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
                       </li>
                     </ul>
                   </li>';
@@ -359,7 +359,7 @@ session_start();
                 </div>
                 
                  <button type="button" style="margin:6px" id="filtrar" onclick="publicacionesFiltradas();" class="btn bg-black btn-circle-lg waves-effect waves-circle waves-float waves-light col-md-1 ">
-                                    <i class="material-icons">publish</i>
+                                    <i class="material-icons">filter_list</i>
                  </button>
               </div>
             </div>
