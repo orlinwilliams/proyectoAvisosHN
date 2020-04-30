@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 28-04-2020 a las 23:39:16
+-- Tiempo de generación: 30-04-2020 a las 05:15:30
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -301,6 +301,54 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_ANUNCIO` (IN `pnIdAnunc
     SET pcMensaje = 'Se ha eliminado correctamente';
     LEAVE SP;
 END$$
+
+DROP PROCEDURE IF EXISTS `SP_ELIMINAR_ANUNCIO_ADMIN`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_ANUNCIO_ADMIN` (IN `pnIdUsuario` INT, OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(1000))  SP:BEGIN
+    DECLARE vnConteo  INT;
+    SET autocommit=0;
+    START TRANSACTION;
+    SET pbOcurrioError=TRUE;
+
+    IF pnIdUsuario  = '' OR pnIdUsuario  IS NULL THEN
+        SET pcMensaje =  'idusuario, ';
+        LEAVE SP;
+    END IF;
+
+    SELECT COUNT(*) INTO vnConteo FROM Usuario u
+    WHERE u.idusuario = pnIdUsuario ;
+
+    IF vnConteo = 0 THEN
+        SET pcMensaje = 'idusuario no existe';
+        LEAVE SP;
+    END IF;
+
+    DELETE FROM denuncias
+    WHERE idAnuncios IN (SELECT idAnuncios FROM anuncios WHERE idUsuario=pnIdUsuario);
+
+    DELETE FROM calificacionesvendedor
+    WHERE idUsuario = pnIdUsuario;
+
+    DELETE FROM comentariosvendedor
+    WHERE idusuarioCalificador = pnIdUsuario OR idUsuarioCalificado = pnIdUsuario;
+
+    DELETE FROM calificacionanuncio
+    WHERE idAnuncios IN (SELECT idAnuncios FROM anuncios WHERE idUsuario=pnIdUsuario);
+
+    DELETE FROM fotos
+    WHERE idAnuncios IN (SELECT idAnuncios FROM anuncios WHERE idUsuario=pnIdUsuario);
+
+    DELETE FROM anuncios
+    WHERE idUsuario = pnIdUsuario;
+
+    DELETE FROM usuario
+    WHERE idUsuario = pnIdUsuario;
+
+    COMMIT;
+    SET pcMensaje = 'Usuario eliminado con éxito.';
+    SET pbOcurrioError = FALSE;
+    LEAVE SP;
+
+ END$$
 
 DROP PROCEDURE IF EXISTS `SP_ELIMINAR_USUARIO`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_USUARIO` (IN `pnIdUsuario` INT, IN `pcContrasenia` VARCHAR(50), OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(1000))  SP:BEGIN
@@ -810,7 +858,7 @@ CREATE TABLE IF NOT EXISTS `denuncias` (
   `idDenuncias` int(11) NOT NULL AUTO_INCREMENT,
   `idrazonDenuncia` int(11) NOT NULL,
   `idAnuncios` int(11) NOT NULL,
-  `comentarios` varchar(600) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `comentarios` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idDenuncias`),
   KEY `idrazonDenuncia` (`idrazonDenuncia`),
   KEY `idAnuncios` (`idAnuncios`)

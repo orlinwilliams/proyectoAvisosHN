@@ -334,23 +334,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                     <!------CARGAR DATOS----->
                                     <!----------------------->
                                     <tbody id="tabla">
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Maynor Pineda</td>
-                                            <td>sbethuell@gmail.com</td>
-                                            <td>+504 9619-9660</td>
-                                            <td>Administrador</td>
-                                            <td>2020-04-27 16:52:44</td>
-                                            <td>120</td>
-                                            <td>3</td>
-                                            <td style=" text-align:center;"> <button type="button" class="btn bg-red waves-effect" onclick="eliminarUsuario(0)">
-                                                    <i class="material-icons">delete_forever</i>
-                                                </button></td>
-                                        </tr>
                                     </tbody>
-
-
-
                                 </table>
                             </div>
                         </div>

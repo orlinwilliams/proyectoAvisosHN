@@ -10,9 +10,6 @@
                 $idanuncios = $_POST["txt_idanuncios"];
               
             }
-
-           
-                   
             $sql="SELECT idAnuncios, idUsuario, nombre, precio, anuncios.idCategoria, nombreCategoria, descripcion, estadoArticulo 
             FROM anuncios INNER JOIN categoria ON categoria.idcategoria= anuncios.idcategoria 
             WHERE idUsuario=$idUsuario and idAnuncios=$idanuncios";//CONSULTA
@@ -27,9 +24,7 @@
                             while($row=$resultado->fetch_array()){   
                                 $fotos[]=array("path"=>$row["localizacion"],"size"=>$row["size"],"name"=>$row["nombre"]);
                            }
-                           echo json_encode(array("info"=>$datos,"fotos"=>$fotos));
-                        
-                        
+                           echo json_encode(array("info"=>$datos,"fotos"=>$fotos));   
                     }
                     else{
                         echo"error en consulta de fotos";
@@ -42,12 +37,7 @@
             else {
                 echo" Error en consultar datos de anuncio";
             }
-     
-        
-        
-           
             $conexion->cerrarConexion();
-
         break;
 
         case'2':
@@ -76,8 +66,6 @@
                     else{
                         echo json_encode(array("error"=>true,"mensaje"=>" error en consulta cantidad de imagenes"));
                     }
-                    
-                    
 
                 }
                 else{
@@ -135,4 +123,3 @@
                 $conexion->cerrarConexion();        
                 echo json_encode(array("error"=>false, "mensaje"=>"imagenes agregadas correctamente"));
     }
-    ?>

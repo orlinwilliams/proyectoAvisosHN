@@ -333,7 +333,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                             <td>2020-04-27 16:52:44</td>
                                             <td>
                                                 <div class="form-group">
-                                                    <input type="text" class="datetimepicker form-control" placeholder="Escoge una fecha y hora..." value="">
+                                                    <input type="text" class="datetimepicker form-control" placeholder="Escoge una fecha y hora..." value="2020-04-27 16:52">
                                                     <!--EN EL VALUE DEBE CARGAR LA HORA DE LA BASE DE DATOS-->
                                                 </div>
                                             </td>
