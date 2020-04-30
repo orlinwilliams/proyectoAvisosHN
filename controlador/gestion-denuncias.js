@@ -39,6 +39,7 @@ $(function () {
         confirmButtonText: "Si, quiero borrarlo!",
         closeOnConfirm: false
     }, function () {
+      swal("Borrado!",idUsuario, "success" );
           //////////AQUI DEBE IR LA PETICION AJAX
     });
   };

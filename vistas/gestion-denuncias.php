@@ -316,7 +316,8 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                             <th>Comentario</th>
                                             <th>Usuario denunciado</th>
                                             <th>Publicacion</th>
-                                            <th>Eliminar Publicacion</th>
+                                            <th>Eliminar publicacion</th>
+                                            <th>Eliminar usuario</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -326,7 +327,8 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                             <th>Comentario</th>
                                             <th>Usuario denunciado</th>
                                             <th>Publicacion</th>
-                                            <th>Eliminar Publicacion</th>
+                                            <th>Eliminar publicacion</th>
+                                            <th>Eliminar usuario</th>
                                         </tr>
                                     </tfoot>
                                     <!----------------------->
@@ -339,11 +341,18 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                             <td>
                                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex temporibus maiores impedit animi sapiente, placeat voluptatem cupiditate, culpa, a nulla est doloribus quod illo possimus nobis vel? Adipisci, animi ipsa?</p>
                                             </td>
-                                            <td><a href="#" data-toggle="modal" data-target="#modalVendedor" onclick="infoVendedor(3)">Maynor Pineda</a></td>
-                                            <td><a href="#" data-toggle="modal" data-target="#defaultModal" onclick="cargarArticulo(57)">Samsung Galaxy s2</a></td>
-                                            <td style=" text-align:center;"> <button type="button" class="btn bg-red waves-effect" onclick="eliminarPublicacion(1)">
+                                            <td><a href="#" data-toggle="modal" data-target="#modalVendedor" onclick="infoVendedor(0)">Maynor Pineda</a></td>
+                                            <td><a href="#" data-toggle="modal" data-target="#defaultModal" onclick="cargarArticulo(0)">Samsung Galaxy s2</a></td>
+                                            <td style=" text-align:center;">
+                                                <button type="button" class="btn bg-red waves-effect" onclick="eliminarPublicacion(0)">
                                                     <i class="material-icons">delete_forever</i>
-                                                </button></td>
+                                                </button>
+                                            </td>
+                                            <td style=" text-align:center;">
+                                                <button type="button" class="btn bg-red waves-effect" onclick="eliminarUsuario(0)">
+                                                    <i class="material-icons">delete_forever</i>
+                                                </button>
+                                            </td>
                                         </tr>
                                     </tbody>
 
