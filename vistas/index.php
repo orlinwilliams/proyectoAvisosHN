@@ -3,7 +3,6 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -542,7 +541,7 @@ session_start();
               </div>
               <div class="form-group form-float">
                 <div class="form-line">
-                  <textarea name="descripcion" cols="30" rows="4" class="form-control no-resize" id="comentario-denuncia"></textarea>
+                  <textarea cols="30" rows="4" class="form-control no-resize" id="comentario-denuncia"></textarea>
                   <label class="form-label">Tu comentario es valioso</label>
                 </div>
               </div>
@@ -550,7 +549,7 @@ session_start();
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn bg-pink waves-effect">DENUNCIAR</button>
+          <button type="button" id="denuncia" class="btn bg-pink waves-effect">DENUNCIAR</button>
           <button type="button" class="btn bg-black waves-effect" data-dismiss="modal">CANCELAR</button>
           <!--data-target='#denuncias' data-dismiss='#defaultModal'-->
         </div>

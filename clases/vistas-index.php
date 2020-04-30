@@ -259,7 +259,7 @@
              echo $nombreAnun;
              $conexion->cerrarConexion();
          break;
-         case '7':///se envia correo para hacer contacto con vendedor
+        case '7':///se envia correo para hacer contacto con vendedor
              $conexion = new Conexion();
              session_start();
              $idUsuario=$_SESSION["usuario"]["idUsuario"];
@@ -297,7 +297,7 @@
                           }
               $conexion->cerrarConexion();
           break;
-          case'8'://INGRESA COMENTARIO
+        case '8'://INGRESA COMENTARIO
             
             if(!isset($_POST["idUsuario"])){
                 echo "falta idUsuario del vendedor";
@@ -339,8 +339,7 @@
             }
 
             $conexion->cerrarConexion();
-        break;
-     
+        break;    
         case '9':  //se inserta la calificacion del anuncio
             session_start();
             $idAnuncio = $_SESSION["usuario"]["idAnuncio"];
@@ -371,5 +370,36 @@
             }
             $conexion->cerrarConexion();
             break;
+
+        
+        case '10': 
+                session_start();
+                $idAnuncio = $_SESSION["usuario"]["idAnuncio"];
+
+                if (isset($_POST["razónDenuncia"])) {
+                    $denuncia = $_POST["razónDenuncia"];
+                }
+                if ($denuncia == "" | $denuncia == NULL) {
+                    echo "Debe seleccionar una razon de su denuncia";
+                }
+                if (isset($_POST["comentario-denuncia"])) {
+                    $comentario = $_POST["comentario-denuncia"];
+                }
+                if ($comentario == "" | $comentario == NULL) {
+                    echo "Debe ingresar su comentario";
+                }else {
+                    $conexion = new conexion();
+                    $sql = "INSERT INTO denuncias (idrazonDenuncia,idAnuncios,comentarios) VALUES ($denuncia, $idAnuncio, '$comentario');";
+                    $respuesta = $conexion->ejecutarInstruccion($sql);
+                    if (!$respuesta) {
+                        echo "Error al enviar la denuncia";
+
+                    } else {
+                        echo "Denuncia enviada";
+                    }
+                    $conexion->cerrarConexion();
+                }
+                    
+        break;
     }
 ?>

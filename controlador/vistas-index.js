@@ -177,6 +177,20 @@ $(document).ready(function () {
         }
     });	
   })
+  
+  // DENUNCIA
+  $("#denuncia").click(function (event) {								
+		event.preventDefault();
+		$.ajax({																
+			url: "../clases/vistas-index.php?accion=10",
+			method: "POST",
+      data: "razónDenuncia=" + $("#razónDenuncia").val()+
+            "&comentario-denuncia=" + $("#comentario-denuncia").val(),			
+			success: function (resultado) {
+        console.log(resultado);
+      },
+		});																	
+	});
 });
 categoria = function () {
   //Inicio funcion para llenar las categorias
