@@ -10,7 +10,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
 <head>
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
-    <title>Gestión de Usuarios | AvisosHN</title>
+    <title>Denuncias | AvisosHN</title>
     <!-- Favicon-->
     <link rel="icon" href="../favicon.ico" type="image/x-icon" />
 
@@ -25,6 +25,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
     <!-- Custom Css -->
     <link href="../css/style.css" rel="stylesheet" />
+    <link href="../css/estilos.css" rel="stylesheet">
     <!-- Sweetalert Css -->
     <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     <!-- JQuery DataTable Css -->
@@ -33,6 +34,10 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <link href="../plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
     <!-- Bootstrap Material Datetime Picker Css -->
     <link href="../plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+    <!-- Fotorama Css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+    <!-- estrellas Css -->
+    <link href="../plugins/star/css/starrr.css" rel="stylesheet" />
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../css/themes/all-themes.css" rel="stylesheet" />
 </head>
@@ -169,10 +174,10 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                             <li>
                                 <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a href="gestion-usuarios.php">Gestión de usuarios</a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a href="gestion-denuncias.php">Gestión de denuncias</a>
                             </li>
                         </ul>
@@ -290,7 +295,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>GESTIÓN DE USUARIOS</h2>
+                <h2>GESTIÓN DE DENUNCIAS</h2>
             </div>
             <!-- Basic Examples -->
             <div class="row clearfix">
@@ -298,7 +303,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                     <div class="card">
                         <div class="header">
                             <h2>
-                                USUARIOS
+                                DENUNCIAS
                             </h2>
                         </div>
                         <div class="body">
@@ -307,27 +312,21 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Nombre</th>
-                                            <th>Correo</th>
-                                            <th>Teléfono</th>
-                                            <th>Tipo usuario</th>
-                                            <th>Fecha Registro</th>
-                                            <th>Publicaciones</th>
-                                            <th>Denuncias</th>
-                                            <th>Eliminar</th>
+                                            <th>Razón Denuncia</th>
+                                            <th>Comentario</th>
+                                            <th>Usuario denunciado</th>
+                                            <th>Publicacion</th>
+                                            <th>Eliminar Publicacion</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Nombre</th>
-                                            <th>Correo</th>
-                                            <th>Teléfono</th>
-                                            <th>Tipo usuario</th>
-                                            <th>Fecha Registro</th>
-                                            <th>Publicaciones</th>
-                                            <th>Denuncias</th>
-                                            <th>Eliminar</th>
+                                            <th>Razón Denuncia</th>
+                                            <th>Comentario</th>
+                                            <th>Usuario denunciado</th>
+                                            <th>Publicacion</th>
+                                            <th>Eliminar Publicacion</th>
                                         </tr>
                                     </tfoot>
                                     <!----------------------->
@@ -336,14 +335,13 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                     <tbody id="tabla">
                                         <tr>
                                             <td>1</td>
-                                            <td>Maynor Pineda</td>
-                                            <td>sbethuell@gmail.com</td>
-                                            <td>+504 9619-9660</td>
-                                            <td>Administrador</td>
-                                            <td>2020-04-27 16:52:44</td>
-                                            <td>120</td>
-                                            <td>3</td>
-                                            <td style=" text-align:center;"> <button type="button" class="btn bg-red waves-effect" onclick="eliminarUsuario(0)">
+                                            <td>Contenido ofensivo o dañino</td>
+                                            <td>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex temporibus maiores impedit animi sapiente, placeat voluptatem cupiditate, culpa, a nulla est doloribus quod illo possimus nobis vel? Adipisci, animi ipsa?</p>
+                                            </td>
+                                            <td><a href="#" data-toggle="modal" data-target="#modalVendedor" onclick="infoVendedor(3)">Maynor Pineda</a></td>
+                                            <td><a href="#" data-toggle="modal" data-target="#defaultModal" onclick="cargarArticulo(57)">Samsung Galaxy s2</a></td>
+                                            <td style=" text-align:center;"> <button type="button" class="btn bg-red waves-effect" onclick="eliminarPublicacion(1)">
                                                     <i class="material-icons">delete_forever</i>
                                                 </button></td>
                                         </tr>
@@ -374,6 +372,25 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
             </div>
         </div>
     </div>
+    <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
+    <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-per modal-lg " role="document" style="width:70%">
+            <div class="modal-content">
+                <div class="modal-body modal-body-per" id="infoArticulo">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal que carga la información del vendedor-->
+    <div class="modal fade" id="modalVendedor" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" id="contenidoModalVendedor">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#defaultModal" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Jquery Core Js -->
     <script src="../plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap Core Js -->
@@ -399,8 +416,10 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <script src="../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
     <!-- JQuery dialogs sweetalerplugin js-->
     <script src="../plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- Star Plugin Js -->
+    <script src="../plugins/star/js/starrr.js"></script>
     <!--Controlador-->
-    <script src="../controlador/gestion-usuarios.js"></script>
+    <script src="../controlador/gestion-denuncias.js"></script>
 
 </body>
 

@@ -166,6 +166,12 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
               <li>
                 <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
               </li>
+              <li>
+                <a href="gestion-usuarios.php">Gestión de usuarios</a>
+              </li>
+              <li>
+                <a href="gestion-denuncias.php">Gestión de denuncias</a>
+              </li>
             </ul>
           </li>
         </ul>

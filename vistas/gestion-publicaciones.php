@@ -25,6 +25,8 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
     <!-- Custom Css -->
     <link href="../css/style.css" rel="stylesheet" />
+    <!-- Sweetalert Css -->
+    <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     <!-- JQuery DataTable Css -->
     <link href="../plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
     <!-- Bootstrap DatePicker Css -->
@@ -164,6 +166,9 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                             </li>
                             <li>
                                 <a href="gestion-usuarios.php">Gestión de usuarios</a>
+                            </li>
+                            <li>
+                                <a href="gestion-denuncias.php">Gestión de denuncias</a>
                             </li>
                         </ul>
                     </li>
@@ -332,23 +337,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                                     <!--EN EL VALUE DEBE CARGAR LA HORA DE LA BASE DE DATOS-->
                                                 </div>
                                             </td>
-                                            <td style=" text-align:center;"> <button type="button" class="btn bg-red waves-effect" onclick="eliminarPublicacion(ID_DEL_ANUNCIO)">
-                                                    <i class="material-icons">delete_forever</i>
-                                                </button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>iPhone X</td>
-                                            <td>Móviles y Telefonía</td>
-                                            <td>21000</td>
-                                            <td>Maynor Pineda</td>
-                                            <td>2020-04-27 16:52:44</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input type="text" class="datetimepicker form-control" placeholder="Escoge una fecha y hora..." value="">
-                                                    <!--EN EL VALUE DEBE CARGAR LA HORA DE LA BASE DE DATOS-->
-                                                </div>
-                                            </td>
-                                            <td style=" text-align:center;"> <button type="button" class="btn bg-red waves-effect" onclick="eliminarPublicacion(ID_DEL_ANUNCIO_2)">
+                                            <td style=" text-align:center;"> <button type="button" class="btn bg-red waves-effect" onclick="eliminarPublicacion(0)">
                                                     <i class="material-icons">delete_forever</i>
                                                 </button></td>
                                         </tr>
@@ -402,6 +391,8 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <!-- Jquery DataTable Plugin Js -->
     <script src="../plugins/jquery-datatable/jquery.dataTables.js"></script>
     <script src="../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <!-- JQuery dialogs sweetalerplugin js-->
+    <script src="../plugins/sweetalert/sweetalert.min.js"></script>
     <!--Controlador-->
     <script src="../controlador/gestion-publicaciones.js"></script>
 
