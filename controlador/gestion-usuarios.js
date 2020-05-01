@@ -46,6 +46,7 @@ cargarDatos = function () {
       }
       $(function () {
         $(".js-basic-example").DataTable({
+          retrieve: true,
           responsive: true,
         });
       });

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 30-04-2020 a las 05:15:30
+-- Tiempo de generación: 01-05-2020 a las 19:06:09
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -533,7 +533,7 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   `fechaPublicacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `estadoArticulo` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `estadoAnuncio` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT 'A',
-  `fechaLimite` date DEFAULT NULL,
+  `fechaLimite` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idAnuncios`),
   KEY `fk_anuncios_categoria1` (`idcategoria`),
   KEY `fk_anuncios_municipios1` (`idMunicipios`),

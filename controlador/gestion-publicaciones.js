@@ -18,10 +18,8 @@ mifuncionFecha = function(m){
             "&fechaactualizada="+$("#fecha1").val(),
     success: function (resp) {
         console.log(resp);
-        window.setTimeout("location.reload()",4000);
-        
+        tablaGestionPublicaciones();
     },
-    
 }); 
 
 };
@@ -46,18 +44,14 @@ eliminarPublicacion = function (idAnuncio, idUsuario) {
           success: function (resp) {
               console.log(resp);
               swal("Borrado!",resp, "success");
-              //location.href = "../vistas/gestion-publicaciones.php";
-              window.setTimeout("location.reload()",2000);
-              
+              tablaGestionPublicaciones();
           },
       });    
   });
 };
 /////////////////////////////////////////////INSERTAR DATOS EN LA TABLA
-
 tablaGestionPublicaciones = function () {
   //PUBLICACIONES DE INICIO USUARIO
-  
   $.ajax({
       url: "../clases/gestionpublicaciones.php?accion=1",
       success: function (resp) {
@@ -88,8 +82,13 @@ tablaGestionPublicaciones = function () {
         $("#tablaPublicaciones").html(filas);
         //////////////////////////////////////////// DATATIME PICKER WITH MOMENTS
         i=i+1;
-        
       }
+      $(function () {
+        $(".js-basic-example").DataTable({
+          retrieve: true,
+          responsive: true,
+        });
+      });
       $(function () {
         //Textarea auto growth
         autosize($("textarea.auto-growth"));
@@ -99,16 +98,8 @@ tablaGestionPublicaciones = function () {
           clearButton: true,
           weekStart: 1,
           linkField : "fecha1" ,
-          
-        });
-        
-      });
-      $(function () {
-        $("#tablapubli").DataTable({
-          responsive: true,
         });
       });
-     
     },
     error: function (error) {
       console.log(error);
