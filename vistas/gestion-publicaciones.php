@@ -324,23 +324,8 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                     <!----------------------->
                                     <!------CARGAR DATOS----->
                                     <!----------------------->
-                                    <tbody id="tabla">
-                                        <tr>
-                                            <td>iPhone X</td>
-                                            <td>Móviles y Telefonía</td>
-                                            <td>21000</td>
-                                            <td>Maynor Pineda</td>
-                                            <td>2020-04-27 16:52:44</td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input type="text" class="datetimepicker form-control" placeholder="Escoge una fecha y hora..." value="2020-04-27 16:52">
-                                                    <!--EN EL VALUE DEBE CARGAR LA HORA DE LA BASE DE DATOS-->
-                                                </div>
-                                            </td>
-                                            <td style=" text-align:center;"> <button type="button" class="btn bg-red waves-effect" onclick="eliminarPublicacion(0)">
-                                                    <i class="material-icons">delete_forever</i>
-                                                </button></td>
-                                        </tr>
+                                    <tbody id="tablaPublicaciones">
+                                        
                                     </tbody>
 
 

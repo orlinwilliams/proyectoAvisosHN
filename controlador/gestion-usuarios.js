@@ -42,12 +42,13 @@ cargarDatos = function () {
         }
         $("#tabla").empty();
         $("#tabla").html(filas);//INSERTA LAS TARJETAS
-        $(function () {
-          $(".js-basic-example").DataTable({
-            responsive: true,
-          });
-        });
+        
       }
+      $(function () {
+        $(".js-basic-example").DataTable({
+          responsive: true,
+        });
+      });
     },
   });
 };
