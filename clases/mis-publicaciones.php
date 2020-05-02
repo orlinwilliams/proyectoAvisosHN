@@ -92,8 +92,6 @@
             }            
                 
         break;
-  
-
         case '4': //Eliminar anuncio publicado beta
             if(isset($_POST["txt_idanuncios"])){
                 $idAnuncio=$_POST["txt_idanuncios"];
@@ -126,7 +124,6 @@
                 $conexion->cerrarConexion();
             }                                     
         break;
-        
         case '5':       //MIS PUBLICACIONES
             $conexion = new conexion();
             session_start();

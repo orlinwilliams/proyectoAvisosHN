@@ -57,7 +57,7 @@ switch ($_GET["accion"]) {
         }
         $conexion->cerrarConexion();
         break;
-    case '3':       //PUBLICACIONES INICIOUSUARIO
+    case '3': //PUBLICACIONES INICIOUSUARIO
         $conexion = new conexion();
         $sql = "SELECT idAnuncios,nombre,precio,descripcion 
                     FROM anuncios ORDER BY idAnuncios DESC"; //CONSULTA PUBLICACIONES INICIO
@@ -315,7 +315,7 @@ switch ($_GET["accion"]) {
 
         $conexion->cerrarConexion();
         break;
-    case '9':  //se inserta la calificacion del anuncio
+    case '9': //se inserta la calificacion del anuncio
         session_start();
         $idAnuncio = $_SESSION["usuario"]["idAnuncio"];
         echo $idAnuncio;

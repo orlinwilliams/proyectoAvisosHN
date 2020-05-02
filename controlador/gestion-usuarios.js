@@ -68,7 +68,6 @@ eliminarUsuario = function (idUsuario) {
       closeOnConfirm: false,
     },
     function () {
-      //////////AQUI DEBE IR LA PETICION AJAX
       $.ajax({
         url: '../clases/gestion-usuarios.php?accion=2',
         method: 'POST',

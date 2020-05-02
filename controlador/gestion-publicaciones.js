@@ -23,7 +23,6 @@ mifuncionFecha = function(m){
 }); 
 
 };
-
 ///////////////////////////////////////////// FUNCION PARA ELIMINAR LAS PUBLICACIONES
 eliminarPublicacion = function (idAnuncio, idUsuario) {
   event.preventDefault();
@@ -83,6 +82,7 @@ tablaGestionPublicaciones = function () {
         //////////////////////////////////////////// DATATIME PICKER WITH MOMENTS
         i=i+1;
       }
+      ///////////////////////////////////////////// FUNCIÓN PARA LA INICIALIZACIÓN DE LA TABLA
       $(function () {
         $(".js-basic-example").DataTable({
           retrieve: true,

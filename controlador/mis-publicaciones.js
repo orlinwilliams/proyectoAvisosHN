@@ -356,32 +356,6 @@ cargarDatosEditar = function (parametros) { ////mostrar los datos en el modal de
         }
     });
 };
-
-/*enviarDatosEditar = function (parametros) {
-    event.preventDefault();
-    id = parametros;
-    //Petición ajax para editar anuncios
-    event.preventDefault();
-    $.ajax({
-        url: "../clases/mis-publicaciones.php?accion=6",										//Accion para editar anuncios
-        method: "POST",
-        data: "nombre_articulo=" + $("#nombre_articulo").val() +
-            "&precio=" + $("#precioArticulo").val() +
-            "&estado=" + $("#estadoArt").val() +
-            "&categoria=" + $("#categoriaArt").val() +
-            "&descripcion=" + $("#descripcionArt").val() +
-            "&txt_idanuncios=" + id,
-        success: function (resultado) {
-            $("#cuerpoModal").empty();										//Vacia el cuerpo del modal de mensaje
-            $("#cuerpoModal").html(resultado);								//Imprime el cuerpo del modal de mensaje					
-            $("#ModalMensaje").modal("show");
-            location.reload();
-
-            //Despliega el modal con el modal
-        }
-    });
-};*/
-
 eliminarPublicacion = function (idAnuncio) { ////Eliminar el anuncio
     event.preventDefault();
     swal({
