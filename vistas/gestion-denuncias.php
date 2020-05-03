@@ -395,7 +395,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" id="contenidoModalVendedor">
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#defaultModal" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
