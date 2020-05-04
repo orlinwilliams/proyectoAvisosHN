@@ -10,7 +10,7 @@
                 $idanuncios = $_POST["txt_idanuncios"];
               
             }
-            $sql="SELECT idAnuncios, idUsuario, nombre, precio, anuncios.idCategoria, nombreCategoria, descripcion, estadoArticulo 
+            $sql="SELECT idAnuncios, idUsuario, nombre, anuncios.idCategoria, nombreCategoria, descripcion, estadoArticulo 
             FROM anuncios INNER JOIN categoria ON categoria.idcategoria= anuncios.idcategoria 
             WHERE idUsuario=$idUsuario and idAnuncios=$idanuncios";//CONSULTA
             
@@ -19,12 +19,27 @@
                     $datos=$respuesta->fetch_assoc();
                     $sql1="SELECT localizacion, size ,nombre FROM fotos WHERE idAnuncios='$idanuncios'";
                     if($resultado=$conexion->ejecutarInstruccion($sql1)){
-                        
+
+                            $sql4="SELECT precio FROM  anuncios WHERE idUsuario=$idUsuario and idAnuncios=$idanuncios ";
+                            if($respuesta2=$conexion->ejecutarInstruccion($sql4)){
+                                if($respuesta2->num_rows!=0){
+                                    $precios=array();
+                                    while($row1=$respuesta2->fetch_assoc()){
+                                            $precio1=$row1["precio"];
+                                            $division = explode(" ", $precio1);
+                                            $moneda=$division[0];
+                                            $precioReal=$division[1];
+                                            //$precios[]=array("precio"=>$precioReal,"moneda"=>$moneda);
+                                            //$libro = (object)$precios;
+                                    }
+                                }
+                            }
+                                
                             $fotos=array();
                             while($row=$resultado->fetch_array()){   
                                 $fotos[]=array("path"=>$row["localizacion"],"size"=>$row["size"],"name"=>$row["nombre"]);
                            }
-                           echo json_encode(array("info"=>$datos,"fotos"=>$fotos));   
+                           echo json_encode(array("info"=>$datos,"moneda"=>$moneda,"price"=>$precioReal,"info"=>$datos,"fotos"=>$fotos));   
                     }
                     else{
                         echo"error en consulta de fotos";

@@ -13,6 +13,10 @@
             if(isset($_POST["precio"])){
                 $precio = $_POST["precio"];
             }
+            if(isset($_POST["moneda"])){
+                $moneda= $_POST["moneda"];
+            }
+            
             if(isset($_POST["estado"])){
                 $estado = $_POST["estado"];
             }
@@ -26,6 +30,10 @@
             }
             if($precio=="" || $precio==NULL){
                 $respuesta="Ingrese el precio";
+                echo $respuesta;
+            }
+            if($moneda=="" || $moneda==NULL){
+                $moneda="Ingrese el moneda";
                 echo $respuesta;
             }
             if($estado=="" || $estado==NULL){
@@ -49,7 +57,8 @@
             $carpetaFoto="fotosAnuncio/";
             
            
-            $sql = "CALL `SP_PUBLICAR_ANUNCIO`('$idUsuario','$idCategoria','$idMunicipio','$nombre','$precio','$estado','$descripcion',@p7);";
+            $sql = "CALL `SP_PUBLICAR_ANUNCIO`('$idUsuario','$idCategoria','$idMunicipio','$nombre',CONCAT('$moneda','$precio'),'$estado','$descripcion',@p7);";
+            
             
             if($resultadoProcedimiento = $conexion->ejecutarInstruccion($sql)){
                 $carpetaUsuario="../images/".$carpetaFoto.$usuario;
@@ -69,6 +78,7 @@
                         
                         $sqlArray[$i]="INSERT INTO fotos (idAnuncios,nombre,localizacion,size) values ('$lastId','$nombreImagen[$i]','$ruta[$i]','$sizeImagen[$i]')";
                             if($conexion->ejecutarInstruccion($sqlArray[$i])){
+
                                 if(!move_uploaded_file($imagenArchivo[$i],$ruta[$i])){
                                 $conexion->cerrarConexion();
                                 echo " Error en foto: ".$nombreImagen[$i];
@@ -88,7 +98,7 @@
                 
             }
             else{
-                echo "Error P. almacenado"." nombre:".$nombre." precio: ".$precio." idCategoria: ".$idCategoria."estado: ".$estado."descripcion: ".$descripcion."idUsuario: ".$idUsuario."idMunicipio".$idMunicipio;
+                echo "Error P. almacenado"." nombre:".$nombre." precio: ".$precio." moneda: ".$moneda." idCategoria: ".$idCategoria."estado: ".$estado."descripcion: ".$descripcion."idUsuario: ".$idUsuario."idMunicipio".$idMunicipio;
             }            
                 
         break;
@@ -191,11 +201,14 @@
             if(isset($_POST["precio"])){                                                                            //Comienza a asignar las variables POST
                 $precio = $_POST["precio"];
             }
+            if(isset($_POST["moneda"])){                                                                            //Comienza a asignar las variables POST
+                $moneda = $_POST["moneda"];
+            }
             if(isset($_POST["estado"])){
                 $estado = $_POST["estado"];
             }
-            if(isset($_POST["categoria"])){
-                $categoria = $_POST["categoria"];
+            if(isset($_POST["categoriaAct"])){
+                $idcategoria = $_POST["categoriaAct"];
             }
             if(isset($_POST["descripcion"])){
                 $descripcion = $_POST["descripcion"];
@@ -210,11 +223,15 @@
                 $respuesta="Ingrese el precio.";
                 echo $respuesta;
             }
+            if($moneda=="" || $moneda==NULL){
+                $respuesta="Ingrese el moneda";
+                echo $respuesta;
+            }
             if($estado=="" || $estado==NULL){
                 $respuesta="Ingrese la estado.";
                 echo $respuesta;
             }
-            if($categoria=="" || $categoria==NULL){
+            if($idcategoria=="" || $idcategoria==NULL){
                 $respuesta="Ingrese la categoria";
                 echo $respuesta;
             }                                                                                                        //Fin de validación
@@ -222,8 +239,7 @@
                 $conexion = new conexion();
                 session_start();
                 $idUsuario = $_SESSION["usuario"]["idUsuario"];
-                
-                $sql="CALL `SP_EDITAR_ANUNCIO`('$idanuncios','$idUsuario','$categoria','$precio','$nombre_articulo','$descripcion','$estado', @p8, @p9);";
+                $sql="CALL `SP_EDITAR_ANUNCIO`('$idanuncios','$idUsuario','$idcategoria' ,CONCAT('$moneda ','$precio') ,'$nombre_articulo','$descripcion','$estado', @p8, @p9);";
                 $salida = "SELECT @p9 AS `pcMensaje`;";
                 $resultado = $conexion->ejecutarInstruccion($sql);
                 $respuesta = $conexion->ejecutarInstruccion($salida);
@@ -255,10 +271,15 @@
             
             if($respuesta=$conexion->ejecutarInstruccion($sql)){
                 if($respuesta->num_rows!=0){
-                    $datos=array();
+                    
                     while($row=$respuesta->fetch_array()){
+                        $datos=array();
+                        $precio1=$row["precio"];
+                        $division = explode(" ", $cprecio1);
+                        $moneda=$division[0];
+                        $precioReal=$division[1];
                         $datos[]=array("idAnuncios"=>$row["idAnuncios"],"idUsuario"=>$row["idUsuario"],"nombre"=>$row["nombre"],
-                        "precio"=>$row["precio"],"nombreCategoria"=>$row["nombreCategoria"],"estadoArticulo"=>$row["estadoArticulo"],"descripcion"=>$row["descripcion"]);
+                        "moneda"=>$moneda,"precio"=>$precioReal,"nombreCategoria"=>$row["nombreCategoria"],"estadoArticulo"=>$row["estadoArticulo"],"descripcion"=>$row["descripcion"]);
                         
                     }
                     echo json_encode($datos);

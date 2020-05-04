@@ -430,11 +430,23 @@ session_start();
                 </div>
 
               </div>
-              <div class="form-group form-float">
-                <div class="form-line">
-                  <input type="number" class="form-control money-dollar" name="precio" id="precio" required>
-                  <label class="form-label">Precio</label>
-                </div>
+              <div class=" form-group form-float"style="display:flex">
+                  <div class="form-group form-float" style="margin:0px; margin-right:5px; padding:0px; width:150px">
+                    <div class="form-line">
+                      <select class="form-control show-tick" name="moneda" id="moneda" required>
+                        <option></option>
+                        <option value="L " >L</option>
+                        <option value="$ " >$</option>
+                      </select>
+                      <label class="form-label">Moneda</label>
+                    </div>
+                  </div>
+                  <div class="form-group form-float" style="margin:0px; padding:0px; width:400px">
+                    <div class="form-line">
+                      <input type="number" min="0"class="form-control money-dollar" name="precio" id="precio" required>
+                      <label class="form-label">Precio</label>
+                    </div>
+                  </div>
               </div>
               <div class="form-group form-float">
                 <div class="form-line">

@@ -22,6 +22,7 @@ cargarDatosFormulario=function(id){
         success: function (resp) {
             categoria();
             let datos = JSON.parse(resp);
+            console.log(datos);
             cargarFotosEditar(id,resp);// se ejecuta la funcion con esos parametros
             //console.log(datos.info);
         }
@@ -31,9 +32,10 @@ cargarDatosFormulario=function(id){
 //CREAR EL FORMULARIO CON LOS DATOS
 cargarFotosEditar = function (id,callback ) {
     
-    var datos =JSON.parse(callback);
+    let datos =JSON.parse(callback);
     console.log(datos);
     categoria();
+    
     var myDropzoneModal="<form id='formularioDropzone'>"
                 +"<hr style='margin-top:0px;'>"
                 +"<h5 class='modal-title' style='text-align:center'> Edita tus imagenes </h5>"
@@ -63,13 +65,26 @@ cargarFotosEditar = function (id,callback ) {
                 +"<div id='form_validationActualizar'>"
                 +"<div class='form-group form-float'>"
                     +"<div class='form-line'>"
-                    +"<input type='text' class='form-control' id='nombreActualizar' value='"+datos.info.nombre +"'name='nombre'  required>"                        
+                    +"<input type='text' class='form-control' id='nombreActualizar' value='"+datos.info.nombre +"' name='nombre'  required>"                        
                     +"</div>"
                 +"</div>"
-                +"<div class='form-group form-float'>"
-                    +"<div class='form-line'>"
-                    +"<input type='number' class='form-control money-dollar' id='precioActualizar'value='"+datos.info.precio+"' name='precio'  required>"
-                    +"</div>"
+                
+                +"<div class=' form-group form-float'style='display:flex'>"
+                +"<div class='form-group form-float' style='margin:0px; margin-right:5px; padding:0px; width:150px'>"
+                +"<div class='form-line'>"
+                +"<select class='form-control show-tick' name='moneda' id='monedaActualizar' required>"
+                +"<option value='" + datos.moneda + "'>" + datos.moneda + "</option>"
+                +"<option value='L ' >L</option>"
+                +"<option value='$ '>$</option>"
+                +"</select>"
+                +"</div>"
+                +"</div>"
+                +"<div class='form-group form-float' style='margin:0px; padding:0px; width:400px'>"
+                +"<div class='form-line'>"
+                +"<input type='number' min='0'class='form-control money-dollar' id='precioActualizar'"
+                + "placeholder='" + datos.price+ "' value='" + datos.price + "' required>"
+                +"</div>"
+                +"</div>"
                 +"</div>"
                 +"<div class='form-group form-float'>"
                     +"<div class='form-line'>"
@@ -85,7 +100,7 @@ cargarFotosEditar = function (id,callback ) {
                 +"<div class='form-group form-float'>"
                     +"<div class='form-line'>"
                     +"<select class='form-control show-tick' name='categoria' id='categoriaActualizar'  required>"
-                    +"<option value=" + datos.info.nombreCategoria + ">" + datos.info.nombreCategoria + "</option>"
+                    +"<option value='" + datos.info.nombreCategoria + "'>" + datos.info.nombreCategoria + "</option>"
                     +"</select>"
                     +"<label class='form-label'></label>"
                     +"</div>"
@@ -101,8 +116,10 @@ cargarFotosEditar = function (id,callback ) {
                 +"</div>"
             +"</div>"
                 +"</div>"
-                +"</form '>" ;                 
+                +"</form '>" ;      
+                      
                 $("#agregarFormularios").html(myDropzoneModal);
+                
             //ajax enviar datos
 
     $("#editarPublicacion").submit(function(event){
@@ -113,8 +130,9 @@ cargarFotosEditar = function (id,callback ) {
             method: "POST",
             data: "nombre=" + $("#nombreActualizar").val() +
                 "&precio=" + $("#precioActualizar").val() +
+                "&moneda=" + $("#monedaActualizar").val() +
                 "&estado=" + $("#estadoArticulo").val() +
-                "&categoria=" + $("#categoriaActualizar").val() +
+                "&categoriaAct=" + $("#categoriaActualizar").val() +
                 "&descripcion=" + $("#descripcionActualizar").val() +
                 "&txt_idanuncios=" + id,
 

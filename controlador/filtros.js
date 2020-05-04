@@ -49,7 +49,7 @@ publicacionesFiltradas = function () {
             "</a>" +
             "<h2>" +
             item.nombre +
-            "<small>L " +
+            "<small>" +
             item.precio +
             "</small>" +
             "</h2>" +
