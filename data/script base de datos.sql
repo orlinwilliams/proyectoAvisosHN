@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 01-05-2020 a las 19:06:09
+-- Tiempo de generación: 05-05-2020 a las 00:08:05
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -115,8 +115,8 @@ LEAVE SP;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_EDITAR_ANUNCIO`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EDITAR_ANUNCIO` (IN `pnIdAnuncios` INT, IN `pnIdUsuario` INT, IN `pnIdCategoria` INT, IN `pnPrecio` INT, IN `pcNombreArticulo` VARCHAR(45), IN `pcDescripcion` VARCHAR(45), IN `pcEstado` VARCHAR(45), OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(45))  SP:BEGIN
-    DECLARE  vnConteo, vnIdUsuario, vnIdAnuncios INT;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EDITAR_ANUNCIO` (IN `pnIdAnuncios` INT, IN `pnIdUsuario` INT, IN `pcIdCategoria` VARCHAR(500), IN `pnPrecio` VARCHAR(100), IN `pcNombreArticulo` VARCHAR(45), IN `pcDescripcion` VARCHAR(45), IN `pcEstado` VARCHAR(45), OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(45))  SP:BEGIN
+    DECLARE  vnConteo, vnIdUsuario, vnIdAnuncios, vnIdCategoria INT;
     DECLARE tempMensaje VARCHAR (2000);
 SET autocommit=0;
 START TRANSACTION;
@@ -127,7 +127,7 @@ IF pcNombreArticulo = '' OR pcNombreArticulo  IS NULL THEN
     SET tempMensaje= 'Nombre del articulo, ';
 END IF;
 
-IF pnIdCategoria = '' OR pnIdCategoria  IS NULL THEN
+IF pcIdCategoria = '' OR pcIdCategoria  IS NULL THEN
     SET tempMensaje = 'Categoria, ';
 END IF;
 
@@ -174,9 +174,12 @@ WHERE u.idUsuario=pnIdUsuario;
 SELECT a.idAnuncios INTO vnIdAnuncios FROM anuncios a
 WHERE a.idAnuncios=pnIdAnuncios;
 
+SELECT c.idcategoria INTO vnIdCategoria FROM categoria c
+WHERE c.nombreCategoria=pcIdCategoria;
 
 
-UPDATE anuncios SET idcategoria= pnIdCategoria, Nombre= pcNombreArticulo, precio=pnPrecio, descripcion=pcDescripcion, estadoArticulo=pcEstado
+
+UPDATE anuncios SET idcategoria= vnIdCategoria, nombre= pcNombreArticulo, precio=pnPrecio, descripcion=pcDescripcion, estadoArticulo=pcEstado
     WHERE idUsuario= vnIdUsuario and idAnuncios=vnIdAnuncios;
 COMMIT;
 SET pcMensaje = 'Anuncio  actualizado con exito.';
@@ -527,7 +530,7 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   `idUsuario` int(11) NOT NULL,
   `idcategoria` int(11) NOT NULL,
   `idMunicipios` int(11) NOT NULL,
-  `precio` decimal(45,0) NOT NULL,
+  `precio` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
   `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `descripcion` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `fechaPublicacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -538,20 +541,26 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   KEY `fk_anuncios_categoria1` (`idcategoria`),
   KEY `fk_anuncios_municipios1` (`idMunicipios`),
   KEY `fk_anuncios_Usuario1` (`idUsuario`)
-) ENGINE=MyISAM AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `anuncios`
 --
 
 INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`, `precio`, `nombre`, `descripcion`, `estadoArticulo`, `estadoAnuncio`, `fechaLimite`) VALUES
-(57, 3, 0, 110, '8000', 'iPhone X', 'iPhone X con 3 meses de uso, doy 2 meses de garantía', 'Usado', 'A', NULL),
-(56, 3, 2, 110, '1800', 'Prueba 8', 'Nueva descripcion', 'Usado', 'A', NULL),
-(58, 3, 0, 110, '100', 'pruebaHomero', 'pruebaHomero', 'Nuevo', 'A', NULL),
-(59, 3, 0, 110, '1000', 'prueba2', 'prueba2', 'Nuevo', 'A', NULL),
-(62, 4, 0, 110, '50000', 'Lapotop 1', 'PROBANDO ACTUALIZAR DATOS 2', 'Restaurado', 'A', NULL),
-(61, 4, 0, 110, '40000', 'PS4', 'intentando corregir datos', 'Restaurado', 'A', NULL),
-(60, 4, 0, 110, '100000', 'Celular SAMSUNG', 'testing 3 name', 'Nuevo', 'A', NULL);
+(57, 3, 0, 170, '8000', 'iPhone X', 'iPhone X con 3 meses de uso, doy 2 meses de garantía', 'Usado', 'A', NULL),
+(56, 3, 2, 160, '1800', 'Prueba 8', 'Nueva descripcion', 'Usado', 'A', NULL),
+(58, 3, 0, 190, '100', 'pruebaHomero', 'pruebaHomero', 'Nuevo', 'A', NULL),
+(59, 3, 0, 10, '1000', 'prueba2', 'prueba2', 'Nuevo', 'A', NULL),
+(62, 4, 0, 44, '50000', 'Lapotop 1', 'PROBANDO ACTUALIZAR DATOS 2', 'Restaurado', 'A', NULL),
+(61, 4, 0, 36, '40000', 'PS4', 'intentando corregir datos', 'Restaurado', 'A', NULL),
+(60, 4, 0, 22, '100000', 'Celular SAMSUNG', 'testing 3 name', 'Nuevo', 'A', NULL),
+(63, 3, 1, 66, '3500', 'RX 470', 'Como nueva', 'Usado', 'A', NULL),
+(64, 3, 1, 79, '21000', 'RTX 2080 TI', 'Nueva de 11GB', 'Nuevo', 'A', NULL),
+(65, 3, 3, 90, '8000', 'Xbox One X', 'Consola nueva con 2 controles y forza horizon 4', 'Nuevo', 'A', NULL),
+(66, 3, 5, 125, '30000', 'APPLE SMART TV', 'No funciona WiFi', 'Usado', 'A', NULL),
+(67, 3, 0, 170, '19000', 'Red Magic 5g', 'Totalmente nuevo, para conocer mas detalle ponte en contacto', 'Nuevo', 'A', NULL),
+(68, 3, 0, 110, '21000', 'One Plus 8 pro', 'Totalmente nuevo', 'Nuevo', 'A', NULL);
 
 -- --------------------------------------------------------
 
@@ -833,6 +842,7 @@ CREATE TABLE IF NOT EXISTS `comentariosvendedor` (
   `comentario` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `idusuarioCalificador` int(11) NOT NULL,
   `idUsuarioCalificado` int(11) NOT NULL,
+  `fechaRegistro` timestamp NOT NULL,
   PRIMARY KEY (`idComentariosVendedor`),
   KEY `idusuarioCalificador` (`idusuarioCalificador`),
   KEY `idUsuarioCalificado` (`idUsuarioCalificado`)
@@ -842,10 +852,10 @@ CREATE TABLE IF NOT EXISTS `comentariosvendedor` (
 -- Volcado de datos para la tabla `comentariosvendedor`
 --
 
-INSERT INTO `comentariosvendedor` (`idComentariosVendedor`, `comentario`, `idusuarioCalificador`, `idUsuarioCalificado`) VALUES
-(1, '', 4, 0),
-(2, 'probando comentario 1', 4, 3),
-(3, 'probando comentario 2', 4, 3);
+INSERT INTO `comentariosvendedor` (`idComentariosVendedor`, `comentario`, `idusuarioCalificador`, `idUsuarioCalificado`, `fechaRegistro`) VALUES
+(1, '', 4, 0, '2020-05-17 06:00:00'),
+(2, 'probando comentario 1', 4, 3, '2020-05-18 11:06:12'),
+(3, 'probando comentario 2', 4, 3, '2020-05-20 13:17:12');
 
 -- --------------------------------------------------------
 
@@ -858,7 +868,8 @@ CREATE TABLE IF NOT EXISTS `denuncias` (
   `idDenuncias` int(11) NOT NULL AUTO_INCREMENT,
   `idrazonDenuncia` int(11) NOT NULL,
   `idAnuncios` int(11) NOT NULL,
-  `comentarios` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `comentarios` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `fechaRegistro` timestamp NOT NULL,
   PRIMARY KEY (`idDenuncias`),
   KEY `idrazonDenuncia` (`idrazonDenuncia`),
   KEY `idAnuncios` (`idAnuncios`)
@@ -916,7 +927,7 @@ CREATE TABLE IF NOT EXISTS `fotos` (
   `size` float NOT NULL,
   PRIMARY KEY (`idFotos`),
   KEY `FK_idAnuncios` (`idAnuncios`)
-) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `fotos`
@@ -933,7 +944,18 @@ INSERT INTO `fotos` (`idFotos`, `idAnuncios`, `nombre`, `localizacion`, `size`) 
 (45, 60, 'sm1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/sm1.jpg', 71738),
 (57, 61, 'laptop1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop1.jpg', 71738),
 (61, 62, 'laptop.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop.jpg', 408132),
-(54, 62, 'laptop1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop1.jpg', 71738);
+(54, 62, 'laptop1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop1.jpg', 71738),
+(62, 63, '1.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/1.jpg', 859917),
+(63, 63, '2.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/2.jpg', 898090),
+(64, 64, '3.png', '../images/fotosAnuncio/sbethuell@gmail.com/3.png', 271286),
+(65, 64, '4.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/4.jpg', 20216),
+(66, 65, '5.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/5.jpg', 67278),
+(67, 65, '6.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/6.jpg', 53671),
+(68, 66, '7.webp', '../images/fotosAnuncio/sbethuell@gmail.com/7.webp', 77540),
+(69, 67, '8.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/8.jpg', 266115),
+(70, 67, '9.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/9.jpg', 49091),
+(71, 68, '11.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/11.jpg', 33539),
+(72, 68, '10.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/10.jpg', 31790);
 
 -- --------------------------------------------------------
 
@@ -1285,6 +1307,42 @@ INSERT INTO `municipios` (`idMunicipios`, `idDepartamentos`, `municipio`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `publicaciones_anio`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `publicaciones_anio`;
+CREATE TABLE IF NOT EXISTS `publicaciones_anio` (
+`mes` varchar(10)
+,`publicaciones` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `publicaciones_categoria`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `publicaciones_categoria`;
+CREATE TABLE IF NOT EXISTS `publicaciones_categoria` (
+`nombregrupo` varchar(80)
+,`publicaciones` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `publicaciones_lugar`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `publicaciones_lugar`;
+CREATE TABLE IF NOT EXISTS `publicaciones_lugar` (
+`nombreDepartamento` varchar(45)
+,`publicaciones` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `razondenuncia`
 --
 
@@ -1368,6 +1426,54 @@ INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, 
 (3, 3, 110, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', NULL, ' 504 9619-96-60', '2020-03-25', '1995-12-01', '', '../images/imgUsuarios/5e94d52855d5b5e713b9d83aebIMG_20160714_170043.jpg', 1),
 (2, 2, 14, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asdzxc', '', ' 504 9605-01-00', '2020-03-09', '1995-12-01', '', '../images/imgUsuarios/user.png', 1),
 (4, 2, 110, 'Jared', 'Castro', 'jaredcastro13@yahoo.es', 'asd123', NULL, ' 504 9858-00-12', '2020-03-30', '1995-10-03', '', '../images/imgUsuarios/5e97defbe9b51user.jpg', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `usuarios_mes`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `usuarios_mes`;
+CREATE TABLE IF NOT EXISTS `usuarios_mes` (
+`mes` varchar(10)
+,`publicaciones` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `publicaciones_anio`
+--
+DROP TABLE IF EXISTS `publicaciones_anio`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `publicaciones_anio`  AS  select count(`anuncios`.`idAnuncios`) AS `publicaciones`,(case month(`anuncios`.`fechaPublicacion`) when 1 then 'Enero' when 2 then 'Febrero' when 3 then 'Marzo' when 4 then 'Abril' when 5 then 'Mayo' when 6 then 'Junio' when 7 then 'Julio' when 8 then 'Agosto' when 9 then 'Septiembre' when 10 then 'Octubre' when 11 then 'Noviembre' when 12 then 'Diciembre' end) AS `mes` from `anuncios` where (year(`anuncios`.`fechaPublicacion`) = year(curdate())) group by `mes` order by `anuncios`.`fechaPublicacion` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `publicaciones_categoria`
+--
+DROP TABLE IF EXISTS `publicaciones_categoria`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `publicaciones_categoria`  AS  select count(0) AS `publicaciones`,`grupocategoria`.`nombregrupo` AS `nombregrupo` from ((`anuncios` join `categoria` on((`categoria`.`idcategoria` = `anuncios`.`idcategoria`))) join `grupocategoria` on((`grupocategoria`.`idgrupocategoria` = `categoria`.`idgrupocategoria`))) where (year(`anuncios`.`fechaPublicacion`) = year(curdate())) group by `grupocategoria`.`nombregrupo` order by `grupocategoria`.`nombregrupo` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `publicaciones_lugar`
+--
+DROP TABLE IF EXISTS `publicaciones_lugar`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `publicaciones_lugar`  AS  select count(0) AS `publicaciones`,`departamentos`.`nombreDepartamento` AS `nombreDepartamento` from ((`anuncios` join `municipios` on((`municipios`.`idMunicipios` = `anuncios`.`idMunicipios`))) join `departamentos` on((`departamentos`.`idDepartamentos` = `municipios`.`idDepartamentos`))) where (year(`anuncios`.`fechaPublicacion`) = year(curdate())) group by `departamentos`.`nombreDepartamento` order by `departamentos`.`nombreDepartamento` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `usuarios_mes`
+--
+DROP TABLE IF EXISTS `usuarios_mes`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `usuarios_mes`  AS  select count(`usuario`.`idUsuario`) AS `publicaciones`,(case month(`usuario`.`fechaRegistro`) when 1 then 'Enero' when 2 then 'Febrero' when 3 then 'Marzo' when 4 then 'Abril' when 5 then 'Mayo' when 6 then 'Junio' when 7 then 'Julio' when 8 then 'Agosto' when 9 then 'Septiembre' when 10 then 'Octubre' when 11 then 'Noviembre' when 12 then 'Diciembre' end) AS `mes` from `usuario` where ((year(`usuario`.`fechaRegistro`) = year(curdate())) and (`usuario`.`estado` = 1)) group by `mes` order by `usuario`.`fechaRegistro` ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
