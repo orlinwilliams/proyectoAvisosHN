@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 05-05-2020 a las 02:03:50
+-- Tiempo de generación: 05-05-2020 a las 22:22:46
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -534,7 +534,7 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   `precio` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `descripcion` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
-  `fechaPublicacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fechaPublicacion` timestamp NOT NULL,
   `estadoArticulo` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `estadoAnuncio` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT 'A',
   `fechaLimite` timestamp NULL DEFAULT NULL,
@@ -548,20 +548,20 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
 -- Volcado de datos para la tabla `anuncios`
 --
 
-INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`, `precio`, `nombre`, `descripcion`, `estadoArticulo`, `estadoAnuncio`, `fechaLimite`) VALUES
-(57, 3, 0, 170, '$ 8000', 'iPhone X', 'iPhone X con 3 meses de uso, doy 2 meses de garantía', 'Usado', 'A', NULL),
-(56, 3, 2, 160, 'L 1800', 'Prueba 8', 'Nueva descripcion', 'Usado', 'A', NULL),
-(58, 3, 0, 190, 'L 100', 'pruebaHomero', 'pruebaHomero', 'Nuevo', 'A', NULL),
-(59, 3, 0, 10, 'L 1000', 'prueba2', 'prueba2', 'Nuevo', 'A', NULL),
-(62, 4, 0, 44, '$ 50000', 'Lapotop 1', 'PROBANDO ACTUALIZAR DATOS 2', 'Restaurado', 'A', NULL),
-(61, 4, 0, 36, '$ 40000', 'PS4', 'intentando corregir datos', 'Restaurado', 'A', NULL),
-(60, 4, 0, 22, 'L 100000', 'Celular SAMSUNG', 'testing 3 name', 'Nuevo', 'A', NULL),
-(63, 3, 1, 66, '$ 3500', 'RX 470', 'Como nueva', 'Usado', 'A', NULL),
-(64, 3, 1, 79, 'L 21000', 'RTX 2080 TI', 'Nueva de 11GB', 'Nuevo', 'A', NULL),
-(65, 3, 3, 90, '$ 8000', 'Xbox One X', 'Consola nueva con 2 controles y forza horizon 4', 'Nuevo', 'A', NULL),
-(66, 3, 5, 125, 'L 30000', 'APPLE SMART TV', 'No funciona WiFi', 'Usado', 'A', NULL),
-(67, 3, 0, 170, '$ 19000', 'Red Magic 5g', 'Totalmente nuevo, para conocer mas detalle ponte en contacto', 'Nuevo', 'A', NULL),
-(68, 3, 0, 110, 'L 21000', 'One Plus 8 pro', 'Totalmente nuevo', 'Nuevo', 'A', NULL);
+INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`, `precio`, `nombre`, `descripcion`, `fechaPublicacion`, `estadoArticulo`, `estadoAnuncio`, `fechaLimite`) VALUES
+(57, 3, 0, 170, '$ 8000', 'iPhone X', 'iPhone X con 3 meses de uso, doy 2 meses de garantía', '2014-02-05 00:21:20', 'Usado', 'A', NULL),
+(56, 3, 2, 160, 'L 1800', 'Prueba 8', 'Nueva descripcion', '2020-01-05 00:21:20', 'Usado', 'A', NULL),
+(58, 3, 0, 190, 'L 100', 'pruebaHomero', 'pruebaHomero', '2015-03-05 00:21:20', 'Nuevo', 'A', NULL),
+(59, 3, 0, 10, 'L 1000', 'prueba2', 'prueba2', '2020-04-05 00:21:20', 'Nuevo', 'A', NULL),
+(62, 4, 0, 44, '$ 50000', 'Lapotop 1', 'PROBANDO ACTUALIZAR DATOS 2', '2019-07-05 00:21:20', 'Restaurado', 'A', NULL),
+(61, 4, 0, 36, '$ 40000', 'PS4', 'intentando corregir datos', '2020-06-05 00:21:20', 'Restaurado', 'A', NULL),
+(60, 4, 0, 22, 'L 100000', 'Celular SAMSUNG', 'testing 3 name', '2019-05-05 00:21:20', 'Nuevo', 'A', NULL),
+(63, 3, 1, 66, '$ 3500', 'RX 470', 'Como nueva', '2020-08-05 00:21:20', 'Usado', 'A', NULL),
+(64, 3, 1, 79, 'L 21000', 'RTX 2080 TI', 'Nueva de 11GB', '2014-09-05 00:21:20', 'Nuevo', 'A', NULL),
+(65, 3, 3, 90, '$ 8000', 'Xbox One X', 'Consola nueva con 2 controles y forza horizon 4', '2020-10-05 00:21:20', 'Nuevo', 'A', NULL),
+(66, 3, 5, 125, 'L 30000', 'APPLE SMART TV', 'No funciona WiFi', '2020-11-05 00:21:20', 'Usado', 'A', NULL),
+(67, 3, 0, 170, '$ 19000', 'Red Magic 5g', 'Totalmente nuevo, para conocer mas detalle ponte en contacto', '2020-12-05 00:21:20', 'Nuevo', 'A', NULL),
+(68, 3, 0, 110, 'L 21000', 'One Plus 8 pro', 'Totalmente nuevo', '2020-12-05 00:21:20', 'Nuevo', 'A', NULL);
 
 -- --------------------------------------------------------
 
