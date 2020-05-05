@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 05-05-2020 a las 00:08:05
+-- Tiempo de generación: 05-05-2020 a las 02:03:50
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -394,7 +394,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_USUARIO` (IN `pnIdUsuar
  END$$
 
 DROP PROCEDURE IF EXISTS `SP_PUBLICAR_ANUNCIO`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PUBLICAR_ANUNCIO` (IN `pcidUsuario` INT, IN `pcCategoria` INT, IN `pcMunicipios` INT, IN `pcNombreArticulo` VARCHAR(50), IN `pcPrecio` FLOAT(10), IN `pcEstado` VARCHAR(10), IN `pcDescripcion` VARCHAR(200), OUT `pcMensaje` VARCHAR(300))  SP:BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PUBLICAR_ANUNCIO` (IN `pcidUsuario` INT, IN `pcCategoria` INT, IN `pcMunicipios` INT, IN `pcNombreArticulo` VARCHAR(50), IN `pcPrecio` VARCHAR(200), IN `pcEstado` VARCHAR(10), IN `pcDescripcion` VARCHAR(200), OUT `pcMensaje` VARCHAR(300))  SP:BEGIN
 
 	DECLARE vnConteo INT;
     DECLARE vcMensajeTemp varchar (200);
@@ -408,6 +408,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PUBLICAR_ANUNCIO` (IN `pcidUsuar
 	IF pcPrecio= "" OR pcPrecio IS NULL THEN
 		SET vcMensajeTemp = CONCAT(vcMensajeTemp, "precio");
 	END IF;
+    
     
 	IF pcEstado= "" OR pcEstado IS NULL THEN
 		SET vcMensajeTemp = CONCAT(vcMensajeTemp, "estado");
@@ -430,7 +431,7 @@ INTO vnConteo FROM
 
     
     INSERT INTO anuncios (idAnuncios,idUsuario,idcategoria,idMunicipios,precio,nombre,descripcion,fechaPublicacion,estadoArticulo,estadoAnuncio,fechaLimite)
-    VALUES ( vnConteo,pcidUsuario,pcCategoria,pcMunicipios, pcPrecio, pcNombreArticulo , pcDescripcion, SYSDATE(), pcEstado,'A',NULL);
+    VALUES ( vnConteo,pcidUsuario,pcCategoria,pcMunicipios,  pcPrecio, pcNombreArticulo , pcDescripcion, SYSDATE(), pcEstado,'A',NULL);
     
     COMMIT;
     SET pcMensaje = "Se ha publicado correctamente";
@@ -530,7 +531,7 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   `idUsuario` int(11) NOT NULL,
   `idcategoria` int(11) NOT NULL,
   `idMunicipios` int(11) NOT NULL,
-  `precio` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `precio` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `descripcion` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `fechaPublicacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -548,19 +549,19 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
 --
 
 INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`, `precio`, `nombre`, `descripcion`, `estadoArticulo`, `estadoAnuncio`, `fechaLimite`) VALUES
-(57, 3, 0, 170, '8000', 'iPhone X', 'iPhone X con 3 meses de uso, doy 2 meses de garantía', 'Usado', 'A', NULL),
-(56, 3, 2, 160, '1800', 'Prueba 8', 'Nueva descripcion', 'Usado', 'A', NULL),
-(58, 3, 0, 190, '100', 'pruebaHomero', 'pruebaHomero', 'Nuevo', 'A', NULL),
-(59, 3, 0, 10, '1000', 'prueba2', 'prueba2', 'Nuevo', 'A', NULL),
-(62, 4, 0, 44, '50000', 'Lapotop 1', 'PROBANDO ACTUALIZAR DATOS 2', 'Restaurado', 'A', NULL),
-(61, 4, 0, 36, '40000', 'PS4', 'intentando corregir datos', 'Restaurado', 'A', NULL),
-(60, 4, 0, 22, '100000', 'Celular SAMSUNG', 'testing 3 name', 'Nuevo', 'A', NULL),
-(63, 3, 1, 66, '3500', 'RX 470', 'Como nueva', 'Usado', 'A', NULL),
-(64, 3, 1, 79, '21000', 'RTX 2080 TI', 'Nueva de 11GB', 'Nuevo', 'A', NULL),
-(65, 3, 3, 90, '8000', 'Xbox One X', 'Consola nueva con 2 controles y forza horizon 4', 'Nuevo', 'A', NULL),
-(66, 3, 5, 125, '30000', 'APPLE SMART TV', 'No funciona WiFi', 'Usado', 'A', NULL),
-(67, 3, 0, 170, '19000', 'Red Magic 5g', 'Totalmente nuevo, para conocer mas detalle ponte en contacto', 'Nuevo', 'A', NULL),
-(68, 3, 0, 110, '21000', 'One Plus 8 pro', 'Totalmente nuevo', 'Nuevo', 'A', NULL);
+(57, 3, 0, 170, '$ 8000', 'iPhone X', 'iPhone X con 3 meses de uso, doy 2 meses de garantía', 'Usado', 'A', NULL),
+(56, 3, 2, 160, 'L 1800', 'Prueba 8', 'Nueva descripcion', 'Usado', 'A', NULL),
+(58, 3, 0, 190, 'L 100', 'pruebaHomero', 'pruebaHomero', 'Nuevo', 'A', NULL),
+(59, 3, 0, 10, 'L 1000', 'prueba2', 'prueba2', 'Nuevo', 'A', NULL),
+(62, 4, 0, 44, '$ 50000', 'Lapotop 1', 'PROBANDO ACTUALIZAR DATOS 2', 'Restaurado', 'A', NULL),
+(61, 4, 0, 36, '$ 40000', 'PS4', 'intentando corregir datos', 'Restaurado', 'A', NULL),
+(60, 4, 0, 22, 'L 100000', 'Celular SAMSUNG', 'testing 3 name', 'Nuevo', 'A', NULL),
+(63, 3, 1, 66, '$ 3500', 'RX 470', 'Como nueva', 'Usado', 'A', NULL),
+(64, 3, 1, 79, 'L 21000', 'RTX 2080 TI', 'Nueva de 11GB', 'Nuevo', 'A', NULL),
+(65, 3, 3, 90, '$ 8000', 'Xbox One X', 'Consola nueva con 2 controles y forza horizon 4', 'Nuevo', 'A', NULL),
+(66, 3, 5, 125, 'L 30000', 'APPLE SMART TV', 'No funciona WiFi', 'Usado', 'A', NULL),
+(67, 3, 0, 170, '$ 19000', 'Red Magic 5g', 'Totalmente nuevo, para conocer mas detalle ponte en contacto', 'Nuevo', 'A', NULL),
+(68, 3, 0, 110, 'L 21000', 'One Plus 8 pro', 'Totalmente nuevo', 'Nuevo', 'A', NULL);
 
 -- --------------------------------------------------------
 
@@ -575,7 +576,7 @@ CREATE TABLE IF NOT EXISTS `calificacionanuncio` (
   `valoracion` int(11) NOT NULL,
   PRIMARY KEY (`idCalificacionAnuncio`),
   KEY `idAnuncios` (`idAnuncios`)
-) ENGINE=MyISAM AUTO_INCREMENT=208 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=210 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `calificacionanuncio`
@@ -732,7 +733,9 @@ INSERT INTO `calificacionanuncio` (`idCalificacionAnuncio`, `idAnuncios`, `valor
 (204, 62, 1),
 (205, 62, 1),
 (206, 57, 5),
-(207, 57, 1);
+(207, 57, 1),
+(208, 64, 4),
+(209, 63, 2);
 
 -- --------------------------------------------------------
 
@@ -853,9 +856,9 @@ CREATE TABLE IF NOT EXISTS `comentariosvendedor` (
 --
 
 INSERT INTO `comentariosvendedor` (`idComentariosVendedor`, `comentario`, `idusuarioCalificador`, `idUsuarioCalificado`, `fechaRegistro`) VALUES
-(1, '', 4, 0, '2020-05-17 06:00:00'),
-(2, 'probando comentario 1', 4, 3, '2020-05-18 11:06:12'),
-(3, 'probando comentario 2', 4, 3, '2020-05-20 13:17:12');
+(1, '', 4, 0, '2020-05-17 12:00:00'),
+(2, 'probando comentario 1', 4, 3, '2020-05-18 17:06:12'),
+(3, 'probando comentario 2', 4, 3, '2020-05-20 19:17:12');
 
 -- --------------------------------------------------------
 
@@ -1446,7 +1449,7 @@ CREATE TABLE IF NOT EXISTS `usuarios_mes` (
 --
 DROP TABLE IF EXISTS `publicaciones_anio`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `publicaciones_anio`  AS  select count(`anuncios`.`idAnuncios`) AS `publicaciones`,(case month(`anuncios`.`fechaPublicacion`) when 1 then 'Enero' when 2 then 'Febrero' when 3 then 'Marzo' when 4 then 'Abril' when 5 then 'Mayo' when 6 then 'Junio' when 7 then 'Julio' when 8 then 'Agosto' when 9 then 'Septiembre' when 10 then 'Octubre' when 11 then 'Noviembre' when 12 then 'Diciembre' end) AS `mes` from `anuncios` where (year(`anuncios`.`fechaPublicacion`) = year(curdate())) group by `mes` order by `anuncios`.`fechaPublicacion` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `publicaciones_anio`  AS  select (case month(`anuncios`.`fechaPublicacion`) when 1 then 'Enero' when 2 then 'Febrero' when 3 then 'Marzo' when 4 then 'Abril' when 5 then 'Mayo' when 6 then 'Junio' when 7 then 'Julio' when 8 then 'Agosto' when 9 then 'Septiembre' when 10 then 'Octubre' when 11 then 'Noviembre' when 12 then 'Diciembre' end) AS `mes`,count(0) AS `publicaciones` from `anuncios` where (year(`anuncios`.`fechaPublicacion`) = year(curdate())) group by `mes` order by `anuncios`.`fechaPublicacion` ;
 
 -- --------------------------------------------------------
 
@@ -1455,7 +1458,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `publicaciones_categoria`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `publicaciones_categoria`  AS  select count(0) AS `publicaciones`,`grupocategoria`.`nombregrupo` AS `nombregrupo` from ((`anuncios` join `categoria` on((`categoria`.`idcategoria` = `anuncios`.`idcategoria`))) join `grupocategoria` on((`grupocategoria`.`idgrupocategoria` = `categoria`.`idgrupocategoria`))) where (year(`anuncios`.`fechaPublicacion`) = year(curdate())) group by `grupocategoria`.`nombregrupo` order by `grupocategoria`.`nombregrupo` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `publicaciones_categoria`  AS  select `grupocategoria`.`nombregrupo` AS `nombregrupo`,count(0) AS `publicaciones` from ((`anuncios` join `categoria` on((`categoria`.`idcategoria` = `anuncios`.`idcategoria`))) join `grupocategoria` on((`grupocategoria`.`idgrupocategoria` = `categoria`.`idgrupocategoria`))) where (year(`anuncios`.`fechaPublicacion`) = year(curdate())) group by `grupocategoria`.`nombregrupo` order by `grupocategoria`.`nombregrupo` ;
 
 -- --------------------------------------------------------
 
@@ -1464,7 +1467,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `publicaciones_lugar`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `publicaciones_lugar`  AS  select count(0) AS `publicaciones`,`departamentos`.`nombreDepartamento` AS `nombreDepartamento` from ((`anuncios` join `municipios` on((`municipios`.`idMunicipios` = `anuncios`.`idMunicipios`))) join `departamentos` on((`departamentos`.`idDepartamentos` = `municipios`.`idDepartamentos`))) where (year(`anuncios`.`fechaPublicacion`) = year(curdate())) group by `departamentos`.`nombreDepartamento` order by `departamentos`.`nombreDepartamento` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `publicaciones_lugar`  AS  select `departamentos`.`nombreDepartamento` AS `nombreDepartamento`,count(0) AS `publicaciones` from ((`anuncios` join `municipios` on((`municipios`.`idMunicipios` = `anuncios`.`idMunicipios`))) join `departamentos` on((`departamentos`.`idDepartamentos` = `municipios`.`idDepartamentos`))) where (year(`anuncios`.`fechaPublicacion`) = year(curdate())) group by `departamentos`.`nombreDepartamento` order by `departamentos`.`idDepartamentos` ;
 
 -- --------------------------------------------------------
 
@@ -1473,7 +1476,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `usuarios_mes`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `usuarios_mes`  AS  select count(`usuario`.`idUsuario`) AS `publicaciones`,(case month(`usuario`.`fechaRegistro`) when 1 then 'Enero' when 2 then 'Febrero' when 3 then 'Marzo' when 4 then 'Abril' when 5 then 'Mayo' when 6 then 'Junio' when 7 then 'Julio' when 8 then 'Agosto' when 9 then 'Septiembre' when 10 then 'Octubre' when 11 then 'Noviembre' when 12 then 'Diciembre' end) AS `mes` from `usuario` where ((year(`usuario`.`fechaRegistro`) = year(curdate())) and (`usuario`.`estado` = 1)) group by `mes` order by `usuario`.`fechaRegistro` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `usuarios_mes`  AS  select (case month(`usuario`.`fechaRegistro`) when 1 then 'Enero' when 2 then 'Febrero' when 3 then 'Marzo' when 4 then 'Abril' when 5 then 'Mayo' when 6 then 'Junio' when 7 then 'Julio' when 8 then 'Agosto' when 9 then 'Septiembre' when 10 then 'Octubre' when 11 then 'Noviembre' when 12 then 'Diciembre' end) AS `mes`,count(`usuario`.`idUsuario`) AS `publicaciones` from `usuario` where ((year(`usuario`.`fechaRegistro`) = year(curdate())) and (`usuario`.`estado` = 1)) group by `mes` order by `usuario`.`fechaRegistro` ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

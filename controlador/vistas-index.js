@@ -171,7 +171,6 @@ $(document).ready(function () {
         }
     });	
   })
-  
   // DENUNCIA
   $("#denuncia").click(function (event) {								
 		event.preventDefault();

@@ -1,5 +1,6 @@
 <?php
 require_once("conexion.php");
+mb_internal_encoding('UTF-8');
 
 switch ($_GET['accion']) { //DATOS DEL DIA
     case '1':
@@ -40,10 +41,43 @@ switch ($_GET['accion']) { //DATOS DEL DIA
         break;
 
     case '2': // DATOS DE INICIO
-
+        $conexion = new Conexion();
+        $datos = array();
+        $sqlPublicaciones = "SELECT * FROM publicaciones_anio";
+        $sqlCategoria = "SELECT * FROM publicaciones_categoria";
+        $sqlLugar = "SELECT * FROM publicaciones_lugar";
+        $sqlUsuarios = "SELECT * FROM usuarios_mes";
+        if ($resultado1 = $conexion->ejecutarInstruccion($sqlPublicaciones)) {
+            while ($row = $conexion->obtenerFila($resultado1)) {
+                $datos["publicaciones"][$row["mes"]] = $row["publicaciones"];
+            }
+        } else {
+            echo "Ha ocurrido un error al obtener las publicaciones por año";
+        }
+        if ($resultado2 = $conexion->ejecutarInstruccion($sqlCategoria)) {
+            while ($row2 = $conexion->obtenerFila($resultado2)) {
+                $datos["categorias"][$row2["nombregrupo"]] = $row2["publicaciones"];
+            }
+        } else {
+            echo "Ha ocurrido un error al obtener las categorías por año";
+        }
+        if ($resultado3 = $conexion->ejecutarInstruccion($sqlLugar)) {
+            while ($row3 = $conexion->obtenerFila($resultado3)) {
+                $datos["lugar"][$row3["nombreDepartamento"]] = $row3["publicaciones"];
+            }
+        } else {
+            echo "Ha ocurrido un error al obtener los lugares por año";
+        }
+        if ($resultado4 = $conexion->ejecutarInstruccion($sqlUsuarios)) {
+            while ($row4 = $conexion->obtenerFila($resultado4)) {
+                $datos["usuario"][$row4["mes"]] = $row4["publicaciones"];
+            }
+        } else {
+            echo "Ha ocurrido un error al obtener los usuarios por año";
+        }
+        echo json_encode($datos);
         break;
-
-    case '2': // DATOS A COMPARAR
+    case '3': // DATOS A COMPARAR
 
         break;
 }
