@@ -292,6 +292,19 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
       <div class="block-header">
         <h2>DASHBOARD</h2>
       </div>
+
+      <div id="actualizaDatosDia" class="preloader pl-size-xs">
+          <div class="spinner-layer pl-red-grey">
+              <div class="circle-clipper left">
+                  <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                  <div class="circle"></div>
+              </div>
+          </div>
+      </div>    
+
+
       <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
           <div class="info-box-4 hover-zoom-effect">
@@ -300,7 +313,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
             </div>
             <div class="content">
               <div class="text">NUEVOS USUARIOS</div>
-              <div class="number">315</div>
+              <div id="nuevosUsuarios" class="number"></div>
             </div>
           </div>
         </div>
@@ -311,7 +324,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
             </div>
             <div class="content">
               <div class="text">NUEVAS PUBLICACIONES</div>
-              <div class="number">92</div>
+              <div id="nuevosAnuncios" class="number">92</div>
             </div>
           </div>
         </div>
@@ -322,7 +335,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
             </div>
             <div class="content">
               <div class="text">NUEVAS DENUNCIAS</div>
-              <div class="number">30</div>
+              <div id="nuevasDenuncias"class="number">30</div>
             </div>
           </div>
         </div>
@@ -332,21 +345,109 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
               <i class="material-icons col-blue">comment</i>
             </div>
             <div class="content">
-              <div class="text">Nuevos omentarios</div>
-              <div class="number">15</div>
+              <div class="text">NUEVOS COMENTARIOS</div>
+              <div id="nuevosComentarios" class="number">15</div>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
+
+      <div class="row clearfix" style="max-width:100% !important; margin-left:auto !important; margin-right:auto !important; max-height:140px !important;">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="Header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only" style="background-color:black">Toggle navigation</span>
+              <span class="icon-bar" style="background-color:black"></span>
+              <span class="icon-bar" style="background-color:black"></span>
+              <span class="icon-bar" style="background-color:black"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="body" style="padding: 20px 5px 20px 5px">
+              <div class="row clearfix" style="margin:0px">
+                
+              <div class="col-md-1">
+                <button id="inicioGraficas" type="button" class="btn btn-success btn-circle-lg waves-effect waves-circle waves-float">
+                  <i class="material-icons">home</i>
+                </button>
+                </div>
+
+                <div class="col-md-2">
+                  <div class="form-group form-float">
+                    <div class="form-line">
+                      <select class="form-control show-tick" name="año1" id="año1">
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                      </select>
+                      <label class="form-label">Año</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <div class="form-group form-float">
+                    <div class="form-line">
+                      <select class="form-control show-tick" name="año2" id="año2">
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                      </select>
+                      <label class="form-label">Año</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-1">
+                  <button id="filtrarAños"type="button" class="btn bg-purple btn-circle-lg waves-effect waves-circle waves-float">
+                    <i class="material-icons">search</i>
+                  </button>
+                </div>
+
+                <div class="col-md-1">
+
+                </div>
+
+                <div class="col-xs-4">
+                  
+                  <div class="input-daterange input-group" id="bs_datepicker_range_container">
+                      <div class="form-line">
+                          <input type="text" class="form-control date" placeholder="Date start...">
+                      </div>
+                      <span class="input-group-addon">A</span>
+                      <div class="form-line">
+                          <input type="text" class="form-control date" placeholder="Date end...">
+                      </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-1">
+                  <button type="button" class="btn bg-purple btn-circle-lg waves-effect waves-circle waves-float">
+                    <i class="material-icons">search</i>
+                  </button>
+                </div>
+                
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
         <!-- carga los numeros de las categorias más publicadas-->
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
           <div class="card">
             <div class="header">
-              <h2>PUBLICACIONES POR MES</h2>
+              <h2>PUBLICACIONES </h2>
             </div>
-            <div class="body">
-              <canvas id="pie_chart" height="150"></canvas>
+            <div id="agregaCanvas1" class="body">
+              <canvas id="graficaPublicaciones" height="150"></canvas>
             </div>
           </div>
         </div>
@@ -354,10 +455,10 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
           <div class="card">
             <div class="header">
-              <h2>PUBLICACIONES POR DÍA</h2>
+              <h2>CATEGORIAS</h2>
             </div>
-            <div class="body">
-              <canvas id="bar_chart_2" height="150"></canvas>
+            <div  id="agregaCanvas2"class="body">
+              <canvas id="graficaCategorias" height="150"></canvas>
             </div>
           </div>
         </div>
@@ -365,10 +466,10 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
           <div class="card">
             <div class="header">
-              <h2>PUBLICACIONES POR GRUPO DE CATEGORÍA</h2>
+              <h2>PUBLICACIONES POR LUGAR</h2>
             </div>
-            <div class="body">
-              <canvas id="bar_chart" height="150"></canvas>
+            <div id="agregaCanvas3"class="body">
+              <canvas id="graficaLugares" height="150"></canvas>
             </div>
           </div>
         </div>
@@ -376,10 +477,10 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
           <div class="card">
             <div class="header">
-              <h2>PUBLICACIONES POR DEPARTAMENTO</h2>
+              <h2>USUARIOS</h2>
             </div>
-            <div class="body">
-              <canvas id="pie_chart_2" height="150"></canvas>
+            <div id="agregaCanvas4"class="body">
+              <canvas id="graficaUsuarios" height="150"></canvas>
             </div>
           </div>
         </div>
@@ -420,6 +521,16 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
   <script src="../controlador/dashboard.js"></script>
   <!-- Demo Js -->
   <script src="../js/demo.js"></script>
+  <script src="../plugins/autosize/autosize.js"></script>
+  <script src="../js/pages/forms/basic-form-elements.js"></script>
+    <!-- Moment Plugin Js -->
+  <script src="../plugins/momentjs/moment.js"></script>
+
+  <!-- Bootstrap Material Datetime Picker Plugin Js -->
+  <script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+  <!-- Bootstrap Datepicker Plugin Js -->
+  <script src="../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 
 
 
