@@ -11,6 +11,7 @@ $(document).ready(function () {
     graficosInicio();
   });
 });
+
 var datosDia = () => {
   setInterval(function () {
     $.ajax({
@@ -32,7 +33,7 @@ var datosDia = () => {
         alert("ERRROR EN ELA PETICION" + error);
       },
     });
-  }, 9000);
+  }, 60000);//TIEMPO DE ACTUALIZACION
 };
 var eliminaCanvas = () => {
   $("#graficaPublicaciones").remove();
@@ -258,10 +259,15 @@ var capturaCanvas = () => {
     .getContext("2d");
 };
 var graficosInicio = () => {
-  var chart = new Chart(graficaPublicaciones, {
-    type: "bar",
-    data: {
-      labels: [
+
+  const añoActual="2020"
+  $.ajax({
+    url: "../clases/dashboard.php?accion=2",
+    type: "POST",
+    success: function (resp) {
+      var datos = JSON.parse(resp);
+      console.log(datos);
+        meses=[
         "Enero",
         "Febrero",
         "Marzo",
@@ -274,310 +280,191 @@ var graficosInicio = () => {
         "Octubre",
         "Noviembre",
         "Diciembre",
-      ],
-      datasets: [
-        {
-          label: "2019",
-          data: [100, 90, 85, 70, 80, 90, 25, 30, 68, 90, 60, 50],
-          backgroundColor: "rgba(0, 188, 212, 0.5)",
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        yAxes: [
-          {
-            ticks: {
-              beginAtZero: true,
+      ];
+      
+      
+      dataPublicaciones=[0,0,0,0,0,0,0,0,0,0,0,0];
+      
+      for(var key in datos.publicaciones){
+        for(var key1 in meses){
+          if(key==meses[key1]){
+            dataPublicaciones[key1]=datos.publicaciones[key];
+          }
+        } 
+      }
+      
+      var chart = new Chart(graficaPublicaciones, {//PUBLICACIONES
+        type: "bar",
+        data: {
+          labels: [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre",
+          ],
+          datasets: [
+            {
+              label: añoActual,
+              data: dataPublicaciones,
+              backgroundColor: "rgba(0, 188, 212, 0.5)",
             },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
           },
-        ],
-      },
+        },
+      });
+
+
+      categorias=[];
+      valoresCategorias=[];
+      for(var key in datos.categorias){
+        categorias.push(key);
+        valoresCategorias.push(datos.categorias[key]);
+      }
+
+
+      var chart = new Chart(graficaCategorias, { //GRAFICA POR CATEGORIAS
+        type: "bar",
+        data: {
+          labels:categorias,
+          datasets: [
+            {
+              label: añoActual,
+              data:valoresCategorias,
+              backgroundColor: "rgba(0,255,0,0.5)",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+        },
+      });
+
+      lugares=[];
+      valoresLugares=[];
+      for(var key in datos.lugar) {
+        lugares.push(key);
+        valoresLugares.push(datos.lugar[key]);
+
+      }
+      var chart = new Chart(graficaLugares, {//GRAFICA POR LUGARES
+        type: "bar",
+        data: {
+          labels:lugares,
+          datasets: [
+            {
+              label:añoActual,
+              data:valoresLugares,
+              backgroundColor: "rgba(149, 99, 141,0.5)",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+        },
+      });
+
+      dataUsuarios=[0,0,0,0,0,0,0,0,0,0,0,0];
+      
+      for(var key in datos.usuario){
+        for(var key1 in meses){
+          if(key==meses[key1]){
+            dataUsuarios[key1]=datos.usuario[key];
+          }
+        } 
+      }
+      var chart = new Chart(graficaUsuarios, {//GRAFICA DE USUARIOS
+        type: "bar",
+        data: {
+          labels: [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre",
+          ],
+          datasets: [
+            {
+              label: añoActual,
+              data: dataUsuarios,
+              backgroundColor: "rgba(213, 211, 61,0.7)",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+        },
+      });
+
+
+      
+      
+
+      
+    },
+    error: function (error) {
+      alert("ERRROR EN ELA PETICION" + error);
     },
   });
 
-  var chart = new Chart(graficaCategorias, {
-    type: "bar",
-    data: {
-      labels: [
-        "Enero",
-        "Febrero",
-        "Marzo",
-        "Abril",
-        "Mayo",
-        "Junio",
-        "Julio",
-        "Agosto",
-        "Septiembre",
-        "Octubre",
-        "Noviembre",
-        "Diciembre",
-      ],
-      datasets: [
-        {
-          label: "2019",
-          data: [100, 90, 85, 70, 80, 90, 25, 30, 68, 90, 60, 50],
-          backgroundColor: "rgba(0,255,0,0.5)",
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        yAxes: [
-          {
-            ticks: {
-              beginAtZero: true,
-            },
-          },
-        ],
-      },
-    },
-  });
-  var chart = new Chart(graficaLugares, {
-    type: "bar",
-    data: {
-      labels: [
-        "Enero",
-        "Febrero",
-        "Marzo",
-        "Abril",
-        "Mayo",
-        "Junio",
-        "Julio",
-        "Agosto",
-        "Septiembre",
-        "Octubre",
-        "Noviembre",
-        "Diciembre",
-      ],
-      datasets: [
-        {
-          label: "2019",
-          data: [100, 90, 85, 70, 80, 90, 25, 30, 68, 90, 60, 50],
-          backgroundColor: "rgba(149, 99, 141,0.5)",
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        yAxes: [
-          {
-            ticks: {
-              beginAtZero: true,
-            },
-          },
-        ],
-      },
-    },
-  });
-  var chart = new Chart(graficaUsuarios, {
-    type: "bar",
-    data: {
-      labels: [
-        "Enero",
-        "Febrero",
-        "Marzo",
-        "Abril",
-        "Mayo",
-        "Junio",
-        "Julio",
-        "Agosto",
-        "Septiembre",
-        "Octubre",
-        "Noviembre",
-        "Diciembre",
-      ],
-      datasets: [
-        {
-          label: "2019",
-          data: [100, 90, 85, 70, 80, 90, 25, 30, 68, 90, 60, 50],
-          backgroundColor: "rgba(213, 211, 61,0.7)",
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        yAxes: [
-          {
-            ticks: {
-              beginAtZero: true,
-            },
-          },
-        ],
-      },
-    },
-  });
+  
+  
+  
+
+  
+  
+  
 };
 
-//---------------------------------------------//
-/*var chart=new Chart(graficaPublicaciones,{
-    type:"bar",
-    data:{
-      labels:["Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre"],
-      datasets:[{
-        label:"2019",
-        data:[100,90,85,70,80,90,25,30,68,90,60,50],
-        backgroundColor: "rgba(0, 188, 212, 0.5)",
-      },
-      {
-        label:"2020",
-        data:[100,90,85,70,63,65,40,30,68,40,90,40],
-        backgroundColor: "rgba(233, 30, 99, 0.5)",
-      }
-    ]
-    },
-    options:{
-      responsive: true,
-      scales:{
-        yAxes:[{
-          ticks:{
-            beginAtZero:true
-          }
-        }]
-      }
-
-    }
-      
-    
-  })
-
-  var chart=new Chart(graficaCategorias,{
-    type:"bar",
-    data:{
-      labels:["Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre"],
-      datasets:[{
-        label:"2019",
-        data:[100,90,85,70,80,90,25,30,68,90,60,50],
-        backgroundColor: "rgba(0,255,0,0.5)",
-      },
-      {
-        label:"2020",
-        data:[100,90,85,70,63,65,40,30,68,40,90,40],
-        backgroundColor: "rgba(0,0,255,0.5)",
-      }
-    ]
-    },
-    options:{
-      responsive: true,
-      scales:{
-        yAxes:[{
-          ticks:{
-            beginAtZero:true
-          }
-        }]
-      }
-
-    }
-      
-    
-  })
-  var chart=new Chart(graficaLugares,{
-    type:"bar",
-    data:{
-      labels:["Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre"],
-      datasets:[{
-        label:"2019",
-        data:[100,90,85,70,80,90,25,30,68,90,60,50],
-        backgroundColor: "rgba(149, 99, 141,0.5)",
-      },
-      {
-        label:"2020",
-        data:[100,90,85,70,63,65,40,30,68,40,90,40],
-        backgroundColor: "rgba(0,0,255,0.5)",
-      }
-    ]
-    },
-    options:{
-      responsive: true,
-      scales:{
-        yAxes:[{
-          ticks:{
-            beginAtZero:true
-          }
-        }]
-      }
-
-    }
-      
-    
-  })
-  var chart=new Chart(graficaUsuarios,{
-    type:"bar",
-    data:{
-      labels:["Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre"],
-      datasets:[{
-        label:"2019",
-        data:[100,90,85,70,80,90,25,30,68,90,60,50],
-        backgroundColor: "rgba(213, 211, 61,0.7)",
-      },
-      {
-        label:"2020",
-        data:[100,90,85,70,63,65,40,30,68,40,90,40],
-        backgroundColor: "rgba(0,0,255,0.5)",
-      }
-    ]
-    },
-    options:{
-      responsive: true,
-      scales:{
-        yAxes:[{
-          ticks:{
-            beginAtZero:true
-          }
-        }]
-      }
-
-    }
-      
-    
-  })*/
-
-//labels: ["Electrónica","Casa y Jardín","Moda","Deportes","Motor","Coleccionismo","Joyería y Belleza","Ocio","Otras categorías"],
