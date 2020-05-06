@@ -81,13 +81,13 @@ switch ($_GET['accion']) { //DATOS DEL DIA
         $conexion = new Conexion();
         $anio1 = 2019;
         //Verififca que ingrese el primer año
-        /*if (isset($_POST["anio1"])) {
+        if (isset($_POST["anio1"])) {
             $anio1 = $_POST["anio1"];
         }
         if ($anio1 == "" || $anio1 == NULL) {
             $respuesta = "Ingrese el anio uno";
             echo $respuesta;
-        }*/
+        }
         ////////////////////////////////////////////////////////Código para cargar el primer año
         $datos = array();
         $sqlPublicaciones = "SELECT CASE MONTH(fechaPublicacion)
@@ -170,7 +170,7 @@ switch ($_GET['accion']) { //DATOS DEL DIA
         }
         ////////////////////////////////////////////////////////Verifica si hay un segundo año
         $anio2 = 2020;
-        /*if (isset($_POST["anio2"])) {
+        if (isset($_POST["anio2"])) {
             $anio2 = $_POST["anio2"];
         }
         if ($anio1 == "" || $anio1 == NULL) {
@@ -179,7 +179,7 @@ switch ($_GET['accion']) { //DATOS DEL DIA
         } else if ($anio2 == "" || $anio2 == NULL) {
             $respuesta = "Ingrese el anio 2";
             echo $respuesta;
-        }*/
+        }
         $sqlPublicaciones = "SELECT CASE MONTH(fechaPublicacion)
                                 WHEN 1 THEN 'Enero'
                                 WHEN 2 THEN 'Febrero'

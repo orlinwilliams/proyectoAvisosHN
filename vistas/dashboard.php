@@ -290,7 +290,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
   <section class="content">
     <div class="container-fluid">
       <div class="block-header">
-        <h2>DASHBOARD</h2>
+        <h2>DATOS DEL DIA</h2>
       </div>
 
       <div id="actualizaDatosDia" class="preloader pl-size-xs">
