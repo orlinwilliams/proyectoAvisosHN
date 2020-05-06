@@ -433,6 +433,8 @@ INTO vnConteo FROM
     INSERT INTO anuncios (idAnuncios,idUsuario,idcategoria,idMunicipios,precio,nombre,descripcion,fechaPublicacion,estadoArticulo,estadoAnuncio,fechaLimite)
     VALUES ( vnConteo,pcidUsuario,pcCategoria,pcMunicipios,  pcPrecio, pcNombreArticulo , pcDescripcion, SYSDATE(), pcEstado,'A',NULL);
     
+    INSERT INTO  calificacionanuncio (idAnuncios,valoracion)
+    VALUES (vnConteo,0);
     COMMIT;
     SET pcMensaje = "Se ha publicado correctamente";
     LEAVE SP;

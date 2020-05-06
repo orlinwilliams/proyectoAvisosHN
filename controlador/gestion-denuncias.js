@@ -1,31 +1,31 @@
 ///////////////////////////////////////////// CARGAR EL DOM
 $(document).ready(function () {
+  tablaGestionDenuncias();
 });
 ///////////////////////////////////////////// FUNCION PARA ELIMINAR PUBLICACIÓN
-eliminarPublicacion = function (idAnuncio) {
+eliminarPublicacion = function (idAnuncio, idUsuario) { 
   event.preventDefault();
-  swal(
-    {
+  swal({
       title: "¿Estás seguro?",
       text: "¡No podrá revertir este cambio!",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
       confirmButtonText: "Si, quiero borrarlo!",
-      closeOnConfirm: false,
-    },
-    function () {
+      closeOnConfirm: false
+  }, function () {
       $.ajax({
-        url: "../clases/mis-publicaciones.php?accion=4",
-        method: "POST",
-        data: "txt_idanuncios=" + idAnuncio,
-        success: function (resp) {
-          console.log(resp);
-          swal("Borrado!", resp, "success");
-        },
-      });
-    }
-  );
+          url: "../clases/gestion-denuncias.php?accion=2",
+          method: "POST",
+          data: "txt_idanuncios=" + idAnuncio+
+          "&txt_idusuario=" + idUsuario,
+          success: function (resp) {
+              console.log(resp);
+              swal("Borrado!",resp, "success");
+              tablaGestionDenuncias();
+          },
+      });    
+  });
 };
 ///////////////////////////////////////////// FUNCION PARA ELIMINAR USUARIO
 eliminarUsuario = function (idUsuario) {
@@ -55,6 +55,60 @@ eliminarUsuario = function (idUsuario) {
       });
     }
   );
+};
+/////////////////////////////////////////////VISTA DE LA TABLA DENUNCIAS
+tablaGestionDenuncias = function () {
+  $.ajax({
+      url: "../clases/gestion-denuncias.php?accion=1",
+      success: function (resp) {
+      let datos = JSON.parse(resp);
+      var filas = "";
+      let i=0;
+      for (let item of datos) {
+        //RECORRER EL JSON
+        filas +="<tr>"+
+        "<td>"+item.idDenuncias+"</td>"+
+        "<td>"+item.descripcion+"</td>"+
+        "<td>"+item.comentarios+"</td>"+
+        "<td>"+item.pNombre+"</td>"+
+        "<td>"+item.nombre+"</td>"+
+        "<td>"+
+        "<button type='button' class='btn bg-red waves-effect' onclick='eliminarPublicacion("+item.idAnuncios+","+item.idUsuario+")'>"+
+        "<i class='material-icons'>delete_forever</i>"+
+        "</button>"+
+        "</td>"+
+        "<td style=' text-align:center;''> <button type='button' class='btn bg-red waves-effect' onclick='eliminarUsuario("+item.idUsuario+")'>"+
+        "<i class='material-icons'>delete_forever</i>"+
+        "</button></td>"+
+        "</tr>"
+        ;
+        $("#tablaDenuncias").html(filas);
+        //////////////////////////////////////////// DATATIME PICKER WITH MOMENTS
+        i=i+1;
+      }
+      ///////////////////////////////////////////// FUNCIÓN PARA LA INICIALIZACIÓN DE LA TABLA
+      $(function () {
+        $(".js-basic-example").DataTable({
+          retrieve: true,
+          responsive: true,
+        });
+      });
+      $(function () {
+        //Textarea auto growth
+        autosize($("textarea.auto-growth"));
+        //Datetimepicker plugin
+        $(".datetimepicker").bootstrapMaterialDatePicker({
+          format: "YYYY-MM-DD HH:mm",
+          clearButton: true,
+          weekStart: 1,
+          linkField : "fecha1" ,
+        });
+      });
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
 };
 ///////////////////////////////////////////// FUNCION PARA CARGAR LA INFORMACIÓN DEL ARTÍCULO
 cargarArticulo = function (idAnuncio) {
