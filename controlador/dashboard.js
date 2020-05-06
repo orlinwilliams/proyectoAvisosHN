@@ -23,6 +23,8 @@ var datosDia = () => {
         var datos = JSON.parse(resp);
         $("#nuevosUsuarios").html(datos.cantidadUsuarios);
         $("#nuevosAnuncios").html(datos.cantidadAnuncios);
+        $("#nuevasDenuncias").html(datos.cantidadDenuncias);
+        $("#nuevosComentarios").html(datos.cantidadComentarios);
         console.log(resp);
         $("#actualizaDatosDia").hide(2000);
       },

@@ -261,7 +261,30 @@ switch ($_GET['accion']) { //DATOS DEL DIA
         echo json_encode($datos);
         break;
 
-    default:
+    case '4': // RANGO DE FECHAS
+                /*if (isset($_POST["anio1"])) {
+            $anio1 = $_POST["anio1"];
+        }
+        if ($anio1 == "" || $anio1 == NULL) {
+            $respuesta = "Ingrese el anio uno";
+            echo $respuesta;
+        }*/
+        ////////////////////////////////////////////////////////
+                /*if (isset($_POST["anio2"])) {
+            $anio2 = $_POST["anio2"];
+        }
+        if ($anio1 == "" || $anio1 == NULL) {
+            $respuesta = "Ingrese el anio uno";
+            echo $respuesta;
+        } else if ($anio2 == "" || $anio2 == NULL) {
+            $respuesta = "Ingrese el anio 2";
+            echo $respuesta;
+        }*/
+
+        $conexion= new Conexion();
+        $sql="";
+    break;
+        default:
         echo "Ingresa una acción";
         break;
 }
