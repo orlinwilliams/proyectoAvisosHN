@@ -3,6 +3,7 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -293,86 +294,80 @@ session_start();
   </section>
   <!-- #Contenido -->
   <section class="content">
-  <div class="row clearfix" style="max-width:100% !important; margin-left:auto !important; margin-right:auto !important; max-height:140px !important;">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-          <div class="Header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only" style="background-color:black">Toggle navigation</span>
-              <span class="icon-bar" style="background-color:black"></span>
-              <span class="icon-bar" style="background-color:black"></span>
-              <span class="icon-bar" style="background-color:black"></span>
-            </button>
-          </div>
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <div class="body" style="padding: 20px 5px 20px 5px">
-              <div class="row clearfix" style="margin:0px">
-                <div class="col-md-3">
-                  <div class="form-group form-float">
-                    <div class="form-line">
-                      <select class="form-control show-tick" name="lugar" id="f-lugar">
-                        <option></option>
-                      </select>
-                      <label class="form-label">Lugar</label>
+    <div class="container-fluid">
+      <div class="row clearfix" style="max-width:100% !important; margin-left:auto !important; margin-right:auto !important; max-height:140px !important;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="Header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only" style="background-color:black">Toggle navigation</span>
+                <span class="icon-bar" style="background-color:black"></span>
+                <span class="icon-bar" style="background-color:black"></span>
+                <span class="icon-bar" style="background-color:black"></span>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <div class="body" style="padding: 20px 5px 20px 5px">
+                <div class="row clearfix" style="margin:0px">
+                  <div class="col-md-3">
+                    <div class="form-group form-float">
+                      <div class="form-line">
+                        <select class="form-control show-tick" name="lugar" id="f-lugar">
+                          <option></option>
+                        </select>
+                        <label class="form-label">Lugar</label>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group form-float">
-                    <div class="form-line">
-                      <select class="form-control show-tick" name="categoria" id="f-categoria">
-                        <option></option>
-                      </select>
-                      <label class="form-label">Categoría</label>
+                  <div class="col-md-3">
+                    <div class="form-group form-float">
+                      <div class="form-line">
+                        <select class="form-control show-tick" name="categoria" id="f-categoria">
+                          <option></option>
+                        </select>
+                        <label class="form-label">Categoría</label>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-2">
-
-                  <div class="form-group form-float">
-                    <div class="form-line">
-                      <select class="form-control show-tick" name="valoracion" id="valoracion">
-                        <option value=""></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
-                      <label class="form-label">Valoración</label>
+                  <div class="col-md-2">
+                    <div class="form-group form-float">
+                      <div class="form-line">
+                        <select class="form-control show-tick" name="valoracion" id="valoracion">
+                          <option value=""></option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                        <label class="form-label">Valoración</label>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-3" style="margin-bottom:0px">
-                  <p><b>Rango de precio</b></p>
-                  <div id="nouislider_range_example" class="col-md-12">
-                  
-                  </div><br>
-                  <span class="js-nouislider-value"></span>
-                  <div class="col-md-12" style="padding:0px; margin-bottom:0px">
-                      
+                  <div class="col-md-3" style="margin-bottom:0px">
+                    <p><b>Rango de precio</b></p>
+                    <div id="nouislider_range_example" class="col-md-12">
+                    </div><br>
+                    <span class="js-nouislider-value"></span>
+                    <div class="col-md-12" style="padding:0px; margin-bottom:0px">
                       <div class="col-md-6" style="padding:0px; margin-bottom:0px">
-                        <input type="hidden"class="col-md-12" style="padding:2px; margin-bottom:0px" readonly ="readonly" name="" id="lower-value">
+                        <input type="hidden" class="col-md-12" style="padding:2px; margin-bottom:0px" readonly="readonly" name="" id="lower-value">
                       </div>
                       <div class="col-md-6" style="padding:0px; margin-bottom:0px">
-                      
-                      <input type="hidden" class="col-md-12" style="padding:2px; margin-bottom:0px" readonly ="readonly" name=""id="upper-value">
+                        <input type="hidden" class="col-md-12" style="padding:2px; margin-bottom:0px" readonly="readonly" name="" id="upper-value">
                       </div>
+                    </div>
                   </div>
-                  
-                  
+                  <button type="button" style="margin:6px" id="filtrar" onclick="publicacionesFiltradas();" class="btn bg-black btn-circle-lg waves-effect waves-circle waves-float waves-light col-md-1 ">
+                    <i class="material-icons">filter_list</i>
+                  </button>
                 </div>
-                
-                 <button type="button" style="margin:6px" id="filtrar" onclick="publicacionesFiltradas();" class="btn bg-black btn-circle-lg waves-effect waves-circle waves-float waves-light col-md-1 ">
-                                    <i class="material-icons">filter_list</i>
-                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="contenedor">
+          <div class="contenedor">
       <button class="botonF1" data-toggle="modal" data-target="#modalArticulo">
         <span>+
         </span>
@@ -380,6 +375,9 @@ session_start();
     </div>
     <div id="contenedorTarjeta" class="row clearfix cards">
     </div>
+    </div>
+
+
   </section>
   <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
   <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
@@ -430,23 +428,23 @@ session_start();
                 </div>
 
               </div>
-              <div class=" form-group form-float"style="display:flex">
-                  <div class="form-group form-float" style="margin:0px; margin-right:5px; padding:0px; width:150px">
-                    <div class="form-line">
-                      <select class="form-control show-tick" name="moneda" id="moneda" required>
-                        <option></option>
-                        <option value="L " >L</option>
-                        <option value="$ " >$</option>
-                      </select>
-                      <label class="form-label">Moneda</label>
-                    </div>
+              <div class=" form-group form-float" style="display:flex">
+                <div class="form-group form-float" style="margin:0px; margin-right:5px; padding:0px; width:150px">
+                  <div class="form-line">
+                    <select class="form-control show-tick" name="moneda" id="moneda" required>
+                      <option></option>
+                      <option value="L ">L</option>
+                      <option value="$ ">$</option>
+                    </select>
+                    <label class="form-label">Moneda</label>
                   </div>
-                  <div class="form-group form-float" style="margin:0px; padding:0px; width:400px">
-                    <div class="form-line">
-                      <input type="number" min="0"class="form-control money-dollar" name="precio" id="precio" required>
-                      <label class="form-label">Precio</label>
-                    </div>
+                </div>
+                <div class="form-group form-float" style="margin:0px; padding:0px; width:400px">
+                  <div class="form-line">
+                    <input type="number" min="0" class="form-control money-dollar" name="precio" id="precio" required>
+                    <label class="form-label">Precio</label>
                   </div>
+                </div>
               </div>
               <div class="form-group form-float">
                 <div class="form-line">
@@ -589,11 +587,11 @@ session_start();
               <li><a href="https://www.instagram.com/" class="icon-instagram" target="_blank"></a></li>
             </ul>
           </div>
-        
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn bg-black waves-effect" data-dismiss="modal">CANCELAR</button>
-        </div>        
+        </div>
       </div>
     </div>
   </div>

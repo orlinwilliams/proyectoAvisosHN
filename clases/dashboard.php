@@ -3,7 +3,7 @@ require_once("conexion.php");
 mb_internal_encoding('UTF-8');
 
 switch ($_GET['accion']) { //DATOS DEL DIA
-    case '1':
+    case '1': // CARGAR LOS DATOS DEL INFOBOX INICIAL
         $conexion = new conexion();
         $sqlUsuarios = "SELECT COUNT(*) AS cantidadUsuarios  FROM usuario WHERE LEFT(fechaRegistro,10)=CURDATE()";
         $sqlAnuncios = "SELECT COUNT(*) AS cantidadAnuncios FROM anuncios WHERE LEFT(fechaPublicacion,10)=CURDATE()";
@@ -411,7 +411,7 @@ switch ($_GET['accion']) { //DATOS DEL DIA
         }
         echo json_encode($datos);
         break;
-    default:
+    default:  // CASO POR DEFECTO
         echo "Ingresa una acción";
         break;
 }
