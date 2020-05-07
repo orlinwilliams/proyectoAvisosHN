@@ -262,29 +262,109 @@ switch ($_GET['accion']) { //DATOS DEL DIA
         break;
 
     case '4': // RANGO DE FECHAS
-                /*if (isset($_POST["anio1"])) {
-            $anio1 = $_POST["anio1"];
+        /*if (isset($_POST["fecha1"])) {
+            $fecha1 = $_POST["fecha1"];
         }
-        if ($anio1 == "" || $anio1 == NULL) {
-            $respuesta = "Ingrese el anio uno";
+        if ($fecha1 == "" || $fecha1 == NULL) {
+            $respuesta = "Ingrese la fecha de inicio";
             echo $respuesta;
         }*/
         ////////////////////////////////////////////////////////
-                /*if (isset($_POST["anio2"])) {
-            $anio2 = $_POST["anio2"];
+        /*if (isset($_POST["fecha2"])) {
+            $fecha2 = $_POST["fecha2"];
         }
         if ($anio1 == "" || $anio1 == NULL) {
             $respuesta = "Ingrese el anio uno";
             echo $respuesta;
-        } else if ($anio2 == "" || $anio2 == NULL) {
-            $respuesta = "Ingrese el anio 2";
+        } else if ($fecha2 == "" || $fecha2 == NULL) {
+            $respuesta = "Ingrese la fecha final";
             echo $respuesta;
         }*/
-
-        $conexion= new Conexion();
-        $sql="";
-    break;
-        default:
+        $fecha1 = '2020-12-04';
+        $fecha2 = '2020-12-05';
+        $conexion = new Conexion();
+        $datos = array();
+        $sqlPublicaciones = "SELECT fechaPublicacion, CASE MONTH(fechaPublicacion)
+                                WHEN 1 THEN 'Enero'
+                                WHEN 2 THEN 'Febrero'
+                                WHEN 3 THEN 'Marzo'
+                                WHEN 4 THEN 'Abril'
+                                WHEN 5 THEN 'Mayo'
+                                WHEN 6 THEN 'Junio'
+                                WHEN 7 THEN 'Julio'
+                                WHEN 8 THEN 'Agosto'
+                                WHEN 9 THEN 'Septiembre'
+                                WHEN 10 THEN 'Octubre'
+                                WHEN 11 THEN 'Noviembre'
+                                WHEN 12 THEN 'Diciembre'
+                                END mes, COUNT(*) as publicaciones
+                                FROM anuncios
+                                WHERE fechaPublicacion>=$fecha1 AND fechaPublicacion<=$fecha2
+                                GROUP BY fechaPublicacion, mes
+                                ORDER BY fechaPublicacion ASC;";
+        $sqlCategoria = "SELECT nombregrupo, COUNT(*) as publicaciones
+                            FROM anuncios
+                            INNER JOIN categoria ON categoria.idCategoria=anuncios.idCategoria
+                            INNER JOIN grupoCategoria ON grupoCategoria.idgrupocategoria=categoria.idgrupocategoria
+                            WHERE fechaPublicacion BETWEEN $fecha1 AND $fecha2
+                            GROUP BY nombregrupo
+                            ORDER by nombregrupo ASC;";
+        $sqlLugar = "SELECT nombreDepartamento, COUNT(*) as publicaciones
+                        FROM anuncios
+                        INNER JOIN municipios ON municipios.idMunicipios=anuncios.idMunicipios
+                        INNER JOIN departamentos ON departamentos.idDepartamentos=municipios.idDepartamentos
+                        WHERE fechaPublicacion BETWEEN $fecha1 AND $fecha2
+                        GROUP BY nombreDepartamento
+                        ORDER by departamentos.idDepartamentos ASC;";
+        $sqlUsuarios = "SELECT CASE MONTH(fechaRegistro)
+                            WHEN 1 THEN 'Enero'
+                            WHEN 2 THEN 'Febrero'
+                            WHEN 3 THEN 'Marzo'
+                            WHEN 4 THEN 'Abril'
+                            WHEN 5 THEN 'Mayo'
+                            WHEN 6 THEN 'Junio'
+                            WHEN 7 THEN 'Julio'
+                            WHEN 8 THEN 'Agosto'
+                            WHEN 9 THEN 'Septiembre'
+                            WHEN 10 THEN 'Octubre'
+                            WHEN 11 THEN 'Noviembre'
+                            WHEN 12 THEN 'Diciembre'
+                            END mes, COUNT(idUsuario) as publicaciones
+                            FROM usuario
+                            WHERE fechaPublicacion BETWEEN $fecha1 AND $fecha2
+                            GROUP BY mes
+                        ORDER by fechaRegistro ASC;";
+        if ($resultado1 = $conexion->ejecutarInstruccion($sqlPublicaciones)) {
+            while ($row = $conexion->obtenerFila($resultado1)) {
+                $datos["publicaciones"][$row["mes"]] = $row["publicaciones"];
+            }
+        } else {
+            echo "Ha ocurrido un error al obtener las publicaciones por año";
+        }
+        if ($resultado2 = $conexion->ejecutarInstruccion($sqlCategoria)) {
+            while ($row2 = $conexion->obtenerFila($resultado2)) {
+                $datos["categorias"][$row2["nombregrupo"]] = $row2["publicaciones"];
+            }
+        } else {
+            echo "Ha ocurrido un error al obtener las categorías por año";
+        }
+        if ($resultado3 = $conexion->ejecutarInstruccion($sqlLugar)) {
+            while ($row3 = $conexion->obtenerFila($resultado3)) {
+                $datos["lugar"][$row3["nombreDepartamento"]] = $row3["publicaciones"];
+            }
+        } else {
+            echo "Ha ocurrido un error al obtener los lugares por año";
+        }
+        if ($resultado4 = $conexion->ejecutarInstruccion($sqlUsuarios)) {
+            while ($row4 = $conexion->obtenerFila($resultado4)) {
+                $datos["usuario"][$row4["mes"]] = $row4["publicaciones"];
+            }
+        } else {
+            echo "Ha ocurrido un error al obtener los usuarios por año";
+        }
+        echo json_encode($datos);
+        break;
+    default:
         echo "Ingresa una acción";
         break;
 }
