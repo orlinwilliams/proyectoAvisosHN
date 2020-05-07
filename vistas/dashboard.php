@@ -286,7 +286,6 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     </aside>
     <!-- #END# Right Sidebar -->
   </section>
-
   <section class="content">
     <div class="container-fluid">
       <div class="block-header">
@@ -311,7 +310,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
             </div>
             <div class="content">
               <div class="text">NUEVOS USUARIOS</div>
-              <div id="nuevosUsuarios" class="number"></div>
+              <div id="nuevosUsuarios" class="number">0</div>
             </div>
           </div>
         </div>
@@ -322,7 +321,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
             </div>
             <div class="content">
               <div class="text">NUEVAS PUBLICACIONES</div>
-              <div id="nuevosAnuncios" class="number"></div>
+              <div id="nuevosAnuncios" class="number">0</div>
             </div>
           </div>
         </div>
@@ -333,7 +332,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
             </div>
             <div class="content">
               <div class="text">NUEVAS DENUNCIAS</div>
-              <div id="nuevasDenuncias" class="number"></div>
+              <div id="nuevasDenuncias" class="number">0</div>
             </div>
           </div>
         </div>
@@ -344,7 +343,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
             </div>
             <div class="content">
               <div class="text">NUEVOS COMENTARIOS</div>
-              <div id="nuevosComentarios" class="number"></div>
+              <div id="nuevosComentarios" class="number">0</div>
             </div>
           </div>
         </div>
@@ -374,10 +373,11 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                       <div class="form-group form-float">
                         <div class="form-line">
                           <select class="form-control show-tick" name="año1" id="año1">
+                            <option value=""></option>
                             <option value="2019">2019</option>
                             <option value="2020">2020</option>
                           </select>
-                          <label class="form-label">Año</label>
+                          <label class="form-label">Año uno</label>
                         </div>
                       </div>
                     </div>
@@ -385,10 +385,11 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                       <div class="form-group form-float">
                         <div class="form-line">
                           <select class="form-control show-tick" name="año2" id="año2">
+                            <option value=""></option>
                             <option value="2019">2019</option>
                             <option value="2020">2020</option>
                           </select>
-                          <label class="form-label">Año</label>
+                          <label class="form-label">Año dos</label>
                         </div>
                       </div>
                     </div>
@@ -410,9 +411,8 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                         </div>
                       </div>
                     </div>
-
                     <div class="col-md-1">
-                      <button type="button" class="btn bg-purple btn-circle-lg waves-effect waves-circle waves-float">
+                      <button type="button" class="btn bg-purple btn-circle-lg waves-effect waves-circle waves-float" data-toggle="modal" data-target="#largeModal">
                         <i class="material-icons">search</i>
                       </button>
                     </div>
@@ -481,6 +481,113 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
           </button>
         </div>
         <div class="modal-body" id="cuerpoModal"></div>
+      </div>
+    </div>
+  </div>
+  <!--Modal con la información para el rango de fechas-->
+  <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="largeModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box-4 hover-zoom-effect">
+                <div class="icon">
+                  <i class="material-icons col-blue">person_add</i>
+                </div>
+                <div class="content">
+                  <div class="text">USUARIOS</div>
+                  <div id="nuevosUsuarios2" class="number"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box-4 hover-zoom-effect">
+                <div class="icon">
+                  <i class="material-icons col-blue">playlist_add</i>
+                </div>
+                <div class="content">
+                  <div class="text">PUBLICACIONES</div>
+                  <div id="nuevosAnuncios2" class="number"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box-4 hover-zoom-effect">
+                <div class="icon">
+                  <i class="material-icons col-blue">report_problem</i>
+                </div>
+                <div class="content">
+                  <div class="text">DENUNCIAS</div>
+                  <div id="nuevasDenuncias2" class="number"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box-4 hover-zoom-effect">
+                <div class="icon">
+                  <i class="material-icons col-blue">comment</i>
+                </div>
+                <div class="content">
+                  <div class="text">COMENTARIOS</div>
+                  <div id="nuevosComentarios2" class="number"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!-- carga los numeros de las categorias más publicadas-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="card">
+                <div class="header">
+                  <h2>PUBLICACIONES </h2>
+                </div>
+                <div id="agregaCanvas1" class="body">
+                  <canvas id="graficaPublicaciones2" height="150"></canvas>
+                </div>
+              </div>
+            </div>
+            <!-- carga los numeros de las categorias más publicadas-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="card">
+                <div class="header">
+                  <h2>CATEGORIAS</h2>
+                </div>
+                <div id="agregaCanvas2" class="body">
+                  <canvas id="graficaCategorias2" height="150"></canvas>
+                </div>
+              </div>
+            </div>
+            <!-- Pie Chart que carga el porcentaje de grupo de categorías-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="card">
+                <div class="header">
+                  <h2>PUBLICACIONES POR LUGAR</h2>
+                </div>
+                <div id="agregaCanvas3" class="body">
+                  <canvas id="graficaLugares2" height="150"></canvas>
+                </div>
+              </div>
+            </div>
+            <!-- carga los numeros de las categorias más publicadas-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="card">
+                <div class="header">
+                  <h2>USUARIOS</h2>
+                </div>
+                <div id="agregaCanvas4" class="body">
+                  <canvas id="graficaUsuarios2" height="150"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+        </div>
       </div>
     </div>
   </div>

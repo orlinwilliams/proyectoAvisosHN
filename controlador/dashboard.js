@@ -1,9 +1,9 @@
 $(document).ready(function () {
+  datosDia();
   capturaCanvas();
   graficosInicio();
   comparaAños();
   $("#actualizaDatosDia").hide();
-  datosDia();
   $("#inicioGraficas").click(() => {
     eliminaCanvas();
     creaCanvas();
