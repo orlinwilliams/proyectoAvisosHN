@@ -403,16 +403,16 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                     <div class="col-md-4">
                       <div class="input-daterange input-group" id="bs_datepicker_range_container">
                         <div class="form-line">
-                          <input type="text" class="form-control date" placeholder="Date start...">
+                          <input type="text" class="form-control date" placeholder="Date start..." id="fechaInicio">
                         </div>
                         <span class="input-group-addon">A</span>
                         <div class="form-line">
-                          <input type="text" class="form-control date" placeholder="Date end...">
+                          <input type="text" class="form-control date" placeholder="Date end..." id="fechaFinal">
                         </div>
                       </div>
                     </div>
                     <div class="col-md-1">
-                      <button type="button" class="btn bg-purple btn-circle-lg waves-effect waves-circle waves-float" data-toggle="modal" data-target="#largeModal">
+                      <button type="button" class="btn bg-purple btn-circle-lg waves-effect waves-circle waves-float" data-toggle="modal" data-target="#largeModal" id="rangoFechas">
                         <i class="material-icons">search</i>
                       </button>
                     </div>

@@ -1,4 +1,7 @@
 $(document).ready(function () {
+  $('#bs_datepicker_range_container').datepicker({
+    format: "dd/mm/yyyy",
+});
   datosDia();
   capturaCanvas();
   graficosInicio();
@@ -349,7 +352,6 @@ var graficosInicio = () => {
     type: "POST",
     success: function (resp) {
       var datos = JSON.parse(resp);
-      console.log(datos);
       meses = [
         "Enero",
         "Febrero",
@@ -546,12 +548,12 @@ var rangoFechas=()=>{
       type: "POST",
       data:"fecha1="+fechaInicio+"&fecha2="+fechaFinal,
       success: function (resp) {
-        //console.log(resp)
+        console.log(resp)
         var datos = JSON.parse(resp);
-        //$("#nuevosUsuarios2").html(datos.infobox.cantidadUsuarios);
-        //$("#nuevosAnuncios2").html(datos.infobox.cantidadAnuncios);
-        //$("#nuevasDenuncias2").html(datos.infobox.cantidadDenuncias);
-        //$("#nuevosComentarios2").html(datos.infobox.cantidadComentarios);
+        $("#nuevosUsuarios2").html(datos.infobox.cantidadUsuarios);
+        $("#nuevosAnuncios2").html(datos.infobox.cantidadAnuncios);
+        $("#nuevasDenuncias2").html(datos.infobox.cantidadDenuncias);
+        $("#nuevosComentarios2").html(datos.infobox.cantidadComentarios);
         
 
       console.log(datos)

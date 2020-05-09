@@ -79,7 +79,6 @@ switch ($_GET['accion']) { //DATOS DEL DIA
         break;
     case '3': // DATOS A COMPARAR
         $conexion = new Conexion();
-        $anio1 = 2019;
         //Verififca que ingrese el primer año
         if (isset($_POST["anio1"])) {
             $anio1 = $_POST["anio1"];
@@ -141,6 +140,7 @@ switch ($_GET['accion']) { //DATOS DEL DIA
                             GROUP BY mes
                         ORDER by fechaRegistro ASC;";
         if ($resultado1 = $conexion->ejecutarInstruccion($sqlPublicaciones)) {
+            $datos["anio1"]["anio"]=$anio1;
             while ($row = $conexion->obtenerFila($resultado1)) {
                 $datos["anio1"]["publicaciones"][$row["mes"]] = $row["publicaciones"];
             }
@@ -169,7 +169,6 @@ switch ($_GET['accion']) { //DATOS DEL DIA
             echo "Ha ocurrido un error al obtener los usuarios por año";
         }
         ////////////////////////////////////////////////////////Verifica si hay un segundo año
-        $anio2 = 2020;
         if (isset($_POST["anio2"])) {
             $anio2 = $_POST["anio2"];
         }
@@ -231,6 +230,7 @@ switch ($_GET['accion']) { //DATOS DEL DIA
                             GROUP BY mes
                             ORDER by fechaRegistro ASC;";
         if ($resultado1 = $conexion->ejecutarInstruccion($sqlPublicaciones)) {
+            $datos["anio2"]["anio"]=$anio2;
             while ($row = $conexion->obtenerFila($resultado1)) {
                 $datos["anio2"]["publicaciones"][$row["mes"]] = $row["publicaciones"];
             }
@@ -262,26 +262,29 @@ switch ($_GET['accion']) { //DATOS DEL DIA
         break;
 
     case '4': // RANGO DE FECHAS
-        /*if (isset($_POST["fecha1"])) {
+        if (isset($_POST["fecha1"])) {
             $fecha1 = $_POST["fecha1"];
         }
         if ($fecha1 == "" || $fecha1 == NULL) {
             $respuesta = "Ingrese la fecha de inicio";
             echo $respuesta;
-        }*/
+        }
         ////////////////////////////////////////////////////////
-        /*if (isset($_POST["fecha2"])) {
+        if (isset($_POST["fecha2"])) {
             $fecha2 = $_POST["fecha2"];
         }
-        if ($anio1 == "" || $anio1 == NULL) {
+        if ($fecha2 == "" || $fecha2 == NULL) {
             $respuesta = "Ingrese el anio uno";
             echo $respuesta;
         } else if ($fecha2 == "" || $fecha2 == NULL) {
             $respuesta = "Ingrese la fecha final";
             echo $respuesta;
-        }*/
-        $fecha1 = '2020-12-04';
-        $fecha2 = '2020-12-11';
+        }
+        $fecha1 = str_replace('/', '-', $fecha1);                                                                //Sustituimos caracterés / por -
+        $fecha1 = date('Y-m-d', strtotime($fecha1));                                                             //Cambiamos el formato de la 1
+        $fecha2 = str_replace('/', '-', $fecha2);                                                                //Sustituimos caracterés / por -
+        $fecha2 = date('Y-m-d', strtotime($fecha2));
+        //echo "FORMATO NUEVO "  .$fecha1." ".$fecha2;
         /////////////////////////////CARGA LA INFORMACIOÓN PARA LOS INFOBOX
         $conexion = new Conexion();
         $sqlUsuarios = "SELECT COUNT(*) AS cantidadUsuarios  FROM usuario WHERE DATE_FORMAT(fechaRegistro, '%Y-%m-%d')>='$fecha1' AND DATE_FORMAT(fechaRegistro, '%Y-%m-%d')<='$fecha2'";
