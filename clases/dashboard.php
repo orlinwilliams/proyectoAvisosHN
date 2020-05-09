@@ -269,7 +269,6 @@ switch ($_GET['accion']) { //DATOS DEL DIA
             $respuesta = "Ingrese la fecha de inicio";
             echo $respuesta;
         }
-        ////////////////////////////////////////////////////////
         if (isset($_POST["fecha2"])) {
             $fecha2 = $_POST["fecha2"];
         }
@@ -280,11 +279,11 @@ switch ($_GET['accion']) { //DATOS DEL DIA
             $respuesta = "Ingrese la fecha final";
             echo $respuesta;
         }
+        //////////////////////////////////////////////////CONVERSIÓN DEL FORMATO DE LAS FECHAS
         $fecha1 = str_replace('/', '-', $fecha1);                                                                //Sustituimos caracterés / por -
         $fecha1 = date('Y-m-d', strtotime($fecha1));                                                             //Cambiamos el formato de la 1
         $fecha2 = str_replace('/', '-', $fecha2);                                                                //Sustituimos caracterés / por -
         $fecha2 = date('Y-m-d', strtotime($fecha2));
-        //echo "FORMATO NUEVO "  .$fecha1." ".$fecha2;
         /////////////////////////////CARGA LA INFORMACIOÓN PARA LOS INFOBOX
         $conexion = new Conexion();
         $sqlUsuarios = "SELECT COUNT(*) AS cantidadUsuarios  FROM usuario WHERE DATE_FORMAT(fechaRegistro, '%Y-%m-%d')>='$fecha1' AND DATE_FORMAT(fechaRegistro, '%Y-%m-%d')<='$fecha2'";
