@@ -3,6 +3,7 @@ $(document).ready(function () {
   capturaCanvas();
   graficosInicio();
   comparaAños();
+  rangoFechas();
   $("#actualizaDatosDia").hide();
   $("#inicioGraficas").click(() => {
     eliminaCanvas();
@@ -19,7 +20,7 @@ var datosDia = () => {
         $("#actualizaDatosDia").show();
       },
       url: "../clases/dashboard.php?accion=1",
-      type: "GET",
+      type: "POST",
       success: function (resp) {
         var datos = JSON.parse(resp);
         $("#nuevosUsuarios").html(datos.cantidadUsuarios);
@@ -69,7 +70,7 @@ var comparaAños = () => {
       $.ajax({
         url: "../clases/dashboard.php?accion=3",
         data: "anio1=" + año1 + "&anio2=" + año2,
-        type: "GET",
+        type: "POST",
         success: (resp) => {
           datos = JSON.parse(resp);
           console.log(datos);
@@ -274,7 +275,7 @@ var comparaAños = () => {
 
           for (var key in datos.anio1.usuario) {
             for (var key1 in meses) {
-              if (key == meses[key1]) {
+              if (key == meses[key1]) {u
                 dataUsuarios2019[key1] = datos.anio1.usuario[key];
               }
             }
@@ -535,3 +536,31 @@ var graficosInicio = () => {
     },
   });
 };
+var rangoFechas=()=>{
+  $("#rangoFechas").click(function(){
+    fechaInicio=$("#fechaInicio").val();
+    fechaFinal=$("#fechaFinal").val();
+    console.log(fechaInicio+"  "+fechaFinal);
+    $.ajax({
+      url: "../clases/dashboard.php?accion=4",
+      type: "POST",
+      data:"fecha1="+fechaInicio+"&fecha2="+fechaFinal,
+      success: function (resp) {
+        //console.log(resp)
+        var datos = JSON.parse(resp);
+        //$("#nuevosUsuarios2").html(datos.infobox.cantidadUsuarios);
+        //$("#nuevosAnuncios2").html(datos.infobox.cantidadAnuncios);
+        //$("#nuevasDenuncias2").html(datos.infobox.cantidadDenuncias);
+        //$("#nuevosComentarios2").html(datos.infobox.cantidadComentarios);
+        
+
+      console.log(datos)
+      },
+      error: function (error) {
+        alert("ERRROR EN ELA PETICION" + error);
+      },
+    });    
+
+  })
+
+}
