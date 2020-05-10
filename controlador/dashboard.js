@@ -61,6 +61,8 @@ var creaCanvas = () => {
 };
 var comparaAños = () => {
   $("#filtrarAños").click((e) => {
+    
+
     var año1 = $("#año1").val();
     var año2 = $("#año2").val();
 
@@ -76,7 +78,7 @@ var comparaAños = () => {
         type: "POST",
         success: (resp) => {
           datos = JSON.parse(resp);
-          console.log(datos);
+          //console.log(datos);
           meses = [
             "Enero",
             "Febrero",
@@ -542,18 +544,93 @@ var rangoFechas=()=>{
   $("#rangoFechas").click(function(){
     fechaInicio=$("#fechaInicio").val();
     fechaFinal=$("#fechaFinal").val();
+
+    fechaInicio2=$("#fechaInicio").val().substring(0,2);
+    fechaFinal2=$("#fechaFinal").val().substring(0,2);
     console.log(fechaInicio+"  "+fechaFinal);
+    $("#muestraGraficasRangoFechas").hide();
+    
     $.ajax({
       url: "../clases/dashboard.php?accion=4",
       type: "POST",
       data:"fecha1="+fechaInicio+"&fecha2="+fechaFinal,
       success: function (resp) {
-        console.log(resp)
+        //console.log(resp)
         var datos = JSON.parse(resp);
         $("#nuevosUsuarios2").html(datos.infobox.cantidadUsuarios);
         $("#nuevosAnuncios2").html(datos.infobox.cantidadAnuncios);
         $("#nuevasDenuncias2").html(datos.infobox.cantidadDenuncias);
         $("#nuevosComentarios2").html(datos.infobox.cantidadComentarios);
+        comparaFechas=fechaFinal2-fechaInicio2;
+        if(comparaFechas<=7){
+          if(typeof datos.grafico!="undefined"){
+            $("#muestraGraficasRangoFechas").show();
+            rangoFinal=fechaInicio+" a "+fechaFinal;
+
+            dias = [
+              "Lunes",
+              "Martes",
+              "Miercoles",
+              "Jueves",
+              "Viernes",
+              "Sábado",
+              "Domingo"
+            ];
+      
+            dataPublicaciones = [0, 0, 0, 0, 0, 0, 0];
+      
+            for (var key in datos.grafico) {
+              for (var key1 in dias) {
+                if (key == dias[key1]) {
+                  dataPublicaciones[key1] = datos.grafico[key].publicaciones;
+                }
+              }
+            }
+            
+            let graficaPublicaciones = document
+            .getElementById("graficaPublicaciones2")
+            .getContext("2d");
+
+            var chart = new Chart(graficaPublicaciones2, {
+              //PUBLICACIONES
+              type: "bar",
+              data: {
+                labels:dias,
+                datasets: [
+                  {
+                    label: rangoFinal,
+                    data: dataPublicaciones,
+                    backgroundColor: "rgba(0, 188, 212, 0.5)",
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                scales: {
+                  yAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                      },
+                    },
+                  ],
+                },
+              },
+            });
+
+            let graficaPublicaciones = document
+            .getElementById("graficaCategorias2")
+            .getContext("2d");
+            
+
+
+
+          }
+          
+
+          //console.log(comparaFechas);
+
+        }
         
 
       console.log(datos)

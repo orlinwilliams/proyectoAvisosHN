@@ -538,7 +538,9 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
               </div>
             </div>
           </div>
-          <div class="row">
+          
+
+          <div id="muestraGraficasRangoFechas" class="row">
             <!-- carga los numeros de las categorias más publicadas-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div class="card">
