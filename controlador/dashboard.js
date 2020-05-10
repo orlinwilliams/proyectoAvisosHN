@@ -78,7 +78,7 @@ var comparaAños = () => {
         type: "POST",
         success: (resp) => {
           datos = JSON.parse(resp);
-          console.log(datos);
+          //console.log(datos);
           meses = [
             "Enero",
             "Febrero",
@@ -557,6 +557,7 @@ var rangoFechas=()=>{
       success: function (resp) {
         //console.log(resp)
         var datos = JSON.parse(resp);
+        $("#largeModalLabel").html(fechaInicio+" A "+fechaFinal );
         $("#nuevosUsuarios2").html(datos.infobox.cantidadUsuarios);
         $("#nuevosAnuncios2").html(datos.infobox.cantidadAnuncios);
         $("#nuevasDenuncias2").html(datos.infobox.cantidadDenuncias);
@@ -586,7 +587,7 @@ var rangoFechas=()=>{
                 }
               }
             }
-            
+
             let graficaPublicaciones = document
             .getElementById("graficaPublicaciones2")
             .getContext("2d");
@@ -618,9 +619,75 @@ var rangoFechas=()=>{
               },
             });
 
-            let graficaCategorias = document
+            /*let graficaCategorias = document
             .getElementById("graficaCategorias2")
             .getContext("2d");
+            
+            etiquetasCategoria=[];
+            valoresCategorias=[];
+            for(var key in datos.grafico){
+              //console.log(key);
+              for (var key1 in datos.grafico[key].categorias){
+                //console.log(key1)
+                etiquetasCategoria.push(key1);
+                
+              }
+              
+            }
+
+            //console.log(etiquetasCategoria)
+
+            Array.prototype.unique = (function (a) {
+              return function () {
+                return this.filter(a);
+              };
+            })(function (a, b, c) {
+              return c.indexOf(a, b + 1) < 0;
+            });
+            var etiquetasFinal = etiquetasCategoria.unique();
+            console.log(etiquetasFinal)
+            var suma=0;
+            for (var key in datos.grafico) {
+              
+              for(var key1 in datos.grafico[key].categorias){ 
+
+                for (var key2 in etiquetasFinal) {
+                  if (etiquetasFinal[key2] == key1) {
+                    suma+=parseInt(datos.grafico[key].categorias[key1]);
+                    
+                  }
+                }
+                
+              }
+              valoresCategorias.push(suma);
+            }
+            console.log(suma);
+
+            var chart = new Chart(graficaCategorias, {
+              type: "bar",
+              data: {
+                labels: etiquetasFinal,
+                datasets: [
+                  {
+                    label: rangoFinal,
+                    data: valoresCategorias,
+                    backgroundColor: "rgba(0,255,0,0.5)",
+                  }
+                ],
+              },
+              options: {
+                responsive: true,
+                scales: {
+                  yAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                      },
+                    },
+                  ],
+                },
+              },
+            });*/
             
 
 

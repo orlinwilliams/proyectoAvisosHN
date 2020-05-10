@@ -552,7 +552,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                 </div>
               </div>
             </div>
-            <!-- carga los numeros de las categorias más publicadas-->
+            <!-- carga los numeros de las categorias más publicadas
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div class="card">
                 <div class="header">
@@ -563,7 +563,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                 </div>
               </div>
             </div>
-            <!-- Pie Chart que carga el porcentaje de grupo de categorías-->
+             Pie Chart que carga el porcentaje de grupo de categorías
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div class="card">
                 <div class="header">
@@ -573,18 +573,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                   <canvas id="graficaLugares2" height="150"></canvas>
                 </div>
               </div>
-            </div>
-            <!-- carga los numeros de las categorias más publicadas-->
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <div class="card">
-                <div class="header">
-                  <h2>USUARIOS</h2>
-                </div>
-                <div id="agregaCanvas4" class="body">
-                  <canvas id="graficaUsuarios2" height="150"></canvas>
-                </div>
-              </div>
-            </div>
+            </div>-->
           </div>
         </div>
         <div class="modal-footer">
