@@ -78,7 +78,7 @@ var comparaAños = () => {
         type: "POST",
         success: (resp) => {
           datos = JSON.parse(resp);
-          //console.log(datos);
+          console.log(datos);
           meses = [
             "Enero",
             "Febrero",
@@ -120,12 +120,12 @@ var comparaAños = () => {
               labels: meses,
               datasets: [
                 {
-                  label: "2019",
+                  label: datos.anio1.anio,
                   data: dataPublicaciones2019,
                   backgroundColor: "rgba(0,0,255,0.5)",
                 },
                 {
-                  label: "2020",
+                  label: datos.anio2.anio,
                   data: dataPublicaciones2020,
                   backgroundColor: "rgba(233, 30, 99, 0.5)",
                 },
@@ -189,12 +189,12 @@ var comparaAños = () => {
               labels: categoriasFinal,
               datasets: [
                 {
-                  label: "2019",
+                  label: datos.anio1.anio,
                   data: valoresCategorias2019,
                   backgroundColor: "rgba(0,255,0,0.5)",
                 },
                 {
-                  label: "2020",
+                  label: datos.anio2.anio,
                   data: valoresCategorias2020,
                   backgroundColor: "rgba(0,0,255,0.5)",
                 },
@@ -251,12 +251,12 @@ var comparaAños = () => {
               labels: lugaresFinal,
               datasets: [
                 {
-                  label: "2019",
+                  label:datos.anio1.anio,
                   data: valoresLugares2019,
                   backgroundColor: "rgba(149, 99, 141,0.5)",
                 },
                 {
-                  label: "2020",
+                  label: datos.anio2.anio,
                   data: valoresLugares2020,
                   backgroundColor: "rgba(0,0,255,0.5)",
                 },
@@ -280,7 +280,7 @@ var comparaAños = () => {
 
           for (var key in datos.anio1.usuario) {
             for (var key1 in meses) {
-              if (key == meses[key1]) {u
+              if (key == meses[key1]) {
                 dataUsuarios2019[key1] = datos.anio1.usuario[key];
               }
             }
@@ -302,12 +302,12 @@ var comparaAños = () => {
               labels: meses,
               datasets: [
                 {
-                  label: "2019",
+                  label: datos.anio1.anio,
                   data: dataUsuarios2019,
                   backgroundColor: "rgba(213, 211, 61,0.7)",
                 },
                 {
-                  label: "2020",
+                  label: datos.anio2.anio,
                   data: dataUsuarios2020,
                   backgroundColor: "rgba(0,0,255,0.5)",
                 },
@@ -618,7 +618,7 @@ var rangoFechas=()=>{
               },
             });
 
-            let graficaPublicaciones = document
+            let graficaCategorias = document
             .getElementById("graficaCategorias2")
             .getContext("2d");
             
