@@ -19,17 +19,17 @@ switch ($_GET["accion"]){
                         $max=$_GET["maximo"];
                         
                                
-                            if ($min==0 && $max>0 ){ //si campo de rango max es mayor a cero
-                                
+                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                   
                                     $where="where c.idcategoria like $fcategoria
                                         AND m.idMunicipios like $flugar 
-                                        AND cv.cantidadEstrellas LIKE $valoracion
-                                        AND precio BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        AND ca.valoracion LIKE $valoracion
+                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
                                 
                             } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
                                 $where="where c.idcategoria like $fcategoria
                                         AND m.idMunicipios like $flugar 
-                                        AND cv.cantidadEstrellas LIKE $valoracion";
+                                        AND ca.valoracion LIKE $valoracion";
 
                             }
                                                
@@ -41,11 +41,11 @@ switch ($_GET["accion"]){
                         $max=$_GET["maximo"];
                         
                                
-                            if ($min==0 && $max>0 ){ //si campo de rango max es mayor a cero
+                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
                                 
                                     $where="where c.idcategoria like $fcategoria
                                         AND m.idMunicipios like $flugar 
-                                        AND precio BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
                                 
                             }if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
                                 $where="where c.idcategoria like $fcategoria
@@ -66,15 +66,15 @@ switch ($_GET["accion"]){
                         $max=$_GET["maximo"];
                         
                                
-                            if ($min==0 && $max>0 ){ //si campo de rango max es mayor a cero
+                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
                                 
                                     $where="where m.idMunicipios like $flugar 
-                                        AND cv.cantidadEstrellas LIKE $valoracion
-                                        AND precio BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        AND ca.valoracion LIKE $valoracion
+                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
                                 
                             } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
                                 $where="where m.idMunicipios like $flugar 
-                                        AND cv.cantidadEstrellas LIKE $valoracion";
+                                        AND ca.valoracion LIKE $valoracion";
 
                             }
                                                
@@ -88,10 +88,10 @@ switch ($_GET["accion"]){
                         $max=$_GET["maximo"];
                         
                                
-                            if ($min==0 && $max>0 ){ //si campo de rango max es mayor a cero
+                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
                                 
                                     $where="where  m.idMunicipios like $flugar 
-                                        AND precio BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
                                 
                             } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
                                 $where="where  m.idMunicipios like $flugar ";
@@ -119,15 +119,15 @@ switch ($_GET["accion"]){
                         $max=$_GET["maximo"];
                         
                                
-                            if ($min==0 && $max>0 ){ //si campo de rango max es mayor a cero
+                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
                                 
                                     $where="where c.idcategoria like $fcategoria
-                                        AND cv.cantidadEstrellas LIKE $valoracion
-                                        AND precio BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        AND ca.valoracion LIKE $valoracion
+                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
                                 
                             } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
                                 $where="where c.idcategoria like $fcategoria
-                                        AND cv.cantidadEstrellas LIKE $valoracion";
+                                        AND ca.valoracion LIKE $valoracion";
 
                             }
                                                
@@ -142,10 +142,10 @@ switch ($_GET["accion"]){
                         $max=$_GET["maximo"];
                         
                                
-                            if ($min==0 && $max>0 ){ //si campo de rango max es mayor a cero
+                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
                                 
                                     $where="where c.idcategoria like $fcategoria
-                                        AND precio BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
                                 
                             } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
                                 $where="where c.idcategoria like $fcategoria ";
@@ -165,13 +165,13 @@ switch ($_GET["accion"]){
                         $max=$_GET["maximo"];
                         
                                
-                            if ($min==0 && $max>0 ){ //si campo de rango max es mayor a cero
+                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
                                 
-                                    $where="where cv.cantidadEstrellas LIKE $valoracion
-                                        AND precio BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                    $where="where ca.valoracion LIKE $valoracion
+                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
                                 
                             } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
-                                $where="where  cv.cantidadEstrellas LIKE $valoracion";
+                                $where="where ca.valoracion LIKE $valoracion";
 
                             }
                                                
@@ -185,9 +185,9 @@ switch ($_GET["accion"]){
                         $max=$_GET["maximo"];
                         
                                
-                            if ($min==0 && $max>0 ){ //si campo de rango max es mayor a cero
+                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
                                 
-                                    $where="where precio BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                    $where="where SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
                                 
                             } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
                                 $where=" ";
@@ -204,11 +204,11 @@ switch ($_GET["accion"]){
         
     
         $conexion = new conexion();
-        $sql="SELECT idAnuncios,nombre,precio,descripcion FROM anuncios a 
+        $sql="SELECT DISTINCT a.idAnuncios,nombre,precio,descripcion, FROM anuncios a 
         INNER JOIN municipios m ON m.idMunicipios= a.idMunicipios 
         INNER JOIN categoria c ON c.idcategoria=a.idcategoria 
-        INNER JOIN usuario u on u.idUsuario=a.idUsuario 
-        INNER JOIN calificacionesvendedor cv ON cv.idUsuario=u.idUsuario
+        INNER JOIN usuario u ON u.idUsuario=a.idUsuario 
+        INNER JOIN calificacionanuncio ca ON a.idAnuncios=ca.idAnuncios
         $where
         ORDER BY idAnuncios DESC;";//CONSULTA 
         

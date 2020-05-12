@@ -264,7 +264,7 @@ infoVendedor = function (idUsuario) {
         "<div class='modal-header' style='text-align:center'>" +
         "<h4 class='modal-title' id='defaultModalLabel'></h4>" +
         "</div>" +
-        "<div class='modal-body modal-body-per'>" +
+        
         "<div class='card profile-card'>" +
         "<div class='profile-header'>&nbsp;</div>" +
         "<div class='profile-body'>" +
@@ -342,7 +342,7 @@ infoVendedor = function (idUsuario) {
         "</ul>" +
         "</div>" +
         "</div>" +
-        "</div>" +
+        
         "<div class='modal-footer'>" +
         "<button type='button' class='btn btn-link waves-effect' data-toggle='modal' data-target='#defaultModal'" +
         "data-dismiss='modal'>Cerrar</button>" +
@@ -423,10 +423,10 @@ cargarArticulo = function (idAnuncio) {
           "</div>" +
           "</div>" +
           "<div class='col-md-5 col-sm-12 col-xs-12 derecho'>" +
-          "<div>" +
-          "<p class='font-categoria'><a class='links-categorias' href='#'>Categoria</a> <a class='links-categorias' href='#'>" +
-          datos.info.nombregrupo +
-          "</a> <a class='links-categorias' href='#'>" +
+          "<div class='demo-google-material-icon'>" +
+          "<p class='font-categoria'><a class='links-categorias' href='#'>Categoria</a> <i class='material-icons' style='font-size:12px'>last_page</i>"+
+          "<span class='icon-name'><a class='links-categorias' href='#'>"+datos.info.nombregrupo +"</a></span>" +
+          " <i class='material-icons' style='font-size:12px'>last_page</i><a class='links-categorias' href='#'>" +
           datos.info.nombreCategoria +
           "</a></p>" +
           "<ul class='header-dropdown m-r--5' style='margin-top:-30px; margin-left:88%;  list-style:none;'>" +
@@ -467,15 +467,14 @@ cargarArticulo = function (idAnuncio) {
           "</div>" +
           "<div class='vendedor'>" +
           "<p class='font-vendedor'>Información del vendedor</p>" +
-          "<div class='div-imagen'>" +
-          "<a aria-label='Foto del vendedor' data-toggle='modal'  data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor(" +
+          "<div class='div-imagen col-lg-12' style=''>" +
+          "<a class='col-lg-4' aria-label='Foto del vendedor' data-toggle='modal'  data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor(" +
           datos.info.idUsuario +
           ")>" +
           "<img class='imagen-vendedor' src='" +
           datos.info.urlFoto +
           "' alt=''> </a>" +
-          "</div>" +
-          "<div class='div-nombre'>" +
+
           "<p class='font-vendedor'><a data-toggle='modal' data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor(" +
           datos.info.idUsuario +
           ")>" +
@@ -484,18 +483,23 @@ cargarArticulo = function (idAnuncio) {
           "<p class='registro-de-vendedor'>Unido desde " +
           datos.info.fechaRegistro +
           "</p>" +
-          "<div class='demo-google-material-icon' style='color:black;'>" +
-          "<span class='icon-name' style='font-size:22px'><strong>Valoración:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>" +
+
+          "</div>" +
+          "<div class='div-nombre col-lg-12' style='margin:0px; padding:0px; margin-top: 10px'>" +
+          
+          "<div class='demo-google-material-icon col-lg-12' style='color:black; padding:0px; margin-bottom:15px'>" +
+          "<span class='icon-name col-lg-6' style='font-size:22px; padding:0px; text-align:center'><strong>Valoración: </strong>" +
           datos.info.valoración +
           "</span>" +
           "<script>$('#estrella').starrr({rating:" +
           datos.info.valoración +
           ",change:function(e,valor){console.log(valor); var estrellas=valor; $.ajax({url:'../clases/vistas-index.php?accion=9',method: 'post', data: 'valoracion='+estrellas,success: function(resp){console.log(resp)}})}});</script>" +
-          "<span id='estrella'></span>" +
+          "<span class='col-lg-6' style='padding:0px; text-align:center' id='estrella'></span>" +
           "</div>" +
+          "<br>"+
           "<div class='demo-google-material-icon pb-5' style='color:black;'>" +
           "<i class='material-icons md-24'>phone</i>" +
-          "<span class='icon-name' style='font-size:22px'><strong>+" +
+          "<span class='icon-name' style='font-size:22px; text-align:cente'><strong>+" +
           datos.info.numTelefono +
           "</strong></span>" +
           "</div>" +

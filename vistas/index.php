@@ -382,7 +382,7 @@ session_start();
   <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
   <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-per modal-lg " role="document" style="width:70%">
-      <div class="modal-content">
+      <div class="modal-content" style="height:600px">
         <div class="modal-body modal-body-per" id="infoArticulo">
         </div>
       </div>
@@ -390,8 +390,10 @@ session_start();
   </div>
   <!--Modal que carga la información del vendedor-->
   <div class="modal fade" id="modalVendedor" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content" id="contenidoModalVendedor">
+    <div class="modal-dialog modal-dialog-per" role="document">
+      <div class="modal-content" >
+        <div class="modal-body modal-body-per"id="contenidoModalVendedor">
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#defaultModal" data-dismiss="modal">Cerrar</button>
         </div>
