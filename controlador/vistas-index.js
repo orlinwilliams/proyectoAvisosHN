@@ -29,6 +29,8 @@ $(document).ready(function () {
         }
       });
 
+      
+
       // Update selector to match your button
       $("#publicarArticulo").submit(function (e) {
         event.stopPropagation();
@@ -46,6 +48,11 @@ $(document).ready(function () {
           formData.append(el.name, el.value);
         });
         //console.log(formData);
+      });
+      this.on("success", function(file, response) {
+        alert("Anuncio publicado correctamente");
+        location.reload();
+        
       });
     },
     error: function (file, response) {

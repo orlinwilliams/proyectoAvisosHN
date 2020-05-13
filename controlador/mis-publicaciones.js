@@ -53,6 +53,11 @@ $(document).ready(function () {
                 //console.log(formData);
     
             });
+            this.on("success", function(file, response) {
+                alert("Anuncio publicado correctamente");
+                location.reload();
+                
+              });
         },
         error: function (file, response){
             if ($.type(response) === "string")
