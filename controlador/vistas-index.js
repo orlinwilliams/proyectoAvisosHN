@@ -9,7 +9,7 @@ $(document).ready(function () {
     autoProcessQueue: false,
     uploadMultiple: true,
     parallelUploads: 100,
-    maxFiles: 4,
+    maxFiles: 8, //CANTIDAD DE IMAGENES
     paramName: "file",
     clickable: true,
     url: "../clases/mis-publicaciones.php?accion=2",

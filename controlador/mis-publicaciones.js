@@ -13,7 +13,7 @@ $(document).ready(function () {
         uploadMultiple: true,
         parallelUploads: 4,
         acceptedFiles: 'image/*',
-        maxFiles: 4,
+        maxFiles: 8, //CANTIDAD DE IMAGES
         maxFilesize: 2,//tamaño maxino de imagen
         paramName: 'file',
         clickable: true,
