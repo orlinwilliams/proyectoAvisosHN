@@ -12,6 +12,15 @@ $(document).ready(function () {
 			$("#imagenPerfil1").attr("src", resp);
 		}
 	});
+	//DATOS PUBLICACIONES
+	$.get("../clases/perfil.php?accion=5",(resp)=>{
+		datos=JSON.parse(resp);
+		//console.log(datos);
+		$("#articulosPublicados").html(datos.cantidadAnuncio);
+		$("#calificacionUsuario").html(datos.cantidadEstrellas);
+
+	});
+
 	$("#confirma-eliminar").click(function (event) {	//Petición ajax para dar de baja cuenta
 		event.preventDefault();
 		$.ajax({

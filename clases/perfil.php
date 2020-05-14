@@ -179,4 +179,23 @@
         }
 
         break;
+        case '5':
+            session_start();
+
+            $idUsuario=$_SESSION["usuario"]["idUsuario"];
+            $conexion = new conexion(); 
+            $sql = "SELECT cv.cantidadEstrellas,(SELECT COUNT(idUsuario) FROM anuncios WHERE idUsuario='$idUsuario') as cantidadAnuncio FROM usuario as U
+                    INNER JOIN calificacionesvendedor as cv
+                    ON cv.idUsuario=U.idUsuario
+                    WHERE U.idUsuario='$idUsuario';";
+
+            $respuesta = $conexion->ejecutarInstruccion($sql);
+            if (!$respuesta) {
+                echo "Error en consulta vendedor";
+            } else {
+                $datos = $conexion->obtenerFila($respuesta);
+                echo json_encode(array("cantidadAnuncio"=>$datos["cantidadAnuncio"],"cantidadEstrellas"=>$datos["cantidadEstrellas"]));
+            }
+        break;
+
     }

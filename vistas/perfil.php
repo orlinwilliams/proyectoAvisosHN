@@ -219,7 +219,7 @@ session_start();
             <!-- Menu -->
             <div class="menu">
                 <ul class="list">
-                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="header">Panel de navegacion</li>
                     <?php
                     if ($_SESSION["usuario"]["tipousuario"] == "Administrador") {
                         echo '<li ">
@@ -404,15 +404,15 @@ session_start();
                             <ul>
                                 <li>
                                     <span>Articulos publicados</span>
-                                    <span>cargar desde la base</span>
+                                    <span id="articulosPublicados">cargar desde la base</span>
                                 </li>
                                 <li>
                                     <span>Calificacion Vendedor</span>
-                                    <span>cargar desde la base</span>
+                                    <span id="calificacionUsuario">cargar desde la base</span>
                                 </li>
                                 <li>
-                                    <span>Calificacion Comprador</span>
-                                    <span>cargar desde la base</span>
+                                    <span>Unido desde</span>
+                                    <span><?php echo $_SESSION["usuario"]["fechaRegistro"] ?></span>
                                 </li>
                             </ul>
                             <!--<button class="btn btn-primary btn-lg waves-effect btn-block">FOLLOW</button>-->
