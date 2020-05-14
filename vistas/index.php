@@ -170,6 +170,9 @@ session_start();
                       <span>Administración</span>
                     </a>
                     <ul class="ml-menu">
+                    <li>
+                    <a href="configuraciones.php">Configuraciones</a>
+                  </li>
                       <li>
                         <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
                       </li>
@@ -367,14 +370,14 @@ session_start();
           </div>
         </div>
       </div>
-          <div class="contenedor">
-      <button class="botonF1" data-toggle="modal" data-target="#modalArticulo">
-        <span>+
-        </span>
-      </button>
-    </div>
-    <div id="contenedorTarjeta" class="row clearfix cards">
-    </div>
+      <div class="contenedor">
+        <button class="botonF1" data-toggle="modal" data-target="#modalArticulo">
+          <span>+
+          </span>
+        </button>
+      </div>
+      <div id="contenedorTarjeta" class="row clearfix cards">
+      </div>
     </div>
 
 
@@ -391,8 +394,8 @@ session_start();
   <!--Modal que carga la información del vendedor-->
   <div class="modal fade" id="modalVendedor" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-per" role="document">
-      <div class="modal-content" >
-        <div class="modal-body modal-body-per"id="contenidoModalVendedor">
+      <div class="modal-content">
+        <div class="modal-body modal-body-per" id="contenidoModalVendedor">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#defaultModal" data-dismiss="modal">Cerrar</button>
@@ -428,7 +431,6 @@ session_start();
                   <input type="text" class="form-control" name="nombre" id="nombre" required>
                   <label class="form-label">Nombre del articulo</label>
                 </div>
-
               </div>
               <div class=" form-group form-float" style="display:flex">
                 <div class="form-group form-float" style="margin:0px; margin-right:5px; padding:0px; width:150px">

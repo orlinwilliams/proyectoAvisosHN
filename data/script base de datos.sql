@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 05-05-2020 a las 22:22:46
+-- Tiempo de generación: 14-05-2020 a las 21:34:49
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -551,15 +551,14 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
 --
 
 INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`, `precio`, `nombre`, `descripcion`, `fechaPublicacion`, `estadoArticulo`, `estadoAnuncio`, `fechaLimite`) VALUES
-(57, 3, 0, 170, '$ 8000', 'iPhone X', 'iPhone X con 3 meses de uso, doy 2 meses de garantía', '2014-02-05 00:21:20', 'Usado', 'A', NULL),
-(56, 3, 2, 160, 'L 1800', 'Prueba 8', 'Nueva descripcion', '2020-01-05 00:21:20', 'Usado', 'A', NULL),
+(57, 3, 0, 170, '$ 8000', 'iPhone X', 'iPhone X con 3 meses de uso, doy 2 meses de garantía', '2014-02-03 00:21:20', 'Usado', 'A', NULL),
+(56, 4, 2, 160, 'L 1800', 'Prueba 8', 'Nueva descripcion', '2019-01-02 00:21:20', 'Usado', 'A', NULL),
 (58, 3, 0, 190, 'L 100', 'pruebaHomero', 'pruebaHomero', '2015-03-05 00:21:20', 'Nuevo', 'A', NULL),
-(59, 3, 0, 10, 'L 1000', 'prueba2', 'prueba2', '2020-04-05 00:21:20', 'Nuevo', 'A', NULL),
+(59, 4, 0, 10, 'L 1000', 'prueba2', 'prueba2', '2019-04-05 00:21:20', 'Nuevo', 'A', NULL),
 (62, 4, 0, 44, '$ 50000', 'Lapotop 1', 'PROBANDO ACTUALIZAR DATOS 2', '2019-07-05 00:21:20', 'Restaurado', 'A', NULL),
-(61, 4, 0, 36, '$ 40000', 'PS4', 'intentando corregir datos', '2020-06-05 00:21:20', 'Restaurado', 'A', NULL),
+(61, 4, 0, 36, '$ 40000', 'PS4', 'intentando corregir datos', '2020-06-06 00:21:20', 'Restaurado', 'A', NULL),
 (60, 4, 0, 22, 'L 100000', 'Celular SAMSUNG', 'testing 3 name', '2019-05-05 00:21:20', 'Nuevo', 'A', NULL),
-(63, 3, 1, 66, '$ 3500', 'RX 470', 'Como nueva', '2020-08-05 00:21:20', 'Usado', 'A', NULL),
-(64, 3, 1, 79, 'L 21000', 'RTX 2080 TI', 'Nueva de 11GB', '2014-09-05 00:21:20', 'Nuevo', 'A', NULL),
+(63, 3, 1, 66, '$ 3500', 'RX 470', 'Como nueva', '2020-08-03 00:21:20', 'Usado', 'A', NULL),
 (65, 3, 3, 90, '$ 8000', 'Xbox One X', 'Consola nueva con 2 controles y forza horizon 4', '2020-10-05 00:21:20', 'Nuevo', 'A', NULL),
 (66, 3, 5, 125, 'L 30000', 'APPLE SMART TV', 'No funciona WiFi', '2020-11-05 00:21:20', 'Usado', 'A', NULL),
 (67, 3, 0, 170, '$ 19000', 'Red Magic 5g', 'Totalmente nuevo, para conocer mas detalle ponte en contacto', '2020-12-05 00:21:20', 'Nuevo', 'A', NULL),
@@ -578,7 +577,7 @@ CREATE TABLE IF NOT EXISTS `calificacionanuncio` (
   `valoracion` int(11) NOT NULL,
   PRIMARY KEY (`idCalificacionAnuncio`),
   KEY `idAnuncios` (`idAnuncios`)
-) ENGINE=MyISAM AUTO_INCREMENT=210 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=214 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `calificacionanuncio`
@@ -737,7 +736,11 @@ INSERT INTO `calificacionanuncio` (`idCalificacionAnuncio`, `idAnuncios`, `valor
 (206, 57, 5),
 (207, 57, 1),
 (208, 64, 4),
-(209, 63, 2);
+(209, 63, 2),
+(210, 65, 4),
+(211, 66, 5),
+(212, 67, 4),
+(213, 68, 2);
 
 -- --------------------------------------------------------
 
@@ -878,7 +881,17 @@ CREATE TABLE IF NOT EXISTS `denuncias` (
   PRIMARY KEY (`idDenuncias`),
   KEY `idrazonDenuncia` (`idrazonDenuncia`),
   KEY `idAnuncios` (`idAnuncios`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `denuncias`
+--
+
+INSERT INTO `denuncias` (`idDenuncias`, `idrazonDenuncia`, `idAnuncios`, `comentarios`, `fechaRegistro`) VALUES
+(1, 8, 58, 'Parece ser un articulo falso', '0000-00-00 00:00:00'),
+(2, 8, 58, 'No es un artículo legítimo', '0000-00-00 00:00:00'),
+(3, 8, 56, 'No es un artículo legítimo', '0000-00-00 00:00:00'),
+(4, 8, 56, 'Parece no tener intención de vender una articulo pues no hay fotos, ni descripción del artículo', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -920,6 +933,22 @@ INSERT INTO `departamentos` (`idDepartamentos`, `nombreDepartamento`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `favoritos`
+--
+
+DROP TABLE IF EXISTS `favoritos`;
+CREATE TABLE IF NOT EXISTS `favoritos` (
+  `idFavoritos` int(11) NOT NULL AUTO_INCREMENT,
+  `idSeguidor` int(11) NOT NULL,
+  `idSeguido` int(11) NOT NULL,
+  PRIMARY KEY (`idFavoritos`),
+  KEY `idSeguidor` (`idSeguidor`),
+  KEY `idSeguido` (`idSeguido`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `fotos`
 --
 
@@ -952,8 +981,6 @@ INSERT INTO `fotos` (`idFotos`, `idAnuncios`, `nombre`, `localizacion`, `size`) 
 (54, 62, 'laptop1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop1.jpg', 71738),
 (62, 63, '1.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/1.jpg', 859917),
 (63, 63, '2.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/2.jpg', 898090),
-(64, 64, '3.png', '../images/fotosAnuncio/sbethuell@gmail.com/3.png', 271286),
-(65, 64, '4.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/4.jpg', 20216),
 (66, 65, '5.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/5.jpg', 67278),
 (67, 65, '6.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/6.jpg', 53671),
 (68, 66, '7.webp', '../images/fotosAnuncio/sbethuell@gmail.com/7.webp', 77540),

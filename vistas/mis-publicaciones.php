@@ -160,6 +160,9 @@ session_start();
                     </a>
                     <ul class="ml-menu">
                     <li>
+                    <a href="configuraciones.php">Configuraciones</a>
+                  </li>
+                    <li>
                         <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
                     </li>
                     <li>

@@ -165,6 +165,9 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                     </a>
                     <ul class="ml-menu">
                       <li>
+                        <a href="configuraciones.php">Configuraciones</a>
+                      </li>
+                      <li>
                         <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
                       </li>
                       <li>
@@ -538,7 +541,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
               </div>
             </div>
           </div>
-          
+
 
           <div id="muestraGraficasRangoFechas" class="row">
             <!-- carga los numeros de las categorias más publicadas-->

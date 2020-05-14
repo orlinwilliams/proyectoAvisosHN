@@ -10,7 +10,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
 <head>
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
-    <title>Gestión de Publicaciones | AvisosHN</title>
+    <title>Configuraciones | AvisosHN</title>
     <!-- Favicon-->
     <link rel="icon" href="../favicon.ico" type="image/x-icon" />
 
@@ -27,14 +27,10 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <link href="../css/style.css" rel="stylesheet" />
     <!-- Sweetalert Css -->
     <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
-    <!-- JQuery DataTable Css -->
-    <link href="../plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-    <!-- Bootstrap DatePicker Css -->
-    <link href="../plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
-    <!-- Bootstrap Material Datetime Picker Css -->
-    <link href="../plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../css/themes/all-themes.css" rel="stylesheet" />
+    <!-- Bootstrap Select Css -->
+    <link href="../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 </head>
 
 <body class="theme-black">
@@ -131,16 +127,12 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
             <div class="menu">
                 <ul class="list" id="menu-lista">
                     <li class="header">Panel de navegación</li>
-                    <?php
-                    if ($_SESSION["usuario"]["tipousuario"] == "Administrador") {
-                        echo '<li>
-                    <a href="dashboard.php">
-                      <i class="material-icons">pie_chart</i>
-                      <span>Dashboard</span>
-                    </a>
-                  </li>';
-                    }
-                    ?>
+                    <li>
+                        <a href="dashboard.php">
+                            <i class="material-icons">pie_chart</i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="index.php">
                             <i class="material-icons">home</i>
@@ -159,30 +151,26 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                             <span>Mis publicaciones</span>
                         </a>
                     </li>
-                    <?php
-                    if ($_SESSION["usuario"]["tipousuario"] == "Administrador") {
-                        echo '<li class="active">
-                    <a href="javascript:void(0);" class="menu-toggle">
-                      <i class="material-icons">widgets</i>
-                      <span>Administración</span>
-                    </a>
-                    <ul class="ml-menu">
-                      <li>
-                        <a href="configuraciones.php">Configuraciones</a>
-                      </li>
-                      <li class="active">
-                        <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
-                      </li>
-                      <li>
-                        <a href="gestion-usuarios.php">Gestión de usuarios</a>
-                      </li>
-                      <li>
-                        <a href="gestion-denuncias.php">Gestión de denuncias</a>
-                      </li>
-                    </ul>
-                  </li>';
-                    }
-                    ?>
+                    <li class="active">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>Administración</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li class="active">
+                                <a href="configuraciones.php">Gestión de publicaciones</a>
+                            </li>
+                            <li>
+                                <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
+                            </li>
+                            <li>
+                                <a href="gestion-usuarios.php">Gestión de usuarios</a>
+                            </li>
+                            <li>
+                                <a href="gestion-denuncias.php">Gestión de denuncias</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- #Menu -->
@@ -296,56 +284,110 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>GESTIÓN DE PUBLICACIONES</h2>
+                <h2>CONFIGURACIONES</h2>
             </div>
             <!-- Basic Examples -->
             <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <h2>
-                                PUBLICACIONES
+                                GRUPO DE CATEGORIA
                             </h2>
+                            <small>Agregar un nuevo grupo de categoría</small>
                         </div>
                         <div class="body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Categoria</th>
-                                            <th>Precio</th>
-                                            <th>Usuario</th>
-                                            <th>Fecha de publicacion</th>
-                                            <th>Fecha límite</th>
-                                            <th>Eliminar</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Categoria</th>
-                                            <th>Precio</th>
-                                            <th>Usuario</th>
-                                            <th>Fecha de publicacion</th>
-                                            <th>Fecha límite</th>
-                                            <th>Eliminar</th>
-                                        </tr>
-                                    </tfoot>
-                                    <!----------------------->
-                                    <!------CARGAR DATOS----->
-                                    <!----------------------->
-                                    <tbody id="tablaPublicaciones">
-
-                                    </tbody>
-
-
-
-                                </table>
+                            <div class="row clearfix">
+                                <div class="col-md-9">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="nombreGrupo" required>
+                                            <label class="form-label">Nombre del grupo</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1"></div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-primary waves-effect">
+                                        <i class="material-icons">queue</i>
+                                        <span>Agregar</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                CATEGORIA
+                            </h2>
+                            <small>Agregar una nueva categoría</small>
+                        </div>
+                        <div class="body">
+                            <div class="row clearfix">
+                                <div class="col-md-5">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <select class="form-control show-tick" required>
+                                                <option></option>
+                                            </select>
+                                            <label class="form-label">Escoga un grupo</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="nombreGrupo" required>
+                                            <label class="form-label">Nombre de categoría</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-primary waves-effect">
+                                        <i class="material-icons">queue</i>
+                                        <span>Agregar</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                DIAS PARA UNA PUBLICACIÓN
+                            </h2>
+                            <small>Establezca la cantidad de días que quiere que permanezca vigente la publicación</small>
+                        </div>
+                        <div class="body">
+                            <div class="row clearfix">
+                                <div class="col-md-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="number" min="1" max="730"class="form-control money-dollar" required>
+                                            <label class="form-label">Número de días</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-primary waves-effect">
+                                        <i class="material-icons">queue</i>
+                                        <span>Agregar</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -374,23 +416,12 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <script src="../plugins/node-waves/waves.js"></script>
     <!-- Autosize Plugin Js -->
     <script src="../plugins/autosize/autosize.js"></script>
-    <!-- Moment Plugin Js -->
-    <script src="../plugins/momentjs/moment-with-locales.js"></script>
-    <!-- Bootstrap Material Datetime Picker Plugin Js -->
-    <script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-    <!-- Bootstrap Datepicker Plugin Js -->
-    <script src="../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <!-- Custom Js -->
     <script src="../js/admin.js"></script>
     <!-- Demo Js -->
     <script src="../js/demo.js"></script>
-    <!-- Jquery DataTable Plugin Js -->
-    <script src="../plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
     <!-- JQuery dialogs sweetalerplugin js-->
     <script src="../plugins/sweetalert/sweetalert.min.js"></script>
-    <!--Controlador-->
-    <script src="../controlador/gestion-publicaciones.js"></script>
 
 </body>
 

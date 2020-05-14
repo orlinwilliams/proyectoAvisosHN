@@ -327,26 +327,26 @@ switch ($_GET['accion']) { //DATOS DEL DIA
         ///////////////////////////////////////SI LA CANTIDAD DE DÍAS ES MENOR A 7 CARGA LA INFORMACION PARA LOS GRÁFICOS
         if ($interval->format('%R%a') <= '+7') {
             $sqlPublicaciones = "SELECT DATE_FORMAT(fechaPublicacion, '%Y-%m-%d') as fechaPublicacion, CASE DAYOFWEEK(fechaPublicacion)
-                                    WHEN 1 THEN 'lunes'
-                                    WHEN 2 THEN 'Martes'
-                                    WHEN 3 THEN 'Miércoles'
-                                    WHEN 4 THEN 'Jueves'
-                                    WHEN 5 THEN 'Viernes'
-                                    WHEN 6 THEN 'Sábado'
-                                    WHEN 7 THEN 'Domingo'
+                                    WHEN 2 THEN 'lunes'
+                                    WHEN 3 THEN 'Martes'
+                                    WHEN 4 THEN 'Miércoles'
+                                    WHEN 5 THEN 'Jueves'
+                                    WHEN 6 THEN 'Viernes'
+                                    WHEN 7 THEN 'Sábado'
+                                    WHEN 1 THEN 'Domingo'
                                     END Día, COUNT(*) as publicaciones
                                     FROM anuncios
                                     WHERE DATE_FORMAT(fechaPublicacion, '%Y-%m-%d')>='$fecha1' AND DATE_FORMAT(fechaPublicacion, '%Y-%m-%d')<='$fecha2'
                                     GROUP BY Día, fechaPublicacion
                                     ORDER BY fechaPublicacion ASC;";
             $sqlCategoria = "SELECT DATE_FORMAT(fechaPublicacion, '%Y-%m-%d') as fechaPublicacion, nombregrupo, CASE DAYOFWEEK(fechaPublicacion)
-                                WHEN 1 THEN 'lunes'
-                                WHEN 2 THEN 'Martes'
-                                WHEN 3 THEN 'Miércoles'
-                                WHEN 4 THEN 'Jueves'
-                                WHEN 5 THEN 'Viernes'
-                                WHEN 6 THEN 'Sábado'
-                                WHEN 7 THEN 'Domingo'
+                                WHEN 2 THEN 'lunes'
+                                WHEN 3 THEN 'Martes'
+                                WHEN 4 THEN 'Miércoles'
+                                WHEN 5 THEN 'Jueves'
+                                WHEN 6 THEN 'Viernes'
+                                WHEN 7 THEN 'Sábado'
+                                WHEN 1 THEN 'Domingo'
                                 END Día, COUNT(*) as publicaciones
                                 FROM anuncios
                                 INNER JOIN categoria ON categoria.idCategoria=anuncios.idCategoria
@@ -355,13 +355,13 @@ switch ($_GET['accion']) { //DATOS DEL DIA
                                 GROUP BY Día, fechaPublicacion, nombregrupo
                                 ORDER by nombregrupo ASC;";
             $sqlLugar = "SELECT DATE_FORMAT(fechaPublicacion, '%Y-%m-%d') as fechaPublicacion, nombreDepartamento, CASE DAYOFWEEK(fechaPublicacion)
-                            WHEN 1 THEN 'lunes'
-                            WHEN 2 THEN 'Martes'
-                            WHEN 3 THEN 'Miércoles'
-                            WHEN 4 THEN 'Jueves'
-                            WHEN 5 THEN 'Viernes'
-                            WHEN 6 THEN 'Sábado'
-                            WHEN 7 THEN 'Domingo'
+                            WHEN 2 THEN 'lunes'
+                            WHEN 3 THEN 'Martes'
+                            WHEN 4 THEN 'Miércoles'
+                            WHEN 5 THEN 'Jueves'
+                            WHEN 6 THEN 'Viernes'
+                            WHEN 7 THEN 'Sábado'
+                            WHEN 1 THEN 'Domingo'
                             END Día, COUNT(*) as publicaciones
                             FROM anuncios
                             INNER JOIN municipios ON municipios.idMunicipios=anuncios.idMunicipios
@@ -370,13 +370,13 @@ switch ($_GET['accion']) { //DATOS DEL DIA
                             GROUP BY Día, fechaPublicacion, nombreDepartamento
                             ORDER by departamentos.idDepartamentos ASC;";
             $sqlUsuarios = "SELECT DATE_FORMAT(fechaRegistro, '%Y-%m-%d') as fechaRegistro, CASE DAYOFWEEK(fechaRegistro)
-                                WHEN 1 THEN 'lunes'
-                                WHEN 2 THEN 'Martes'
-                                WHEN 3 THEN 'Miércoles'
-                                WHEN 4 THEN 'Jueves'
-                                WHEN 5 THEN 'Viernes'
-                                WHEN 6 THEN 'Sábado'
-                                WHEN 7 THEN 'Domingo'
+                                WHEN 2 THEN 'lunes'
+                                WHEN 3 THEN 'Martes'
+                                WHEN 4 THEN 'Miércoles'
+                                WHEN 5 THEN 'Jueves'
+                                WHEN 6 THEN 'Viernes'
+                                WHEN 7 THEN 'Sábado'
+                                WHEN 1 THEN 'Domingo'
                                 END Día, COUNT(idUsuario) as publicaciones
                                 FROM usuario
                                 WHERE DATE_FORMAT(fechaRegistro, '%Y-%m-%d')>='$fecha1' AND DATE_FORMAT(fechaRegistro, '%Y-%m-%d')<='$fecha2'
