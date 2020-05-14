@@ -298,10 +298,10 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                         </div>
                         <div class="body">
                             <div class="row clearfix">
-                                <div class="col-md-9">
+                                <div class="col-md-8">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" id="nombreGrupo" required>
+                                            <input type="text" class="form-control"  required>
                                             <label class="form-label">Nombre del grupo</label>
                                         </div>
                                     </div>
@@ -327,7 +327,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                         </div>
                         <div class="body">
                             <div class="row clearfix">
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             <select class="form-control show-tick" required>
@@ -340,7 +340,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                 <div class="col-md-5">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" id="nombreGrupo" required>
+                                            <input type="text" class="form-control"  required>
                                             <label class="form-label">Nombre de categoría</label>
                                         </div>
                                     </div>
@@ -370,17 +370,17 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                 <div class="col-md-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="number" min="1" max="730"class="form-control money-dollar" required>
+                                            <input type="number" min="1" max="730"class="form-control money-dollar" id="cantidad_dias" required>
                                             <label class="form-label">Número de días</label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                 </div>
                                 <div class="col-md-2">
-                                    <button type="button" class="btn btn-primary waves-effect">
-                                        <i class="material-icons">queue</i>
-                                        <span>Agregar</span>
+                                    <button type="button" class="btn btn-primary waves-effect" id="agregarDias">
+                                        <i class="material-icons">swap_horiz</i>
+                                        <span>Cambiar</span>
                                     </button>
                                 </div>
                             </div>
@@ -422,7 +422,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <script src="../js/demo.js"></script>
     <!-- JQuery dialogs sweetalerplugin js-->
     <script src="../plugins/sweetalert/sweetalert.min.js"></script>
-
+    <script src="../controlador/configuraciones.js"></script>
 </body>
 
 </html>
