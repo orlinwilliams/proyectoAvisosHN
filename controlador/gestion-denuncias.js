@@ -59,56 +59,56 @@ eliminarUsuario = function (idUsuario) {
 /////////////////////////////////////////////VISTA DE LA TABLA DENUNCIAS
 tablaGestionDenuncias = function () {
   $.ajax({
-      url: "../clases/gestion-denuncias.php?accion=1",
-      success: function (resp) {
-      let datos = JSON.parse(resp);
-      var filas = "";
-      let i=0;
-      for (let item of datos) {
-        //RECORRER EL JSON
-        filas +="<tr>"+
-        "<td>"+item.idDenuncias+"</td>"+
-        "<td>"+item.descripcion+"</td>"+
-        "<td>"+item.comentarios+"</td>"+
-        "<td>"+item.pNombre+"</td>"+
-        "<td>"+item.nombre+"</td>"+
-        "<td>"+
-        "<button type='button' class='btn bg-red waves-effect' onclick='eliminarPublicacion("+item.idAnuncios+","+item.idUsuario+")'>"+
-        "<i class='material-icons'>delete_forever</i>"+
-        "</button>"+
-        "</td>"+
-        "<td style=' text-align:center;''> <button type='button' class='btn bg-red waves-effect' onclick='eliminarUsuario("+item.idUsuario+")'>"+
-        "<i class='material-icons'>delete_forever</i>"+
-        "</button></td>"+
-        "</tr>"
-        ;
-        $("#tablaDenuncias").html(filas);
-        //////////////////////////////////////////// DATATIME PICKER WITH MOMENTS
-        i=i+1;
-      }
-      ///////////////////////////////////////////// FUNCIÓN PARA LA INICIALIZACIÓN DE LA TABLA
-      $(function () {
-        $(".js-basic-example").DataTable({
-          retrieve: true,
-          responsive: true,
-        });
+    url: "../clases/gestion-denuncias.php?accion=1",
+    success: function (resp) {
+    let datos = JSON.parse(resp);
+    var filas = "";
+    let i=0;
+    for (let item of datos) {
+      //RECORRER EL JSON
+      filas +="<tr>"+
+      "<td>"+item.idDenuncias+"</td>"+
+      "<td>"+item.descripcion+"</td>"+
+      "<td>"+item.comentarios+"</td>"+        
+      "<td><a href='a' data-toggle='modal' data-target='#modalVendedor' onclick='infoVendedor("+item.idUsuario+")'>"+item.pNombre+"</a></td>"+
+      "<td><a href='a' data-toggle='modal' data-target='#defaultModal' onclick='cargarArticulo("+item.idAnuncios+")'>"+item.nombre+"</a></td>"+
+      "<td>"+
+      "<button type='button' class='btn bg-red waves-effect' onclick='eliminarPublicacion("+item.idAnuncios+","+item.idUsuario+")'>"+
+      "<i class='material-icons'>delete_forever</i>"+
+      "</button>"+
+      "</td>"+
+      "<td style=' text-align:center;''> <button type='button' class='btn bg-red waves-effect' onclick='eliminarUsuario("+item.idUsuario+")'>"+
+      "<i class='material-icons'>delete_forever</i>"+
+      "</button></td>"+
+      "</tr>"
+      ;
+      $("#tablaDenuncias").html(filas);
+      //////////////////////////////////////////// DATATIME PICKER WITH MOMENTS
+      i=i+1;
+    }
+    ///////////////////////////////////////////// FUNCIÓN PARA LA INICIALIZACIÓN DE LA TABLA
+    $(function () {
+      $(".js-basic-example").DataTable({
+        retrieve: true,
+        responsive: true,
       });
-      $(function () {
-        //Textarea auto growth
-        autosize($("textarea.auto-growth"));
-        //Datetimepicker plugin
-        $(".datetimepicker").bootstrapMaterialDatePicker({
-          format: "YYYY-MM-DD HH:mm",
-          clearButton: true,
-          weekStart: 1,
-          linkField : "fecha1" ,
-        });
+    });
+    $(function () {
+      //Textarea auto growth
+      autosize($("textarea.auto-growth"));
+      //Datetimepicker plugin
+      $(".datetimepicker").bootstrapMaterialDatePicker({
+        format: "YYYY-MM-DD HH:mm",
+        clearButton: true,
+        weekStart: 1,
+        linkField : "fecha1" ,
       });
-    },
-    error: function (error) {
-      console.log(error);
-    },
-  });
+    });
+  },
+  error: function (error) {
+    console.log(error);
+  },
+});
 };
 ///////////////////////////////////////////// FUNCION PARA CARGAR LA INFORMACIÓN DEL ARTÍCULO
 cargarArticulo = function (idAnuncio) {
