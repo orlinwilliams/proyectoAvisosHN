@@ -397,9 +397,7 @@ session_start();
       <div class="modal-content">
         <div class="modal-body modal-body-per" id="contenidoModalVendedor">
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-link waves-effect" data-toggle="modal" data-target="#defaultModal" data-dismiss="modal">Cerrar</button>
-        </div>
+        
       </div>
     </div>
   </div>

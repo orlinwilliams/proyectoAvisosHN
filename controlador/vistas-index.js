@@ -9,7 +9,7 @@ $(document).ready(function () {
     autoProcessQueue: false,
     uploadMultiple: true,
     parallelUploads: 100,
-    maxFiles: 8, //CANTIDAD DE IMAGENES
+    maxFiles: 10, //CANTIDAD DE IMAGENES
     paramName: "file",
     clickable: true,
     url: "../clases/mis-publicaciones.php?accion=2",
@@ -227,7 +227,6 @@ infoVendedor = function (idUsuario) {
           datos.anunciosVendedor[i].fechaAnuncio +
           "</div>" +
           "<div style='margin-left:90%'>" +
-          "L " +
           datos.anunciosVendedor[i].precioAnuncio +
           "</div>" +
           "</div>" +
@@ -417,9 +416,16 @@ cargarArticulo = function (idAnuncio) {
     data: "idAnuncio=" + idAnuncio,
     success: function (resultado) {
       let datos = JSON.parse(resultado);
+      console.log(datos.info);
       var img = "";
       for (var i = 0; i < datos.info.fotos.length; i++) {
         img += "<img src='" + datos.info.fotos[i] + "'/>";
+      }
+      if(datos.info.sigueVendedor==true){
+        var iconoFavorito="<i style='cursor:pointer' onclick=quitarFavorito(" +datos.info.idUsuario+") class='material-icons' title='QUITAR FAVORITO'>favorite</i>";
+      }
+      else{
+        var iconoFavorito="<i style='cursor:pointer' onclick=agregarFavorito(" +datos.info.idUsuario+") class='material-icons' title='AGREGAR A FAVORITO'>favorite_border</i>";
       }
       $("#infoArticulo").empty();
       $("#infoArticulo").html(
@@ -443,7 +449,6 @@ cargarArticulo = function (idAnuncio) {
           "</a>" +
           "<ul class='dropdown-menu pull-right'>" +
           "<li><a href='#' data-toggle='modal' data-target='#denuncias'>Denunciar</a></li>" +
-          "<li><a href='javascript:void(0);'>Agregar a favoritos</a></li>" +
           "<li><a href='#' data-toggle='modal' data-target='#modalCompartir'>Compartir</a></li>" +
           "</ul>" +
           "</li>" +
@@ -478,11 +483,10 @@ cargarArticulo = function (idAnuncio) {
           "<a class='col-lg-4' aria-label='Foto del vendedor' data-toggle='modal'  data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor(" +
           datos.info.idUsuario +
           ")>" +
-          "<img class='imagen-vendedor' src='" +
+          "<img class='imagen-vendedor' title='VER LA INFORMACION DEL VENDEDOR' style='cursor:pointer' src='" +
           datos.info.urlFoto +
-          "' alt=''> </a>" +
-
-          "<p class='font-vendedor'><a data-toggle='modal' data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor(" +
+          "'> </a>" +
+          "<p class='font-vendedor'><a data-toggle='modal' style='cursor:pointer' title='VER LA INFORMACION DEL VENDEDOR' data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor(" +
           datos.info.idUsuario +
           ")>" +
           datos.info.nombreUsuario +
@@ -490,10 +494,8 @@ cargarArticulo = function (idAnuncio) {
           "<p class='registro-de-vendedor'>Unido desde " +
           datos.info.fechaRegistro +
           "</p>" +
-
           "</div>" +
           "<div class='div-nombre col-lg-12' style='margin:0px; padding:0px; margin-top: 10px'>" +
-          
           "<div class='demo-google-material-icon col-lg-12' style='color:black; padding:0px; margin-bottom:15px'>" +
           "<span class='icon-name col-lg-6' style='font-size:22px; padding:0px; text-align:center'><strong>Valoración: </strong>" +
           datos.info.valoración +
@@ -509,6 +511,7 @@ cargarArticulo = function (idAnuncio) {
           "<span class='icon-name' style='font-size:22px; text-align:cente'><strong>+" +
           datos.info.numTelefono +
           "</strong></span>" +
+          "<div class='demo-google-material-icon' id='iconoFavorito'></div>" +
           "</div>" +
           "<br>" +
           "<div>" +
@@ -524,6 +527,7 @@ cargarArticulo = function (idAnuncio) {
           "</div>" +
           "<script src='https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js'></script>"
       );
+      $("#iconoFavorito").html(iconoFavorito);
     },
   });
 };
@@ -697,3 +701,60 @@ municipios = function () {
     },
   }); //Fin ajax municipios
 }; //Fin funcion para llenar los municipios
+
+
+agregarFavorito=(idUsuario)=>{
+  //alert("prueba bien"+ idUsuario);
+
+  $.ajax({
+    url: "../clases/vistas-index.php?accion=11",
+    method: "POST",
+    data: "idSeguido=" + idUsuario,
+
+    success: function (resp) {
+      var datos = JSON.parse(resp);
+      if(datos.error==true){
+        alert(datos.mensaje);
+      }
+      if(datos.error==false){
+        alert(datos.mensaje);
+        $("#iconoFavorito").html("<i style='cursor:pointer' onclick=quitarFavorito("+datos.idSeguido +") class='material-icons' title='QUITAR FAVORITO'>favorite</i>");
+        
+
+      }
+
+    
+    },
+    error:(error)=>{
+      console.log("ERROR EN SERVER");
+    }
+  });
+
+}
+
+quitarFavorito=(idSeguido)=>{
+  $.ajax({
+    url: "../clases/vistas-index.php?accion=12",
+    method: "POST",
+    data: "idSeguido=" + idSeguido,
+
+    success: function (resp) {
+      var datos = JSON.parse(resp);
+      if(datos.error==true){
+        alert(datos.mensaje);
+      }
+      if(datos.error==false){
+        alert(datos.mensaje);
+        $("#iconoFavorito").html("<i style='cursor:pointer' onclick=agregarFavorito("+datos.idSeguido +") class='material-icons' title='AGREGAR FAVORITO'>favorite_border</i>");
+        
+
+      }
+
+    
+    },
+    error:(error)=>{
+      console.log("ERROR EN SERVER");
+    }
+  });
+
+}
