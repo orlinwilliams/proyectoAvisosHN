@@ -221,7 +221,7 @@
                     echo json_encode($usuariosSeguidos);
                 }
                 else{
-                    echo json_encode(array("error"=>true,"mensaje"=>"No sigues vendeores todavia"));
+                    echo json_encode(array("error"=>true,"mensaje"=>"No sigues vendedores todavia"));
                 }
  
             }

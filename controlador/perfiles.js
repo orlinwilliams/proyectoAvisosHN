@@ -128,10 +128,18 @@ misFavoritos=()=>{
 			datos=JSON.parse(resp);
 			//console.log(datos);
 			filaUsuario="";
-			for(let item of datos){
-				filaUsuario+="<tr><td><a onclick='infoVendedor("+item.idSeguido+")' data-toggle='modal'  data-target='#modalVendedor' data-dismiss='modal'>"+item.nombreVendedor+" </a></td></tr>";
+			if(datos.error==true){
+				filaUsuario+="<tr><td>"+datos.mensaje+" </td></tr>";
+				$("#filaUsuariosSeguidos").html(filaUsuario);
 			}
-			$("#filaUsuariosSeguidos").html(filaUsuario);
+			else{
+				
+				for(let item of datos){
+					filaUsuario+="<tr><td><a onclick='infoVendedor("+item.idSeguido+")' data-toggle='modal'  data-target='#modalVendedor' data-dismiss='modal'>"+item.nombreVendedor+" </a></td></tr>";
+				}
+				$("#filaUsuariosSeguidos").html(filaUsuario);
+			}
+			
 
 		},
 		error: function (error) {
