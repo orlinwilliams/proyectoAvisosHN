@@ -9,7 +9,7 @@ $(document).ready(function () {
     autoProcessQueue: false,
     uploadMultiple: true,
     parallelUploads: 100,
-    maxFiles: 8, //CANTIDAD DE IMAGENES
+    maxFiles: 10, //CANTIDAD DE IMAGENES
     paramName: "file",
     clickable: true,
     url: "../clases/mis-publicaciones.php?accion=2",
@@ -450,7 +450,6 @@ cargarArticulo = function (idAnuncio) {
           "</a>" +
           "<ul class='dropdown-menu pull-right'>" +
           "<li><a href='#' data-toggle='modal' data-target='#denuncias'>Denunciar</a></li>" +
-          "<li><a onclick=agregarFavorito(" +datos.info.idUsuario+")>Agregar a favoritos</a></li>" +
           "<li><a href='#' data-toggle='modal' data-target='#modalCompartir'>Compartir</a></li>" +
           "</ul>" +
           "</li>" +
