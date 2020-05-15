@@ -198,4 +198,34 @@
             }
         break;
 
+        case '6':
+            session_start();
+
+            $idSeguidor=$_SESSION["usuario"]["idUsuario"];
+            $conexion = new conexion(); 
+            $sql = "SELECT idSeguido, concat_ws(' ',U.pnombre, U.papellido) as nombreVendedor FROM favoritos as F 
+            INNER JOIN usuario as U 
+            ON  F.idSeguido=U.idUsuario
+            WHERE idSeguidor='$idSeguidor'";
+
+            $respuesta = $conexion->ejecutarInstruccion($sql);
+            if (!$respuesta) {
+                echo "Error en consulta SEGUIDO";
+            } else {
+                if($respuesta->num_rows!=0){
+                    $usuariosSeguidos=array();
+                    while($row = $conexion->obtenerFila($respuesta)){
+                        $usuariosSeguidos[]=array("idSeguido"=>$row["idSeguido"],"nombreVendedor"=>$row["nombreVendedor"]);
+
+                    }
+                    echo json_encode($usuariosSeguidos);
+                }
+                else{
+                    echo json_encode(array("error"=>true,"mensaje"=>"No sigues vendeores todavia"));
+                }
+ 
+            }
+            $conexion->cerrarConexion();
+        break;
+
     }

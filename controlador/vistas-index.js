@@ -227,7 +227,6 @@ infoVendedor = function (idUsuario) {
           datos.anunciosVendedor[i].fechaAnuncio +
           "</div>" +
           "<div style='margin-left:90%'>" +
-          "L " +
           datos.anunciosVendedor[i].precioAnuncio +
           "</div>" +
           "</div>" +

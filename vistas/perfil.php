@@ -327,6 +327,7 @@ session_start();
                                             perfil</a>
                                     </li>
                                     <li role="presentation"><a href="#change_password_settings" aria-controls="settings" role="tab" data-toggle="tab">Cambiar contraseña</a></li>
+                                    <li role="presentation"><a href="#show_favorite" onclick="misFavoritos()" aria-controls="settings" role="tab" data-toggle="tab">Ver mis favoritos</a></li>
                                 </ul>
 
                                 <div class="tab-content">
@@ -447,6 +448,26 @@ session_start();
                                             </div>
                                         </form>
                                     </div>
+
+                                    <div role="tabpanel" class="tab-pane fade in" id="show_favorite" >
+                                        <form class="form-horizontal">
+                                            <div class="body table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>NOMBRE VENDEDOR</th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="filaUsuariosSeguidos">
+                                                        
+                                                       
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </form>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -454,6 +475,18 @@ session_start();
                 </div>
             </div>
         </div>
+        <!--Modal que carga la información del vendedor-->
+        <div class="modal fade" id="modalVendedor" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-per" role="document">
+            <div class="modal-content">
+                <div class="modal-body modal-body-per" id="contenidoModalVendedor">
+                </div>
+                
+            </div>
+            </div>
+        </div>
+
+
         <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true ">
             <div class="modal-dialog modal-dialog-centered" role="document ">
                 <div class="modal-content">

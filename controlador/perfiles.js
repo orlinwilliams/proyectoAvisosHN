@@ -120,3 +120,128 @@ municipios = function () {														//Inicio funcion para llenar los municip
 	});																			//Fin ajax municipios
 
 };
+
+misFavoritos=()=>{
+	$.ajax({																	
+		url: "../clases/perfil.php?accion=6",
+		success: function (resp) {
+			datos=JSON.parse(resp);
+			//console.log(datos);
+			filaUsuario="";
+			for(let item of datos){
+				filaUsuario+="<tr><td><a onclick='infoVendedor("+item.idSeguido+")' data-toggle='modal'  data-target='#modalVendedor' data-dismiss='modal'>"+item.nombreVendedor+" </a></td></tr>";
+			}
+			$("#filaUsuariosSeguidos").html(filaUsuario);
+
+		},
+		error: function (error) {
+			console.log(error);
+		}
+	});
+}	
+
+infoVendedor = function (idUsuario) {
+	$.ajax({
+	  url: "../clases/vistas-index.php?accion=5",
+	  method: "GET",
+	  data: "idUsuario=" + idUsuario,
+	  success: function (resp) {
+		var datos = JSON.parse(resp);
+		//console.log(datos);
+		historialAnuncios = "";
+		for (var i = 0; i < datos.anunciosVendedor.length; i++) {
+		  historialAnuncios +=
+			"<li>" +
+			"<div class='title'>" +
+			datos.anunciosVendedor[i].nombreAnuncio +
+			"</div>" +
+			"<div class='content'>" +
+			"<div style='float:left;'>" +
+			datos.anunciosVendedor[i].fechaAnuncio +
+			"</div>" +
+			"<div style='margin-left:90%'>" +
+			datos.anunciosVendedor[i].precioAnuncio +
+			"</div>" +
+			"</div>" +
+			"</li>";
+		}
+		
+		var nombreCompleto =datos.datosVendedor.pNombre + " " + datos.datosVendedor.pApellido;
+		//console.log(datos);
+		var modal =
+		  "<div class='modal-header' style='text-align:center'>" +
+		  "<h4 class='modal-title' id='defaultModalLabel'></h4>" +
+		  "</div>" +
+		  
+		  "<div class='card profile-card'>" +
+		  "<div class='profile-header'>&nbsp;</div>" +
+		  "<div class='profile-body'>" +
+		  "<div class='image-area'>" +
+		  "<img src=" +
+		  datos.datosVendedor.urlFoto +
+		  " alt=" +
+		  nombreCompleto +
+		  " width='200px' height='200px' />" +
+		  "</div>" +
+		  "<div class='content-area'>" +
+		  "<h3>" +
+		  nombreCompleto +
+		  "</h3>" +
+		  "<p>" +
+		  datos.datosVendedor.fechaRegistro +
+		  "</p>" +
+		  "<p>" +
+		  datos.datosVendedor.tipoUsuario +
+		  "</p>" +
+		  "</div>" +
+		  "</div>" +
+		  "<div class='profile-footer'>" +
+		  "<ul>" +
+		  "<li>" +
+		  "<span>Valoración</span>" +
+		  "<span>" +
+		  datos.datosVendedor.cantidadEstrellas +
+		  "</span>" +
+		  "</li>" +
+		  "<li>" +
+		  "<span>ArticulosPublicados</span>" +
+		  "<span>" +
+		  datos.datosVendedor.cantidadAnuncio +
+		  "</span>" +
+		  "</li>" +
+		  "<li>" +
+		  "<span>Correo Electrónico</span>" +
+		  "<span>" +
+		  datos.datosVendedor.correoElectronico +
+		  "</span>" +
+		  "</li>" +
+		  "</ul>" +
+		  "</div>" +
+		  "</div>" +
+		  "<div class='card card-about-me' style='max-height:400px; overflow-y:scroll;'>" +
+		  "<div class='header' style='text-align:center'>" +
+		  "<h2>HISTORIAL</h2>" +
+		  "<small>(Se mantiene el registro de los últimos 90 días)</small>" +
+		  "</div>" +
+		  "<div class='body' style='height: auto;'>" +
+		  "<ul>" +
+		  historialAnuncios +
+		  "</ul>" +
+		  "</div>" +
+		  "</div>" +
+		  
+		  "<div class='modal-footer'>" +
+		  "<button type='button' class='btn btn-link waves-effect' data-toggle='modal' data-target='#defaultModal'" +
+		  "data-dismiss='modal'>Cerrar</button>" +
+		  "</div>" +
+		  "<script src='https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js'></script>";
+		$("#contenidoModalVendedor").empty();
+		$("#contenidoModalVendedor").html(modal);
+  
+		
+	  },
+	  error: function (error) {
+		console.log(error);
+	  },
+	});
+  };
