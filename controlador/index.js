@@ -109,7 +109,7 @@ $(document).ready(function () {																//document
                           "</a>" +
                           "<h2>" +
                           item.nombre +
-                          "<small>L " +
+                          "<small> " +
                           item.precio +
                           "</small>" +
                           "</h2>" +
@@ -192,7 +192,7 @@ publicacionesInicioIndex = function () { //PUBLICACIONES DE INICIO
                     + "</a>"
                     + "<h2>" +
                     item.nombre
-                    + "<small>L " + item.precio + "</small>"
+                    + "<small> " + item.precio + "</small>"
                     + "</h2>"
                     + "</div>"
                     + "<div class='card-flap flap1'>"

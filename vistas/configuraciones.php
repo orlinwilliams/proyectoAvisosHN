@@ -317,14 +317,14 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                         <div class="col-md-8">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" required>
+                                                    <input id="grupoCate" type="text" class="form-control" required>
                                                     <label class="form-label">Nombre del grupo</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-1"></div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary waves-effect">
+                                            <button id="agregarGrupo" type="button" class="btn btn-primary waves-effect">
                                                 <i class="material-icons">queue</i>
                                                 <span>AGREGAR</span>
                                             </button>
@@ -336,7 +336,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                         <div class="col-md-8">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <select class="form-control show-tick" required>
+                                                    <select id="grupoCategoria" class="form-control show-tick" required>
                                                         <option></option>
                                                     </select>
                                                     <label class="form-label">Escoga un grupo</label>
@@ -385,7 +385,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                         <div class="col-md-4">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <select class="form-control show-tick" required>
+                                                    <select id="grupoCategoria1" class="form-control show-tick" required>
                                                         <option></option>
                                                     </select>
                                                     <label class="form-label">Escoga un grupo</label>
@@ -395,13 +395,13 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                         <div class="col-md-5">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" required>
+                                                    <input id="agregarCat" type="text" class="form-control" required>
                                                     <label class="form-label">Nombre de categoría</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary waves-effect">
+                                            <button type="button" id="agregarCategoria" class="btn btn-primary waves-effect">
                                                 <i class="material-icons">queue</i>
                                                 <span>AGREGAR</span>
                                             </button>
@@ -413,7 +413,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                         <div class="col-md-4">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <select class="form-control show-tick" required>
+                                                    <select id="grupoCategoria2" class="form-control show-tick" required>
                                                         <option></option>
                                                     </select>
                                                     <label class="form-label">Escoga un grupo</label>
@@ -423,7 +423,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                         <div class="col-md-5">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <select class="form-control show-tick" required>
+                                                    <select class="form-control show-tick" id="listacategorias" required>
                                                         <option></option>
                                                     </select>
                                                     <label class="form-label">Escoga una categoría</label>

@@ -385,7 +385,7 @@ session_start();
   <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
   <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-per modal-lg " role="document" style="width:70%">
-      <div class="modal-content" style="height:600px">
+      <div class="modal-content" style="">
         <div class="modal-body modal-body-per" id="infoArticulo">
         </div>
       </div>

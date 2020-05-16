@@ -487,13 +487,14 @@ cargarArticulo = function (idAnuncio) {
           "</div>" +
           "<div class='vendedor'>" +
           "<p class='font-vendedor'>Información del vendedor</p>" +
-          "<div class='div-imagen col-lg-12' style=''>" +
-          "<a class='col-lg-4' aria-label='Foto del vendedor' data-toggle='modal'  data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor(" +
+          "<div class='div-imagen col-lg-12 col-sm-12 col-xs-12' style=''>" +
+          "<a class='col-lg-3 col-sm-3 col-xs-3' aria-label='Foto del vendedor' data-toggle='modal'  data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor(" +
           datos.info.idUsuario +
           ")>" +
           "<img class='imagen-vendedor' title='VER LA INFORMACION DEL VENDEDOR' style='cursor:pointer' src='" +
           datos.info.urlFoto +
           "'> </a>" +
+          "<div class='col-lg-7 col-sm-7 col-xs-7'>" +
           "<p class='font-vendedor'><a data-toggle='modal' style='cursor:pointer' title='VER LA INFORMACION DEL VENDEDOR' data-target='#modalVendedor' data-dismiss='modal' onclick=infoVendedor(" +
           datos.info.idUsuario +
           ")>" +
@@ -502,6 +503,9 @@ cargarArticulo = function (idAnuncio) {
           "<p class='registro-de-vendedor'>Unido desde " +
           datos.info.fechaRegistro +
           "</p>" +
+          "</div>" +
+          "<div class='demo-google-material-icon  col-lg-2 col-sm-2 col-xs-2' id='iconoFavorito'></div>" +
+          "</div>" +
           "</div>" +
           "<div class='div-nombre col-lg-12' style='margin:0px; padding:0px; margin-top: 10px'>" +
           "<div class='demo-google-material-icon col-lg-12' style='color:black; padding:0px; margin-bottom:15px'>" +
@@ -519,7 +523,6 @@ cargarArticulo = function (idAnuncio) {
           "<span class='icon-name' style='font-size:22px; text-align:cente'><strong>+" +
           datos.info.numTelefono +
           "</strong></span>" +
-          "<div class='demo-google-material-icon' id='iconoFavorito'></div>" +
           "</div>" +
           "<br>" +
           "<div>" +

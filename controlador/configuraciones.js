@@ -30,5 +30,73 @@ $(document).ready(function () {
       }
     );
   });
+  $("#agregarGrupo").click(function (event) {								
+		event.preventDefault();
+		$.ajax({																
+			url: "../clases/configuraciones.php?accion=1",
+			method: "POST",
+      data: "grupo=" + $("#grupoCate").val(),			
+			success: function (resultado) {
+        console.log(resultado);
+       
+          $("#cuerpoModal").empty();																		
+          $("#cuerpoModal").html(resultado);													
+          $("#ModalMensaje").modal("show");
+        
+        
+      },
+		});																	
+  });
+  
+  $("#agregarCategoria").click(function (event) {								
+		event.preventDefault();
+		$.ajax({																
+			url: "../clases/configuraciones.php?accion=2",
+			method: "POST",
+      data: "grupo=" + $("#grupoCategoria1").val()+
+            "&categoria=" + $("#agregarCat").val(),			
+			success: function (resultado) {
+        console.log(resultado);
+       
+          $("#cuerpoModal").empty();																		
+          $("#cuerpoModal").html(resultado);													
+          $("#ModalMensaje").modal("show");
+        
+        
+      },
+		});																	
+	});
+
+
+grupocategorias();
+categorias();
+
 });
 
+grupocategorias = function () {	
+	$.ajax({							
+		url: "../clases/configuraciones.php?accion=4",
+		success: function (resultado) {
+            $("#grupoCategoria").append(resultado);
+            $("#grupoCategoria1").append(resultado);
+            $("#grupoCategoria2").append(resultado);
+		},
+		error: function (error) {
+            console.log(error);
+		}
+	});																			
+
+}
+categorias = function () {	
+	$.ajax({							
+		url: "../clases/configuraciones.php?accion=5",
+		success: function (resultado) {
+            $("#listacategorias").append(resultado);
+            
+		},
+		error: function (error) {
+            console.log(error);
+		}
+	});																			
+
+}
