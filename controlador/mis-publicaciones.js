@@ -53,10 +53,17 @@ $(document).ready(function () {
     
             });
             this.on("success", function(file, response) {
-                alert("Anuncio publicado correctamente");
-                location.reload();
-                
-              });
+                //alert("Anuncio publicado correctamente");
+                $("#modalArticulo").hide("slow");
+                showSuccessMessage();
+                function showSuccessMessage() {
+                    swal("Anuncio publicado Correctamente!", "Presiona ok para seguir navengando!", "success");
+                    $("button.confirm").click(()=>{
+                        location.reload();
+                    })
+                }
+   
+            });
         },
         error: function (file, response){
             if ($.type(response) === "string")
