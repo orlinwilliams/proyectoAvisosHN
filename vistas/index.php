@@ -379,8 +379,6 @@ session_start();
       <div id="contenedorTarjeta" class="row clearfix cards">
       </div>
     </div>
-
-
   </section>
   <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
   <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
@@ -574,7 +572,6 @@ session_start();
       </div>
     </div>
   </div>
-
   <!--Modal para compartir-->
   <div class="modal fade" id="modalCompartir" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm" role="document">
@@ -597,8 +594,6 @@ session_start();
       </div>
     </div>
   </div>
-
-
   <!-- Jquery Core Js -->
   <script src="../plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap Core Js -->

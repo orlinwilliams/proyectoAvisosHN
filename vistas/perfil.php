@@ -313,10 +313,38 @@ session_start();
                         </div>
                     </div>
                     <a href="eliminarCuenta.php">
-                        <button type="submit" class="btn bg-red btn-block waves-effect" data-toggle="modal" data-target="#defaultModal">
+                        <button type="submit" class="btn bg-red btn-block waves-effect" data-toggle="modal" data-target="#defaultModal" style="margin-top:-10px;">
                             <span>Eliminar cuenta</span></button>
                     </a> <br>
                     <br>
+                    <div class='card card-about-me' style='max-height:400px; overflow-y:scroll;'>
+                        <div class="header">
+                            <h2>VENDEDORES FAVORITOS</h2>
+                        </div>
+                        <div class='body' style='height: auto;'>
+                            <ul>
+                                <li>
+                                    <div class="title">
+                                        <i class="material-icons">favorite</i>
+                                        <a href="#" data-toggle="modal" data-target="#modalVendedor" onclick="infoVendedor(3)" style="color:grey;">Jared Castro</a>
+                                    </div>
+                                    <div class="content">
+                                        1200 Seguidores
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="title">
+                                        <i class="material-icons">favorite</i>
+                                        <a href="#" data-toggle="modal" data-target="#modalVendedor" onclick="infoVendedor(3)" style="color:grey;">Jared Castro</a>
+                                    </div>
+                                    <div class="content">
+                                        1200 Seguidores
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
                 </div>
                 <div class="col-xs-12 col-sm-9">
                     <div class="card">
@@ -449,19 +477,19 @@ session_start();
                                         </form>
                                     </div>
 
-                                    <div role="tabpanel" class="tab-pane fade in" id="show_favorite" >
+                                    <div role="tabpanel" class="tab-pane fade in" id="show_favorite">
                                         <form class="form-horizontal">
                                             <div class="body table-responsive">
                                                 <table class="table table-hover">
                                                     <thead>
                                                         <tr>
                                                             <th>NOMBRE VENDEDOR</th>
-                                                            
+
                                                         </tr>
                                                     </thead>
                                                     <tbody id="filaUsuariosSeguidos">
-                                                        
-                                                       
+
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -474,19 +502,18 @@ session_start();
                     </div>
                 </div>
             </div>
+
         </div>
         <!--Modal que carga la información del vendedor-->
         <div class="modal fade" id="modalVendedor" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-per" role="document">
-            <div class="modal-content">
-                <div class="modal-body modal-body-per" id="contenidoModalVendedor">
+                <div class="modal-content">
+                    <div class="modal-body modal-body-per" id="contenidoModalVendedor">
+                    </div>
+
                 </div>
-                
-            </div>
             </div>
         </div>
-
-
         <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true ">
             <div class="modal-dialog modal-dialog-centered" role="document ">
                 <div class="modal-content">

@@ -88,5 +88,3 @@ switch($_GET['accion']){
                                                
         break;
 }
-
-?>

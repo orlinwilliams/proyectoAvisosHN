@@ -297,21 +297,60 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                             <small>Agregar un nuevo grupo de categoría</small>
                         </div>
                         <div class="body">
-                            <div class="row clearfix">
-                                <div class="col-md-8">
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <input type="text" class="form-control"  required>
-                                            <label class="form-label">Nombre del grupo</label>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist" style="margin-top: -40px;">
+                                <li role="presentation" class="active">
+                                    <a href="#panel_agregar_grupo" data-toggle="tab">
+                                        <i class="material-icons">queue</i> AGREGAR
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#titulo_eliminar_grupo" data-toggle="tab">
+                                        <i class="material-icons">delete_forever</i> ELIMINAR
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content" style="margin-top: 30px;">
+                                <div role="tabpanel" class="tab-pane fade in active" id="panel_agregar_grupo">
+                                    <div class="row clearfix">
+                                        <div class="col-md-8">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" required>
+                                                    <label class="form-label">Nombre del grupo</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-primary waves-effect">
+                                                <i class="material-icons">queue</i>
+                                                <span>AGREGAR</span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-1"></div>
-                                <div class="col-md-2">
-                                    <button type="button" class="btn btn-primary waves-effect">
-                                        <i class="material-icons">queue</i>
-                                        <span>Agregar</span>
-                                    </button>
+                                <div role="tabpanel" class="tab-pane fade" id="titulo_eliminar_grupo">
+                                    <div class="row clearfix">
+                                        <div class="col-md-8">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <select class="form-control show-tick" required>
+                                                        <option></option>
+                                                    </select>
+                                                    <label class="form-label">Escoga un grupo</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-primary waves-effect">
+                                                <i class="material-icons">delete_forever</i>
+                                                <span>ELIMINAR</span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -326,33 +365,84 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                             <small>Agregar una nueva categoría</small>
                         </div>
                         <div class="body">
-                            <div class="row clearfix">
-                                <div class="col-md-4">
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <select class="form-control show-tick" required>
-                                                <option></option>
-                                            </select>
-                                            <label class="form-label">Escoga un grupo</label>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist" style="margin-top: -40px;">
+                                <li role="presentation" class="active">
+                                    <a href="#TITULO_AGREGAR_CATEGORIA" data-toggle="tab">
+                                        <i class="material-icons">queue</i> AGREGAR
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#TITULO_ELIMINAR_CATEGORIA" data-toggle="tab">
+                                        <i class="material-icons">delete_forever</i> ELIMINAR
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content" style="margin-top: 30px;">
+                                <div role="tabpanel" class="tab-pane fade in active" id="TITULO_AGREGAR_CATEGORIA">
+                                    <div class="row clearfix">
+                                        <div class="col-md-4">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <select class="form-control show-tick" required>
+                                                        <option></option>
+                                                    </select>
+                                                    <label class="form-label">Escoga un grupo</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" required>
+                                                    <label class="form-label">Nombre de categoría</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-primary waves-effect">
+                                                <i class="material-icons">queue</i>
+                                                <span>AGREGAR</span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-5">
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <input type="text" class="form-control"  required>
-                                            <label class="form-label">Nombre de categoría</label>
+                                <div role="tabpanel" class="tab-pane fade" id="TITULO_ELIMINAR_CATEGORIA">
+                                    <div class="row clearfix">
+                                        <div class="col-md-4">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <select class="form-control show-tick" required>
+                                                        <option></option>
+                                                    </select>
+                                                    <label class="form-label">Escoga un grupo</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <select class="form-control show-tick" required>
+                                                        <option></option>
+                                                    </select>
+                                                    <label class="form-label">Escoga una categoría</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-primary waves-effect">
+                                                <i class="material-icons">delete_forever</i>
+                                                <span>ELIMINAR</span>
+                                            </button>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <button type="button" class="btn btn-primary waves-effect">
-                                        <i class="material-icons">queue</i>
-                                        <span>Agregar</span>
-                                    </button>
                                 </div>
                             </div>
                         </div>
+                        <!--<div class="body">
+
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -370,7 +460,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                 <div class="col-md-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="number" min="1" max="730"class="form-control money-dollar" id="cantidad_dias" required>
+                                            <input type="number" min="1" max="730" class="form-control money-dollar" id="cantidad_dias" required>
                                             <label class="form-label">Número de días</label>
                                         </div>
                                     </div>
