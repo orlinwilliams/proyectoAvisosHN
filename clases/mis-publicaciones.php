@@ -1,5 +1,6 @@
 <?php
     require_once("conexion.php");
+    require_once("correo.php");
 
     switch($_GET['accion']){
         case '2': //PUBLICAR ANUNCIO
@@ -50,7 +51,7 @@
             $sizeImagen=$_FILES["file"]["size"];
             
             session_start();
-            $idUsuario=$_SESSION["usuario"]["idUsuario"];
+            $idUsuario=$_SESSION["usuario"]["idUsuario"]; 
             $idMunicipio=$_SESSION["usuario"]["idMunicipios"];
             $usuario=$_SESSION["usuario"]["correoElectronico"];
             
@@ -58,6 +59,42 @@
             
            
             $sql = "CALL `SP_PUBLICAR_ANUNCIO`('$idUsuario','$idCategoria','$idMunicipio','$nombre',CONCAT('$moneda','$precio'),'$estado','$descripcion',@p7);";
+            
+            //ENVIO DE CORREOS A USUARIOS SEGUIDORES
+            $idSeguido=$idUsuario;
+            $nombreSeguido=$_SESSION["usuario"]["pNombre"] . ' ' . $_SESSION["usuario"]["pApellido"];
+
+            $sql2="SELECT F.idSeguidor,concat_ws(' ',u.pnombre, u.papellido) as nombreSeguidor, correoElectronico  FROM favoritos as F 
+            INNER JOIN usuario as U
+            ON F.idSeguidor=U.idUsuario
+            WHERE idSeguido='$idSeguido'";
+            if($resultado2=$conexion->ejecutarInstruccion($sql2)){
+                if($resultado2->num_rows!=0){
+                    
+                    $asunto="Nueva publicacion de ".$nombreSeguido;
+                    $nombreServer = $_SERVER['SERVER_NAME'];
+                    $link = "<a href='http://$nombreServer/AvisosHN/'>AQUI</a><br>"; //LINK AL QUE INGRESERA EL USUARIO
+                    $mensaje="De parte del equipo de Marketh le notificamos que el vendedor ".$nombreSeguido." ha realizado una publicacion <br><br>
+                    Nombre= $nombre<br>Estado= $estado <br>Descripcion= $descripcion<br><br> Para poder ver todos los detalles ingresa a nuestra plataforma 
+                    puedes acceder haciendo click ".$link;
+                    
+                    while($row2=$conexion->obtenerFila($resultado2)) {
+                        
+                        $correo=new Correo($row2["correoElectronico"],$row2["nombreSeguidor"],$asunto,$mensaje);
+                        if(!$correo->enviarCorreo()){
+                            echo "ERROR EN ENVIO DE CORREO";
+                        }    
+
+                    }
+
+                }
+
+            }
+            else{
+                echo "ERROR EN CONSULTA DE SEGUIDORES";
+            }
+
+            
             
             
             if($resultadoProcedimiento = $conexion->ejecutarInstruccion($sql)){

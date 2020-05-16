@@ -627,6 +627,7 @@ session_start();
   <script src="../plugins/nouislider/nouislider.js"></script>
   <script src="../controlador/vistas-index.js"></script>
   <script src="../controlador/filtros.js"></script>
+  <script src="../plugins/sweetalert/sweetalert.min.js"></script>
 
 
 </body>
