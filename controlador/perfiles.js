@@ -42,7 +42,10 @@ $(document).ready(function () {
 	$('input[type="password"]').change(function () {												//Si hay cambios en el formulario activos botones de guardar
 		$('button[type="button"]').removeAttr('disabled');
 	});
-	municipios();																			//Llama la funcion municipios
+	
+	municipios();
+	misFavoritos();
+																				//Llama la funcion municipios
 	$('#txt_tefelono').inputmask('+999 9999-99-99', { placeholder: '+___ ____-__-__' });	//Da formato al telefono
 	$('#txt_rtn').inputmask('****-****-*****', { placeholder: '____-____-_____' });			//Da formato al rtn
 	$('#date_fecha').inputmask('dd/mm/yyyy', { placeholder: '__/__/____' });				//Da formato a la fecha
@@ -126,18 +129,30 @@ misFavoritos=()=>{
 		url: "../clases/perfil.php?accion=6",
 		success: function (resp) {
 			datos=JSON.parse(resp);
-			//console.log(datos);
+			console.log(datos);
 			filaUsuario="";
 			if(datos.error==true){
-				filaUsuario+="<tr><td>"+datos.mensaje+" </td></tr>";
-				$("#filaUsuariosSeguidos").html(filaUsuario);
+				filaUsuario+=filaUsuario+="<li>"+
+				"<div class='title'>"+
+					"<p>No sigues a ningún usuario todavía</p>"+ 
+				"</div>"+
+				"</li>";
+				$("#agregarFavoritos").html(filaUsuario);
 			}
 			else{
 				
 				for(let item of datos){
-					filaUsuario+="<tr><td><a onclick='infoVendedor("+item.idSeguido+")' data-toggle='modal'  data-target='#modalVendedor' data-dismiss='modal'>"+item.nombreVendedor+" </a></td></tr>";
+					filaUsuario+="<li>"+
+                        "<div class='title'>"+
+							"<i onclick='quitarFavorito("+item.idSeguido+")' style='cursor:pointer' title='ELIMINAR VENDEDOR DE FAVORITOS' class='material-icons'>favorite</i>"+
+							"<a data-toggle='modal' data-target='#modalVendedor' onclick='infoVendedor("+item.idSeguido+")' style='color:grey; cursor:pointer'>"+item.nombreVendedor+"</a>"+
+						"</div>"+
+						"<div class='content'>"+
+							"<p>"+item.seguidores+ "Seguidores</p>"+ 
+						"</div>"+
+					"</li>";
 				}
-				$("#filaUsuariosSeguidos").html(filaUsuario);
+				$("#agregarFavoritos").html(filaUsuario);
 			}
 			
 
@@ -253,3 +268,50 @@ infoVendedor = function (idUsuario) {
 	  },
 	});
   };
+
+quitarFavorito=(idSeguido)=>{
+
+showConfirmMessage();
+
+function showConfirmMessage() {
+    swal({
+        title: "Estas seguro?",
+        text: "Dejaras de seguir a este vendedor y dejaras de recibir notificaciones de sus publicaciones",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Si, Dejar de seguir!",
+        closeOnConfirm: false
+    }, function () {
+		$.ajax({
+			url: "../clases/vistas-index.php?accion=12",
+			method: "POST",
+			data: "idSeguido=" + idSeguido,
+		
+			success: function (resp) {
+			  var datos = JSON.parse(resp);
+			  if(datos.error==true){
+				console.log(datos.mensaje);
+			  }
+			  if(datos.error==false){
+				
+				swal("Eliminado!", "Vendedor eliminado de mis favoritos.", "success");
+				location.reload();
+				
+		
+			  }
+		
+			
+			},
+			error:(error)=>{
+			  console.log("ERROR EN SERVER");
+			}
+		  });
+        
+	});
+	
+}
+
+	
+  
+  }  

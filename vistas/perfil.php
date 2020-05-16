@@ -23,6 +23,8 @@ session_start();
 
     <!-- Animation Css -->
     <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
+    <!-- Sweetalert Css -->
+    <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
     <!-- Custom Css -->
     <link href="../css/style.css" rel="stylesheet">
@@ -322,25 +324,9 @@ session_start();
                             <h2>VENDEDORES FAVORITOS</h2>
                         </div>
                         <div class='body' style='height: auto;'>
-                            <ul>
-                                <li>
-                                    <div class="title">
-                                        <i class="material-icons">favorite</i>
-                                        <a href="#" data-toggle="modal" data-target="#modalVendedor" onclick="infoVendedor(3)" style="color:grey;">Jared Castro</a>
-                                    </div>
-                                    <div class="content">
-                                        1200 Seguidores
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="title">
-                                        <i class="material-icons">favorite</i>
-                                        <a href="#" data-toggle="modal" data-target="#modalVendedor" onclick="infoVendedor(3)" style="color:grey;">Jared Castro</a>
-                                    </div>
-                                    <div class="content">
-                                        1200 Seguidores
-                                    </div>
-                                </li>
+                            <ul id="agregarFavoritos">
+                               
+                                
                             </ul>
                         </div>
 
@@ -355,7 +341,7 @@ session_start();
                                             perfil</a>
                                     </li>
                                     <li role="presentation"><a href="#change_password_settings" aria-controls="settings" role="tab" data-toggle="tab">Cambiar contraseña</a></li>
-                                    <li role="presentation"><a href="#show_favorite" onclick="misFavoritos()" aria-controls="settings" role="tab" data-toggle="tab">Ver mis favoritos</a></li>
+                                    
                                 </ul>
 
                                 <div class="tab-content">
@@ -476,26 +462,6 @@ session_start();
                                             </div>
                                         </form>
                                     </div>
-
-                                    <div role="tabpanel" class="tab-pane fade in" id="show_favorite">
-                                        <form class="form-horizontal">
-                                            <div class="body table-responsive">
-                                                <table class="table table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>NOMBRE VENDEDOR</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="filaUsuariosSeguidos">
-
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </form>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -571,6 +537,7 @@ session_start();
 
     <!-- Demo Js -->
     <script src="../controlador/perfiles.js"></script>
+    <script src="../plugins/sweetalert/sweetalert.min.js"></script>
 
 
 </body>

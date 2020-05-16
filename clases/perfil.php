@@ -203,21 +203,24 @@
 
             $idSeguidor=$_SESSION["usuario"]["idUsuario"];
             $conexion = new conexion(); 
-            $sql = "SELECT idSeguido, concat_ws(' ',U.pnombre, U.papellido) as nombreVendedor FROM favoritos as F 
+            $sql = "SELECT F.idSeguido, concat_ws(' ',U.pnombre, U.papellido) as nombreVendedor,(SELECT COUNT(*)FROM favoritos WHERE idSeguido=F.idSeguido) as seguidores  FROM favoritos as F 
             INNER JOIN usuario as U 
             ON  F.idSeguido=U.idUsuario
             WHERE idSeguidor='$idSeguidor'";
+
 
             $respuesta = $conexion->ejecutarInstruccion($sql);
             if (!$respuesta) {
                 echo "Error en consulta SEGUIDO";
             } else {
                 if($respuesta->num_rows!=0){
+
                     $usuariosSeguidos=array();
                     while($row = $conexion->obtenerFila($respuesta)){
-                        $usuariosSeguidos[]=array("idSeguido"=>$row["idSeguido"],"nombreVendedor"=>$row["nombreVendedor"]);
+                        $usuariosSeguidos[]=array("idSeguido"=>$row["idSeguido"],"nombreVendedor"=>$row["nombreVendedor"],"seguidores"=>$row["seguidores"]);
 
                     }
+                    
                     echo json_encode($usuariosSeguidos);
                 }
                 else{
