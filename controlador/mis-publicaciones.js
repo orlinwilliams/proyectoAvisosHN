@@ -4,7 +4,6 @@ $(document).ready(function () {
     categoria();
     $().button('.toggle')
 
-    
     //PUBLICAR ANUNCIOS
     Dropzone.autoDiscover = false;
     myDropzone = new Dropzone('div#cargarFotos', {
@@ -87,8 +86,6 @@ $(document).ready(function () {
         }
       
     });
-
-
     //BUSCADOR
     $("#buscaAnuncio").keyup(function(){
         var value=$("#buscaAnuncio").val();
@@ -174,16 +171,7 @@ $(document).ready(function () {
             }
         });	
     })
-
-
-
-
-
-
-
-
 });
-
 categoria = function () {														//Inicio funcion para llenar las categorias
 	$.ajax({																	//Inicio ajax categorias
 		url: "../clases/vistas-index.php?accion=1",

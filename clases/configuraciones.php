@@ -16,7 +16,7 @@ switch ($_GET["accion"]) {
             echo json_encode(array("error" => TRUE, "mensaje" => "Cantidad de días no ingresados"));
         } else {
             $conexion = new Conexion();
-            ////////AQUI DEBE IR EL SCRIPT PARA LA CREACION DEL SP
+            ////////SCRIPT PARA LA MODIFICACION DEL SP
             $sql = "DROP PROCEDURE IF EXISTS SP_DURACION_PUBLICACIONES;
                     CREATE PROCEDURE SP_DURACION_PUBLICACIONES(
                         OUT     pcMensaje      VARCHAR(1000)
@@ -40,7 +40,6 @@ switch ($_GET["accion"]) {
                         LEAVE SP;
                     
                     END;";
-
             if ($respuesta = $conexion->ejecutarMultipleInstruccion($sql)) {
                 ///////// MENSAJE AL INTENTAR GUARDAR EL SP
                 echo json_encode(array("error" => FALSE, "mensaje" => "El cambio se ha efectuado correctamente"));
