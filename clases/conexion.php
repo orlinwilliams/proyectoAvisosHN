@@ -21,19 +21,33 @@
 				exit;
 			}
 		}
-
+		
 		public function cerrarConexion(){
 			mysqli_close($this->link);
 		}
-
 		public function ejecutarInstruccion($sql){
 			return mysqli_query($this->link, $sql);
+		}
+
+		public function ejecutarMultipleInstruccion($sql){
+			return mysqli_multi_query($this->link, $sql);
 		}
 
 		public function obtenerFila($sql){
 			return mysqli_fetch_array($sql);
 		}
-
+		public function error(){
+			return mysqli_error($this->link);
+		}
+		public function masResultados(){
+			return mysqli_more_results($this->link);
+		}
+		public function errno(){
+			return mysqli_errno($this->link);
+		}
+		public function siguienteResultado(){
+			return mysqli_next_result($this->link);
+		}
 		public function liberarResultado($sql){
 			mysqli_free_result($sql);
 		}

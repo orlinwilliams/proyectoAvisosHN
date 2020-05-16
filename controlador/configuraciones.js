@@ -8,11 +8,10 @@ $(document).ready(function () {
       url: "../clases/configuraciones.php?accion=3",
       method: "POST",
       data: "dias=" + $("#cantidad_dias").val(),
-      success: function (resultado) {
-          console.log(resultado);
+      success: function (resultado) {          
           let datos = JSON.parse(resultado);
           if(datos.error == true){
-            swal("Cancelado", "No ha ingresado la cantidad de días", "error");
+            swal("Cancelado", datos.mensaje, "error");
           }
           else{
             swal("Éxito!", datos.mensaje, "success");

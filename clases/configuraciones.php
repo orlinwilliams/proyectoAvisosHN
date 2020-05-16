@@ -8,16 +8,16 @@ switch ($_GET["accion"]) {
         #CODE...
         break;
     case '3': ///////////CANTIDAD DE DIAS PARA LAS PUBLICACIONES
+        //$_POST["dias"] = 14;
         if (isset($_POST["dias"])) {
             $dias = $_POST["dias"];
         }
         if ($dias == "" | $dias == NULL) {
-            echo json_encode(array("error" => TRUE, "mensaje" => "cantidad de días no ingresados"));
+            echo json_encode(array("error" => TRUE, "mensaje" => "Cantidad de días no ingresados"));
         } else {
             $conexion = new Conexion();
             ////////AQUI DEBE IR EL SCRIPT PARA LA CREACION DEL SP
-            $sql = "DELIMITER $$
-                    DROP PROCEDURE IF EXISTS SP_DURACION_PUBLICACIONES$$
+            $sql = "DROP PROCEDURE IF EXISTS SP_DURACION_PUBLICACIONES;
                     CREATE PROCEDURE SP_DURACION_PUBLICACIONES(
                         OUT     pcMensaje      VARCHAR(1000)
                     )
@@ -39,14 +39,18 @@ switch ($_GET["accion"]) {
                     
                         LEAVE SP;
                     
-                    END$$";
-            if ($respuesta = $conexion->ejecutarInstruccion($sql)) {
+                    END;";
+
+            if ($respuesta = $conexion->ejecutarMultipleInstruccion($sql)) {
                 ///////// MENSAJE AL INTENTAR GUARDAR EL SP
                 echo json_encode(array("error" => FALSE, "mensaje" => "El cambio se ha efectuado correctamente"));
             } else {
-                echo json_encode(array("error" => TRUE, "mensaje" => "Ha ocurrido un error"));
+                //////// MENSAJE AL HABER UN ERROR
+                echo json_encode(array("error" => TRUE, "mensaje" => "Falló la multiconsulta: (".$conexion->errno().") ".$conexion->error()));
             }
+            $conexion->cerrarConexion();
         }
+        
         break;
     default:
         echo "Ingrese una opción válida";

@@ -158,7 +158,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                         </a>
                         <ul class="ml-menu">
                             <li class="active">
-                                <a href="configuraciones.php">Gestión de publicaciones</a>
+                                <a href="configuraciones.php">Configuraciones</a>
                             </li>
                             <li>
                                 <a href="gestion-publicaciones.php">Gestión de publicaciones</a>
