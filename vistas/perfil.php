@@ -288,7 +288,7 @@ session_start();
                         </form>
                         <div class="profile-body">
                             <div class="image-area">
-                                <img id="imagenPerfil" alt="AdminBSB - Profile Image" height=128px width=128px />
+                                <img style="cursor:pointer" title="CAMBIAR IMAGEN" id="imagenPerfil" alt="AdminBSB - Profile Image" height=128px width=128px />
                             </div>
                             <div class="content-area">
                                 <h3><?php echo $_SESSION["usuario"]["pNombre"] . ' ' . $_SESSION["usuario"]["pApellido"]; ?>
