@@ -9,34 +9,27 @@ switch ($_GET["accion"]) {
             echo "Debe agregar el grupo de categoria";
         } else {
             $conexion = new conexion();
-            $sqlid="SELECT MAX(idgrupocategoria+1) as idgrupo FROM `grupocategoria` ;";
-            $respuesta=$conexion->ejecutarInstruccion($sqlid);
-            
-            if($resultadoId=$conexion->obtenerFila($respuesta)){
-                
-                $lastId=$resultadoId["idgrupo"];
+            $sqlid = "SELECT MAX(idgrupocategoria+1) as idgrupo FROM `grupocategoria` ;";
+            $respuesta = $conexion->ejecutarInstruccion($sqlid);
+            if ($resultadoId = $conexion->obtenerFila($respuesta)) {
+                $lastId = $resultadoId["idgrupo"];
                 $conexion = new conexion();
                 $sql1 = "INSERT INTO grupocategoria (idgrupocategoria, nombregrupo) VALUES ('$lastId' ,'$grupoCat');";
-                
                 if ($respuesta = $conexion->ejecutarInstruccion($sql1)) {
                     echo  "Grupo de categoria agregado con éxito";
                 } else {
                     echo  "No hay respuesta del servidor";
                 }
-                
-                
             }
             $conexion->cerrarConexion();
         }
-        
-
         break;
     case '2': ///////////AGREGAR CATEGORIA
         if (isset($_POST["grupo"])) {
             $grupoCat = $_POST["grupo"];
         }
         if (isset($_POST["categoria"])) {
-            $cat= $_POST["categoria"];
+            $cat = $_POST["categoria"];
         }
         if ($grupoCat == "" | $grupoCat == NULL) {
             echo "Debe agregar el grupo de categoria";
@@ -45,27 +38,23 @@ switch ($_GET["accion"]) {
             echo "Debe agregar la categoria";
         } else {
             $conexion = new conexion();
-            $sqlidmax="SELECT (max(idcategoria)+1) as maxcat FROM `categoria`;";
-            $respuesta1=$conexion->ejecutarInstruccion($sqlidmax);
-                if ($resultadoIdmax=$conexion->obtenerFila($respuesta1)) {
-                    $Idcat=$resultadoIdmax["maxcat"];
-                    $sql1 = "INSERT INTO `categoria`(`idcategoria`, `nombreCategoria`, `idgrupocategoria`) 
+            $sqlidmax = "SELECT (max(idcategoria)+1) as maxcat FROM `categoria`;";
+            $respuesta1 = $conexion->ejecutarInstruccion($sqlidmax);
+            if ($resultadoIdmax = $conexion->obtenerFila($respuesta1)) {
+                $Idcat = $resultadoIdmax["maxcat"];
+                $sql1 = "INSERT INTO `categoria`(`idcategoria`, `nombreCategoria`, `idgrupocategoria`) 
                             VALUES ('$Idcat','$cat','$grupoCat');";
-                    
-                    if ($respuesta = $conexion->ejecutarInstruccion($sql1)) {
-                        echo  "Categoria agregada con éxito";
-                    } else {
-                        echo  "No hay respuesta del servidor";
-                    } 
-                }   
-            
+
+                if ($respuesta = $conexion->ejecutarInstruccion($sql1)) {
+                    echo  "Categoria agregada con éxito";
+                } else {
+                    echo  "No hay respuesta del servidor";
+                }
+            }
             $conexion->cerrarConexion();
         }
-        
-
         break;
     case '3': ///////////CANTIDAD DE DIAS PARA LAS PUBLICACIONES
-        //$_POST["dias"] = 14;
         if (isset($_POST["dias"])) {
             $dias = $_POST["dias"];
         }
@@ -102,42 +91,55 @@ switch ($_GET["accion"]) {
                 echo json_encode(array("error" => FALSE, "mensaje" => "El cambio se ha efectuado correctamente"));
             } else {
                 //////// MENSAJE AL HABER UN ERROR
-                echo json_encode(array("error" => TRUE, "mensaje" => "Falló la multiconsulta: (".$conexion->errno().") ".$conexion->error()));
+                echo json_encode(array("error" => TRUE, "mensaje" => "Falló la multiconsulta: (" . $conexion->errno() . ") " . $conexion->error()));
             }
             $conexion->cerrarConexion();
         }
-        
         break;
-        case '4':                                                                                                   //Obtiene las categorias
-            $conexion = new conexion();
-            $sql = "SELECT idgrupocategoria, nombregrupo FROM `grupocategoria`
+    case '4': ////////////OBTIENE LOS GRUPOS DE CATEGORIAS
+        $conexion = new conexion();
+        $sql = "SELECT idgrupocategoria, nombregrupo FROM `grupocategoria`
                 ORDER by idgrupocategoria ASC;";
+        $resultado = $conexion->ejecutarInstruccion($sql);
+        if (!$resultado) {
+            echo "No hay grupos de categorias";
+        } else {
+            while ($fila = $conexion->obtenerFila($resultado)) {
+                echo '<option value="' . $fila["idgrupocategoria"] . '">' . $fila["nombregrupo"] . '</option>';
+            }
+        }
+        $conexion->cerrarConexion();
+        break;
+    case '5': /////////////////OBTIENE LAS CATEGORIAS SEGÚN EL GRUPO QUE SE SELECCIONÓ
+        if (isset($_POST["idGrupo"])) {
+            $idGrupo = $_POST["idGrupo"];
+        }
+        if ($idGrupo == "" | $idGrupo == NULL) {
+            echo json_encode(array("error" => TRUE, "mensaje" => "Grupo de categoría no seleccionado"));
+        } else {
+            $conexion = new conexion();
+            $sql = "SELECT idcategoria, nombreCategoria FROM `categoria`
+                        WHERE idgrupocategoria=$idGrupo
+                        ORDER by idcategoria ASC;";
             $resultado = $conexion->ejecutarInstruccion($sql);
             if (!$resultado) {
-                echo "No hay grupos de categorias";
+                echo json_encode(array("error" => TRUE, "mensaje" => "Falló la consulta: (" . $conexion->errno() . ") " . $conexion->error()));
             } else {
-                while ($fila = $conexion->obtenerFila($resultado)) {                                                    //Recorre todas las filas de grupo de categoria
-                  
-                    echo '<option value="' .$fila["idgrupocategoria"]. '">' . $fila["nombregrupo"]. '</option>';
+                $HTML="";
+                if($resultado->num_rows == NULL){
+                    $HTML="<option>No hay categorias</option>";
                 }
-            }
-            $conexion->cerrarConexion();
-            break;
-        case '5':                                                                                                   //Obtiene las categorias
-                $conexion = new conexion();
-                $sql = "SELECT idcategoria, nombreCategoria FROM `categoria`
-                    ORDER by idcategoria ASC;";
-                $resultado = $conexion->ejecutarInstruccion($sql);
-                if (!$resultado) {
-                    echo "No hay categorias";
-                } else {
-                    while ($fila = $conexion->obtenerFila($resultado)) {                                                    //Recorre todas las filas de grupo de categoria
-                      
-                        echo '<option value="' .$fila["idcategoria"]. '">' . $fila["nombreCategoria"]. '</option>';
+                else{
+                    while ($fila = $conexion->obtenerFila($resultado)) {
+                        $HTML.='<option value="' . $fila["idcategoria"] . '">' . $fila["nombreCategoria"] . '</option>';
                     }
                 }
-                $conexion->cerrarConexion();
-            break;
+                echo json_encode(array("error" => FALSE, "mensaje" => "El cambio se ha efectuado correctamente", "HTML" => $HTML));
+            }
+            $conexion->cerrarConexion();
+        }
+
+        break;
     default:
         echo "Ingrese una opción válida";
         break;

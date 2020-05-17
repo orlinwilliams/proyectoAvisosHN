@@ -440,9 +440,6 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="body">
-
-                        </div>-->
                     </div>
                 </div>
             </div>

@@ -1,8 +1,8 @@
 $(document).ready(function () {
+  grupocategorias();
   //////////////////////////////////////////////////CANTIDAD DE DIAS PARA UNA PUBLICACION
   $("#agregarDias").click(function (event) {
     event.preventDefault();
-
     swal(
       {
         title: "¿Estás seguro?",
@@ -30,73 +30,74 @@ $(document).ready(function () {
       }
     );
   });
-  $("#agregarGrupo").click(function (event) {								
-		event.preventDefault();
-		$.ajax({																
-			url: "../clases/configuraciones.php?accion=1",
-			method: "POST",
-      data: "grupo=" + $("#grupoCate").val(),			
-			success: function (resultado) {
-        console.log(resultado);
-       
-          $("#cuerpoModal").empty();																		
-          $("#cuerpoModal").html(resultado);													
-          $("#ModalMensaje").modal("show");
-        
-        
+  //////////////////////////////////////////////////AGREGAR UN NUEVO GRUPO DE CATEGORIAS
+  $("#agregarGrupo").click(function (event) {
+    event.preventDefault();
+    $.ajax({
+      url: "../clases/configuraciones.php?accion=1",
+      method: "POST",
+      data: "grupo=" + $("#grupoCate").val(),
+      success: function (resultado) {
+        $("#grupoCategoria").empty();
+        $("#grupoCategoria").append("<option></option>");
+        $("#grupoCategoria1").empty();
+        $("#grupoCategoria1").append("<option></option>");
+        $("#grupoCategoria2").empty();
+        $("#grupoCategoria2").append("<option></option>");
+        grupocategorias();
+        swal("Éxito!", resultado, "success");
       },
-		});																	
+    });
   });
-  
-  $("#agregarCategoria").click(function (event) {								
-		event.preventDefault();
-		$.ajax({																
-			url: "../clases/configuraciones.php?accion=2",
-			method: "POST",
-      data: "grupo=" + $("#grupoCategoria1").val()+
-            "&categoria=" + $("#agregarCat").val(),			
-			success: function (resultado) {
-        console.log(resultado);
-       
-          $("#cuerpoModal").empty();																		
-          $("#cuerpoModal").html(resultado);													
-          $("#ModalMensaje").modal("show");
-        
-        
+  //////////////////////////////////////////////////AGREGAR UNA NUEVA CATEGORIAS
+  $("#agregarCategoria").click(function (event) {
+    event.preventDefault();
+    $.ajax({
+      url: "../clases/configuraciones.php?accion=2",
+      method: "POST",
+      data:
+        "grupo=" +
+        $("#grupoCategoria1").val() +
+        "&categoria=" +
+        $("#agregarCat").val(),
+      success: function (resultado) {
+        swal("Éxito!", resultado, "success");
       },
-		});																	
-	});
-
-
-grupocategorias();
-categorias();
-
+    });
+  });
+  //////////////////////////////////////////////////CARGAR LA LISTA DE CATEGORÍAS SEGÚN EL GRUPO SELECCIONADO
+  $("#grupoCategoria2").change(function () {
+    $.ajax({
+      data: "idGrupo=" + $("#grupoCategoria2").val(),
+      url: "../clases/configuraciones.php?accion=5",
+      method: "POST",
+      success: function (respuesta) {
+        let datos = JSON.parse(respuesta);
+        if (datos.error == true) {
+          swal("Cancelado", datos.mensaje, "error");
+        } else {
+          $("#listacategorias").empty();
+          $("#listacategorias").append("<option></option>");
+          $("#listacategorias").append(datos.HTML);
+        }
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
+  });
 });
-
-grupocategorias = function () {	
-	$.ajax({							
-		url: "../clases/configuraciones.php?accion=4",
-		success: function (resultado) {
-            $("#grupoCategoria").append(resultado);
-            $("#grupoCategoria1").append(resultado);
-            $("#grupoCategoria2").append(resultado);
-		},
-		error: function (error) {
-            console.log(error);
-		}
-	});																			
-
-}
-categorias = function () {	
-	$.ajax({							
-		url: "../clases/configuraciones.php?accion=5",
-		success: function (resultado) {
-            $("#listacategorias").append(resultado);
-            
-		},
-		error: function (error) {
-            console.log(error);
-		}
-	});																			
-
-}
+//////////////////////////////////////////////////FUNCIÓN PARA CARGAR LOS GRUPOS DE CATEGORIAS
+grupocategorias = function () {
+  $.ajax({
+    url: "../clases/configuraciones.php?accion=4",
+    success: function (resultado) {
+      $("#grupoCategoria").append(resultado);
+      $("#grupoCategoria1").append(resultado);
+      $("#grupoCategoria2").append(resultado);
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+};
