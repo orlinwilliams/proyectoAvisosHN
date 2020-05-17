@@ -298,7 +298,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                         </div>
                         <div class="body">
                             <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist" style="margin-top: -40px;">
+                            <ul class="nav nav-tabs" role="tablist" style="margin-top: -20px;">
                                 <li role="presentation" class="active">
                                     <a href="#panel_agregar_grupo" data-toggle="tab">
                                         <i class="material-icons">queue</i> AGREGAR
@@ -366,7 +366,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                         </div>
                         <div class="body">
                             <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist" style="margin-top: -40px;">
+                            <ul class="nav nav-tabs" role="tablist" style="margin-top: -20px;">
                                 <li role="presentation" class="active">
                                     <a href="#TITULO_AGREGAR_CATEGORIA" data-toggle="tab">
                                         <i class="material-icons">queue</i> AGREGAR
