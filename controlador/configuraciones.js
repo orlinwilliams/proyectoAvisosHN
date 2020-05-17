@@ -86,6 +86,39 @@ $(document).ready(function () {
       },
     });
   });
+//////////////////////////////////////7////////////7ELIMINAR GRUPO CATEGORIA
+  $("#delete").click(function (event) {
+    event.preventDefault();
+    console.log("dark");
+    $.ajax({
+      url: "../clases/configuraciones.php?accion=6",
+      method: "POST",
+      data:
+        "grupo=" +
+        $("#grupoCategoria").val(),
+      success: function (resultado) {
+        swal("Éxito!", resultado, "success");
+      },
+    });
+  });
+
+  //////////////////////////////////////7////////////7ELIMINAR CATEGORIA
+  $("#eliminar").click(function (event) {
+    event.preventDefault();
+    console.log("lord");
+    $.ajax({
+      url: "../clases/configuraciones.php?accion=7",
+      method: "POST",
+      data:
+        "grupo=" +
+        $("#grupoCategoria2").val() +
+        "&categoria=" +
+        $("#listacategorias").val(),
+      success: function (resultado) {
+        swal("Éxito!", resultado, "success");
+      },
+    });
+  });
 });
 //////////////////////////////////////////////////FUNCIÓN PARA CARGAR LOS GRUPOS DE CATEGORIAS
 grupocategorias = function () {

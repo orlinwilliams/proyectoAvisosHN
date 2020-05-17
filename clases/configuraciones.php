@@ -140,6 +140,51 @@ switch ($_GET["accion"]) {
         }
 
         break;
+        
+        case '6': ///////////ELIMINARa GRUPO DE CATEGORIA
+            if (isset($_POST["grupo"])) {
+                $grupoCat = $_POST["grupo"];
+            }
+            if ($grupoCat == "" | $grupoCat == NULL) {
+                echo "Debe agregar el grupo de categoria";
+            } else {
+                $conexion = new conexion();
+                $sqlid = "DELETE FROM `grupocategoria` WHERE idgrupocategoria = '$grupoCat';";
+                $respuesta = $conexion->ejecutarInstruccion($sqlid);
+                    if ($respuesta) {
+                        echo  "Grupo de categoria eliminado con éxito";
+                    } else {
+                        echo  "No hay respuesta del servidor";
+                    }
+            }
+                $conexion->cerrarConexion();
+        break;
+
+        case '7': ///////////ELIMINAR CATEGORIA
+            if (isset($_POST["grupo"])) {
+                $grupoCat = $_POST["grupo"];
+            }
+            if ($grupoCat == "" | $grupoCat == NULL) {
+                echo "Debe agregar el grupo de categoria";
+            }
+            if (isset($_POST["categoria"])) {
+                $cat = $_POST["categoria"];
+            }
+            if ($cat == "" | $cat == NULL) {
+                echo "Debe agregar el grupo de categoria";
+            }else {
+                $conexion = new conexion();
+                $sqlid = "DELETE FROM `categoria` WHERE idgrupocategoria = '$grupoCat' AND idcategoria = '$cat';";
+                $respuesta = $conexion->ejecutarInstruccion($sqlid);
+                    if ($respuesta) {
+                        echo  "Categoria eliminada con éxito";
+                    } else {
+                        echo  "No hay respuesta del servidor";
+                    }
+            }
+                $conexion->cerrarConexion();
+        break;
+
     default:
         echo "Ingrese una opción válida";
         break;

@@ -345,7 +345,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                         </div>
                                         <div class="col-md-1"></div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary waves-effect">
+                                            <button id="delete" type="button" class="btn btn-primary waves-effect">
                                                 <i class="material-icons">delete_forever</i>
                                                 <span>ELIMINAR</span>
                                             </button>
@@ -431,7 +431,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary waves-effect">
+                                            <button id="eliminar" type="button" class="btn btn-primary waves-effect">
                                                 <i class="material-icons">delete_forever</i>
                                                 <span>ELIMINAR</span>
                                             </button>
