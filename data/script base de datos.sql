@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 17-05-2020 a las 05:24:59
+-- Tiempo de generación: 17-05-2020 a las 05:47:19
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -352,6 +352,27 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_ANUNCIO_ADMIN` (IN `pnI
     LEAVE SP;
 
  END$$
+
+DROP PROCEDURE IF EXISTS `SP_ELIMINAR_PUBLICACIONES_FLIMITE`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PUBLICACIONES_FLIMITE` (OUT `pcMensaje` VARCHAR(1000))  SP:BEGIN
+                        
+                        DELETE FROM calificacionanuncio
+                        WHERE idAnuncios IN (SELECT idAnuncios FROM anuncios WHERE DATE_FORMAT(fechaLimite, '%Y-%m-%d')=DATE_FORMAT(CURDATE(), '%Y-%m-%d'));
+                    
+                        DELETE FROM denuncias
+                        WHERE idAnuncios IN (SELECT idAnuncios FROM anuncios WHERE DATE_FORMAT(fechaLimite, '%Y-%m-%d')=DATE_FORMAT(CURDATE(), '%Y-%m-%d'));
+                    
+                        DELETE FROM fotos
+                        WHERE idAnuncios IN (SELECT idAnuncios FROM anuncios WHERE DATE_FORMAT(fechaLimite, '%Y-%m-%d')=DATE_FORMAT(CURDATE(), '%Y-%m-%d'));
+                    
+                        DELETE FROM anuncios
+                        WHERE DATE_FORMAT(fechaLimite, '%Y-%m-%d')=DATE_FORMAT(CURDATE(), '%Y-%m-%d');
+                        
+                        SET pcMensaje = 'las publicaciones han expirado';
+                    
+                        LEAVE SP;
+                    
+                    END$$
 
 DROP PROCEDURE IF EXISTS `SP_ELIMINAR_USUARIO`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_USUARIO` (IN `pnIdUsuario` INT, IN `pcContrasenia` VARCHAR(50), OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(1000))  SP:BEGIN
