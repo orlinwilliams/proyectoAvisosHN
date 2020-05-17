@@ -12,7 +12,7 @@ class Correo{
     private $nombreUsuario;
     private $asunto;
     private $mensaje;
-    private $mensajeEncabezado="<br><br><p color='blue'>AvisosHN la mejor plataforma de Anuncios de Honduras.</p><br>";
+    private $mensajeEncabezado="<br><br><p color='blue'>MarketHN la mejor plataforma de Anuncios de Honduras.</p><br>";
     
 
     public function __construct($correo,$nombreUsuario,$asunto,$mensaje){
@@ -39,7 +39,7 @@ class Correo{
             
 
             //Recipients
-            $mail->setFrom('serprehn@gmail.com', 'AvisosHN');
+            $mail->setFrom('serprehn@gmail.com', 'MarketHN');
             $mail->addAddress($this->correo, $this->nombreUsuario);     // Add a recipient
             
             // Content
