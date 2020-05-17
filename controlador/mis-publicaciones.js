@@ -354,24 +354,3 @@ eliminarPublicacion = function (idAnuncio) {
     }
   );
 };
-/*
-swal({
-    title: "HTML <small>Title</small>!",
-    text: "A custom <span style=\"color: #CC0000\">html<span> message.",
-    html: true
-});
-swal({
-    title: "¿Estás seguro?",
-    text: "Ingresa la razón por la cual borra la publicación:",
-    type: "input",
-    showCancelButton: true,
-    closeOnConfirm: false,
-    animation: "slide-from-top",
-    inputPlaceholder: "Write something"
-}, function (inputValue) {
-    if (inputValue === false) return false;
-    if (inputValue === "") {
-        swal.showInputError("You need to write something!"); return false
-    }
-    swal("Nice!", "You wrote: " + inputValue, "success");
-});*/

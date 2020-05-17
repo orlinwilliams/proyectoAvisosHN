@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 17-05-2020 a las 04:19:08
+-- Tiempo de generación: 17-05-2020 a las 05:24:59
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -1381,9 +1381,37 @@ CREATE TABLE IF NOT EXISTS `publicaciones_lugar` (
 DROP TABLE IF EXISTS `razonborrado`;
 CREATE TABLE IF NOT EXISTS `razonborrado` (
   `idRazon` int(11) NOT NULL AUTO_INCREMENT,
-  `razon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`idRazon`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+  `razon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `fechaBorrado` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idRazon`),
+  UNIQUE KEY `idRazon` (`idRazon`)
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `razonborrado`
+--
+
+INSERT INTO `razonborrado` (`idRazon`, `razon`, `fechaBorrado`) VALUES
+(5, 'Vendido', '2020-05-15 04:52:08'),
+(6, 'Vendido', '2020-05-16 04:52:08'),
+(7, 'Vendido', '2020-05-15 04:52:08'),
+(8, 'Vendido', '2020-05-18 04:52:08'),
+(9, 'Vendido', '2020-05-18 04:52:08'),
+(10, 'Cambié de parecer, no quiero ponerlo en venta', '2020-05-17 04:52:08'),
+(11, 'Cambié de parecer, no quiero ponerlo en venta', '2020-05-17 04:52:08'),
+(12, 'Cambié de parecer, no quiero ponerlo en venta', '2020-05-17 04:52:08'),
+(13, 'Cambié de parecer, no quiero ponerlo en venta', '2020-05-17 04:52:08'),
+(14, 'Cambié de parecer, no quiero ponerlo en venta', '2020-05-17 04:52:08'),
+(15, 'Porque quiero', '2020-05-17 04:52:08'),
+(16, 'Otra razón', '2020-05-17 04:52:08'),
+(17, 'Porque quiero', '2020-05-17 04:52:08'),
+(18, 'Otra razón', '2020-05-17 04:52:08'),
+(19, 'Porque quiero', '2020-05-17 04:52:08'),
+(20, 'Otra razón', '2020-05-17 04:52:08'),
+(21, 'Porque quiero', '2020-05-17 04:52:08'),
+(22, 'Otra razón', '2020-05-17 04:52:08'),
+(23, 'Porque quiero', '2020-05-17 04:52:08'),
+(24, 'Otra razón', '2020-05-17 04:52:08');
 
 -- --------------------------------------------------------
 

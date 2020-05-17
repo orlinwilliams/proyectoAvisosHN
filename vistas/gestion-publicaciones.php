@@ -296,9 +296,69 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
+                <h2>PUBLICACIONES BORRADAS POR EL USUARIO</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="info-box-4 hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons col-blue">equalizer</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">VENDIDOS</div>
+                            <div id="vendidos" class="number">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="info-box-4 hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons col-blue">equalizer</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">CAMBIE DE PARECER</div>
+                            <div id="cambiarParecer" class="number">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-2 col-sm-6 col-xs-12">
+                    <div class="info-box-4 hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons col-blue">delete_forever</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">ANUNCIOS BORRADOS</div>
+                            <div id="anunciosBorrados" class="number">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="info-box-4 hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons col-blue">equalizer</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">PORQUE QUIERO</div>
+                            <div id="porqueQuiero" class="number">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="info-box-4 hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons col-blue">equalizer</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">OTRA RAZON</div>
+                            <div id="otraRazon" class="number">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-header">
                 <h2>GESTIÓN DE PUBLICACIONES</h2>
             </div>
-            <!-- Basic Examples -->
+            <!-- tabla con las publicaciones -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -349,7 +409,6 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
             </div>
         </div>
     </section>
-
     <!--Modal con el mensaje de respuesta-->
     <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true ">
         <div class="modal-dialog modal-dialog-centered" role="document ">
