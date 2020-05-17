@@ -318,8 +318,8 @@ eliminarPublicacion = function (idAnuncio) {
             "<div class='col-md-8'>"+
                 "<div class='form-group form-float'>" +
                     "<div class='form-line'>" +
-                        "<select class='form-control show-tick' id='razon'>" +
-                            "<option value=''>Elige una opción</option>" +
+                        "<select class='form-control show-tick' id='razon' placeholder='Eliga una opción por favor'>" +
+                            "<option value=''></option>" +
                             "<option value='Vendido'>Vendido</option>" +
                             "<option value='Cambié de parecer, no quiero ponerlo en venta'>Cambié de parecer, no quiero ponerlo en venta</option>" +
                             "<option value='Porque quiero'>Porque quiero</option>" +

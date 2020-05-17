@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 14-05-2020 a las 21:34:49
+-- Tiempo de generación: 17-05-2020 a las 04:19:08
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -1371,6 +1371,19 @@ CREATE TABLE IF NOT EXISTS `publicaciones_lugar` (
 `nombreDepartamento` varchar(45)
 ,`publicaciones` bigint(21)
 );
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `razonborrado`
+--
+
+DROP TABLE IF EXISTS `razonborrado`;
+CREATE TABLE IF NOT EXISTS `razonborrado` (
+  `idRazon` int(11) NOT NULL AUTO_INCREMENT,
+  `razon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`idRazon`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
