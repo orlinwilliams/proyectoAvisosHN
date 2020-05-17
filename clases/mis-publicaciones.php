@@ -146,6 +146,12 @@
             if($idAnuncio == "" || $idAnuncio == NULL){
                 echo "ingrese el ID del anuncio";
             }
+            if(isset($_POST["razon"])){
+                $razon=$_POST["razon"];
+            }
+            if($razon == "" || $razon == NULL){
+                echo "Ingrese la razón por la cual borra el anuncio";
+            }
             else{
             $conexion = new conexion();
             session_start();
@@ -157,6 +163,8 @@
                 $direccion=$fila["localizacion"];
                 unlink($direccion);
             }
+            $sql="INSERT INTO razonborrado (razon) values ('$razon');";
+            $resultado = $conexion->ejecutarInstruccion($sql);
             $sql = "CALL `SP_ELIMINAR_ANUNCIO`('$idAnuncio', '$idUsuario', @p3);";
             $salida = "SELECT @p3 AS `pcMensaje`;";
                 $resultado = $conexion->ejecutarInstruccion($sql);

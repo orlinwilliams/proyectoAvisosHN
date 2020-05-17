@@ -129,7 +129,6 @@ misFavoritos=()=>{
 		url: "../clases/perfil.php?accion=6",
 		success: function (resp) {
 			datos=JSON.parse(resp);
-			console.log(datos);
 			filaUsuario="";
 			if(datos.error==true){
 				filaUsuario+=filaUsuario+="<li>"+
