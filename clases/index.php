@@ -3,7 +3,7 @@ require_once("conexion.php");
 require_once("correo.php");
 
 switch ($_GET["accion"]) {                                                                                      //Inicio de switch
-    case '1':                                                                                                   //Llena el select de municipios
+    case '1': ///////////////Llena el select de municipios
         $conexion = new conexion();
         $sql = "SELECT iddepartamentos, nombredepartamento FROM `departamentos`
             ORDER by iddepartamentos ASC;";
@@ -57,37 +57,34 @@ switch ($_GET["accion"]) {                                                      
         }
         if (isset($_POST["txt_contraseña2"])) {
             $contraseña2 = $_POST["txt_contraseña2"];
-        }                                                                                                       //Fin de la asignación
-
-        if ($nombre == "" || $nombre == NULL) {                                                                       //Comienza a vericar que no sean valores nulos o vacios
-            $respuesta = "Ingrese el nombre";
-            echo $respuesta;
+        }
+        $respuesta = "";
+        if ($nombre == "" || $nombre == NULL) {
+            $respuesta .= " nombre,";
         }
         if ($apellido == "" || $apellido == NULL) {
-            $respuesta = "Ingrese el apellido";
-            echo $respuesta;
+            $respuesta .= " apellido,";
         }
         if ($fecha == "" || $fecha == NULL) {
-            $respuesta = "Ingrese la fecha";
-            echo $respuesta;
+            $respuesta .= " la fecha,";
         }
         if ($correo == "" || $correo == NULL) {
-            $respuesta = "Ingrese el correo";
-            echo $respuesta;
+            $respuesta .= " el correo,";
         }
         if ($telefono == "" || $telefono == NULL) {
-            $respuesta = "Ingrese el telefono";
-            echo $respuesta;
+            $respuesta .= " el telefono,";
         }
         if ($idMunicipio == "" || $idMunicipio == NULL) {
-            $respuesta = "Ingrese el municipio";
-            echo $respuesta;
+            $respuesta .= " el municipio,";
         }
         if ($contraseña == "" || $contraseña == NULL) {
-            $respuesta = "Ingrese la contraseña";
-            echo $respuesta;
+            $respuesta .= " la contraseña,";
+        }
+        if ($respuesta <> "" || $respuesta <> NULL) {
+            $respuesta2 = "Verifique los siguientes campos:" . $respuesta;
+            echo $respuesta2;
         } else if ($contraseña2 == "" || $contraseña2 == NULL) {
-            $respuesta = "Ingrese la contraseña";
+            $respuesta = "Las contraseñas no coinciden";
             echo $respuesta;
         }                                                                                                         //Fin de validación
         else {
