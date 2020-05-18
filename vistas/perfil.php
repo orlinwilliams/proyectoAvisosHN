@@ -23,11 +23,20 @@ session_start();
 
     <!-- Animation Css -->
     <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
+    <!-- noUISlider Css -->
+    <link href="../plugins/nouislider/nouislider.min.css" rel="stylesheet" /> 
     <!-- Sweetalert Css -->
     <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
     <!-- Custom Css -->
     <link href="../css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+    <link href="../css/estilos.css" rel="stylesheet">
+    <link href="../css/font.css" rel="stylesheet">
+
+    <!-- estrellas Css -->
+    <link href="../plugins/star/css/starrr.css" rel="stylesheet" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../css/themes/all-themes.css" rel="stylesheet" />
@@ -59,7 +68,7 @@ session_start();
         <div class="search-icon">
             <i class="material-icons">search</i>
         </div>
-        <input type="text" placeholder="START TYPING...">
+        <input id="buscaAnuncio" type="text" placeholder="BUSCAR ANUNCIO">
         <div class="close-search">
             <i class="material-icons">close</i>
         </div>
@@ -278,7 +287,7 @@ session_start();
 
     <section class="content">
         <div class="container-fluid">
-            <div class="row clearfix">
+            <div class="row clearfix cards" id="contenedorTarjetas">
                 <div class="col-xs-12 col-sm-3">
                     <div class="card profile-card">
                         <div class="profile-header">&nbsp;</div>
@@ -470,30 +479,165 @@ session_start();
             </div>
 
         </div>
+
+        <!-- MODAL PARA VER LA INFORMACION DE UN ARTICULO-->
+        <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-per modal-lg " role="document" style="width:70%">
+            <div class="modal-content" style="">
+                <div class="modal-body modal-body-per" id="infoArticulo">
+                </div>
+            </div>
+            </div>
+        </div>
+
+
         <!--Modal que carga la información del vendedor-->
         <div class="modal fade" id="modalVendedor" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-per" role="document">
+            <div class="modal-content">
+                <div class="modal-body modal-body-per" id="contenidoModalVendedor">
+                </div>
+                
+            </div>
+            </div>
+        </div>
+
+        <!-- modal para hacer contacto con el vendedor -->
+        <div class="modal fade" id="modalContacto" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title" id="smallModalLabel">¡Hazlo, contacta con el vendedor!</h4>
+                </div>
+                <div class="modal-body">
+                <div style="padding:5px; ">
+                    <div class="input-group input-group-sm">
+                    <span class="input-group-addon">
+                        <i class="material-icons">person</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="text" id="nombreUsuario" class="form-control" placeholder="<?php echo $_SESSION["usuario"]["pNombre"] . ' ' . $_SESSION["usuario"]["pApellido"]; ?>" readonly="readonly">
+                    </div>
+                    </div>
+                    <div class="input-group input-group-sm">
+                    <span class="input-group-addon">
+                        <i class="material-icons">mail</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" id="correoUsuario" placeholder="<?php echo $_SESSION["usuario"]["correoElectronico"]; ?>" readonly="readonly">
+                    </div>
+                    </div>
+                    <div id="descrip">
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!--Modal para las denuncias-->
+        <div class="modal fade" id="denuncias" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title" id="smallModalLabel" style="text-align:center;">¡Cuentanos tu denuncia!</h4>
+                </div>
+                <div class="modal-body">
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                        <select class="form-control show-tick" id="razónDenuncia">
+                            <option value=""></option>
+                            <option value="1">Descripción imprecisa</option>
+                            <option value="2">Contenido ofensivo o dañino</option>
+                            <option value="3">Estafa</option>
+                            <option value="4">Articulo falso</option>
+                            <option value="5">Contenido sexual</option>
+                            <option value="6">Venta de armas o drogas</option>
+                            <option value="7">Publicación discriminatoria</option>
+                            <option value="8">Sin intención de venta</option>
+                        </select>
+                        <label class="form-label">Razón</label>
+                        </div>
+                    </div>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                        <textarea cols="30" rows="4" class="form-control no-resize" id="comentario-denuncia"></textarea>
+                        <label class="form-label">Tu comentario es valioso</label>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" id="denuncia" class="btn bg-pink waves-effect">DENUNCIAR</button>
+                <button type="button" class="btn bg-black waves-effect" data-dismiss="modal">CANCELAR</button>
+                <!--data-target='#denuncias' data-dismiss='#defaultModal'-->
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+
+        <!--Modal para compartir-->
+        <div class="modal fade" id="modalCompartir" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title" id="smallModalLabel" style="text-align:center;">¡Comparte MarketHN!</h4>
+                </div>
+                <div class="modal-body">
+                <div class="social">
+                    <ul>
+                    <li><a href="http://www.facebook.com/sharer/sharer.php?u=https://markethn.herokuapp.com/" class="icon-facebook" target="_blank"></a></li>
+                    <li><a href="https://www.instagram.com/" class="icon-instagram" target="_blank"></a></li>
+                    </ul>
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn bg-black waves-effect" data-dismiss="modal">CANCELAR</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        
+        
+        
+
+
+
+        <!--Modal con el mensaje de respuesta-->
+        <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true ">
+            <div class="modal-dialog modal-dialog-centered" role="document ">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true ">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body" id="cuerpoModal">
+                </div>
+            </div>
+            </div>
+        </div>
+
+        
+        <!--Modal que carga la información del vendedor2-->
+        <div class="modal fade" id="modalVendedor2" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-per" role="document">
                 <div class="modal-content">
-                    <div class="modal-body modal-body-per" id="contenidoModalVendedor">
+                    <div class="modal-body modal-body-per" id="contenidoModalVendedor2">
                     </div>
 
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true ">
-            <div class="modal-dialog modal-dialog-centered" role="document ">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true ">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" id="cuerpoModal">
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </section>
 
     <!-- Jquery Core Js -->
@@ -534,8 +678,13 @@ session_start();
 
     <!-- Custom Js -->
     <script src="../js/pages/forms/basic-form-elements.js"></script>
+    <!-- Custom Js -->
+    <script src="../js/pages/ui/modals.js"></script>
+    <!-- Star Plugin Js -->
+    <script src="../plugins/star/js/starrr.js"></script>
 
     <!-- Demo Js -->
+    <script src="../js/index.js"></script>
     <script src="../controlador/perfiles.js"></script>
     <script src="../plugins/sweetalert/sweetalert.min.js"></script>
 
