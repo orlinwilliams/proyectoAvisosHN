@@ -73,6 +73,13 @@
             if(!isset($_POST["value"])){
                 echo json_encode(array("error"=>true,"mensaje"=>"no hay palabra clave"));
             }
+            elseif($_POST["value"]==""){
+                echo json_encode(array("error"=>true,"mensaje"=>"no hay palabra clave"));
+            }
+            elseif($_POST["value"]==" "){
+                echo json_encode(array("error"=>true,"mensaje"=>"no hay palabra clave"));
+            }
+
             else{
                 $conexion = new conexion();
                 $palabraClave=$_POST["value"];
