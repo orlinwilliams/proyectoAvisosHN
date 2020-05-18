@@ -45,13 +45,6 @@ switch ($_GET['accion']) {
             echo "ingrese el ID del anuncio";
         } else {
             $conexion = new conexion();
-            $urls = "SELECT idFotos, idAnuncios, localizacion FROM fotos
-            WHERE idAnuncios=$idAnuncio;";
-            $respuesta = $conexion->ejecutarInstruccion($urls);
-            while ($fila =  $conexion->obtenerFila($respuesta)) {
-                $direccion = $fila["localizacion"];
-                unlink($direccion);
-            }
             $sql = "CALL `SP_ELIMINAR_ANUNCIO`('$idAnuncio', '$idUsuario', @p3);";
             $salida = "SELECT @p3 AS `pcMensaje`;";
             $resultado = $conexion->ejecutarInstruccion($sql);

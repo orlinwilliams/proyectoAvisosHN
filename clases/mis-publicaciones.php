@@ -156,13 +156,6 @@
             $conexion = new conexion();
             session_start();
             $idUsuario=$_SESSION["usuario"]["idUsuario"];
-            $urls="SELECT idFotos, idAnuncios, localizacion FROM fotos
-            WHERE idAnuncios=$idAnuncio;";
-            $respuesta=$conexion->ejecutarInstruccion($urls);
-            while($fila =  $conexion->obtenerFila($respuesta)){
-                $direccion=$fila["localizacion"];
-                unlink($direccion);
-            }
             $sql="INSERT INTO razonborrado (razon) values ('$razon');";
             $resultado = $conexion->ejecutarInstruccion($sql);
             $sql = "CALL `SP_ELIMINAR_ANUNCIO`('$idAnuncio', '$idUsuario', @p3);";

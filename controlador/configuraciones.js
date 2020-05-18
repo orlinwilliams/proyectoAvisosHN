@@ -38,14 +38,19 @@ $(document).ready(function () {
       method: "POST",
       data: "grupo=" + $("#grupoCate").val(),
       success: function (resultado) {
-        $("#grupoCategoria").empty();
-        $("#grupoCategoria").append("<option></option>");
-        $("#grupoCategoria1").empty();
-        $("#grupoCategoria1").append("<option></option>");
-        $("#grupoCategoria2").empty();
-        $("#grupoCategoria2").append("<option></option>");
-        grupocategorias();
-        swal("Éxito!", resultado, "success");
+        let datos = JSON.parse(resultado);
+        if (datos.error == true) {
+          swal("Cancelado", datos.mensaje, "error");
+        } else {
+          $("#grupoCategoria").empty();
+          $("#grupoCategoria").append("<option></option>");
+          $("#grupoCategoria1").empty();
+          $("#grupoCategoria1").append("<option></option>");
+          $("#grupoCategoria2").empty();
+          $("#grupoCategoria2").append("<option></option>");
+          grupocategorias();
+          swal("Éxito!", datos.mensaje, "success");
+        }
       },
     });
   });
@@ -61,7 +66,12 @@ $(document).ready(function () {
         "&categoria=" +
         $("#agregarCat").val(),
       success: function (resultado) {
-        swal("Éxito!", resultado, "success");
+        let datos = JSON.parse(resultado);
+        if (datos.error == true) {
+          swal("Cancelado", datos.mensaje, "error");
+        } else {
+          swal("Éxito!", datos.mensaje, "success");
+        }
       },
     });
   });
@@ -86,26 +96,33 @@ $(document).ready(function () {
       },
     });
   });
-//////////////////////////////////////7////////////7ELIMINAR GRUPO CATEGORIA
+  //////////////////////////////////////7////////////7ELIMINAR GRUPO CATEGORIA
   $("#delete").click(function (event) {
     event.preventDefault();
-    console.log("dark");
     $.ajax({
       url: "../clases/configuraciones.php?accion=6",
       method: "POST",
-      data:
-        "grupo=" +
-        $("#grupoCategoria").val(),
+      data: "grupo=" + $("#grupoCategoria").val(),
       success: function (resultado) {
-        swal("Éxito!", resultado, "success");
+        let datos = JSON.parse(resultado);
+        if (datos.error == true) {
+          swal("Cancelado", datos.mensaje, "error");
+        } else {
+          $("#grupoCategoria").empty();
+          $("#grupoCategoria").append("<option></option>");
+          $("#grupoCategoria1").empty();
+          $("#grupoCategoria1").append("<option></option>");
+          $("#grupoCategoria2").empty();
+          $("#grupoCategoria2").append("<option></option>");
+          grupocategorias();
+          swal("Éxito!", datos.mensaje, "success");
+        }
       },
     });
   });
-
   //////////////////////////////////////7////////////7ELIMINAR CATEGORIA
   $("#eliminar").click(function (event) {
     event.preventDefault();
-    console.log("lord");
     $.ajax({
       url: "../clases/configuraciones.php?accion=7",
       method: "POST",
@@ -115,7 +132,32 @@ $(document).ready(function () {
         "&categoria=" +
         $("#listacategorias").val(),
       success: function (resultado) {
-        swal("Éxito!", resultado, "success");
+        console.log(resultado);
+        let datos = JSON.parse(resultado);
+        console.log(datos);
+        if (datos.error == true) {
+          swal("Cancelado", datos.mensaje, "error");
+        } else {
+          $.ajax({
+            data: "idGrupo=" + $("#grupoCategoria2").val(),
+            url: "../clases/configuraciones.php?accion=5",
+            method: "POST",
+            success: function (respuesta) {
+              let datos = JSON.parse(respuesta);
+              if (datos.error == true) {
+                swal("Cancelado", datos.mensaje, "error");
+              } else {
+                $("#listacategorias").empty();
+                $("#listacategorias").append("<option></option>");
+                $("#listacategorias").append(datos.HTML);
+              }
+            },
+            error: function (error) {
+              console.log(error);
+            },
+          });
+          swal("Éxito!", datos.mensaje, "success");
+        }
       },
     });
   });
