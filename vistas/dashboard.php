@@ -55,7 +55,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
   <!-- Overlay For Sidebars -->
   <div class="overlay"></div>
   <!-- #END# Overlay For Sidebars -->
-  <!-- Search Bar -->
+  <!-- Search Bar 
   <div class="search-bar">
     <div class="search-icon">
       <i class="material-icons">search</i>
@@ -64,8 +64,9 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
     <div class="close-search">
       <i class="material-icons">close</i>
     </div>
-  </div>
+  </div>-->
   <!-- #END# Search Bar -->
+
   <!-- Top Bar -->
   <nav class="navbar">
     <div class="container-fluid">
@@ -76,10 +77,10 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <!-- Call Search -->
+          <!-- Call Search 
           <li>
             <a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a>
-          </li>
+          </li>-->
           <!-- #END# Call Search -->
           <!-- Tasks -->
           <li>
