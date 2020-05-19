@@ -71,263 +71,265 @@ var comparaAños = () => {
       eliminaCanvas();
       creaCanvas();
       capturaCanvas();
-
-      $.ajax({
-        url: "../clases/dashboard.php?accion=3",
-        data: "anio1=" + año1 + "&anio2=" + año2,
-        type: "POST",
-        success: (resp) => {
-          datos = JSON.parse(resp);
-          //console.log(datos);
-          meses = [
-            "Enero",
-            "Febrero",
-            "Marzo",
-            "Abril",
-            "Mayo",
-            "Junio",
-            "Julio",
-            "Agosto",
-            "Septiembre",
-            "Octubre",
-            "Noviembre",
-            "Diciembre",
-          ];
-
-          dataPublicaciones2019 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-          for (var key in datos.anio1.publicaciones) {
-            for (var key1 in meses) {
-              if (key == meses[key1]) {
-                dataPublicaciones2019[key1] = datos.anio1.publicaciones[key];
+      if(año1!="" && año2!=""){
+        $.ajax({
+          url: "../clases/dashboard.php?accion=3",
+          data: "anio1=" + año1 + "&anio2=" + año2,
+          type: "POST",
+          success: (resp) => {
+            datos = JSON.parse(resp);
+            //console.log(datos);
+            meses = [
+              "Enero",
+              "Febrero",
+              "Marzo",
+              "Abril",
+              "Mayo",
+              "Junio",
+              "Julio",
+              "Agosto",
+              "Septiembre",
+              "Octubre",
+              "Noviembre",
+              "Diciembre",
+            ];
+  
+            dataPublicaciones2019 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  
+            for (var key in datos.anio1.publicaciones) {
+              for (var key1 in meses) {
+                if (key == meses[key1]) {
+                  dataPublicaciones2019[key1] = datos.anio1.publicaciones[key];
+                }
               }
             }
-          }
-
-          dataPublicaciones2020 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-          for (var key in datos.anio2.publicaciones) {
-            for (var key1 in meses) {
-              if (key == meses[key1]) {
-                dataPublicaciones2020[key1] = datos.anio2.publicaciones[key];
+  
+            dataPublicaciones2020 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  
+            for (var key in datos.anio2.publicaciones) {
+              for (var key1 in meses) {
+                if (key == meses[key1]) {
+                  dataPublicaciones2020[key1] = datos.anio2.publicaciones[key];
+                }
               }
             }
-          }
-
-          var chart = new Chart(graficaPublicaciones, {
-            type: "bar",
-            data: {
-              labels: meses,
-              datasets: [
-                {
-                  label: datos.anio1.anio,
-                  data: dataPublicaciones2019,
-                  backgroundColor: "rgba(0,0,255,0.5)",
-                },
-                {
-                  label: datos.anio2.anio,
-                  data: dataPublicaciones2020,
-                  backgroundColor: "rgba(233, 30, 99, 0.5)",
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              scales: {
-                yAxes: [
+  
+            var chart = new Chart(graficaPublicaciones, {
+              type: "bar",
+              data: {
+                labels: meses,
+                datasets: [
                   {
-                    ticks: {
-                      beginAtZero: true,
-                    },
+                    label: datos.anio1.anio,
+                    data: dataPublicaciones2019,
+                    backgroundColor: "rgba(0,0,255,0.5)",
+                  },
+                  {
+                    label: datos.anio2.anio,
+                    data: dataPublicaciones2020,
+                    backgroundColor: "rgba(233, 30, 99, 0.5)",
                   },
                 ],
               },
-            },
-          });
-
-          categorias2019 = [];
-          categorias2020 = [];
-
-          valoresCategorias2019 = [];
-          valoresCategorias2020 = [];
-
-          for (var key in datos.anio1.categorias) {
-            categorias2019.push(key);
-          }
-          for (var key in datos.anio2.categorias) {
-            categorias2020.push(key);
-          }
-          categorias = categorias2019.concat(categorias2020);
-
-          Array.prototype.unique = (function (a) {
-            return function () {
-              return this.filter(a);
-            };
-          })(function (a, b, c) {
-            return c.indexOf(a, b + 1) < 0;
-          });
-          var categoriasFinal = categorias.unique();
-
-          for (var key in datos.anio1.categorias) {
-            for (var key1 in categoriasFinal) {
-              if (key == categoriasFinal[key1]) {
-                valoresCategorias2019[key1] = datos.anio1.categorias[key];
-              }
-            }
-          }
-          for (var key in datos.anio2.categorias) {
-            for (var key1 in categoriasFinal) {
-              if (key == categoriasFinal[key1]) {
-                valoresCategorias2020[key1] = datos.anio2.categorias[key];
-              }
-            }
-          }
-
-          var chart = new Chart(graficaCategorias, {
-            type: "bar",
-            data: {
-              labels: categoriasFinal,
-              datasets: [
-                {
-                  label: datos.anio1.anio,
-                  data: valoresCategorias2019,
-                  backgroundColor: "rgba(0,255,0,0.5)",
-                },
-                {
-                  label: datos.anio2.anio,
-                  data: valoresCategorias2020,
-                  backgroundColor: "rgba(0,0,255,0.5)",
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              scales: {
-                yAxes: [
-                  {
-                    ticks: {
-                      beginAtZero: true,
+              options: {
+                responsive: true,
+                scales: {
+                  yAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                      },
                     },
+                  ],
+                },
+              },
+            });
+  
+            categorias2019 = [];
+            categorias2020 = [];
+  
+            valoresCategorias2019 = [];
+            valoresCategorias2020 = [];
+  
+            for (var key in datos.anio1.categorias) {
+              categorias2019.push(key);
+            }
+            for (var key in datos.anio2.categorias) {
+              categorias2020.push(key);
+            }
+            categorias = categorias2019.concat(categorias2020);
+  
+            Array.prototype.unique = (function (a) {
+              return function () {
+                return this.filter(a);
+              };
+            })(function (a, b, c) {
+              return c.indexOf(a, b + 1) < 0;
+            });
+            var categoriasFinal = categorias.unique();
+  
+            for (var key in datos.anio1.categorias) {
+              for (var key1 in categoriasFinal) {
+                if (key == categoriasFinal[key1]) {
+                  valoresCategorias2019[key1] = datos.anio1.categorias[key];
+                }
+              }
+            }
+            for (var key in datos.anio2.categorias) {
+              for (var key1 in categoriasFinal) {
+                if (key == categoriasFinal[key1]) {
+                  valoresCategorias2020[key1] = datos.anio2.categorias[key];
+                }
+              }
+            }
+  
+            var chart = new Chart(graficaCategorias, {
+              type: "bar",
+              data: {
+                labels: categoriasFinal,
+                datasets: [
+                  {
+                    label: datos.anio1.anio,
+                    data: valoresCategorias2019,
+                    backgroundColor: "rgba(0,255,0,0.5)",
+                  },
+                  {
+                    label: datos.anio2.anio,
+                    data: valoresCategorias2020,
+                    backgroundColor: "rgba(0,0,255,0.5)",
                   },
                 ],
               },
-            },
-          });
-
-          lugares2019 = [];
-          lugares2020 = [];
-
-          valoresLugares2019 = [];
-          valoresLugares2020 = [];
-
-          for (var key in datos.anio1.lugar) {
-            lugares2019.push(key);
-          }
-          for (var key in datos.anio2.lugar) {
-            lugares2020.push(key);
-          }
-          lugares = lugares2019.concat(lugares2020);
-
-          var lugaresFinal = lugares.unique();
-
-          for (var key in datos.anio1.lugar) {
-            for (var key1 in lugaresFinal) {
-              if (key == lugaresFinal[key1]) {
-                valoresLugares2019[key1] = datos.anio1.lugar[key];
-              }
-            }
-          }
-          for (var key in datos.anio2.lugar) {
-            for (var key1 in lugaresFinal) {
-              if (key == lugaresFinal[key1]) {
-                valoresLugares2020[key1] = datos.anio2.lugar[key];
-              }
-            }
-          }
-
-          var chart = new Chart(graficaLugares, {
-            type: "bar",
-            data: {
-              labels: lugaresFinal,
-              datasets: [
-                {
-                  label:datos.anio1.anio,
-                  data: valoresLugares2019,
-                  backgroundColor: "rgba(149, 99, 141,0.5)",
-                },
-                {
-                  label: datos.anio2.anio,
-                  data: valoresLugares2020,
-                  backgroundColor: "rgba(0,0,255,0.5)",
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              scales: {
-                yAxes: [
-                  {
-                    ticks: {
-                      beginAtZero: true,
+              options: {
+                responsive: true,
+                scales: {
+                  yAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                      },
                     },
+                  ],
+                },
+              },
+            });
+  
+            lugares2019 = [];
+            lugares2020 = [];
+  
+            valoresLugares2019 = [];
+            valoresLugares2020 = [];
+  
+            for (var key in datos.anio1.lugar) {
+              lugares2019.push(key);
+            }
+            for (var key in datos.anio2.lugar) {
+              lugares2020.push(key);
+            }
+            lugares = lugares2019.concat(lugares2020);
+  
+            var lugaresFinal = lugares.unique();
+  
+            for (var key in datos.anio1.lugar) {
+              for (var key1 in lugaresFinal) {
+                if (key == lugaresFinal[key1]) {
+                  valoresLugares2019[key1] = datos.anio1.lugar[key];
+                }
+              }
+            }
+            for (var key in datos.anio2.lugar) {
+              for (var key1 in lugaresFinal) {
+                if (key == lugaresFinal[key1]) {
+                  valoresLugares2020[key1] = datos.anio2.lugar[key];
+                }
+              }
+            }
+  
+            var chart = new Chart(graficaLugares, {
+              type: "bar",
+              data: {
+                labels: lugaresFinal,
+                datasets: [
+                  {
+                    label:datos.anio1.anio,
+                    data: valoresLugares2019,
+                    backgroundColor: "rgba(149, 99, 141,0.5)",
+                  },
+                  {
+                    label: datos.anio2.anio,
+                    data: valoresLugares2020,
+                    backgroundColor: "rgba(0,0,255,0.5)",
                   },
                 ],
               },
-            },
-          });
-
-          dataUsuarios2019 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-          for (var key in datos.anio1.usuario) {
-            for (var key1 in meses) {
-              if (key == meses[key1]) {
-                dataUsuarios2019[key1] = datos.anio1.usuario[key];
-              }
-            }
-          }
-
-          dataUsuarios2020 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-          for (var key in datos.anio2.usuario) {
-            for (var key1 in meses) {
-              if (key == meses[key1]) {
-                dataUsuarios2020[key1] = datos.anio2.usuario[key];
-              }
-            }
-          }
-
-          var chart = new Chart(graficaUsuarios, {
-            type: "bar",
-            data: {
-              labels: meses,
-              datasets: [
-                {
-                  label: datos.anio1.anio,
-                  data: dataUsuarios2019,
-                  backgroundColor: "rgba(213, 211, 61,0.7)",
-                },
-                {
-                  label: datos.anio2.anio,
-                  data: dataUsuarios2020,
-                  backgroundColor: "rgba(0,0,255,0.5)",
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              scales: {
-                yAxes: [
-                  {
-                    ticks: {
-                      beginAtZero: true,
+              options: {
+                responsive: true,
+                scales: {
+                  yAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                      },
                     },
+                  ],
+                },
+              },
+            });
+  
+            dataUsuarios2019 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  
+            for (var key in datos.anio1.usuario) {
+              for (var key1 in meses) {
+                if (key == meses[key1]) {
+                  dataUsuarios2019[key1] = datos.anio1.usuario[key];
+                }
+              }
+            }
+  
+            dataUsuarios2020 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  
+            for (var key in datos.anio2.usuario) {
+              for (var key1 in meses) {
+                if (key == meses[key1]) {
+                  dataUsuarios2020[key1] = datos.anio2.usuario[key];
+                }
+              }
+            }
+  
+            var chart = new Chart(graficaUsuarios, {
+              type: "bar",
+              data: {
+                labels: meses,
+                datasets: [
+                  {
+                    label: datos.anio1.anio,
+                    data: dataUsuarios2019,
+                    backgroundColor: "rgba(213, 211, 61,0.7)",
+                  },
+                  {
+                    label: datos.anio2.anio,
+                    data: dataUsuarios2020,
+                    backgroundColor: "rgba(0,0,255,0.5)",
                   },
                 ],
               },
-            },
-          });
-        },
-      });
+              options: {
+                responsive: true,
+                scales: {
+                  yAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                      },
+                    },
+                  ],
+                },
+              },
+            });
+          },
+        });
+      }
+      
     } else {
       console.log("años iguales");
     }
