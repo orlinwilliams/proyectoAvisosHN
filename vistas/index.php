@@ -470,8 +470,18 @@ session_start();
               </div>
               <div class="form-group form-float">
                 <div class="form-line">
+                  <select title="SI NO SELECCIONA MUNICIPIO TOMARA POR DEFECTO CON EL QUE SE REGISTRO" class="form-control show-tick" name="lugar" id="lugarMunicipios">
+                    <option></option>
+                  </select>
+                  <label title="SI NO SELECCIONA MUNICIPIO TOMARA POR DEFECTO CON EL QUE SE REGISTRO" class="form-label" >Lugar</label>
+                    <option></option>
+                </div>
+              </div>
+
+              <div class="form-group form-float">
+                <div class="form-line">
                   <textarea name="descripcion" cols="30" rows="4" class="form-control no-resize"></textarea>
-                  <label class="form-label">Descripción (Opcional)</label>
+                  <label class="form-label">Descripción</label>
                 </div>
               </div>
               <div class="modal-footer">

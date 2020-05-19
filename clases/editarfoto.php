@@ -10,10 +10,16 @@
                 $idanuncios = $_POST["txt_idanuncios"];
               
             }
-            $sql="SELECT idAnuncios, idUsuario, nombre, anuncios.idCategoria, nombreCategoria, descripcion, estadoArticulo 
-            FROM anuncios INNER JOIN categoria ON categoria.idcategoria= anuncios.idcategoria 
-            WHERE idUsuario=$idUsuario and idAnuncios=$idanuncios";//CONSULTA
-            
+            $sql="SELECT idAnuncios, a.idUsuario, a.nombre, c.idCategoria, nombreCategoria, descripcion, estadoArticulo, m.municipio
+            FROM anuncios a
+            INNER JOIN categoria c
+            ON c.idcategoria= a.idcategoria 
+            INNER JOIN usuario U
+            ON a.idUsuario=U.idUsuario
+            INNER JOIN municipios m
+            ON U.idMunicipios=m.idMunicipios
+           WHERE a.idUsuario=$idUsuario and idAnuncios=$idanuncios";
+
             if($respuesta=$conexion->ejecutarInstruccion($sql)){
                 if($respuesta->num_rows!=0){
                     $datos=$respuesta->fetch_assoc();
@@ -39,7 +45,7 @@
                             while($row=$resultado->fetch_array()){   
                                 $fotos[]=array("path"=>$row["localizacion"],"size"=>$row["size"],"name"=>$row["nombre"]);
                            }
-                           echo json_encode(array("info"=>$datos,"moneda"=>$moneda,"price"=>$precioReal,"info"=>$datos,"fotos"=>$fotos));   
+                           echo json_encode(array("info"=>$datos,"moneda"=>$moneda,"price"=>$precioReal,"fotos"=>$fotos));   
                     }
                     else{
                         echo"error en consulta de fotos";

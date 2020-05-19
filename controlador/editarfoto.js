@@ -1,3 +1,4 @@
+
 categoria = function () {														//Inicio funcion para llenar las categorias
 	$.ajax({																	//Inicio ajax categorias
 		url: "../clases/vistas-index.php?accion=1",
@@ -35,6 +36,7 @@ cargarFotosEditar = function (id,callback ) {
     let datos =JSON.parse(callback);
     console.log(datos);
     categoria();
+    municipios();
     
     var myDropzoneModal="<form id='formularioDropzone'>"
                 +"<hr style='margin-top:0px;'>"
@@ -105,6 +107,14 @@ cargarFotosEditar = function (id,callback ) {
                     +"<label class='form-label'></label>"
                     +"</div>"
                 +"</div>"
+                +"<div class='form-group form-float'>"//LUGAR
+                    +"<div class='form-line'>"
+                    +"<select class='form-control show-tick' name='categoria' id='lugarActualizar'  required>"
+                    +"<option value='" + datos.info.municipio + "'>" + datos.info.municipio + "</option>"
+                    +"</select>"
+                    +"<label class='form-label'></label>"
+                    +"</div>"
+                +"</div>"
                 +"<div class='form-group form-float'>"
                     +"<div class='form-line'>"
                     +"<textarea name='descripcion' cols='30' rows='4' id='descripcionActualizar' value='"+datos.info.descripcion+"' class='form-control no-resize'>"+datos.info.descripcion+"</textarea>"
@@ -134,6 +144,7 @@ cargarFotosEditar = function (id,callback ) {
                 "&estado=" + $("#estadoArticulo").val() +
                 "&categoriaAct=" + $("#categoriaActualizar").val() +
                 "&descripcion=" + $("#descripcionActualizar").val() +
+                "&municipio=" + $("#lugarActualizar").val() +
                 "&txt_idanuncios=" + id,
 
             success: function (resultado) {
@@ -265,4 +276,20 @@ cargarFotosEditar = function (id,callback ) {
     });
 
 }
+
+municipios = function () {
+    //Inicio funcion para llenar los municipios
+    $.ajax({
+      //Inicio ajax municipios
+      url: "../clases/vistas-index.php?accion=2",
+      success: function (resultado) {
+        //console.log(resultado);
+        
+        $("#lugarActualizar").append(resultado);
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    }); //Fin ajax municipios
+  }; //Fin funcion para llenar los municipios
 

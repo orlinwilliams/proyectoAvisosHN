@@ -24,7 +24,9 @@
             if(isset($_POST["descripcion"])){
                 $descripcion = $_POST["descripcion"];
             }                                                                                                     
-            
+            if(isset($_POST["lugar"])){
+                $lugar=$_POST["lugar"];
+            }
             if($nombre=="" || $nombre==NULL){                                                                      
                 $respuesta="Ingrese el nombre";
                 echo $respuesta;
@@ -250,6 +252,9 @@
             }
             if(isset($_POST["descripcion"])){
                 $descripcion = $_POST["descripcion"];
+            }
+            if(isset($_POST["municipio"])){
+                $municipio = $_POST["municipio"];
             }
             
             if($nombre_articulo=="" || $nombre_articulo==NULL){
