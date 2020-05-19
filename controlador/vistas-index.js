@@ -679,15 +679,20 @@ enviarCorreoContacto = function (parametros) {
     method: "POST",
     data: "mensaje1=" + $("#mensaje1").val() + "&idanuncio3=" + id,
     success: function (resultado) {
-      showSuccessMessage();
+      var datos=JSON.parse(resultado);
+      if(datos.error==true){
+        alert(datos.mensaje);
+      }
+      else{
+        showSuccessMessage();
         function showSuccessMessage() {
             swal("Correo enviado!", "Presiona ok para seguir navengando!", "success");
             $("button.confirm").click(()=>{
                 location.reload();
             })
+        }
       }
       
-
       //Despliega el modal con el modal
     },
   });

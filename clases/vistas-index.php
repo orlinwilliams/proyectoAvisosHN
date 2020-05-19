@@ -276,7 +276,8 @@ switch ($_GET["accion"]) {
             $respuesta = "Ingrese su mensaje a enviar.";
             echo $respuesta;
         }
-        $sql = "SELECT nombre, u.correoElectronico, concat_ws(' ',u.pnombre, u.papellido) as nombreVendedor FROM anuncios a 
+        
+        $sql = "SELECT nombre , u.correoElectronico, concat_ws(' ',u.pnombre, u.papellido) as nombreVendedor, u.idUsuario FROM anuncios a 
               INNER JOIN usuario u on u.idUsuario=a.idUsuario WHERE a.idAnuncios= '$idAnuncio'";
         $salida = "SELECT @p10 AS `mensaje`;";                                                                //Llamado al parametro de salida del procedimiento almacenado
         $resultado = $conexion->ejecutarInstruccion($sql);
@@ -285,15 +286,22 @@ switch ($_GET["accion"]) {
         $fila4 = $conexion->obtenerFila($respuesta);
         $correoVendedor = $fila5["correoElectronico"];
         $nombreVendedor = $fila5["nombreVendedor"];
-        $nombreServer = $_SERVER['SERVER_NAME'];
-        $mensajeEncabezado = "<br>Somos MARKETHN<br><br>";
-        $mensaje = $mensajeEncabezado . "El usuario: " . $pNombre . " " . $pApellido . " con correo: " . $correoCliente . " dice:<br>" . $mensaje1 . " <br> ";
-        $correo = new Correo($correoVendedor, $nombreVendedor, "Cliente interesado", $mensaje);
-        if ($correo->enviarCorreo()) { //SE ENVIA CORREO
-            echo $fila4["mensaje"] . "Correo enviado";
-        } else {
-            echo "FALLO EN ENVIO DE CORREO";
+        $idVendedor=$fila5["idUsuario"];
+        if($idVendedor==$idUsuario){
+            echo json_encode(array("error"=>true,"mensaje"=>"No puedes contactarte a ti mismo"));
         }
+        else {
+            $nombreServer = $_SERVER['SERVER_NAME'];
+            $mensajeEncabezado = "<br>Somos MARKETHN<br><br>";
+            $mensaje = $mensajeEncabezado . "El usuario: " . $pNombre . " " . $pApellido . " con correo: " . $correoCliente . " dice:<br>" . $mensaje1 . " <br> ";
+            $correo = new Correo($correoVendedor, $nombreVendedor, "Cliente interesado", $mensaje);
+            if ($correo->enviarCorreo()) { //SE ENVIA CORREO
+                echo  json_encode(array("error"=>false,"mensaje"=>$fila4["mensaje"] . "Correo enviado"));
+            } else {
+                echo "FALLO EN ENVIO DE CORREO";
+            }    
+        }
+        
         $conexion->cerrarConexion();
         break;
     case '8': //INGRESA COMENTARIO
