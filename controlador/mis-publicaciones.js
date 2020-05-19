@@ -1,7 +1,7 @@
 $(document).ready(function () {
   municipios2();
   misPublicaciones();
-  categoria();
+  categoria2();
   $().button(".toggle");
 
   //PUBLICAR ANUNCIOS
@@ -200,7 +200,7 @@ $(document).ready(function () {
   });
 });
 
-categoria = function () {
+categoria2 = function () {
   //Inicio funcion para llenar las categorias
   $.ajax({
     //Inicio ajax categorias

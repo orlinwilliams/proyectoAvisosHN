@@ -281,11 +281,14 @@
             if($municipio=="" || $municipio==NULL){
                 $respuesta="Ingrese el municipio";
                 echo $respuesta;
-            }                                                                                                        //Fin de validación
+            }
+            //echo $idanuncios." ".$nombre_articulo." ".$precio." ".$moneda." ".$municipio." ".$estado." ".$idcategoria." ".$descripcion;                                                                                                     
+            
             else{
                 $conexion = new conexion();
                 session_start();
                 $idUsuario = $_SESSION["usuario"]["idUsuario"];
+                //echo $idanuncios." ".$idUsuario." ".$nombre_articulo." ".$precio." ".$moneda." ".$municipio." ".$estado." ".$idcategoria." ".$descripcion;
                 $sql="CALL `SP_EDITAR_ANUNCIO`('$idanuncios','$idUsuario','$idcategoria', '$municipio' ,CONCAT('$moneda ','$precio') ,'$nombre_articulo','$descripcion','$estado', @p8, @p9);";
                 $salida = "SELECT @p9 AS `pcMensaje`;";
                 $resultado = $conexion->ejecutarInstruccion($sql);
@@ -299,7 +302,7 @@
                 }
                 
                 $conexion->cerrarConexion();
-            }                                              
+            }                                           
         break;
         case '7':                                                                                                   //mostar datos en modal del anuncio para editarlos
             $conexion = new conexion();

@@ -377,7 +377,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                       <div class="form-group form-float">
                         <div class="form-line">
                           <select class="form-control show-tick" name="año1" id="año1">
-                            <option value=""></option>
+                            <option ></option>
                             <option value="2019">2019</option>
                             <option value="2020">2020</option>
                           </select>
@@ -389,7 +389,7 @@ if ($_SESSION["usuario"]["tipousuario"] == "Miembro") {
                       <div class="form-group form-float">
                         <div class="form-line">
                           <select class="form-control show-tick" name="año2" id="año2">
-                            <option value=""></option>
+                            <option></option>
                             <option value="2019">2019</option>
                             <option value="2020">2020</option>
                           </select>
