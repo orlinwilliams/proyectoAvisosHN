@@ -10,14 +10,12 @@
                 $idanuncios = $_POST["txt_idanuncios"];
               
             }
-            $sql="SELECT idAnuncios, a.idUsuario, a.nombre, c.idCategoria, nombreCategoria, descripcion, estadoArticulo, m.municipio
+            $sql="SELECT idAnuncios, a.idUsuario, a.nombre, c.idCategoria, nombreCategoria, descripcion, estadoArticulo, m.idmunicipios,m.municipio
             FROM anuncios a
             INNER JOIN categoria c
             ON c.idcategoria= a.idcategoria 
-            INNER JOIN usuario U
-            ON a.idUsuario=U.idUsuario
             INNER JOIN municipios m
-            ON U.idMunicipios=m.idMunicipios
+            ON a.idMunicipios=m.idMunicipios
            WHERE a.idUsuario=$idUsuario and idAnuncios=$idanuncios";
 
             if($respuesta=$conexion->ejecutarInstruccion($sql)){

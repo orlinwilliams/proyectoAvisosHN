@@ -23,7 +23,7 @@ cargarDatosFormulario=function(id){
         success: function (resp) {
             categoria();
             let datos = JSON.parse(resp);
-            console.log(datos);
+            //console.log(datos);
             cargarFotosEditar(id,resp);// se ejecuta la funcion con esos parametros
             //console.log(datos.info);
         }
@@ -99,18 +99,18 @@ cargarFotosEditar = function (id,callback ) {
                     +"</select>"
                     +"</div>"
                 +"</div>"
-                +"<div class='form-group form-float'>"
+                +"<div class='form-group form-float'>"//CATEGORIA
                     +"<div class='form-line'>"
                     +"<select class='form-control show-tick' name='categoria' id='categoriaActualizar'  required>"
-                    +"<option value='" + datos.info.nombreCategoria + "'>" + datos.info.nombreCategoria + "</option>"
+                    +"<option value='" + datos.info.idCategoria + "'>" + datos.info.nombreCategoria + "</option>"
                     +"</select>"
                     +"<label class='form-label'></label>"
                     +"</div>"
                 +"</div>"
                 +"<div class='form-group form-float'>"//LUGAR
                     +"<div class='form-line'>"
-                    +"<select class='form-control show-tick' name='categoria' id='lugarActualizar'  required>"
-                    +"<option value='" + datos.info.municipio + "'>" + datos.info.municipio + "</option>"
+                    +"<select class='form-control show-tick' name='lugar' id='lugarActualizar'  required>"
+                    +"<option value='" + datos.info.idmunicipios + "'>" + datos.info.municipio + "</option>"
                     +"</select>"
                     +"<label class='form-label'></label>"
                     +"</div>"
@@ -148,12 +148,18 @@ cargarFotosEditar = function (id,callback ) {
                 "&txt_idanuncios=" + id,
 
             success: function (resultado) {
-                $("#cuerpoModal").empty();										//Vacia el cuerpo del modal de mensaje
-                $("#cuerpoModal").html(resultado);								//Imprime el cuerpo del modal de mensaje					
-                $("#ModalMensaje").modal("show");
-                location.reload();
-    
-                //Despliega el modal con el modal
+                console.log(resultado);
+                showSuccessMessage();
+                function showSuccessMessage() {
+                    swal(
+                      "Articulo actualizado correctamente",
+                      "Presiona ok para seguir navengando!",
+                      "success"
+                    );
+                    $("button.confirm").click(() => {
+                      location.reload();
+                    });
+                }
             }
         });
     
