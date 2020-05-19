@@ -60,18 +60,25 @@ var creaCanvas = () => {
   );
 };
 var comparaAños = () => {
+  
   $("#filtrarAños").click((e) => {
-    
-
     var año1 = $("#año1").val();
-    var año2 = $("#año2").val();
+    var año2 = $("#año2").val();  
 
     if (año1 != año2) {
-      e.preventDefault();
-      eliminaCanvas();
-      creaCanvas();
-      capturaCanvas();
-      if(año1!="" && año2!=""){
+      
+      if(año1==""){
+        console.log("datos vacios");
+      }
+      else if(año2==""){
+        console.log("datos vacios");
+      }
+      else{
+
+        e.preventDefault();
+        eliminaCanvas();
+        creaCanvas();
+        capturaCanvas();
         $.ajax({
           url: "../clases/dashboard.php?accion=3",
           data: "anio1=" + año1 + "&anio2=" + año2,
