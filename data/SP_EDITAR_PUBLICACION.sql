@@ -1,15 +1,5 @@
 DELIMITER $$
-CREATE PROCEDURE SP_EDITAR_ANUNCIO(
-IN      pnIdAnuncios        INT,  
-IN		pnIdUsuario		    INT,
-IN		pnIdCategoria       INT,
-IN		pnPrecio	        INT,
-IN		pcNombreArticulo    VARCHAR(45),
-IN		pcDescripcion	    VARCHAR(45),
-IN		pcEstado		    VARCHAR(45),
-OUT		pbOcurrioError		BOOLEAN,
-OUT		pcMensaje		    VARCHAR(45)
-)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EDITAR_ANUNCIO`(IN `pnIdAnuncios` INT, IN `pnIdUsuario` INT, IN `pcIdCategoria` INT, IN `pcIdMunicipio` INT, IN `pnPrecio` VARCHAR(100), IN `pcNombreArticulo` VARCHAR(45), IN `pcDescripcion` VARCHAR(1500), IN `pcEstado` VARCHAR(45), OUT `pcMensaje` VARCHAR(45), OUT `pbOcurrioError` BOOLEAN)
 SP:BEGIN
     DECLARE  vnConteo, vnIdUsuario, vnIdAnuncios INT;
     DECLARE tempMensaje VARCHAR (2000);
@@ -22,8 +12,13 @@ IF pcNombreArticulo = '' OR pcNombreArticulo  IS NULL THEN
     SET tempMensaje= 'Nombre del articulo, ';
 END IF;
 
-IF pnIdCategoria = '' OR pnIdCategoria  IS NULL THEN
-    SET tempMensaje = 'Categoria, ';
+IF pcIdCategoria = '' OR pcIdCategoria  IS NULL THEN
+    SET
+    tempMensaje = 'Categoria, ';
+END IF;
+IF pcIdMunicipio = '' OR pcIdMunicipio  IS NULL THEN
+    SET
+    tempMensaje = 'Municipio, ';
 END IF;
 
 IF pnPrecio = '' OR pnPrecio  IS NULL THEN
@@ -71,10 +66,12 @@ WHERE a.idAnuncios=pnIdAnuncios;
 
 
 
-UPDATE anuncios SET idcategoria= pnIdCategoria, Nombre= pcNombreArticulo, precio=pnPrecio, descripcion=pcDescripcion, estadoArticulo=pcEstado
+
+UPDATE anuncios SET idcategoria=pcIdCategoria, idMunicipios=pcIdMunicipio, nombre= pcNombreArticulo, precio=pnPrecio, descripcion=pcDescripcion, estadoArticulo=pcEstado
     WHERE idUsuario= vnIdUsuario and idAnuncios=vnIdAnuncios;
 COMMIT;
 SET pcMensaje = 'Anuncio  actualizado con exito.';
 SET pbOcurrioError = FALSE;
 LEAVE SP;
 END$$
+DELIMITER ;
