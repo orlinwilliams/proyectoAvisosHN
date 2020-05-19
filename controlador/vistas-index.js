@@ -430,10 +430,10 @@ cargarArticulo = function (idAnuncio) {
         img += "<img src='" + datos.info.fotos[i] + "'/>";
       }
       if(datos.info.sigueVendedor==true){
-        var iconoFavorito="<i style='cursor:pointer' onclick=quitarFavorito(" +datos.info.idUsuario+") class='material-icons' title='QUITAR FAVORITO'>favorite</i>";
+        var iconoFavorito="<i style='cursor:pointer' onclick=quitarFavorito(" +datos.info.idUsuario+") class='material-icons' title='QUITAR VENDEOR DE FAVORITOS'>favorite</i>";
       }
       else{
-        var iconoFavorito="<i style='cursor:pointer' onclick=agregarFavorito(" +datos.info.idUsuario+") class='material-icons' title='AGREGAR A FAVORITO'>favorite_border</i>";
+        var iconoFavorito="<i style='cursor:pointer' onclick=agregarFavorito(" +datos.info.idUsuario+") class='material-icons' title='AGREGAR VENDEDOR A FAVORITOS'>favorite_border</i>";
       }
       $("#infoArticulo").empty();
       $("#infoArticulo").html(
@@ -735,7 +735,7 @@ agregarFavorito=(idUsuario)=>{
       }
       if(datos.error==false){
         alert(datos.mensaje);
-        $("#iconoFavorito").html("<i style='cursor:pointer' onclick=quitarFavorito("+datos.idSeguido +") class='material-icons' title='QUITAR FAVORITO'>favorite</i>");
+        $("#iconoFavorito").html("<i style='cursor:pointer' onclick=quitarFavorito("+datos.idSeguido +") class='material-icons' title='QUITAR VENDEDOR DE FAVORITOS'>favorite</i>");
         
 
       }
@@ -762,7 +762,7 @@ quitarFavorito=(idSeguido)=>{
       }
       if(datos.error==false){
         alert(datos.mensaje);
-        $("#iconoFavorito").html("<i style='cursor:pointer' onclick=agregarFavorito("+datos.idSeguido +") class='material-icons' title='AGREGAR FAVORITO'>favorite_border</i>");
+        $("#iconoFavorito").html("<i style='cursor:pointer' onclick=agregarFavorito("+datos.idSeguido +") class='material-icons' title='AGREGAR VENDEDOR A FAVORITOS'>favorite_border</i>");
         
 
       }
