@@ -427,16 +427,11 @@ cargarArticulo = function (idAnuncio) {
       for (var i = 0; i < datos.info.fotos.length; i++) {
         img += "<img src='" + datos.info.fotos[i] + "'/>";
       }
-      if (datos.info.sigueVendedor == true) {
-        var iconoFavorito =
-          "<i style='cursor:pointer' onclick=quitarFavorito(" +
-          datos.info.idUsuario +
-          ") class='material-icons' title='QUITAR FAVORITO'>favorite</i>";
-      } else {
-        var iconoFavorito =
-          "<i style='cursor:pointer' onclick=agregarFavorito(" +
-          datos.info.idUsuario +
-          ") class='material-icons' title='AGREGAR A FAVORITO'>favorite_border</i>";
+      if(datos.info.sigueVendedor==true){
+        var iconoFavorito="<i style='cursor:pointer' onclick=quitarFavorito(" +datos.info.idUsuario+") class='material-icons' title='QUITAR VENDEOR DE FAVORITOS'>favorite</i>";
+      }
+      else{
+        var iconoFavorito="<i style='cursor:pointer' onclick=agregarFavorito(" +datos.info.idUsuario+") class='material-icons' title='AGREGAR VENDEDOR A FAVORITOS'>favorite_border</i>";
       }
       $("#infoArticulo").empty();
       $("#infoArticulo").html(
@@ -684,15 +679,21 @@ enviarCorreoContacto = function (parametros) {
     method: "POST",
     data: "mensaje1=" + $("#mensaje1").val() + "&idanuncio3=" + id,
     success: function (resultado) {
-      $("#cuerpoModal").empty(); //Vacia el cuerpo del modal de mensaje
-      $("#cuerpoModal").html(resultado); //Imprime el cuerpo del modal de mensaje
-      $("#ModalMensaje").modal("show");
-      location.reload();
+      showSuccessMessage();
+        function showSuccessMessage() {
+            swal("Correo enviado!", "Presiona ok para seguir navengando!", "success");
+            $("button.confirm").click(()=>{
+                location.reload();
+            })
+      }
+      
 
       //Despliega el modal con el modal
     },
   });
 };
+
+
 $(function () {
   $("#publicarArticulo").validate({
     highlight: function (input) {
@@ -749,11 +750,9 @@ agregarFavorito = (idUsuario) => {
       }
       if (datos.error == false) {
         alert(datos.mensaje);
-        $("#iconoFavorito").html(
-          "<i style='cursor:pointer' onclick=quitarFavorito(" +
-            datos.idSeguido +
-            ") class='material-icons' title='QUITAR FAVORITO'>favorite</i>"
-        );
+        $("#iconoFavorito").html("<i style='cursor:pointer' onclick=quitarFavorito("+datos.idSeguido +") class='material-icons' title='QUITAR VENDEDOR DE FAVORITOS'>favorite</i>");
+        
+
       }
     },
     error: (error) => {
@@ -774,11 +773,9 @@ quitarFavorito = (idSeguido) => {
       }
       if (datos.error == false) {
         alert(datos.mensaje);
-        $("#iconoFavorito").html(
-          "<i style='cursor:pointer' onclick=agregarFavorito(" +
-            datos.idSeguido +
-            ") class='material-icons' title='AGREGAR FAVORITO'>favorite_border</i>"
-        );
+        $("#iconoFavorito").html("<i style='cursor:pointer' onclick=agregarFavorito("+datos.idSeguido +") class='material-icons' title='AGREGAR VENDEDOR A FAVORITOS'>favorite_border</i>");
+        
+
       }
     },
     error: (error) => {

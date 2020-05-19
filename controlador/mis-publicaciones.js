@@ -96,88 +96,107 @@ $(document).ready(function () {
   $("#buscaAnuncio").keyup(function () {
     var value = $("#buscaAnuncio").val();
     //console.log(value);
-    $.ajax({
-      url: "../clases/buscador.php?accion=2",
-      method: "POST",
-      data: "value=" + value,
-      success: function (resp) {
-        let datos = JSON.parse(resp);
-        //console.log(resp);
-        var tarjetas = "";
-        if (datos.error == true) {
-          console.log(datos.mensaje);
-        } else {
-          for (let item of datos) {
-            //RECORRER EL JSON
-            tarjetas +=
-              "<div class='col-sm-6 col-md-6 col-lg-4'>" +
-              "<div class='carde'>" +
-              "<div class='card__image-holder'>" +
-              "<img class='card__image' src='" +
-              item.fotos[0] +
-              "' alt='Miniatura del anuncio' max-width='320px' height='255px'/>" +
-              "</div>" +
-              "<div class='card-title'>" +
-              "<a  href='#' class='toggle-info btn'>" +
-              "<span class='left'></span>" +
-              "<span class='right'></span>" +
-              "</a>" +
-              "<h2>" +
-              item.nombre +
-              "<small>" +
-              item.precio +
-              "</small>" +
-              "</h2>" +
-              "</div>" +
-              "<div class='card-flap flap1'>" +
-              "<div class='card-description'>" +
-              item.descripcion +
-              "</div>" +
-              "<div class='card-flap flap2'>" +
-              "<div class='card-actions'>" +
-              "<button type='buttom' class='btn btn-warning waves-effect' onclick='cargarDatosFormulario(" +
-              item.idAnuncios +
-              ")' data-toggle='modal' data-target='#editarPubli'>Editar</button>" +
-              "<button type='button' class='btn btn-danger waves-effect' onclick='eliminarPublicacion(" +
-              item.idAnuncios +
-              ")'>Borrar</button>" +
-              "</div>" +
-              "</div>" +
-              "</div>" +
-              "</div>" +
-              "</div>";
-            $("#contenedorTarjetas").html(tarjetas); //INSERTA LAS TARJETAS
-          }
-          $("div.carde").click(function (e) {
-            e.preventDefault();
-            var isShowing = false;
-            if ($(this).hasClass("show")) {
-              isShowing = true;
-            }
-            if ($("div.cards").hasClass("showing")) {
-              // a card is already in view
-              $("div.carde.show").removeClass("show");
-              if (isShowing) {
-                // this card was showing - reset the grid
-                $("div.cards").removeClass("showing");
-              } else {
-                // this card isn't showing - get in with it
-                $(this).css({ zIndex: 1 }).addClass("show");
-              }
-              //zindex++;
+      if(value==""){
+        console.log("palabra sin sentido");
+      }
+      else if(value==" "){
+        console.log("palabra sin sentido");
+      }
+      else if(value.length<2){
+        console.log("palabra sin sentido");
+      }
+      else{
+
+        $.ajax({
+          url: "../clases/buscador.php?accion=2",
+          method: "POST",
+          data: "value=" + value,
+          success: function (resp) {
+            let datos = JSON.parse(resp);
+            //console.log(resp);
+            var tarjetas = "";
+            if (datos.error == true) {
+              console.log(datos.mensaje);
             } else {
-              // no cards in view
-              $("div.cards").addClass("showing");
-              $(this).css({ zIndex: 2 }).addClass("show");
-              //zindex++;
+              for (let item of datos) {
+                //RECORRER EL JSON
+                tarjetas +=
+                  "<div class='col-sm-6 col-md-6 col-lg-4'>" +
+                  "<div class='carde'>" +
+                  "<div class='card__image-holder'>" +
+                  "<img class='card__image' src='" +
+                  item.fotos[0] +
+                  "' alt='Miniatura del anuncio' max-width='320px' height='255px'/>" +
+                  "</div>" +
+                  "<div class='card-title'>" +
+                  "<a  href='#' class='toggle-info btn'>" +
+                  "<span class='left'></span>" +
+                  "<span class='right'></span>" +
+                  "</a>" +
+                  "<h2>" +
+                  item.nombre +
+                  "<small>" +
+                  item.precio +
+                  "</small>" +
+                  "</h2>" +
+                  "</div>" +
+                  "<div class='card-flap flap1'>" +
+                  "<div class='card-description'>" +
+                  item.descripcion +
+                  "</div>" +
+                  "<div class='card-flap flap2'>" +
+                  "<div class='card-actions'>" +
+                  "<button type='buttom' class='btn btn-warning waves-effect' onclick='cargarDatosFormulario(" +
+                  item.idAnuncios +
+                  ")' data-toggle='modal' data-target='#editarPubli'>Editar</button>" +
+                  "<button type='button' class='btn btn-danger waves-effect' onclick='eliminarPublicacion(" +
+                  item.idAnuncios +
+                  ")'>Borrar</button>" +
+                  "</div>" +
+                  "</div>" +
+                  "</div>" +
+                  "</div>" +
+                  "</div>";
+                $("#contenedorTarjetas").empty();
+                $("#contenedorTarjetas").html(tarjetas); //INSERTA LAS TARJETAS
+              }
+              $("div.carde").click(function (e) {
+                e.preventDefault();
+                var isShowing = false;
+                if ($(this).hasClass("show")) {
+                  isShowing = true;
+                }
+                if ($("div.cards").hasClass("showing")) {
+                  // a card is already in view
+                  $("div.carde.show").removeClass("show");
+                  if (isShowing) {
+                    // this card was showing - reset the grid
+                    $("div.cards").removeClass("showing");
+                  } else {
+                    // this card isn't showing - get in with it
+                    $(this).css({ zIndex: 1 }).addClass("show");
+                  }
+                  //zindex++;
+                } else {
+                  // no cards in view
+                  $("div.cards").addClass("showing");
+                  $(this).css({ zIndex: 2 }).addClass("show");
+                  //zindex++;
+                }
+              });
             }
-          });
-        }
-      },
-      error: function (error) {
-        console.log(error);
-      },
-    });
+          },
+          error: function (error) {
+            console.log(error);
+          },
+        });
+
+      }
+      
+
+    
+    
+
   });
 });
 categoria = function () {

@@ -7,7 +7,7 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <title>Inicio | MarketHN</title>
+  <title>Mis publicaciones | MarketHN</title>
   <!-- Favicon-->
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
 
@@ -66,7 +66,7 @@ session_start();
     <div class="search-icon">
       <i class="material-icons">search</i>
     </div>
-    <input id="buscaAnuncio" type="text" placeholder="START TYPING...">
+    <input id="buscaAnuncio" type="text" placeholder="BUSCAR ANUNCIO...">
     <div class="close-search">
       <i class="material-icons">close</i>
     </div>
@@ -413,7 +413,7 @@ session_start();
 
   <!-- Bootstrap Core Js -->
   <script src="../plugins/bootstrap/js/bootstrap.js"></script>
-  <script src="../controlador/perfiles.js"></script>
+  
 
   <!-- Slimscroll Plugin Js -->
   <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
