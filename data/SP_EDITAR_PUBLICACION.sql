@@ -1,5 +1,5 @@
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EDITAR_ANUNCIO`(IN `pnIdAnuncios` INT, IN `pnIdUsuario` INT, IN `pcIdCategoria` INT, IN `pcIdMunicipio` INT, IN `pnPrecio` VARCHAR(100), IN `pcNombreArticulo` VARCHAR(45), IN `pcDescripcion` VARCHAR(1500), IN `pcEstado` VARCHAR(45), OUT `pcMensaje` VARCHAR(45), OUT `pbOcurrioError` BOOLEAN)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EDITAR_ANUNCIO`(IN `pnIdAnuncios` INT, IN `pnIdUsuario` INT, IN `pcIdCategoria` INT, IN `pcIdMunicipio` INT, IN `pnPrecio` VARCHAR(100), IN `pcNombreArticulo` VARCHAR(45), IN `pcDescripcion` VARCHAR(2500), IN `pcEstado` VARCHAR(45), OUT `pcMensaje` VARCHAR(45), OUT `pbOcurrioError` BOOLEAN)
 SP:BEGIN
     DECLARE  vnConteo, vnIdUsuario, vnIdAnuncios INT;
     DECLARE tempMensaje VARCHAR (2000);
