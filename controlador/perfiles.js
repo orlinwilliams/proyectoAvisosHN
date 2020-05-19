@@ -39,6 +39,9 @@ $(document).ready(function () {
 	$('input[type="text"]').change(function () {												//Si hay cambios en el formulario activos botones de guardar
 		$('button[type="button"]').removeAttr('disabled');
 	});
+	$("#int_municipio").change(()=>{
+		$('button[type="button"]').removeAttr('disabled');
+	})
 	$('input[type="password"]').change(function () {												//Si hay cambios en el formulario activos botones de guardar
 		$('button[type="button"]').removeAttr('disabled');
 	});
