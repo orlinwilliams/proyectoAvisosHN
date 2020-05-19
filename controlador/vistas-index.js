@@ -659,15 +659,21 @@ enviarCorreoContacto = function (parametros) {
     method: "POST",
     data: "mensaje1=" + $("#mensaje1").val() + "&idanuncio3=" + id,
     success: function (resultado) {
-      $("#cuerpoModal").empty(); //Vacia el cuerpo del modal de mensaje
-      $("#cuerpoModal").html(resultado); //Imprime el cuerpo del modal de mensaje
-      $("#ModalMensaje").modal("show");
-      location.reload();
+      showSuccessMessage();
+        function showSuccessMessage() {
+            swal("Correo enviado!", "Presiona ok para seguir navengando!", "success");
+            $("button.confirm").click(()=>{
+                location.reload();
+            })
+      }
+      
 
       //Despliega el modal con el modal
     },
   });
 };
+
+
 $(function () {
   $("#publicarArticulo").validate({
     highlight: function (input) {
