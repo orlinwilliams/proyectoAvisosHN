@@ -474,7 +474,7 @@ session_start();
                     <option></option>
                   </select>
                   <label title="SI NO SELECCIONA MUNICIPIO TOMARA POR DEFECTO CON EL QUE SE REGISTRO" class="form-label" >Lugar</label>
-                    <option></option>
+                    
                 </div>
               </div>
 

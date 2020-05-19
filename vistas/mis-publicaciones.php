@@ -370,6 +370,7 @@ session_start();
               <div class="form-group form-float">
                 <div class="form-line">
                   <select class="form-control show-tick" name="categoria" id="categoria" required>
+                  <option></option>
                   </select>
                   <label class="form-label">Categoria</label>
                 </div>
@@ -380,7 +381,7 @@ session_start();
                     <option></option>
                   </select>
                   <label title="SI NO SELECCIONA MUNICIPIO TOMARA POR DEFECTO CON EL QUE SE REGISTRO" class="form-label" >Lugar</label>
-                    <option></option>
+                    
                 </div>
               </div>
 
@@ -439,8 +440,7 @@ session_start();
 
   <!-- <script src="../js/index.js"></script> Js -->
   <script src="../js/demo.js"></script>
-  <script src="../controlador/mis-publicaciones.js"></script>
-  <script src="../controlador/editarfoto.js"></script>
+  
 
   <!--<script src="../js/index.js"></script> Demo Js -->
 
@@ -465,7 +465,9 @@ session_start();
   <!-- Dropzone Plugin Js -->
   <script src="../plugins/dropzone/dropzone.js"></script>
   <script src="../plugins/sweetalert/sweetalert.min.js"></script>
-
+  
+  <script src="../controlador/mis-publicaciones.js"></script>
+  <script src="../controlador/editarfoto.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  municipios();
+  municipios2();
   misPublicaciones();
   categoria();
   $().button(".toggle");
@@ -199,6 +199,7 @@ $(document).ready(function () {
 
   });
 });
+
 categoria = function () {
   //Inicio funcion para llenar las categorias
   $.ajax({
@@ -214,19 +215,24 @@ categoria = function () {
     },
   }); //Fin ajax categorias
 };
-municipios = function () {
+
+municipios2 = function () {
+  
   //Inicio funcion para llenar los municipios
   $.ajax({
     //Inicio ajax municipios
-    url: "../clases/index.php?accion=1",
+    url: "../clases/vistas-index.php?accion=2",
     success: function (resultado) {
-      $("#int_municipio").append(resultado); //El resultado lo retorna como html
+      //console.log(resultado);
+      
+      $("#lugarMunicipios").append(resultado);
     },
     error: function (error) {
       console.log(error);
     },
   }); //Fin ajax municipios
-};
+}; //Fin funcion para llenar los municipios
+
 misPublicaciones = function () {
   //VISTA DE MIS PUBLIACIONES
   $.ajax({
