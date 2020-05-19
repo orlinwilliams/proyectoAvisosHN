@@ -28,8 +28,8 @@
 .icon-facebook:before {
   content: "\ea90";
 }
-.icon-instagram:before {
-  content: "\ea92";
+.icon-twitter:before {
+  content: "\ea96";
 }
 
 .social{
@@ -63,12 +63,12 @@
 .social ul li .icon-facebook:hover{
   background: #3b5998;
 }
-.social ul li .icon-instagram:hover{
-  background: #e4405f;
+.social ul li .icon-twitter:hover{
+  background: #00acee;
 }
 /*.social ul li .icon-facebook{
   background: #3b5998;
 }
-.social ul li .icon-instagram{
+.social ul li .icon-twitter{
   background: #e4405f;
 }*/
