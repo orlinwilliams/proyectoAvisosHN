@@ -107,7 +107,6 @@ switch ($_GET["accion"]) {
 
         break;
     case '4':
-        $_GET["idAnuncio"]=65;
         if (isset($_GET["idAnuncio"])) {
             $idAnuncio = $_GET["idAnuncio"];
         }
