@@ -450,4 +450,27 @@ switch ($_GET["accion"]) {
 
 
         break;
+
+        case '13':
+            session_start();
+            $idAnuncio = $_SESSION["usuario"]["idAnuncio"];
+    
+            if (isset($_POST["razónDenuncia"])) {
+                $denuncia = $_POST["razónDenuncia"];
+            }
+            if ($denuncia == "" | $denuncia == NULL) {
+                echo "Debe seleccionar una razon de su denuncia";
+            } else {
+                $conexion = new conexion();
+                $sql = "INSERT INTO denuncias (idrazonDenuncia,idAnuncios,comentarios) VALUES ('$denuncia', $idAnuncio,(SELECT descripcion FROM razondenuncia WHERE idrazonDenuncia = '$denuncia'));";
+                $respuesta = $conexion->ejecutarInstruccion($sql);
+                if (!$respuesta) {
+                    echo "Error al enviar la denuncia";
+                } else {
+                    echo "Denuncia enviada";
+                }
+                $conexion->cerrarConexion();
+            }
+    
+            break;
 }

@@ -829,13 +829,24 @@ menorTres= (estrellas) =>{
     },
     function () {
         let razon2= $('#razónDenuncia_2').val();
-        /*$.ajax({
-        url:'../clases/vistas-index.php?accion=9',
+        console.log("te pisan");
+        $.ajax({
+        url:'../clases/vistas-index.php?accion=13',
         method: 'post',
-        data: 'valoracion='+estrellas,
+        data:"razónDenuncia=" +
+        $("#razónDenuncia_2").val() +
+        'valoracion='+estrellas,
         success: function(resp){
+          console.log(resp);
         }
-      })*/
+      })
     }
   );
 };
+
+/*
+"razónDenuncia=" +
+$("#razónDenuncia").val() +
+"&comentario-denuncia=" +
+$("#comentario-denuncia").val(),
+*/
