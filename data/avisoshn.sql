@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3308
--- Tiempo de generación: 04-05-2020 a las 23:21:54
+-- Tiempo de generación: 19-05-2020 a las 11:31:53
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -115,8 +115,8 @@ LEAVE SP;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_EDITAR_ANUNCIO`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EDITAR_ANUNCIO` (IN `pnIdAnuncios` INT, IN `pnIdUsuario` INT, IN `pcIdCategoria` VARCHAR(500), IN `pnPrecio` VARCHAR(100), IN `pcNombreArticulo` VARCHAR(45), IN `pcDescripcion` VARCHAR(45), IN `pcEstado` VARCHAR(45), OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(45))  SP:BEGIN
-    DECLARE  vnConteo, vnIdUsuario, vnIdAnuncios, vnIdCategoria INT;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EDITAR_ANUNCIO` (IN `pnIdAnuncios` INT, IN `pnIdUsuario` INT, IN `pcIdCategoria` INT, IN `pcIdMunicipio` INT, IN `pnPrecio` VARCHAR(100), IN `pcNombreArticulo` VARCHAR(45), IN `pcDescripcion` VARCHAR(2500), IN `pcEstado` VARCHAR(45), OUT `pcMensaje` VARCHAR(45), OUT `pbOcurrioError` BOOLEAN)  SP:BEGIN
+    DECLARE  vnConteo, vnIdUsuario, vnIdAnuncios INT;
     DECLARE tempMensaje VARCHAR (2000);
 SET autocommit=0;
 START TRANSACTION;
@@ -128,7 +128,12 @@ IF pcNombreArticulo = '' OR pcNombreArticulo  IS NULL THEN
 END IF;
 
 IF pcIdCategoria = '' OR pcIdCategoria  IS NULL THEN
-    SET tempMensaje = 'Categoria, ';
+    SET
+    tempMensaje = 'Categoria, ';
+END IF;
+IF pcIdMunicipio = '' OR pcIdMunicipio  IS NULL THEN
+    SET
+    tempMensaje = 'Municipio, ';
 END IF;
 
 IF pnPrecio = '' OR pnPrecio  IS NULL THEN
@@ -174,12 +179,10 @@ WHERE u.idUsuario=pnIdUsuario;
 SELECT a.idAnuncios INTO vnIdAnuncios FROM anuncios a
 WHERE a.idAnuncios=pnIdAnuncios;
 
-SELECT c.idcategoria INTO vnIdCategoria FROM categoria c
-WHERE c.nombreCategoria=pcIdCategoria;
 
 
 
-UPDATE anuncios SET idcategoria= vnIdCategoria, nombre= pcNombreArticulo, precio=pnPrecio, descripcion=pcDescripcion, estadoArticulo=pcEstado
+UPDATE anuncios SET idcategoria=pcIdCategoria, idMunicipios=pcIdMunicipio, nombre= pcNombreArticulo, precio=pnPrecio, descripcion=pcDescripcion, estadoArticulo=pcEstado
     WHERE idUsuario= vnIdUsuario and idAnuncios=vnIdAnuncios;
 COMMIT;
 SET pcMensaje = 'Anuncio  actualizado con exito.';
@@ -353,6 +356,27 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_ANUNCIO_ADMIN` (IN `pnI
 
  END$$
 
+DROP PROCEDURE IF EXISTS `SP_ELIMINAR_PUBLICACIONES_FLIMITE`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PUBLICACIONES_FLIMITE` (OUT `pcMensaje` VARCHAR(1000))  SP:BEGIN
+                        
+                        DELETE FROM calificacionanuncio
+                        WHERE idAnuncios IN (SELECT idAnuncios FROM anuncios WHERE DATE_FORMAT(fechaLimite, '%Y-%m-%d')=DATE_FORMAT(CURDATE(), '%Y-%m-%d'));
+                    
+                        DELETE FROM denuncias
+                        WHERE idAnuncios IN (SELECT idAnuncios FROM anuncios WHERE DATE_FORMAT(fechaLimite, '%Y-%m-%d')=DATE_FORMAT(CURDATE(), '%Y-%m-%d'));
+                    
+                        DELETE FROM fotos
+                        WHERE idAnuncios IN (SELECT idAnuncios FROM anuncios WHERE DATE_FORMAT(fechaLimite, '%Y-%m-%d')=DATE_FORMAT(CURDATE(), '%Y-%m-%d'));
+                    
+                        DELETE FROM anuncios
+                        WHERE DATE_FORMAT(fechaLimite, '%Y-%m-%d')=DATE_FORMAT(CURDATE(), '%Y-%m-%d');
+                        
+                        SET pcMensaje = 'las publicaciones han expirado';
+                    
+                        LEAVE SP;
+                    
+                    END$$
+
 DROP PROCEDURE IF EXISTS `SP_ELIMINAR_USUARIO`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_USUARIO` (IN `pnIdUsuario` INT, IN `pcContrasenia` VARCHAR(50), OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(1000))  SP:BEGIN
 
@@ -433,6 +457,8 @@ INTO vnConteo FROM
     INSERT INTO anuncios (idAnuncios,idUsuario,idcategoria,idMunicipios,precio,nombre,descripcion,fechaPublicacion,estadoArticulo,estadoAnuncio,fechaLimite)
     VALUES ( vnConteo,pcidUsuario,pcCategoria,pcMunicipios,  pcPrecio, pcNombreArticulo , pcDescripcion, SYSDATE(), pcEstado,'A',NULL);
     
+    INSERT INTO  calificacionanuncio (idAnuncios,valoracion)
+    VALUES (vnConteo,0);
     COMMIT;
     SET pcMensaje = "Se ha publicado correctamente";
     LEAVE SP;
@@ -531,10 +557,10 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   `idUsuario` int(11) NOT NULL,
   `idcategoria` int(11) NOT NULL,
   `idMunicipios` int(11) NOT NULL,
-  `precio` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `precio` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `descripcion` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
-  `fechaPublicacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `descripcion` varchar(2500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `fechaPublicacion` timestamp NOT NULL,
   `estadoArticulo` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `estadoAnuncio` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT 'A',
   `fechaLimite` timestamp NULL DEFAULT NULL,
@@ -542,20 +568,73 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   KEY `fk_anuncios_categoria1` (`idcategoria`),
   KEY `fk_anuncios_municipios1` (`idMunicipios`),
   KEY `fk_anuncios_Usuario1` (`idUsuario`)
-) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `anuncios`
 --
 
-INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`, `precio`, `nombre`, `descripcion`, `estadoArticulo`, `estadoAnuncio`, `fechaLimite`) VALUES
-(57, 3, 0, 110, 'L 8000', 'iPhone X', 'iPhone X con 3 meses de uso, doy 2 meses de garantía', 'Usado', 'A', NULL),
-(56, 3, 2, 110, 'L 1800', 'Prueba 8', 'Nueva descripcion', 'Usado', 'A', NULL),
-(58, 3, 0, 110, '$ 100', 'pruebaHomero', 'pruebaHomero', 'Nuevo', 'A', NULL),
-(59, 3, 0, 110, 'L 1000', 'prueba2', 'prueba2', 'Nuevo', 'A', NULL),
-(62, 4, 0, 110, 'L 50000', 'Lapotop 1', 'PROBANDO ACTUALIZAR DATOS 2', 'Restaurado', 'A', NULL),
-(61, 4, 0, 110, 'L 40000', 'PS4', 'intentando corregir datos', 'Restaurado', 'A', NULL),
-(60, 4, 0, 110, 'L 100000', 'Celular SAMSUNG', 'testing 3 name', 'Nuevo', 'A', NULL);
+INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`, `precio`, `nombre`, `descripcion`, `fechaPublicacion`, `estadoArticulo`, `estadoAnuncio`, `fechaLimite`) VALUES
+(57, 3, 0, 172, '$ 250', 'iPhone X', 'iPhone X con 3 meses de uso, doy 2 meses de garantía', '2019-02-03 00:21:20', 'Usado', 'A', NULL),
+(62, 4, 1, 44, '$ 150', 'Laptop hp', 'Laptop hp, restaurada, funciona excelente.', '2019-07-05 00:21:20', 'Restaurado', 'A', NULL),
+(61, 3, 3, 36, '$ 40000', 'PS4', 'Consola PS4, usada, pero funciona excelente.', '2020-04-06 00:21:20', 'Usado', 'A', NULL),
+(60, 3, 0, 22, 'L 15000', 'Celular SAMSUNG', 'Celular nuevo, color blanco, en empaque, con cargador y audifonos en paquete.', '2019-04-05 00:21:20', 'Nuevo', 'A', NULL),
+(63, 4, 1, 66, '$ 3500', 'RX 470', 'Como nueva', '2020-02-03 00:21:20', 'Usado', 'A', NULL),
+(65, 3, 3, 90, '$ 800', 'Xbox One X', 'Consola nueva con 2 controles y forza horizon 4', '2019-10-05 00:21:20', 'Nuevo', 'A', NULL),
+(66, 0, 5, 125, 'L 20000', 'APPLE SMART TV', 'No funciona WiFi', '2020-01-05 00:21:20', 'Usado', 'A', NULL),
+(67, 3, 0, 170, 'L 19000', 'Red Magic 5g', 'Totalmente nuevo, para conocer mas detalle ponte en contacto', '2019-12-05 00:21:20', 'Nuevo', 'A', NULL),
+(68, 3, 0, 110, 'L 16000', 'One Plus 8 pro', 'Totalmente nuevo', '2019-06-05 00:21:20', 'Nuevo', 'A', NULL),
+(69, 0, 2, 6, '$ 300', 'Camara Canon EOS', 'Canon EOS 5d mark iii Camera with 24-105 lens battery \r\ncharge and memory card', '2020-05-19 05:58:32', 'Nuevo', 'A', NULL),
+(70, 0, 2, 6, '$ 100', 'Lentes para cámara Sony', 'Sony E-mount 18-135mm F/3.5-5.6 Oss 135mm Zoom Lens Sel18135', '2019-01-18 06:00:00', 'Nuevo', 'A', NULL),
+(71, 0, 5, 6, '$ 160', 'Mini nevera de hotel', 'Mini nevera de hotel de 20 litros, refrigeración	Electrónica condensador de refrigeración,\r\nTemperatura llamó	0-10 °C,\r\nPoder	50 W,\r\nTamaño	42x49x40 cm,\r\nTensión de	220 v.', '2020-04-19 06:00:47', 'Usado', 'A', NULL),
+(72, 1, 4, 24, 'L 7000', 'Muebles de sala', 'Excelente juego de muebles para tus reuniones sociales, cuenta con una mesita con 4 portavasos y espacio para los snacks, a un precio genial de la fábrica a tu casa sin intermediarios.', '2020-02-19 06:06:16', 'Nuevo', 'A', NULL),
+(73, 1, 4, 24, 'L 100', 'Lamparas diagonales LED', 'Lámpara cuántica, lámparas hexagonales, iluminación Modular ,sensible al tacto, luz LED nocturna, Hexagonal magnético, decoración creativa, Lampara de pared, Color	Blanco, Tamaño 108mm, Poder 6 W.', '2019-02-19 06:00:00', 'Nuevo', 'A', NULL),
+(74, 1, 6, 24, 'L 450', 'Máquina de corte por láser', '40 \"pulgadas 1000mm profesional baldosas de herramientas de  máquina de corte por láser de bricolaje en casa ', '2019-03-19 06:09:16', 'Usado', 'A', NULL),
+(75, 1, 6, 24, 'L 500', 'Herramientas eléctricas', 'Conjunto de herramientas eléctricas de bricolaje,  Taladro Inalámbrico combinado, herramientas manuales eléctricas para precisión de madera.\nHerramienta incluye:    Combinación, taladro eléctrico, OEM\nUso:     Materiales, como ladrillos, etc.', '2019-04-19 06:00:00', 'Usado', 'A', NULL),
+(76, 1, 7, 24, 'L 30000', 'Techo impermeable', 'Kits de sistema de techo de rejilla impermeable,  pérgola de aluminio bioclimática para jardín de Gazebo al aire libre.', '2020-05-19 06:19:55', 'Nuevo', 'A', NULL),
+(77, 1, 7, 24, 'L 200', 'Macetas', 'Macetas para interiores y exteriores, con excelentes diseños y variedad de colores.\r\n', '2019-06-19 06:20:37', 'Usado', 'A', NULL),
+(78, 2, 8, 14, '$ 40', 'Ropa para hombre', 'Excelentes trajes para hombres, nuevos, el precio puede variar por cada traje.', '2019-07-19 06:00:00', 'Nuevo', 'A', NULL),
+(79, 2, 8, 14, '$ 20', 'Camisas para hombre', 'Camisas excelentes para hombres, diversidad de colores y tallas.', '2020-05-19 06:32:33', 'Nuevo', 'A', NULL),
+(80, 2, 9, 14, '$ 40', 'Ropa para mujer', 'Bonitos trajes de mujer de moda,  para ejercicio o invierno,  variedad de estilos, colores y tallas.', '2019-08-19 06:00:00', 'Nuevo', 'A', NULL),
+(81, 2, 9, 14, '$ 22', 'Vestidos de mujer', 'Bonitos y hermosos vestidos de mujer, diferentes tallas y colores dependiendo de tus gustos.', '2020-03-19 06:36:34', 'Nuevo', 'A', NULL),
+(82, 2, 10, 14, '$ 22', 'Ropa de niño', 'Ropa de niño, todo tipo de talla y estilos para que puedas elegir', '2020-05-19 08:05:44', 'Nuevo', 'A', NULL),
+(83, 2, 0, 14, '$ 20', 'Zapatos para niños', 'Zapatos deportivos para niños, color blanco y negro.', '2019-09-22 06:00:00', 'Nuevo', 'A', NULL),
+(84, 2, 11, 14, 'L 400', 'Zapatos de mujer', 'Zaptos de mujer, en buen estado.', '2019-11-10 06:00:00', 'Usado', 'A', NULL),
+(85, 2, 0, 14, 'L 550', 'Calzado de hombre', 'Zapatos de hombre, completamente nuevos y buen precio.', '2020-02-05 06:00:00', 'Nuevo', 'A', NULL),
+(86, 5, 12, 32, '$ 60', 'Bicicletas', 'Bicicleta de carretera de alta calidad a bajo precio/bicicleta de montaña con neumático grueso/bicicleta de nieve mtb con neumático de aire.', '2020-05-19 08:28:46', 'Nuevo', 'A', NULL),
+(87, 5, 12, 32, '$ 20', 'Bicicleta para niñas.', 'Bicicleta de alta calidad para niñas de 20 pulgadas/bicicleta económica de 20 pulgadas princess city/bicicletas de carretera baratas para mujeres.\r\n', '2019-05-19 08:30:09', 'Usado', 'A', NULL),
+(88, 5, 13, 32, '$ 300', 'Máquina de ejercicio', 'Gimnasio fitness ejercicio girando bicicleta ciclismo indoor 10 kg volante bicicleta \r\ncon el titular del teléfono , marca:  FOREX, distintos colores.', '2020-04-26 08:33:02', 'Nuevo', 'A', NULL),
+(89, 5, 13, 32, '$ 8', 'Manta para yoga', 'Impresión personalizada de alta densidad antideslizante manta de PVC deporte estera de salud perder peso Fitness ejercicio de Yoga Mat, distintos colores, longitud: 183cm, Material: De PVC, Tamaño: 18', '2020-01-16 08:37:17', 'Nuevo', 'A', NULL),
+(90, 6, 14, 40, '$ 10000', 'Cancha de tenis Padel', 'Cancha de tenis Padel de fábrica , Material:    De acero, Color:    Negro, Recubrimiento en polvo:    Revestimiento de Zinc y recubrimiento de polvo de plástico, Paquete: Espuma de PE + cubierta de fi', '2019-10-20 06:00:00', 'Nuevo', 'A', NULL),
+(91, 6, 14, 40, '$ 18', 'Raqueta de tenis', 'Fabricante de China de entretenimiento deportes de interior de fibra de carbono 100% bate de tenis, tamaño: 58 inch2, equilibrio: 330 +/-10MM, peso: 290 +/-7,5.', '2020-01-30 08:43:36', 'Usado', 'A', NULL),
+(92, 6, 15, 40, '$ 2', 'Señuelo de pesca', 'Lutac 50s hundimiento minnow señuelo de pesca de fundición larga, talla: 50mm,  peso: 5g, material:    ABS de plástico duro.', '2020-05-02 08:44:48', 'Nuevo', 'A', NULL),
+(93, 6, 15, 40, '$ 20', 'Caña de pesca', 'Caña de pescar de fundición ligera BMAX M de 198-244cm de Abu Jose, longitud:    1,98m 2,13 m 2,44 m , marca: OEM, material:    De carbono, Con alto contenido de carbono, peso: 147-198g, color: negro.', '2019-11-14 06:00:00', 'Nuevo', 'A', NULL),
+(94, 7, 16, 56, '$ 22', 'Escobillas limpiaparabrisas', 'Repuesto universal de la cuchilla del limpiaparabrisas del coche sin marco del parabrisas del automóvil, material caucho, Marca del vehículo compatible: universal. ', '2020-02-27 08:51:47', 'Nuevo', 'A', NULL),
+(95, 7, 16, 56, '$ 25', 'Luces antinuebla para coche', '2 piezas h15 bombilla led de alta potencia 6000k blanco 18smd 3030 para luces de circulación diurna bombilla de repuesto 6000-6500k blanco puro 12v, Marca del vehículo compatible: universal.', '2019-10-16 06:00:00', 'Nuevo', 'A', NULL),
+(96, 7, 17, 56, '$ 30', 'Radio para auto', '12v radio de coche reproductor de audio mp3 bluetooth aux usb sd mmc estéreo fm auto electrónica en el tablero autoradio 1 din para camión taxi windows ce 5.0. Ranura para Tarjeta GPS: Tarjeta TF. Sis', '2020-04-13 08:56:45', 'Usado', 'A', NULL),
+(97, 7, 0, 56, '$ 120', 'swm 9702', 'swm 9702 + cámara 4led 7 pulgadas 1 din android 8.1 reproductor mp5 para automóvil reproductor mulitimedia para automóvil pantalla táctil gps bluetooth incorporado soporte rca / hdmi / fm2 mpeg / mpg.', '2019-08-04 06:00:00', 'Nuevo', 'A', NULL),
+(98, 7, 19, 56, '$ 50', 'Fundas de asiento de auto', 'Fundas de asiento de automóvil antideslizantes transpirables de cuero de pu accesorios de  cojines funda de asiento individual sin reposacabezas y reposabrazos para universal, marca del vehículo compa', '2020-05-13 09:02:45', 'Nuevo', 'A', NULL),
+(99, 7, 0, 56, '$ 6', 'Mando para llave', 'Mando a distancia para llave de 6 botones de repuesto negro para chevrole 2007/2008/2009 suburbano, modelo suburban, dimensiones netas (cm): 5, peso neto (kg): 0.014.', '2020-03-17 08:10:16', 'Restaurado', 'A', NULL),
+(100, 8, 22, 66, 'L 50', 'Grapadoras', 'Pequeña grapadora de oficina mini grapadora de escritorio para oficina / estudiantes, material 	Carcasa de plástico, tipo: Sujetador, dimensiones (cm): 11.8*3.2*6.', '2020-05-23 09:09:29', 'Nuevo', 'A', NULL),
+(101, 8, 22, 66, 'L 550', 'Disipador para laptop', 'Diy pc stand laptop disipador de calor estante escritorio, estante mesa inclinación 8 grados .\r\n', '2019-05-22 06:00:00', 'Nuevo', 'A', NULL),
+(102, 9, 21, 78, 'L 400', 'Uniforme de militar', 'Uniformes de camuflaje táctico ejército militar personalizados baratos, venta al por mayor.\r\nGénero:    Unisex, Material:  Poliéster/algodón, Tipo de suministro:  Servicio de OEM, Característica:   An', '2019-06-16 06:00:00', 'Usado', 'A', NULL),
+(103, 9, 21, 78, 'L 550', 'Chaleco militar', 'OEM militar táctico chaleco policía Airsoft de corte láser combate asalto Placa de peso del  portador chaleco, Material:  600D Oxford, Peso: 1,48 KG, Color: Grey, Embalaje:  1 pc/bolsa de plástico,\r\nT', '2020-05-19 09:18:54', 'Nuevo', 'A', NULL),
+(104, 10, 23, 88, 'L 200', 'Cromo contemporáneo', 'Set de Accesorios de Baño / Cromo Contemporáneo, material de latón, acabado Cromo, estilo moderno, longitud Aprox. (cm) 66.5, profundidad total (cm) 21, peso neto (kg) 2.05.', '2020-01-29 09:22:45', 'Nuevo', 'A', NULL),
+(105, 10, 23, 88, 'L 250', 'Percha para albornoz', 'Acabado Cromo, estilo moderno, peso neto (kg) 2.', '2020-04-10 09:24:18', 'Nuevo', 'A', NULL),
+(106, 10, 24, 88, 'L 900', 'Relojes para mujer', 'Relojes nuevos, en empaque para mujeres, hermoso azul rosa púrpura cara diamante joyería reloj y juego de joyas de flores.\r\n', '2019-04-01 09:26:54', 'Nuevo', 'A', NULL),
+(107, 10, 24, 88, 'L 950', 'Reloj mecánico', 'De moda de alta calidad de los hombres mecánicos reloj para Omegas Accesorios.\r\n', '2019-12-19 09:27:51', 'Nuevo', 'A', NULL),
+(108, 11, 25, 94, 'L 300', 'Colageno para la piel', 'Colágeno para cuidado de la piel Booster 50ml dosificación forma C colágeno suplemento de salud.\r\n', '2020-02-15 09:30:47', 'Nuevo', 'A', NULL),
+(109, 11, 25, 94, 'L 450', 'Equipo para la piel', 'Equipo de cuidado de la piel galvánico de iones, equipo de quemagrasas ems, instrumento ultrasónico de belleza y salud.\r\n', '2019-01-19 06:00:00', 'Nuevo', 'A', NULL),
+(110, 11, 26, 94, 'L 400', 'Set de manicure y pedicure', 'Set de manicure y pedicure PRITECH, lima de uñas de pie recargable, Set eléctrico de manicura y pedicura.\r\n', '2019-11-29 09:33:49', 'Nuevo', 'A', NULL),
+(111, 11, 26, 94, 'L 320', 'Kit de manicure', 'Kit de manicure, travel portable manicures accessories professional manicure pedicure set kit for girl, marca: LATTIS, Color personalizado.', '2020-01-19 09:35:05', 'Nuevo', 'A', NULL),
+(112, 12, 28, 108, 'L 550', 'Juego infantil', 'Casa de juego multifuncional para niños y niñas, todo en buen estado, con todas las piezas, solo utilizado una semana.\r\n', '2019-12-19 09:37:44', 'Usado', 'A', NULL),
+(113, 12, 28, 108, 'L 50', 'Pulseras de superheroes', 'Venta Regalo de Cumpleaños, transformación reloj de dibujos animados de niños. Precio por unidad. Material de plástico, variedad.', '2020-04-19 09:40:11', 'Nuevo', 'A', NULL),
+(114, 13, 20, 122, 'L 2000', 'Pintura en 5 piezas', 'Venta al por mayor, triangulación de envío, 5 paneles, pintura en lienzo de árbol para decoración para las paredes del salón, paisaje, decoración del hogar, arte de pared, medidas: 20x30x20x40x2 20x50', '2020-02-19 09:45:45', 'Nuevo', 'A', NULL),
+(115, 13, 20, 122, 'L 1000', 'Pintura de impresión digital', 'Impresión Digital 7 caballos corriendo al atardecer imagen HD pintura de pared sobre lienzo arte.\r\nTamaño Original:   40x80cm, materiales:  260-300g/sqm lienzo + pigmento tinta impermeable,  espesor d', '2019-11-19 09:47:26', 'Nuevo', 'A', NULL),
+(116, 13, 29, 122, 'L 15000', 'Violin eléctrico', 'Violín eléctrico de colores a la venta Kinglos, profesional, alta calidad. Material frontal:    De arce\r\nMaterial trasero / Lateral:   Arce, material superior:  De arce, material del diapasón:    Ebon', '2020-04-19 09:49:55', 'Nuevo', 'A', NULL),
+(117, 13, 29, 122, '$ 450', 'Cello cremon', 'Cello cremona 4/4 modelo sc100, año 2003, ideal para aprender a tapa de pino abeto y fondo y costados de arce, tastiera de maple.\r\nEl cello tiene recién instaladas cuerdas ddadario prelude. El cello recibio ajuste por luthier de iviolinni en el puente, mejorando la respuesta y altura de las cuerdas.Viene con un arco de Pernambuco de buena calidad. Trae también sus estuche y pecaztilla.\r\n', '2020-03-19 09:52:12', 'Usado', 'A', NULL),
+(118, 13, 30, 122, '$ 24', 'Novela cien años de soledad', 'Libro nuevo de Gabriel Garcia Marquez, original.', '2020-05-19 09:53:15', 'Nuevo', 'A', NULL),
+(119, 13, 30, 122, '$ 45', 'Divergente e insurgente', 'Libros Divergente e insurgente de Veronica Ruth\r\nPrimeros 2 libros de la trilogía Divergente de Veronica Roth.\r\nDescripción: Usados en perfecto estado, originales publicados por RBA, idioma Español', '2020-03-19 09:54:37', 'Usado', 'A', NULL);
 
 -- --------------------------------------------------------
 
@@ -570,7 +649,7 @@ CREATE TABLE IF NOT EXISTS `calificacionanuncio` (
   `valoracion` int(11) NOT NULL,
   PRIMARY KEY (`idCalificacionAnuncio`),
   KEY `idAnuncios` (`idAnuncios`)
-) ENGINE=MyISAM AUTO_INCREMENT=210 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=318 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `calificacionanuncio`
@@ -729,7 +808,115 @@ INSERT INTO `calificacionanuncio` (`idCalificacionAnuncio`, `idAnuncios`, `valor
 (206, 57, 5),
 (207, 57, 1),
 (208, 64, 4),
-(209, 63, 2);
+(209, 63, 2),
+(210, 65, 4),
+(211, 66, 5),
+(212, 67, 4),
+(213, 68, 2),
+(214, 69, 0),
+(215, 70, 0),
+(216, 71, 0),
+(217, 72, 0),
+(218, 73, 0),
+(219, 74, 0),
+(220, 75, 0),
+(221, 76, 0),
+(222, 77, 0),
+(223, 78, 0),
+(224, 79, 0),
+(225, 80, 0),
+(226, 81, 0),
+(227, 82, 0),
+(228, 83, 0),
+(229, 84, 0),
+(230, 85, 0),
+(231, 86, 0),
+(232, 87, 0),
+(233, 88, 0),
+(234, 89, 0),
+(235, 90, 0),
+(236, 91, 0),
+(237, 92, 0),
+(238, 93, 0),
+(239, 94, 0),
+(240, 95, 0),
+(241, 96, 0),
+(242, 97, 0),
+(243, 98, 0),
+(244, 99, 0),
+(245, 100, 0),
+(246, 101, 0),
+(247, 102, 0),
+(248, 103, 0),
+(249, 104, 0),
+(250, 105, 0),
+(251, 106, 0),
+(252, 107, 0),
+(253, 108, 0),
+(254, 109, 0),
+(255, 110, 0),
+(256, 111, 0),
+(257, 112, 0),
+(258, 113, 0),
+(259, 114, 0),
+(260, 115, 0),
+(261, 116, 0),
+(262, 117, 0),
+(263, 118, 0),
+(264, 119, 0),
+(265, 69, 4),
+(266, 75, 1),
+(267, 79, 4),
+(268, 98, 5),
+(269, 97, 2),
+(270, 103, 3),
+(271, 86, 4),
+(272, 85, 5),
+(273, 76, 4),
+(274, 69, 5),
+(275, 70, 4),
+(276, 57, 4),
+(277, 107, 3),
+(278, 107, 4),
+(279, 82, 4),
+(280, 77, 4),
+(281, 119, 2),
+(282, 117, 3),
+(283, 116, 4),
+(284, 114, 5),
+(285, 101, 4),
+(286, 93, 3),
+(287, 78, 5),
+(288, 68, 4),
+(289, 79, 4),
+(290, 91, 4),
+(291, 97, 3),
+(292, 115, 4),
+(293, 117, 4),
+(294, 105, 2),
+(295, 101, 4),
+(296, 94, 4),
+(297, 86, 4),
+(298, 79, 4),
+(299, 118, 5),
+(300, 116, 4),
+(301, 110, 4),
+(302, 108, 5),
+(303, 106, 5),
+(304, 84, 5),
+(305, 81, 5),
+(306, 80, 4),
+(307, 66, 4),
+(308, 65, 3),
+(309, 75, 1),
+(310, 76, 3),
+(311, 69, 2),
+(312, 69, 4),
+(313, 77, 3),
+(314, 81, 4),
+(315, 100, 4),
+(316, 112, 3),
+(317, 108, 3);
 
 -- --------------------------------------------------------
 
@@ -760,7 +947,7 @@ CREATE TABLE IF NOT EXISTS `calificacionesvendedor` (
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idCalificacionVendedor`),
   KEY `fk_calificacionesVendedor_Usuario1` (`idUsuario`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `calificacionesvendedor`
@@ -768,7 +955,19 @@ CREATE TABLE IF NOT EXISTS `calificacionesvendedor` (
 
 INSERT INTO `calificacionesvendedor` (`idCalificacionVendedor`, `cantidadEstrellas`, `idUsuario`) VALUES
 (3, 3.9, 4),
-(2, 3.8, 3);
+(2, 3.7, 3),
+(4, 2.8, 0),
+(5, 1.3, 1),
+(6, 2.5, 2),
+(7, 1.4, 7),
+(8, 1, 9),
+(9, 1.3, 5),
+(10, 1.8, 10),
+(11, 2.2, 13),
+(12, 2.4, 8),
+(13, 1.2, 6),
+(14, 1.7, 11),
+(15, 1, 12);
 
 -- --------------------------------------------------------
 
@@ -839,19 +1038,34 @@ CREATE TABLE IF NOT EXISTS `comentariosvendedor` (
   `comentario` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `idusuarioCalificador` int(11) NOT NULL,
   `idUsuarioCalificado` int(11) NOT NULL,
+  `fechaRegistro` timestamp NOT NULL,
   PRIMARY KEY (`idComentariosVendedor`),
   KEY `idusuarioCalificador` (`idusuarioCalificador`),
   KEY `idUsuarioCalificado` (`idUsuarioCalificado`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `comentariosvendedor`
 --
 
-INSERT INTO `comentariosvendedor` (`idComentariosVendedor`, `comentario`, `idusuarioCalificador`, `idUsuarioCalificado`) VALUES
-(1, '', 4, 0),
-(2, 'probando comentario 1', 4, 3),
-(3, 'probando comentario 2', 4, 3);
+INSERT INTO `comentariosvendedor` (`idComentariosVendedor`, `comentario`, `idusuarioCalificador`, `idUsuarioCalificado`, `fechaRegistro`) VALUES
+(1, 'Genial', 4, 0, '2020-05-17 12:00:00'),
+(2, 'Me gusta.', 4, 3, '2020-05-18 17:06:12'),
+(3, 'Buenos productos', 4, 3, '2020-05-20 19:17:12'),
+(4, 'Deberia de poner más fotografias de algunos articulos', 2, 1, '0000-00-00 00:00:00'),
+(5, 'Me han parecido excelentes algunos de tus articulos.', 2, 0, '0000-00-00 00:00:00'),
+(6, 'Excelentes repuestos para coches.', 2, 7, '0000-00-00 00:00:00'),
+(7, 'Me han gustado las bicicletas, espero sigas teniendo disponibles durante un tiempo.', 2, 5, '0000-00-00 00:00:00'),
+(8, 'Me gusta el estilo de zapatos que ofreces.', 13, 2, '0000-00-00 00:00:00'),
+(9, 'Puedo recomendar las lampras diagones, son excelentes, y se ven magnificas en las habitaciones.', 13, 1, '0000-00-00 00:00:00'),
+(10, 'Los celulares que ofrece son bien comodos en cuanto a los precios que ofrece.', 13, 3, '0000-00-00 00:00:00'),
+(11, 'Geniales trajes para hacer ejercicio.', 5, 2, '0000-00-00 00:00:00'),
+(12, 'Es la primera vez que veo algunos de los celulares que ofreces.', 5, 3, '0000-00-00 00:00:00'),
+(13, 'Que hermosos instrumentos!!', 1, 13, '0000-00-00 00:00:00'),
+(14, 'Buenos utencilios para belleza, me gustan!!', 1, 11, '0000-00-00 00:00:00'),
+(15, 'El colageno es un excelente producto para la piel, cien por ciento recomendado!', 1, 11, '0000-00-00 00:00:00'),
+(16, 'Me han gustado muchos los diseños de los relojes que ofrece.', 1, 10, '0000-00-00 00:00:00'),
+(17, 'Hermosos zapatos, deberias de ofrecer más variedad, estaré esperando por más.', 1, 2, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -864,11 +1078,24 @@ CREATE TABLE IF NOT EXISTS `denuncias` (
   `idDenuncias` int(11) NOT NULL AUTO_INCREMENT,
   `idrazonDenuncia` int(11) NOT NULL,
   `idAnuncios` int(11) NOT NULL,
-  `comentarios` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `comentarios` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `fechaRegistro` timestamp NOT NULL,
   PRIMARY KEY (`idDenuncias`),
   KEY `idrazonDenuncia` (`idrazonDenuncia`),
   KEY `idAnuncios` (`idAnuncios`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `denuncias`
+--
+
+INSERT INTO `denuncias` (`idDenuncias`, `idrazonDenuncia`, `idAnuncios`, `comentarios`, `fechaRegistro`) VALUES
+(1, 8, 58, 'Parece ser un articulo falso', '0000-00-00 00:00:00'),
+(2, 8, 58, 'No es un artículo legítimo', '0000-00-00 00:00:00'),
+(3, 8, 56, 'No es un artículo legítimo', '0000-00-00 00:00:00'),
+(4, 8, 56, 'Parece no tener intención de vender una articulo pues no hay fotos, ni descripción del artículo', '0000-00-00 00:00:00'),
+(5, 1, 75, 'Parece que los productos no los vende completos.', '0000-00-00 00:00:00'),
+(6, 1, 75, 'Parece que le faltan piezas al producto que ofrece.', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -910,6 +1137,45 @@ INSERT INTO `departamentos` (`idDepartamentos`, `nombreDepartamento`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `favoritos`
+--
+
+DROP TABLE IF EXISTS `favoritos`;
+CREATE TABLE IF NOT EXISTS `favoritos` (
+  `idFavoritos` int(11) NOT NULL AUTO_INCREMENT,
+  `idSeguidor` int(11) NOT NULL,
+  `idSeguido` int(11) NOT NULL,
+  PRIMARY KEY (`idFavoritos`),
+  KEY `idSeguidor` (`idSeguidor`),
+  KEY `idSeguido` (`idSeguido`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `favoritos`
+--
+
+INSERT INTO `favoritos` (`idFavoritos`, `idSeguidor`, `idSeguido`) VALUES
+(1, 2, 0),
+(2, 2, 7),
+(3, 5, 13),
+(4, 9, 13),
+(5, 9, 10),
+(6, 9, 8),
+(7, 9, 7),
+(8, 9, 5),
+(9, 9, 2),
+(10, 1, 13),
+(11, 1, 11),
+(12, 1, 10),
+(13, 1, 2),
+(14, 14, 0),
+(15, 14, 1),
+(16, 14, 2),
+(17, 14, 12);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `fotos`
 --
 
@@ -922,7 +1188,7 @@ CREATE TABLE IF NOT EXISTS `fotos` (
   `size` float NOT NULL,
   PRIMARY KEY (`idFotos`),
   KEY `FK_idAnuncios` (`idAnuncios`)
-) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=234 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `fotos`
@@ -932,14 +1198,180 @@ INSERT INTO `fotos` (`idFotos`, `idAnuncios`, `nombre`, `localizacion`, `size`) 
 (36, 57, '', '../images/fotosAnuncio/sbethuell@gmail.com/3.jpg', 0),
 (35, 57, '', '../images/fotosAnuncio/sbethuell@gmail.com/2.jpg', 0),
 (34, 57, '', '../images/fotosAnuncio/sbethuell@gmail.com/1.JPG', 0),
-(26, 56, '', '../images/fotosAnuncio/sbethuell@gmail.com/4BE.png', 0),
-(27, 56, '', '../images/fotosAnuncio/sbethuell@gmail.com/4FB.jpg', 0),
-(37, 58, '', '../images/fotosAnuncio/sbethuell@gmail.com/homero.jpg', 0),
-(38, 59, '', '../images/fotosAnuncio/sbethuell@gmail.com/corazon.jpg', 0),
+(75, 69, '2.1.3.jpg', '../images/fotosAnuncio/lorenadiaz@gmail.com/2.1.3.jpg', 26090),
+(73, 69, '2.1.1.jpg', '../images/fotosAnuncio/lorenadiaz@gmail.com/2.1.1.jpg', 148981),
+(74, 69, '2.1.2.jpeg', '../images/fotosAnuncio/lorenadiaz@gmail.com/2.1.2.jpeg', 22248),
 (45, 60, 'sm1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/sm1.jpg', 71738),
 (57, 61, 'laptop1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop1.jpg', 71738),
 (61, 62, 'laptop.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop.jpg', 408132),
-(54, 62, 'laptop1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop1.jpg', 71738);
+(54, 62, 'laptop1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop1.jpg', 71738),
+(62, 63, '1.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/1.jpg', 859917),
+(63, 63, '2.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/2.jpg', 898090),
+(66, 65, '5.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/5.jpg', 67278),
+(67, 65, '6.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/6.jpg', 53671),
+(68, 66, '7.webp', '../images/fotosAnuncio/sbethuell@gmail.com/7.webp', 77540),
+(69, 67, '8.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/8.jpg', 266115),
+(70, 67, '9.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/9.jpg', 49091),
+(71, 68, '11.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/11.jpg', 33539),
+(72, 68, '10.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/10.jpg', 31790),
+(76, 70, '2.2.1.jpg', '../images/fotosAnuncio/lorenadiaz@gmail.com/2.2.1.jpg', 349882),
+(77, 70, '2.2.2.jpg', '../images/fotosAnuncio/lorenadiaz@gmail.com/2.2.2.jpg', 26815),
+(78, 70, '2.2.3.png', '../images/fotosAnuncio/lorenadiaz@gmail.com/2.2.3.png', 227798),
+(79, 71, '5.1.1.jpg', '../images/fotosAnuncio/lorenadiaz@gmail.com/5.1.1.jpg', 12418),
+(80, 71, '5.1.2.webp', '../images/fotosAnuncio/lorenadiaz@gmail.com/5.1.2.webp', 5540),
+(81, 71, '5.1.3.jpg', '../images/fotosAnuncio/lorenadiaz@gmail.com/5.1.3.jpg', 17231),
+(82, 72, '4.1.1.png', '../images/fotosAnuncio/mago20@gmail.com/4.1.1.png', 989842),
+(83, 72, '4.1.2.png', '../images/fotosAnuncio/mago20@gmail.com/4.1.2.png', 1049030),
+(84, 73, '4.2.1.jpg', '../images/fotosAnuncio/mago20@gmail.com/4.2.1.jpg', 75661),
+(85, 73, '4.2.2.jpg', '../images/fotosAnuncio/mago20@gmail.com/4.2.2.jpg', 39663),
+(86, 73, '4.2.3.jpg', '../images/fotosAnuncio/mago20@gmail.com/4.2.3.jpg', 55371),
+(87, 73, '4.2.4.jpg', '../images/fotosAnuncio/mago20@gmail.com/4.2.4.jpg', 32388),
+(88, 74, '6.1.1.png', '../images/fotosAnuncio/mago20@gmail.com/6.1.1.png', 838816),
+(89, 74, '6.1.2.png', '../images/fotosAnuncio/mago20@gmail.com/6.1.2.png', 195834),
+(90, 74, '6.1.3.png', '../images/fotosAnuncio/mago20@gmail.com/6.1.3.png', 190994),
+(91, 75, '6.2.1.jpg', '../images/fotosAnuncio/mago20@gmail.com/6.2.1.jpg', 72855),
+(92, 76, '7.1.1.jpg', '../images/fotosAnuncio/mago20@gmail.com/7.1.1.jpg', 529072),
+(93, 76, '7.1.2.jpg', '../images/fotosAnuncio/mago20@gmail.com/7.1.2.jpg', 307755),
+(94, 76, '7.1.3.jpg', '../images/fotosAnuncio/mago20@gmail.com/7.1.3.jpg', 271969),
+(95, 77, '7.2.1.jpg', '../images/fotosAnuncio/mago20@gmail.com/7.2.1.jpg', 30826),
+(96, 77, '7.2.2.jpg', '../images/fotosAnuncio/mago20@gmail.com/7.2.2.jpg', 11880),
+(97, 77, '7.2.3.jpg', '../images/fotosAnuncio/mago20@gmail.com/7.2.3.jpg', 18984),
+(98, 77, '7.2.4.jpg', '../images/fotosAnuncio/mago20@gmail.com/7.2.4.jpg', 20327),
+(99, 78, '8.1.1.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/8.1.1.jpg', 28211),
+(100, 78, '8.1.2.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/8.1.2.jpg', 64360),
+(101, 78, '8.1.3.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/8.1.3.jpg', 42560),
+(102, 78, '8.1.4.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/8.1.4.jpg', 56433),
+(103, 79, '8.2.1.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/8.2.1.jpg', 25918),
+(104, 79, '8.2.2.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/8.2.2.jpg', 51853),
+(105, 79, '8.2.3.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/8.2.3.jpg', 58252),
+(106, 79, '8.2.4.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/8.2.4.jpg', 975500),
+(107, 80, '9.1.1.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/9.1.1.jpg', 97565),
+(108, 80, '9.1.2.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/9.1.2.jpg', 72419),
+(109, 80, '9.1.3.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/9.1.3.jpg', 132292),
+(110, 81, '9.2.1.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/9.2.1.jpg', 86033),
+(111, 81, '9.2.2.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/9.2.2.jpg', 38404),
+(112, 81, '9.2.3.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/9.2.3.jpg', 39674),
+(113, 82, '10.1.1.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/10.1.1.jpg', 70326),
+(114, 82, '10.1.2.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/10.1.2.jpg', 106692),
+(115, 82, '10.1.3.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/10.1.3.jpg', 46559),
+(116, 82, '10.1.4.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/10.1.4.jpg', 191699),
+(117, 83, '10.2.1.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/10.2.1.jpg', 182614),
+(118, 83, '10.2.2.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/10.2.2.jpg', 213802),
+(119, 83, '10.2.3.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/10.2.3.jpg', 199629),
+(120, 83, '10.2.4.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/10.2.4.jpg', 199358),
+(121, 84, '11.1.1.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/11.1.1.jpg', 57156),
+(122, 84, '11.1.2.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/11.1.2.jpg', 45728),
+(123, 85, '11.2.1.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/11.2.1.jpg', 125385),
+(124, 85, '11.2.2.jpg', '../images/fotosAnuncio/pmaynorpineda@yahoo.es/11.2.2.jpg', 42254),
+(125, 86, '12.1.1.jpg', '../images/fotosAnuncio/rodri.jul@yahoo.es/12.1.1.jpg', 330394),
+(126, 86, '12.1.2.jpg', '../images/fotosAnuncio/rodri.jul@yahoo.es/12.1.2.jpg', 361463),
+(127, 87, '12.2.1.jpg', '../images/fotosAnuncio/rodri.jul@yahoo.es/12.2.1.jpg', 251509),
+(128, 87, '12.2.2.jpg', '../images/fotosAnuncio/rodri.jul@yahoo.es/12.2.2.jpg', 270887),
+(129, 87, '12.2.3.jpg', '../images/fotosAnuncio/rodri.jul@yahoo.es/12.2.3.jpg', 225800),
+(130, 87, '12.2.4.jpg', '../images/fotosAnuncio/rodri.jul@yahoo.es/12.2.4.jpg', 245870),
+(131, 88, '13.1.1.png', '../images/fotosAnuncio/rodri.jul@yahoo.es/13.1.1.png', 410955),
+(132, 88, '13.1.2.png', '../images/fotosAnuncio/rodri.jul@yahoo.es/13.1.2.png', 314039),
+(133, 88, '13.1.3.png', '../images/fotosAnuncio/rodri.jul@yahoo.es/13.1.3.png', 619020),
+(134, 88, '13.1.4.png', '../images/fotosAnuncio/rodri.jul@yahoo.es/13.1.4.png', 348190),
+(135, 89, '13.2.1.jpg', '../images/fotosAnuncio/rodri.jul@yahoo.es/13.2.1.jpg', 212661),
+(136, 89, '13.2.2.jpg', '../images/fotosAnuncio/rodri.jul@yahoo.es/13.2.2.jpg', 223365),
+(137, 89, '13.2.3.jpg', '../images/fotosAnuncio/rodri.jul@yahoo.es/13.2.3.jpg', 195521),
+(138, 89, '13.2.4.jpg', '../images/fotosAnuncio/rodri.jul@yahoo.es/13.2.4.jpg', 247658),
+(139, 90, '14.1.1.jpg', '../images/fotosAnuncio/palacios.rob@gmail.com/14.1.1.jpg', 1061130),
+(140, 90, '14.1.2.jpg', '../images/fotosAnuncio/palacios.rob@gmail.com/14.1.2.jpg', 1184490),
+(141, 90, '14.1.3.jpg', '../images/fotosAnuncio/palacios.rob@gmail.com/14.1.3.jpg', 213543),
+(142, 91, '14.2.1.jpg', '../images/fotosAnuncio/palacios.rob@gmail.com/14.2.1.jpg', 48247),
+(143, 91, '14.2.2.jpg', '../images/fotosAnuncio/palacios.rob@gmail.com/14.2.2.jpg', 47595),
+(144, 91, '14.2.3.jpg', '../images/fotosAnuncio/palacios.rob@gmail.com/14.2.3.jpg', 71759),
+(145, 92, '15.1.1.jpg', '../images/fotosAnuncio/palacios.rob@gmail.com/15.1.1.jpg', 150348),
+(146, 92, '15.1.2.jpg', '../images/fotosAnuncio/palacios.rob@gmail.com/15.1.2.jpg', 118414),
+(147, 93, '15.2.1.jpg', '../images/fotosAnuncio/palacios.rob@gmail.com/15.2.1.jpg', 148261),
+(148, 93, '15.2.2.jpg', '../images/fotosAnuncio/palacios.rob@gmail.com/15.2.2.jpg', 143580),
+(149, 93, '15.2.3.jpg', '../images/fotosAnuncio/palacios.rob@gmail.com/15.2.3.jpg', 136669),
+(150, 93, '15.2.4.jpg', '../images/fotosAnuncio/palacios.rob@gmail.com/15.2.4.jpg', 161411),
+(151, 94, '16.1.1.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/16.1.1.jpg', 132443),
+(152, 94, '16.1.2.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/16.1.2.jpg', 232070),
+(153, 94, '16.1.3.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/16.1.3.jpg', 219505),
+(154, 95, '16.2.1.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/16.2.1.jpg', 38708),
+(155, 95, '16.2.2.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/16.2.2.jpg', 23586),
+(156, 96, '17.1.1.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/17.1.1.jpg', 22294),
+(157, 96, '17.1.2.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/17.1.2.jpg', 25642),
+(158, 96, '17.1.3.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/17.1.3.jpg', 19646),
+(159, 97, '17.2.1.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/17.2.1.jpg', 37662),
+(160, 97, '17.2.2.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/17.2.2.jpg', 36774),
+(161, 98, '19.1.1.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/19.1.1.jpg', 67774),
+(162, 98, '19.1.2.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/19.1.2.jpg', 71316),
+(163, 98, '19.1.3.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/19.1.3.jpg', 69862),
+(164, 98, '19.1.4.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/19.1.4.jpg', 79864),
+(165, 99, '19.2.1.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/19.2.1.jpg', 74110),
+(166, 99, '19.2.2.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/19.2.2.jpg', 74210),
+(167, 99, '19.2.3.jpg', '../images/fotosAnuncio/lobo_amen@yahoo.es/19.2.3.jpg', 78678),
+(168, 100, '22.1.1.jpg', '../images/fotosAnuncio/phine_66@gmail.com/22.1.1.jpg', 75386),
+(169, 100, '22.1.2.jpg', '../images/fotosAnuncio/phine_66@gmail.com/22.1.2.jpg', 29282),
+(170, 100, '22.1.3.jpg', '../images/fotosAnuncio/phine_66@gmail.com/22.1.3.jpg', 42928),
+(171, 101, '22.2.1.jpg', '../images/fotosAnuncio/phine_66@gmail.com/22.2.1.jpg', 9840),
+(172, 101, '22.2.2.jpg', '../images/fotosAnuncio/phine_66@gmail.com/22.2.2.jpg', 47282),
+(173, 101, '22.2.3.jpg', '../images/fotosAnuncio/phine_66@gmail.com/22.2.3.jpg', 28272),
+(174, 101, '22.2.4.jpg', '../images/fotosAnuncio/phine_66@gmail.com/22.2.4.jpg', 18146),
+(175, 102, '21.1.1.png', '../images/fotosAnuncio/car-man@yahoo.es/21.1.1.png', 512857),
+(176, 102, '21.1.2.png', '../images/fotosAnuncio/car-man@yahoo.es/21.1.2.png', 519864),
+(177, 102, '21.1.3.png', '../images/fotosAnuncio/car-man@yahoo.es/21.1.3.png', 419314),
+(178, 102, '21.1.4.png', '../images/fotosAnuncio/car-man@yahoo.es/21.1.4.png', 505717),
+(179, 103, '21.2.1.jpg', '../images/fotosAnuncio/car-man@yahoo.es/21.2.1.jpg', 305530),
+(180, 103, '21.2.2.jpg', '../images/fotosAnuncio/car-man@yahoo.es/21.2.2.jpg', 161701),
+(181, 103, '21.2.3.jpg', '../images/fotosAnuncio/car-man@yahoo.es/21.2.3.jpg', 125750),
+(182, 103, '21.2.4.jpg', '../images/fotosAnuncio/car-man@yahoo.es/21.2.4.jpg', 118579),
+(183, 104, '23.1.1.jpg', '../images/fotosAnuncio/salgado.emp@yahoo.com/23.1.1.jpg', 8574),
+(184, 104, '23.1.2.jpg', '../images/fotosAnuncio/salgado.emp@yahoo.com/23.1.2.jpg', 15050),
+(185, 104, '23.1.3.jpg', '../images/fotosAnuncio/salgado.emp@yahoo.com/23.1.3.jpg', 67034),
+(186, 104, '23.1.4.jpg', '../images/fotosAnuncio/salgado.emp@yahoo.com/23.1.4.jpg', 54040),
+(187, 105, '23.2.1.jpg', '../images/fotosAnuncio/salgado.emp@yahoo.com/23.2.1.jpg', 40268),
+(188, 105, '23.2.2.jpg', '../images/fotosAnuncio/salgado.emp@yahoo.com/23.2.2.jpg', 9938),
+(189, 105, '23.2.3.jpg', '../images/fotosAnuncio/salgado.emp@yahoo.com/23.2.3.jpg', 41484),
+(190, 106, '24.1.1.jpg', '../images/fotosAnuncio/salgado.emp@yahoo.com/24.1.1.jpg', 160393),
+(191, 106, '24.1.2.jpg', '../images/fotosAnuncio/salgado.emp@yahoo.com/24.1.2.jpg', 256807),
+(192, 107, '24.2.1.png', '../images/fotosAnuncio/salgado.emp@yahoo.com/24.2.1.png', 1118700),
+(193, 107, '24.2.2.png', '../images/fotosAnuncio/salgado.emp@yahoo.com/24.2.2.png', 1320840),
+(194, 107, '24.2.3.png', '../images/fotosAnuncio/salgado.emp@yahoo.com/24.2.3.png', 1128020),
+(195, 108, '25.1.1.jpg', '../images/fotosAnuncio/julia-ert@gmail.com/25.1.1.jpg', 262998),
+(196, 108, '25.1.2.jpg', '../images/fotosAnuncio/julia-ert@gmail.com/25.1.2.jpg', 80927),
+(197, 108, '25.1.3.jpg', '../images/fotosAnuncio/julia-ert@gmail.com/25.1.3.jpg', 177693),
+(198, 109, '25.2.1.jpg', '../images/fotosAnuncio/julia-ert@gmail.com/25.2.1.jpg', 68072),
+(199, 109, '25.2.2.jpg', '../images/fotosAnuncio/julia-ert@gmail.com/25.2.2.jpg', 68452),
+(200, 109, '25.2.3.jpg', '../images/fotosAnuncio/julia-ert@gmail.com/25.2.3.jpg', 48874),
+(201, 109, '25.2.4.jpg', '../images/fotosAnuncio/julia-ert@gmail.com/25.2.4.jpg', 57609),
+(202, 110, '26.1.1.png', '../images/fotosAnuncio/julia-ert@gmail.com/26.1.1.png', 376947),
+(203, 110, '26.1.2.png', '../images/fotosAnuncio/julia-ert@gmail.com/26.1.2.png', 230409),
+(204, 110, '26.1.3.png', '../images/fotosAnuncio/julia-ert@gmail.com/26.1.3.png', 190173),
+(205, 111, '27.1.1.jpg', '../images/fotosAnuncio/julia-ert@gmail.com/27.1.1.jpg', 78474),
+(206, 111, '27.1.2.jpg', '../images/fotosAnuncio/julia-ert@gmail.com/27.1.2.jpg', 64354),
+(207, 111, '27.1.3.jpg', '../images/fotosAnuncio/julia-ert@gmail.com/27.1.3.jpg', 59135),
+(208, 112, '28.1.1.jpg', '../images/fotosAnuncio/ardnaj.20@yahoo.com/28.1.1.jpg', 273804),
+(209, 112, '28.1.2.jpg', '../images/fotosAnuncio/ardnaj.20@yahoo.com/28.1.2.jpg', 173859),
+(210, 112, '28.1.3.jpg', '../images/fotosAnuncio/ardnaj.20@yahoo.com/28.1.3.jpg', 174638),
+(211, 113, '28.2.1.jpg', '../images/fotosAnuncio/ardnaj.20@yahoo.com/28.2.1.jpg', 209342),
+(212, 113, '28.2.2.jpg', '../images/fotosAnuncio/ardnaj.20@yahoo.com/28.2.2.jpg', 177550),
+(213, 113, '28.2.3.jpg', '../images/fotosAnuncio/ardnaj.20@yahoo.com/28.2.3.jpg', 146751),
+(214, 113, '28.2.4.jpg', '../images/fotosAnuncio/ardnaj.20@yahoo.com/28.2.4.jpg', 157766),
+(215, 114, '20.1.1.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/20.1.1.jpg', 132333),
+(216, 114, '20.1.2.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/20.1.2.jpg', 647087),
+(217, 114, '20.1.3.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/20.1.3.jpg', 202522),
+(218, 115, '20.2.1.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/20.2.1.jpg', 109280),
+(219, 115, '20.2.2.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/20.2.2.jpg', 186580),
+(220, 115, '20.2.3.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/20.2.3.jpg', 208533),
+(221, 115, '20.2.4.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/20.2.4.jpg', 164455),
+(222, 116, '29.1.1.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/29.1.1.jpg', 87326),
+(223, 116, '29.1.2.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/29.1.2.jpg', 40690),
+(224, 116, '29.1.3.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/29.1.3.jpg', 89533),
+(225, 116, '29.1.4.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/29.1.4.jpg', 139072),
+(226, 117, '29.2.1.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/29.2.1.jpg', 37112),
+(227, 117, '29.2.2.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/29.2.2.jpg', 19164),
+(228, 117, '29.2.3.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/29.2.3.jpg', 22401),
+(229, 117, '29.2.4.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/29.2.4.jpg', 37443),
+(230, 118, '30.1.1.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/30.1.1.jpg', 20997),
+(231, 119, '30.2.1.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/30.2.1.jpg', 41795),
+(232, 119, '30.2.2.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/30.2.2.jpg', 31810),
+(233, 119, '30.2.3.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/30.2.3.jpg', 44092);
 
 -- --------------------------------------------------------
 
@@ -1291,6 +1723,83 @@ INSERT INTO `municipios` (`idMunicipios`, `idDepartamentos`, `municipio`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `publicaciones_anio`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `publicaciones_anio`;
+CREATE TABLE IF NOT EXISTS `publicaciones_anio` (
+`mes` varchar(10)
+,`publicaciones` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `publicaciones_categoria`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `publicaciones_categoria`;
+CREATE TABLE IF NOT EXISTS `publicaciones_categoria` (
+`nombregrupo` varchar(80)
+,`publicaciones` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `publicaciones_lugar`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `publicaciones_lugar`;
+CREATE TABLE IF NOT EXISTS `publicaciones_lugar` (
+`nombreDepartamento` varchar(45)
+,`publicaciones` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `razonborrado`
+--
+
+DROP TABLE IF EXISTS `razonborrado`;
+CREATE TABLE IF NOT EXISTS `razonborrado` (
+  `idRazon` int(11) NOT NULL AUTO_INCREMENT,
+  `razon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `fechaBorrado` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idRazon`),
+  UNIQUE KEY `idRazon` (`idRazon`)
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `razonborrado`
+--
+
+INSERT INTO `razonborrado` (`idRazon`, `razon`, `fechaBorrado`) VALUES
+(5, 'Vendido', '2020-05-15 04:52:08'),
+(6, 'Vendido', '2020-05-16 04:52:08'),
+(7, 'Vendido', '2020-05-15 04:52:08'),
+(8, 'Vendido', '2020-05-18 04:52:08'),
+(9, 'Vendido', '2020-05-18 04:52:08'),
+(10, 'Cambié de parecer, no quiero ponerlo en venta', '2020-05-17 04:52:08'),
+(11, 'Cambié de parecer, no quiero ponerlo en venta', '2020-05-17 04:52:08'),
+(12, 'Cambié de parecer, no quiero ponerlo en venta', '2020-05-17 04:52:08'),
+(13, 'Cambié de parecer, no quiero ponerlo en venta', '2020-05-17 04:52:08'),
+(14, 'Cambié de parecer, no quiero ponerlo en venta', '2020-05-17 04:52:08'),
+(15, 'Porque quiero', '2020-05-17 04:52:08'),
+(16, 'Otra razón', '2020-05-17 04:52:08'),
+(17, 'Porque quiero', '2020-05-17 04:52:08'),
+(18, 'Otra razón', '2020-05-17 04:52:08'),
+(19, 'Porque quiero', '2020-05-17 04:52:08'),
+(20, 'Otra razón', '2020-05-17 04:52:08'),
+(21, 'Porque quiero', '2020-05-17 04:52:08'),
+(22, 'Otra razón', '2020-05-17 04:52:08'),
+(23, 'Porque quiero', '2020-05-17 04:52:08'),
+(24, 'Otra razón', '2020-05-17 04:52:08');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `razondenuncia`
 --
 
@@ -1373,7 +1882,69 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, `pApellido`, `correoElectronico`, `contrasenia`, `token`, `numTelefono`, `fechaRegistro`, `fechaNacimiento`, `RTN`, `urlFoto`, `estado`) VALUES
 (3, 3, 110, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', NULL, ' 504 9619-96-60', '2020-03-25', '1995-12-01', '', '../images/imgUsuarios/5e94d52855d5b5e713b9d83aebIMG_20160714_170043.jpg', 1),
 (2, 2, 14, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asdzxc', '', ' 504 9605-01-00', '2020-03-09', '1995-12-01', '', '../images/imgUsuarios/user.png', 1),
-(4, 2, 110, 'Jared', 'Castro', 'jaredcastro13@yahoo.es', 'asd123', NULL, ' 504 9858-00-12', '2020-03-30', '1995-10-03', '', '../images/imgUsuarios/5e97defbe9b51user.jpg', 1);
+(4, 2, 110, 'Jared', 'Castro', 'jaredcastro13@yahoo.es', 'asd123', NULL, ' 504 9858-00-12', '2020-03-30', '1995-10-03', '', '../images/imgUsuarios/5e97defbe9b51user.jpg', 1),
+(0, 2, 6, 'Lorena', 'Diaz', 'lorenadiaz@gmail.com', 'lore-d', NULL, '504 9698-30-41', '2019-01-10', '1992-08-34', NULL, '../images/imgUsuarios/user.png', 1),
+(1, 2, 24, 'Margot', 'Gomez', 'mago20@gmail.com', 'ma.go20', NULL, '504 3331-20-21', '2019-02-14', '1996-11-29', NULL, '../images/imgUsuarios/user.png', 1),
+(5, 2, 32, 'Julio', 'Rodríguez', 'rodri.jul@yahoo.es', 'july34_90', NULL, '504 3460-20-10', '2019-03-26', '1984-12-20', NULL, '../images/imgUsuarios/user.png', 1),
+(6, 2, 40, 'Roberto', 'Palacios', 'palacios.rob@gmail.com', 'rob2141', NULL, '504 3232-96-80', '2019-04-30', '1987-11-07', NULL, '../images/imgUsuarios/user.png', 1),
+(7, 2, 56, 'Carmen', 'Villalobos', 'lobo_amen@yahoo.es', 'loba4464', NULL, '504 9878-66-44', '2019-05-08', '1988-06-16', NULL, '../images/imgUsuarios/user.png', 1),
+(8, 2, 66, 'Seraphine', 'Santos', 'phine_66@gmail.com', 'ser.tos_5456', NULL, '504 3112-15-16', '2019-06-28', '1974-06-30', NULL, '../images/imgUsuarios/user.png', 1),
+(9, 2, 78, 'Oscar', 'Martinez', 'car-man@yahoo.es', 'godzilla.30', NULL, '504 9668-71-31', '2019-07-24', '1986-04-27', NULL, '../images/imgUsuarios/user.png', 1),
+(10, 2, 88, 'Santiago', 'Salgado', 'salgado.emp@yahoo.com', 'pren.salsan21', NULL, '504 3354-48-88', '2019-08-22', '1990-06-27', NULL, '../images/imgUsuarios/user.png', 1),
+(11, 2, 94, 'Julia', 'Robert', 'julia-ert@gmail.com', 'rob_aa.30', NULL, '504 9669-70-08', '2019-09-04', '1999-09-19', NULL, '../images/imgUsuarios/user.png', 1),
+(12, 2, 108, 'Alejandra', 'Canales', 'ardnaj.20@yahoo.com', 'esla.dra-12', NULL, '504 3333-20-20', '2019-10-29', '1980-12-16', NULL, '../images/imgUsuarios/user.png', 1),
+(13, 2, 122, 'Robert', 'Sarmiento', 'sargento9098@gmail.com', 'sarmi_rob.44', NULL, '504 3130-76-58', '2019-11-14', '1995-12-26', NULL, '../images/imgUsuarios/user.png', 1),
+(14, 2, 136, 'Gissel', 'Lopez', 'gisselo16@gmail.com', 'selogi.16', NULL, '504 9897-34-76', '2019-12-24', '1990-11-23', NULL, '../images/imgUsuarios/user.png', 1),
+(15, 2, 148, 'Daniela', 'Gutierrez', 'rrez.dani@yahoo.es', 'ela.rex-11', NULL, '504 3345-56-67', '2020-01-16', '1997-04-27', NULL, '../images/imgUsuarios/user.png', 1),
+(16, 2, 188, 'Cinthya', 'Morales', 'morita-c@gmail.com', 'leh-45.m', NULL, '504 9594-43-23', '2020-02-21', '1988-07-17', NULL, '../images/imgUsuarios/user.png', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `usuarios_mes`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `usuarios_mes`;
+CREATE TABLE IF NOT EXISTS `usuarios_mes` (
+`mes` varchar(10)
+,`publicaciones` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `publicaciones_anio`
+--
+DROP TABLE IF EXISTS `publicaciones_anio`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `publicaciones_anio`  AS  select (case month(`anuncios`.`fechaPublicacion`) when 1 then 'Enero' when 2 then 'Febrero' when 3 then 'Marzo' when 4 then 'Abril' when 5 then 'Mayo' when 6 then 'Junio' when 7 then 'Julio' when 8 then 'Agosto' when 9 then 'Septiembre' when 10 then 'Octubre' when 11 then 'Noviembre' when 12 then 'Diciembre' end) AS `mes`,count(0) AS `publicaciones` from `anuncios` where (year(`anuncios`.`fechaPublicacion`) = year(curdate())) group by `mes` order by `anuncios`.`fechaPublicacion` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `publicaciones_categoria`
+--
+DROP TABLE IF EXISTS `publicaciones_categoria`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `publicaciones_categoria`  AS  select `grupocategoria`.`nombregrupo` AS `nombregrupo`,count(0) AS `publicaciones` from ((`anuncios` join `categoria` on((`categoria`.`idcategoria` = `anuncios`.`idcategoria`))) join `grupocategoria` on((`grupocategoria`.`idgrupocategoria` = `categoria`.`idgrupocategoria`))) where (year(`anuncios`.`fechaPublicacion`) = year(curdate())) group by `grupocategoria`.`nombregrupo` order by `grupocategoria`.`nombregrupo` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `publicaciones_lugar`
+--
+DROP TABLE IF EXISTS `publicaciones_lugar`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `publicaciones_lugar`  AS  select `departamentos`.`nombreDepartamento` AS `nombreDepartamento`,count(0) AS `publicaciones` from ((`anuncios` join `municipios` on((`municipios`.`idMunicipios` = `anuncios`.`idMunicipios`))) join `departamentos` on((`departamentos`.`idDepartamentos` = `municipios`.`idDepartamentos`))) where (year(`anuncios`.`fechaPublicacion`) = year(curdate())) group by `departamentos`.`nombreDepartamento` order by `departamentos`.`idDepartamentos` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `usuarios_mes`
+--
+DROP TABLE IF EXISTS `usuarios_mes`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `usuarios_mes`  AS  select (case month(`usuario`.`fechaRegistro`) when 1 then 'Enero' when 2 then 'Febrero' when 3 then 'Marzo' when 4 then 'Abril' when 5 then 'Mayo' when 6 then 'Junio' when 7 then 'Julio' when 8 then 'Agosto' when 9 then 'Septiembre' when 10 then 'Octubre' when 11 then 'Noviembre' when 12 then 'Diciembre' end) AS `mes`,count(`usuario`.`idUsuario`) AS `publicaciones` from `usuario` where ((year(`usuario`.`fechaRegistro`) = year(curdate())) and (`usuario`.`estado` = 1)) group by `mes` order by `usuario`.`fechaRegistro` ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

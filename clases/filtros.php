@@ -204,7 +204,7 @@ switch ($_GET["accion"]){
         
     
         $conexion = new conexion();
-        $sql="SELECT DISTINCT a.idAnuncios,nombre,precio,descripcion, FROM anuncios a 
+        $sql="SELECT DISTINCT a.idAnuncios,nombre,precio,descripcion FROM anuncios a 
         INNER JOIN municipios m ON m.idMunicipios= a.idMunicipios 
         INNER JOIN categoria c ON c.idcategoria=a.idcategoria 
         INNER JOIN usuario u ON u.idUsuario=a.idUsuario 
