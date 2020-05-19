@@ -29,8 +29,6 @@ $(document).ready(function () {
         }
       });
 
-      
-
       // Update selector to match your button
       $("#publicarArticulo").submit(function (e) {
         event.stopPropagation();
@@ -49,19 +47,21 @@ $(document).ready(function () {
         });
         //console.log(formData);
       });
-      this.on("success", function(file, response) {
+      this.on("success", function (file, response) {
         //alert("Anuncio publicado correctamente");
         $("#modalArticulo").hide("slow");
         showSuccessMessage();
         function showSuccessMessage() {
-            swal("Anuncio publicado Correctamente!", "Presiona ok para seguir navengando!", "success");
-            $("button.confirm").click(()=>{
-                location.reload();
-            })
+          swal(
+            "Anuncio publicado Correctamente!",
+            "Presiona ok para seguir navengando!",
+            "success"
+          );
+          $("button.confirm").click(() => {
+            location.reload();
+          });
         }
-        
-        
-    });
+      });
     },
     error: function (file, response) {
       if ($.type(response) === "string") var message = response;
@@ -100,105 +100,105 @@ $(document).ready(function () {
   });
   getNoUISliderValue(rangeSlider, false);
   //BUSCADOR
-  $("#buscaAnuncio").keyup(function(){
-    var value=$("#buscaAnuncio").val();
+  $("#buscaAnuncio").keyup(function () {
+    var value = $("#buscaAnuncio").val();
     //console.log(value);
     $.ajax({
-        url: "../clases/buscador.php?accion=1",
-        method:'POST',
-        data:"value="+value,
-        success: function (resp) {
-
-            let datos = JSON.parse(resp);
-            //console.log(resp);
-            var tarjetas = "";
-            if(datos.error==true){
-                console.log("no se encontraron coincidencias");
+      url: "../clases/buscador.php?accion=1",
+      method: "POST",
+      data: "value=" + value,
+      success: function (resp) {
+        let datos = JSON.parse(resp);
+        //console.log(resp);
+        var tarjetas = "";
+        if (datos.error == true) {
+          console.log("no se encontraron coincidencias");
+        } else {
+          for (let item of datos) {
+            //RECORRER EL JSON
+            tarjetas +=
+              "<div class='col-sm-6 col-md-6 col-lg-4'>" +
+              "<div class='carde'>" +
+              "<div class='card__image-holder'>" +
+              "<img class='card__image' src='" +
+              item.fotos[0] +
+              "' alt='Miniatura del anuncio' width='320px;' height='255px;'/>" +
+              "</div>" +
+              "<div class='card-title'>" +
+              "<a  href='#' class='toggle-info btn'>" +
+              "<span class='left'></span>" +
+              "<span class='right'></span>" +
+              "</a>" +
+              "<h2>" +
+              item.nombre +
+              "<small>" +
+              item.precio +
+              "</small>" +
+              "</h2>" +
+              "</div>" +
+              "<div class='card-flap flap1'>" +
+              "<div class='card-description'>" +
+              item.descripcion +
+              "</div>" +
+              "<div class='card-flap flap2'>" +
+              "<div class='card-actions'>" +
+              "<a href='#' class='btn' data-toggle='modal' data-target='#defaultModal' onclick='cargarArticulo(" +
+              item.idAnuncios +
+              ")'>Ver</a>" +
+              "</div>" +
+              "</div>" +
+              "</div>" +
+              "</div>" +
+              "</div>";
+            $("#contenedorTarjeta").html(tarjetas); //INSERTA LAS TARJETAS
+          }
+          $("div.carde").click(function (e) {
+            e.preventDefault();
+            var isShowing = false;
+            if ($(this).hasClass("show")) {
+              isShowing = true;
             }
-            else{
-                for (let item of datos) {
-                    //RECORRER EL JSON
-                    tarjetas +=
-                      "<div class='col-sm-6 col-md-6 col-lg-4'>" +
-                      "<div class='carde'>" +
-                      "<div class='card__image-holder'>" +
-                      "<img class='card__image' src='" +
-                      item.fotos[0] +
-                      "' alt='Miniatura del anuncio' width='320px;' height='255px;'/>" +
-                      "</div>" +
-                      "<div class='card-title'>" +
-                      "<a  href='#' class='toggle-info btn'>" +
-                      "<span class='left'></span>" +
-                      "<span class='right'></span>" +
-                      "</a>" +
-                      "<h2>" +
-                      item.nombre +
-                      "<small>" +
-                      item.precio +
-                      "</small>" +
-                      "</h2>" +
-                      "</div>" +
-                      "<div class='card-flap flap1'>" +
-                      "<div class='card-description'>" +
-                      item.descripcion +
-                      "</div>" +
-                      "<div class='card-flap flap2'>" +
-                      "<div class='card-actions'>" +
-                      "<a href='#' class='btn' data-toggle='modal' data-target='#defaultModal' onclick='cargarArticulo(" +
-                      item.idAnuncios +
-                      ")'>Ver</a>" +
-                      "</div>" +
-                      "</div>" +
-                      "</div>" +
-                      "</div>" +
-                      "</div>";
-                    $("#contenedorTarjeta").html(tarjetas); //INSERTA LAS TARJETAS
-                    
-                }
-                $("div.carde").click(function (e) {
-                    e.preventDefault();
-                    var isShowing = false;
-                    if ($(this).hasClass("show")) {
-                      isShowing = true;
-                    }
-                    if ($("div.cards").hasClass("showing")) {
-                      // a card is already in view
-                      $("div.carde.show").removeClass("show");
-                      if (isShowing) {
-                        // this card was showing - reset the grid
-                        $("div.cards").removeClass("showing");
-                      } else {
-                        // this card isn't showing - get in with it
-                        $(this).css({ zIndex: 1 }).addClass("show");
-                      }
-                      //zindex++;
-                    } else {
-                      // no cards in view
-                      $("div.cards").addClass("showing");
-                      $(this).css({ zIndex: 2 }).addClass("show");
-                      //zindex++;
-                    }
-                });
+            if ($("div.cards").hasClass("showing")) {
+              // a card is already in view
+              $("div.carde.show").removeClass("show");
+              if (isShowing) {
+                // this card was showing - reset the grid
+                $("div.cards").removeClass("showing");
+              } else {
+                // this card isn't showing - get in with it
+                $(this).css({ zIndex: 1 }).addClass("show");
+              }
+              //zindex++;
+            } else {
+              // no cards in view
+              $("div.cards").addClass("showing");
+              $(this).css({ zIndex: 2 }).addClass("show");
+              //zindex++;
             }
-        },
-        error: function (error) {
-            console.log(error);
+          });
         }
-    });	
-  })
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
+  });
   // DENUNCIA
-  $("#denuncia").click(function (event) {								
-		event.preventDefault();
-		$.ajax({																
-			url: "../clases/vistas-index.php?accion=10",
-			method: "POST",
-      data: "razónDenuncia=" + $("#razónDenuncia").val()+
-            "&comentario-denuncia=" + $("#comentario-denuncia").val(),			
-			success: function (resultado) {
+  $("#denuncia").click(function (event) {
+    event.preventDefault();
+    $.ajax({
+      url: "../clases/vistas-index.php?accion=10",
+      method: "POST",
+      data:
+        "razónDenuncia=" +
+        $("#razónDenuncia").val() +
+        "&comentario-denuncia=" +
+        $("#comentario-denuncia").val(),
+      success: function (resultado) {
         console.log(resultado);
       },
-		});																	
-	});
+    });
+  });
 });
 categoria = function () {
   //Inicio funcion para llenar las categorias
@@ -278,7 +278,6 @@ infoVendedor = function (idUsuario) {
         "<div class='modal-header' style='text-align:center'>" +
         "<h4 class='modal-title' id='defaultModalLabel'></h4>" +
         "</div>" +
-        
         "<div class='card profile-card'>" +
         "<div class='profile-header'>&nbsp;</div>" +
         "<div class='profile-body'>" +
@@ -356,7 +355,6 @@ infoVendedor = function (idUsuario) {
         "</ul>" +
         "</div>" +
         "</div>" +
-        
         "<div class='modal-footer'>" +
         "<button type='button' class='btn btn-link waves-effect' data-toggle='modal' data-target='#defaultModal'" +
         "data-dismiss='modal'>Cerrar</button>" +
@@ -429,11 +427,16 @@ cargarArticulo = function (idAnuncio) {
       for (var i = 0; i < datos.info.fotos.length; i++) {
         img += "<img src='" + datos.info.fotos[i] + "'/>";
       }
-      if(datos.info.sigueVendedor==true){
-        var iconoFavorito="<i style='cursor:pointer' onclick=quitarFavorito(" +datos.info.idUsuario+") class='material-icons' title='QUITAR FAVORITO'>favorite</i>";
-      }
-      else{
-        var iconoFavorito="<i style='cursor:pointer' onclick=agregarFavorito(" +datos.info.idUsuario+") class='material-icons' title='AGREGAR A FAVORITO'>favorite_border</i>";
+      if (datos.info.sigueVendedor == true) {
+        var iconoFavorito =
+          "<i style='cursor:pointer' onclick=quitarFavorito(" +
+          datos.info.idUsuario +
+          ") class='material-icons' title='QUITAR FAVORITO'>favorite</i>";
+      } else {
+        var iconoFavorito =
+          "<i style='cursor:pointer' onclick=agregarFavorito(" +
+          datos.info.idUsuario +
+          ") class='material-icons' title='AGREGAR A FAVORITO'>favorite_border</i>";
       }
       $("#infoArticulo").empty();
       $("#infoArticulo").html(
@@ -445,8 +448,10 @@ cargarArticulo = function (idAnuncio) {
           "</div>" +
           "<div class='col-md-5 col-sm-12 col-xs-12 derecho'>" +
           "<div class='demo-google-material-icon'>" +
-          "<p class='font-categoria'><a class='links-categorias' href='#'>Categoria</a> <i class='material-icons' style='font-size:12px'>last_page</i>"+
-          "<span class='icon-name'><a class='links-categorias' href='#'>"+datos.info.nombregrupo +"</a></span>" +
+          "<p class='font-categoria'><a class='links-categorias' href='#'>Categoria</a> <i class='material-icons' style='font-size:12px'>last_page</i>" +
+          "<span class='icon-name'><a class='links-categorias' href='#'>" +
+          datos.info.nombregrupo +
+          "</a></span>" +
           " <i class='material-icons' style='font-size:12px'>last_page</i><a class='links-categorias' href='#'>" +
           datos.info.nombreCategoria +
           "</a></p>" +
@@ -512,12 +517,30 @@ cargarArticulo = function (idAnuncio) {
           "<span class='icon-name col-lg-6' style='font-size:22px; padding:0px; text-align:center'><strong>Valoración: </strong>" +
           datos.info.valoración +
           "</span>" +
-          "<script>$('#estrella').starrr({rating:" +
-          datos.info.valoración +
-          ",change:function(e,valor){console.log(valor); var estrellas=valor; $.ajax({url:'../clases/vistas-index.php?accion=9',method: 'post', data: 'valoracion='+estrellas,success: function(resp){console.log(resp)}})}});</script>" +
+          "<script>"+
+            "$('#estrella').starrr({"+
+              "rating:" +datos.info.valoración +","+
+              "change:function(e,valor){"+
+                "console.log(valor);"+
+                "var estrellas=valor;"+
+                "if(valor < 3){"+
+                  "menorTres(estrellas)"+
+                "}"+
+                "else {"+
+                  "$.ajax({"+
+                  "url:'../clases/vistas-index.php?accion=9',"+
+                  "method: 'post',"+
+                  "data: 'valoracion='+estrellas,"+
+                  "success: function(resp){"+
+                  "}"+
+                "})"+
+                "}"+
+              "}"+
+            "});"+
+          "</script>"+
           "<span class='col-lg-6' style='padding:0px; text-align:center' id='estrella'></span>" +
           "</div>" +
-          "<br>"+
+          "<br>" +
           "<div class='demo-google-material-icon pb-5' style='color:black;'>" +
           "<i class='material-icons md-24'>phone</i>" +
           "<span class='icon-name' style='font-size:22px; text-align:cente'><strong>+" +
@@ -577,7 +600,9 @@ publicacionesInicio = function () {
           "</div>" +
           "<div class='card-flap flap2'>" +
           "<div class='card-actions'>" +
-          "<a href='#' class='btn' data-toggle='modal' data-target='#defaultModal' onclick='cargarArticulo("+item.idAnuncios+")'>Ver</a>" +
+          "<a href='#' class='btn' data-toggle='modal' data-target='#defaultModal' onclick='cargarArticulo(" +
+          item.idAnuncios +
+          ")'>Ver</a>" +
           "</div>" +
           "</div>" +
           "</div>" +
@@ -696,7 +721,7 @@ function getNoUISliderValue(slider, percentage) {
       .find("span.js-nouislider-value")
       .text("L " + val);
   });
-};
+}
 municipios = function () {
   //Inicio funcion para llenar los municipios
   $.ajax({
@@ -712,38 +737,31 @@ municipios = function () {
     },
   }); //Fin ajax municipios
 }; //Fin funcion para llenar los municipios
-
-
-agregarFavorito=(idUsuario)=>{
-  //alert("prueba bien"+ idUsuario);
-
+agregarFavorito = (idUsuario) => {
   $.ajax({
     url: "../clases/vistas-index.php?accion=11",
     method: "POST",
     data: "idSeguido=" + idUsuario,
-
     success: function (resp) {
       var datos = JSON.parse(resp);
-      if(datos.error==true){
+      if (datos.error == true) {
         alert(datos.mensaje);
       }
-      if(datos.error==false){
+      if (datos.error == false) {
         alert(datos.mensaje);
-        $("#iconoFavorito").html("<i style='cursor:pointer' onclick=quitarFavorito("+datos.idSeguido +") class='material-icons' title='QUITAR FAVORITO'>favorite</i>");
-        
-
+        $("#iconoFavorito").html(
+          "<i style='cursor:pointer' onclick=quitarFavorito(" +
+            datos.idSeguido +
+            ") class='material-icons' title='QUITAR FAVORITO'>favorite</i>"
+        );
       }
-
-    
     },
-    error:(error)=>{
+    error: (error) => {
       console.log("ERROR EN SERVER");
-    }
+    },
   });
-
-}
-
-quitarFavorito=(idSeguido)=>{
+};
+quitarFavorito = (idSeguido) => {
   $.ajax({
     url: "../clases/vistas-index.php?accion=12",
     method: "POST",
@@ -751,21 +769,70 @@ quitarFavorito=(idSeguido)=>{
 
     success: function (resp) {
       var datos = JSON.parse(resp);
-      if(datos.error==true){
+      if (datos.error == true) {
         alert(datos.mensaje);
       }
-      if(datos.error==false){
+      if (datos.error == false) {
         alert(datos.mensaje);
-        $("#iconoFavorito").html("<i style='cursor:pointer' onclick=agregarFavorito("+datos.idSeguido +") class='material-icons' title='AGREGAR FAVORITO'>favorite_border</i>");
-        
-
+        $("#iconoFavorito").html(
+          "<i style='cursor:pointer' onclick=agregarFavorito(" +
+            datos.idSeguido +
+            ") class='material-icons' title='AGREGAR FAVORITO'>favorite_border</i>"
+        );
       }
-
-    
     },
-    error:(error)=>{
+    error: (error) => {
       console.log("ERROR EN SERVER");
-    }
+    },
   });
+};
 
-}
+menorTres= (estrellas) =>{
+  swal(
+    {
+    title: '¡Cuéntanos porqué das esta calificación',
+    text:
+        "<p style='color:red;'>Estos campos son obligatorios</p>" +
+        "<br>"+
+        "<div class='row'>"+
+            "<div class='col-md-2'>"+
+            "</div>"+
+            "<div class='col-md-8'>"+
+                "<div class='form-group form-float'>"+
+                    "<div class='form-line'>"+
+                        "<select class='form-control show-tick' id='razónDenuncia_2'>"+
+                            "<option value=''></option>"+
+                            "<option value='1'>Descripción imprecisa</option>"+
+                            "<option value='2'>Contenido ofensivo o dañino</option>"+
+                            "<option value='3'>Estafa</option>"+
+                            "<option value='4'>Articulo falso</option>"+
+                            "<option value='5'>Contenido sexual</option>"+
+                            "<option value='6'>Venta de armas o drogas</option>"+
+                            "<option value='7'>Publicación discriminatoria</option>"+
+                            "<option value='8'>Sin intención de venta</option>"+
+                        "</select>"+
+                    "</div>"+
+                "</div>"+  
+            "</div>"+
+            "<div class='col-md-2'>"+
+            "</div>"+
+            "</div>",
+    html: true,
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Enviar!",
+    closeOnConfirm: false,
+    },
+    function () {
+        let razon2= $('#razónDenuncia_2').val();
+        /*$.ajax({
+        url:'../clases/vistas-index.php?accion=9',
+        method: 'post',
+        data: 'valoracion='+estrellas,
+        success: function(resp){
+        }
+      })*/
+    }
+  );
+};

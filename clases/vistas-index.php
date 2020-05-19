@@ -107,6 +107,7 @@ switch ($_GET["accion"]) {
 
         break;
     case '4':
+        $_GET["idAnuncio"]=65;
         if (isset($_GET["idAnuncio"])) {
             $idAnuncio = $_GET["idAnuncio"];
         }
@@ -124,7 +125,7 @@ switch ($_GET["accion"]) {
                      INNER JOIN calificacionanuncio can ON can.idAnuncios=a.idAnuncios
                      LEFT JOIN calificacionesvendedor cv ON cv.idUsuario=a.idUsuario
                  WHERE a.idAnuncios = $idAnuncio;";
-            
+
             $respuesta = $conexion->ejecutarInstruccion($sql);
             if (!$respuesta) {
                 echo "Oops, ha ocurrido un error";
@@ -132,31 +133,28 @@ switch ($_GET["accion"]) {
                 $datos = $conexion->obtenerFila($respuesta);
                 session_start();
                 $_SESSION["usuario"]["idAnuncio"] = $datos["idAnuncios"];
-                
+
                 $fila["info"] = array(
                     "idAnuncios" => $datos["idAnuncios"], "nombre" => $datos["nombre"], "precio" => $datos["precio"],
                     "descripcion" => $datos["descripcion"], "estadoArticulo" => $datos["estadoArticulo"], "nombreCategoria" => $datos["nombreCategoria"],
                     "nombregrupo" => $datos["nombregrupo"], "idUsuario" => $datos["idUsuario"], "correoElectronico" => $datos["correoElectronico"], "nombreUsuario" => $datos["nombreUsuario"],
                     "municipio" => $datos["municipio"], "valoración" => $datos["valoración"], "numTelefono" => $datos["numTelefono"],
-                    "fechaRegistro" => $datos["fechaRegistro"], "urlFoto" => $datos["urlFoto"], "fotos" => "","sigueVendedor"=>false
+                    "fechaRegistro" => $datos["fechaRegistro"], "urlFoto" => $datos["urlFoto"], "fotos" => "", "sigueVendedor" => false
 
                 );
 
-                
-                
-                $idUsuarioSeguidor=$_SESSION["usuario"]["idUsuario"];
-                $idUsuarioSeguido=$datos["idUsuario"];
-                $sql3="SELECT * FROM favoritos WHERE idSeguidor='$idUsuarioSeguidor' AND idSeguido='$idUsuarioSeguido'";
-                if($respuesta3=$conexion->ejecutarInstruccion($sql3)){
-                    if ($respuesta3->num_rows != 0){
-                        $fila["info"]["sigueVendedor"]=true;
 
+
+                $idUsuarioSeguidor = $_SESSION["usuario"]["idUsuario"];
+                $idUsuarioSeguido = $datos["idUsuario"];
+                $sql3 = "SELECT * FROM favoritos WHERE idSeguidor='$idUsuarioSeguidor' AND idSeguido='$idUsuarioSeguido'";
+                if ($respuesta3 = $conexion->ejecutarInstruccion($sql3)) {
+                    if ($respuesta3->num_rows != 0) {
+                        $fila["info"]["sigueVendedor"] = true;
+                    } else if ($respuesta3->num_rows == 0) {
+                        $fila["info"]["sigueVendedor"] = false;
                     }
-                    else if($respuesta3->num_rows==0){
-                        $fila["info"]["sigueVendedor"]=false;
-                    }
-                }
-                else{
+                } else {
                     echo "ERROR CONSULTA DE SEGUIR USAURIO";
                 }
 
@@ -398,61 +396,51 @@ switch ($_GET["accion"]) {
         break;
 
     case '11': // FAVORTOS
-        if(isset($_POST["idSeguido"])){
-            $idSeguido=$_POST["idSeguido"];
+        if (isset($_POST["idSeguido"])) {
+            $idSeguido = $_POST["idSeguido"];
             $conexion = new conexion();
 
             session_start();
-            $idSeguidor=$_SESSION["usuario"]["idUsuario"];
-            if($idSeguidor==$idSeguido){
-                echo json_encode(array("error"=>true,"mensaje"=>"No puedes seguirte a ti mismo"));
-            }
-            else{
-                $sql="INSERT INTO favoritos(idSeguidor,idSeguido) VALUES('$idSeguidor','$idSeguido') ";
-                if($respuesta=$conexion->ejecutarInstruccion($sql)){
-                    echo json_encode(array("error"=>false,"idSeguido"=>$idSeguido, "mensaje"=>"Se ha añadido a sus favoritos, recibiras notificaciones de este vendedor"));
-                    
+            $idSeguidor = $_SESSION["usuario"]["idUsuario"];
+            if ($idSeguidor == $idSeguido) {
+                echo json_encode(array("error" => true, "mensaje" => "No puedes seguirte a ti mismo"));
+            } else {
+                $sql = "INSERT INTO favoritos(idSeguidor,idSeguido) VALUES('$idSeguidor','$idSeguido') ";
+                if ($respuesta = $conexion->ejecutarInstruccion($sql)) {
+                    echo json_encode(array("error" => false, "idSeguido" => $idSeguido, "mensaje" => "Se ha añadido a sus favoritos, recibiras notificaciones de este vendedor"));
+                } else {
+                    echo json_encode(array("error" => true, "mensaje" => "fallo consulta de insert"));
                 }
-                else{
-                    echo json_encode(array("error"=>true,"mensaje"=>"fallo consulta de insert"));
-                }
-                
             }
             $conexion->cerrarConexion();
-        }
-        else{
-            echo json_encode(array("error"=>true,"mensaje"=>"No hay idUsuario"));
+        } else {
+            echo json_encode(array("error" => true, "mensaje" => "No hay idUsuario"));
         }
 
 
-    break;
+        break;
     case '12': // FAVORTOS
-        if(isset($_POST["idSeguido"])){
-            $idSeguido=$_POST["idSeguido"];
+        if (isset($_POST["idSeguido"])) {
+            $idSeguido = $_POST["idSeguido"];
             $conexion = new conexion();
 
             session_start();
-            $idSeguidor=$_SESSION["usuario"]["idUsuario"];
-            if($idSeguidor==$idSeguido){
-                echo json_encode(array("error"=>true,"mensaje"=>"No puedes seguirte a ti mismo"));
-            }
-            else{
-                $sql="DELETE FROM favoritos WHERE idSeguidor= '$idSeguidor' AND idSeguido='$idSeguido' ";
-                if($respuesta=$conexion->ejecutarInstruccion($sql)){
-                    echo json_encode(array("error"=>false,"idSeguido"=>$idSeguido, "mensaje"=>"Se ha eliminado de sus favoritos"));
-                    
+            $idSeguidor = $_SESSION["usuario"]["idUsuario"];
+            if ($idSeguidor == $idSeguido) {
+                echo json_encode(array("error" => true, "mensaje" => "No puedes seguirte a ti mismo"));
+            } else {
+                $sql = "DELETE FROM favoritos WHERE idSeguidor= '$idSeguidor' AND idSeguido='$idSeguido' ";
+                if ($respuesta = $conexion->ejecutarInstruccion($sql)) {
+                    echo json_encode(array("error" => false, "idSeguido" => $idSeguido, "mensaje" => "Se ha eliminado de sus favoritos"));
+                } else {
+                    echo json_encode(array("error" => true, "mensaje" => "fallo consulta de DELETE"));
                 }
-                else{
-                    echo json_encode(array("error"=>true,"mensaje"=>"fallo consulta de DELETE"));
-                }
-                
             }
             $conexion->cerrarConexion();
-        }
-        else{
-            echo json_encode(array("error"=>true,"mensaje"=>"No hay idUsuario"));
+        } else {
+            echo json_encode(array("error" => true, "mensaje" => "No hay idUsuario"));
         }
 
 
-    break;
+        break;
 }
