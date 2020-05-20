@@ -2,8 +2,8 @@
 -- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3308
--- Tiempo de generación: 20-05-2020 a las 05:36:51
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 20-05-2020 a las 21:55:49
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -1041,7 +1041,9 @@ INSERT INTO `categoria` (`idcategoria`, `nombreCategoria`, `idgrupocategoria`) V
 (32, 'Vinos y Gastronomía', 8),
 (33, 'Bebés', 8),
 (34, 'Equipamento y Maquinaría', 8),
-(35, 'Artículos para animales', 8);
+(35, 'Artículos para animales', 8),
+(36, 'Construcción', 9),
+(37, 'Médicos', 9);
 
 -- --------------------------------------------------------
 
@@ -1165,7 +1167,7 @@ CREATE TABLE IF NOT EXISTS `favoritos` (
   PRIMARY KEY (`idFavoritos`),
   KEY `idSeguidor` (`idSeguidor`),
   KEY `idSeguido` (`idSeguido`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `favoritos`
@@ -1188,7 +1190,8 @@ INSERT INTO `favoritos` (`idFavoritos`, `idSeguidor`, `idSeguido`) VALUES
 (14, 14, 0),
 (15, 14, 1),
 (16, 14, 2),
-(17, 14, 12);
+(17, 14, 12),
+(19, 3, 10);
 
 -- --------------------------------------------------------
 
@@ -1419,7 +1422,8 @@ INSERT INTO `grupocategoria` (`idgrupocategoria`, `nombregrupo`) VALUES
 (5, 'Coleccionismo'),
 (6, 'Joyería y Belleza'),
 (7, 'Ocio'),
-(8, 'Otras categorías');
+(8, 'Otras categorías'),
+(9, 'Servicios');
 
 -- --------------------------------------------------------
 
@@ -1965,6 +1969,18 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `usuarios_mes`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `usuarios_mes`  AS  select (case month(`usuario`.`fechaRegistro`) when 1 then 'Enero' when 2 then 'Febrero' when 3 then 'Marzo' when 4 then 'Abril' when 5 then 'Mayo' when 6 then 'Junio' when 7 then 'Julio' when 8 then 'Agosto' when 9 then 'Septiembre' when 10 then 'Octubre' when 11 then 'Noviembre' when 12 then 'Diciembre' end) AS `mes`,count(`usuario`.`idUsuario`) AS `publicaciones` from `usuario` where ((year(`usuario`.`fechaRegistro`) = year(curdate())) and (`usuario`.`estado` = 1)) group by `mes` order by `usuario`.`fechaRegistro` ;
+
+DELIMITER $$
+--
+-- Eventos
+--
+DROP EVENT `BORRADO_PUBLICACIONES`$$
+CREATE DEFINER=`root`@`localhost` EVENT `BORRADO_PUBLICACIONES` ON SCHEDULE EVERY 1 DAY STARTS '2020-05-17 23:57:01' ON COMPLETION NOT PRESERVE ENABLE DO call SP_DURACION_PUBLICACIONES()$$
+
+DROP EVENT `BORRADO_PUBLICACIONES_FLIMITE`$$
+CREATE DEFINER=`root`@`localhost` EVENT `BORRADO_PUBLICACIONES_FLIMITE` ON SCHEDULE EVERY 1 DAY STARTS '2020-05-17 23:50:00' ON COMPLETION NOT PRESERVE ENABLE DO call SP_ELIMINAR_PUBLICACIONES_FLIMITE()$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

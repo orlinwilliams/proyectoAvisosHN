@@ -307,20 +307,19 @@ session_start();
                         </div>
                         <div class="profile-footer">
                             <ul>
-                                <li>
+                                <li style="text-align:left;">
                                     <span>Articulos publicados</span>
                                     <span id="articulosPublicados">cargar desde la base</span>
                                 </li>
-                                <li>
+                                <li style="text-align:left;">
                                     <span>Calificacion Vendedor</span>
                                     <span id="calificacionUsuario">cargar desde la base</span>
                                 </li>
-                                <li>
+                                <li style="text-align:left;">
                                     <span>Unido desde</span>
                                     <span><?php echo $_SESSION["usuario"]["fechaRegistro"] ?></span>
                                 </li>
                             </ul>
-                            <!--<button class="btn btn-primary btn-lg waves-effect btn-block">FOLLOW</button>-->
                         </div>
                     </div>
                     <a href="eliminarCuenta.php">
@@ -357,7 +356,7 @@ session_start();
                                     <div role="tabpanel" class="tab-pane fade in active" id="profile_settings">
                                         <form class="form-horizontal">
                                             <div class="form-group">
-                                                <label for="first-name" class="col-sm-2 control-label">Nombre</label>
+                                                <label for="first-name" class="col-sm-2 control-label" style="text-align:left;">Nombre</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
                                                         <input type="text" id="txt_nombre" class="form-control" name="first-name" placeholder="<?php echo $_SESSION["usuario"]["pNombre"]; ?>" value="<?php echo $_SESSION["usuario"]["pNombre"]; ?>" required>
@@ -365,7 +364,7 @@ session_start();
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="last-name" class="col-sm-2 control-label">Apellido</label>
+                                                <label for="last-name" class="col-sm-2 control-label" style="text-align:left;">Apellido</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
                                                         <input type="text" class="form-control" id="txt_apellido" name="last-name" placeholder="<?php echo $_SESSION["usuario"]["pApellido"]; ?>" value="<?php echo $_SESSION["usuario"]["pApellido"]; ?>" required>
@@ -373,7 +372,7 @@ session_start();
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="Email" class="col-sm-2 control-label">Correo
+                                                <label for="Email" class="col-sm-2 control-label" style="text-align:left;">Correo
                                                     electrónico</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
@@ -387,7 +386,7 @@ session_start();
                                             $fechaTemp = date('d-m-Y', strtotime($date));
                                             ?>
                                             <div class="form-group">
-                                                <label for="fecha" class="col-sm-2 control-label">Fecha de
+                                                <label for="fecha" class="col-sm-2 control-label" style="text-align:left;">Fecha de
                                                     Nacimiento</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
@@ -397,7 +396,7 @@ session_start();
                                             </div>
                                             <!-- debe cargar desde la base de datos -->
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">municipio</label>
+                                                <label class="col-sm-2 control-label" style="text-align:left;">municipio</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
                                                         <select id="int_municipio" class="form-control show-tick" required>
@@ -407,7 +406,7 @@ session_start();
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">Teléfono</label>
+                                                <label class="col-sm-2 control-label" style="text-align:left;">Teléfono</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-line">
                                                         <input type="text" id="txt_tefelono" class="form-control mobile-phone-number" value="<?php echo $_SESSION["usuario"]["numTelefono"]; ?>" placeholder="<?php echo $_SESSION["usuario"]["numTelefono"]; ?>" required>
@@ -418,8 +417,8 @@ session_start();
 
 
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">RTN (Opcional)</label>
-                                                <div class="col-sm-10">
+                                                <label class="col-sm-4 control-label" style="text-align:left;">RTN (Llenelo solo si desea identificar su perfil como empresarial)</label>
+                                                <div class="col-sm-8">
                                                     <div class="form-line">
                                                         <input type="text" class="form-control" value="<?php echo $_SESSION["usuario"]["RTN"]; ?>" placeholder="<?php echo $_SESSION["usuario"]["RTN"]; ?>" id="txt_rtn">
                                                     </div>
@@ -437,7 +436,7 @@ session_start();
                                     <div role="tabpanel" class="tab-pane fade in" id="change_password_settings">
                                         <form class="form-horizontal">
                                             <div class="form-group">
-                                                <label for="OldPassword" class="col-sm-3 control-label">Contraseña
+                                                <label for="OldPassword" class="col-sm-3 control-label" style="text-align:left;">Contraseña
                                                     actual</label>
                                                 <div class="col-sm-9">
                                                     <div class="form-line">
@@ -446,7 +445,7 @@ session_start();
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="NewPassword" class="col-sm-3 control-label">Nueva
+                                                <label for="NewPassword" class="col-sm-3 control-label" style="text-align:left;">Nueva
                                                     contraseña</label>
                                                 <div class="col-sm-9">
                                                     <div class="form-line">
@@ -455,7 +454,7 @@ session_start();
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="NewPasswordConfirm" class="col-sm-3 control-label">Nueva
+                                                <label for="NewPasswordConfirm" class="col-sm-3 control-label" style="text-align:left;">Nueva
                                                     contraseña (Confirmación)</label>
                                                 <div class="col-sm-9">
                                                     <div class="form-line">
