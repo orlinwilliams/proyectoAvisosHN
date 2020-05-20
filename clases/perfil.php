@@ -165,16 +165,24 @@
                 $idUsuario=$_SESSION["usuario"]["idUsuario"];
                 $conexion = new conexion();
                 $sql="CALL `SP_ELIMINAR_USUARIO`('$idUsuario', '$contrasenia', @p4, @p5);";
-                $salida = "SELECT @p5 AS `pcMensaje`;";
+                $salida = "SELECT @p4 AS error, @p5 AS `pcMensaje`;";
                 $resultado = $conexion->ejecutarInstruccion($sql);
                 $respuesta = $conexion->ejecutarInstruccion($salida);
-                if(!$respuesta){
-                    echo "No hay respuesta del procedimiento";
+                while($row=$respuesta->fetch_array()){
+                    $error=$row["error"];
+                    if($error==1){
+                        $mensaje=$row["pcMensaje"];
+                        echo json_encode(array("error"=>true,"mensaje"=>$mensaje));
+                    }else{
+                        $mensaje=$row["pcMensaje"];
+                        echo json_encode(array("error"=>false,"mensaje"=>$mensaje));
+                             
+                    }
+                    
                 }
-                else{
-                    $fila=$conexion->obtenerFila($respuesta);
-                    echo $fila["pcMensaje"];
-            }
+               
+                
+                
             $conexion->cerrarConexion();
         }
 

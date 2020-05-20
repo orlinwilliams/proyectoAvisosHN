@@ -20,6 +20,8 @@
 
     <!-- Animation Css -->
     <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
+    <!-- Sweetalert Css -->
+    <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
     <!-- Custom Css -->
     <link href="../css/style.css" rel="stylesheet">
@@ -63,6 +65,23 @@
         </div>
     </div>
 
+     <!--Modal con el mensaje de respuesta-->
+     <div class="modal fade" id="ModalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true ">
+            <div class="modal-dialog modal-dialog-centered" role="document ">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true ">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body" id="cuerpoModal">
+                </div>
+            </div>
+            </div>
+        </div>
+
+
     <!-- Jquery Core Js -->
     <script src="../plugins/jquery/jquery.min.js"></script>
         
@@ -77,6 +96,8 @@
 
     <!-- Custom Js -->
     <script src="../js/admin.js"></script>
+    
+  <script src="../plugins/sweetalert/sweetalert.min.js"></script>
 
     <script src="../controlador/perfiles.js"></script>
 </body>
