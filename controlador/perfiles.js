@@ -23,17 +23,44 @@ $(document).ready(function () {
 
 	$("#confirma-eliminar").click(function (event) {	//Petición ajax para dar de baja cuenta
 		event.preventDefault();
-		$.ajax({
-			url: "../clases/perfil.php?accion=4",		//Accion para confirmar contraseña al dar de baja
-			method: "POST",
-			data: "txt_contrasenia_confi=" + $("#txt_contrasenia_confi").val(),
-			success: function (resultado) {
-				location.href = "../index.php";
+		swal(
+			{
+			  title: "¿Estás seguro?",
+			  text: "¡Estás a punto de eliminar tu cuenta!",
+			  type: "warning",
+			  showCancelButton: true,
+			  confirmButtonColor: "#2196F3",
+			  confirmButtonText: "Si, quiero eliminarme!",
+			  closeOnConfirm: false,
 			},
-			error: function (error) {
-				alert("ERROR " + error);
+			function () {
+				$.ajax({
+					url: "../clases/perfil.php?accion=4",		//Accion para confirmar contraseña al dar de baja
+					method: "POST",
+					data: "txt_contrasenia_confi=" + $("#txt_contrasenia_confi").val(),
+					success: function (resultado) {
+						let datos = JSON.parse(resultado);
+						var mensaje1 = "";
+						if (datos.error == true) {
+								swal("Cancelado", datos.mensaje, "error");
+								
+						} if(datos.error==false) {
+							showSuccessMessage();
+							function showSuccessMessage() {
+								swal("Éxito!", datos.mensaje, "success");
+								$("button.confirm").click(() => {
+									location.href = "../index.php";
+								});
+							}
+						}
+					},
+					error: function (error) {
+						alert("ERROR " + error);
+					}
+				});
 			}
-		});
+		  );
+		
 	});
 	$('button[type="button"]').attr('disabled', 'disabled');									//Desactiva botones de guardar al cargar la página
 	$('input[type="text"]').change(function () {												//Si hay cambios en el formulario activos botones de guardar
@@ -237,7 +264,7 @@ misFavoritos=()=>{
 				for(let item of datos){
 					filaUsuario+="<li>"+
                         "<div class='title'>"+
-							"<i onclick='quitarFavorito("+item.idSeguido+")' style='cursor:pointer' title='ELIMINAR VENDEDOR DE FAVORITOS' class='material-icons'>favorite</i>"+
+							"<i onclick='quitarFavorito2("+item.idSeguido+")' style='cursor:pointer' title='ELIMINAR VENDEDOR DE FAVORITOS' class='material-icons'>favorite</i>"+
 							"<a data-toggle='modal' data-target='#modalVendedor2' onclick='infoVendedor2("+item.idSeguido+")' style='color:grey; cursor:pointer'>"+item.nombreVendedor+"</a>"+
 						"</div>"+
 						"<div class='content'>"+
@@ -362,7 +389,7 @@ infoVendedor2 = function (idUsuario) {
 	});
   };
 
-quitarFavorito=(idSeguido)=>{
+quitarFavorito2=(idSeguido)=>{
 
 	showConfirmMessage();
 

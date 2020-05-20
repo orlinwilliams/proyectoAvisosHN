@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3308
--- Tiempo de generación: 19-05-2020 a las 11:31:53
+-- Tiempo de generación: 20-05-2020 a las 05:36:51
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -379,39 +379,56 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PUBLICACIONES_FLIMITE` 
 
 DROP PROCEDURE IF EXISTS `SP_ELIMINAR_USUARIO`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_USUARIO` (IN `pnIdUsuario` INT, IN `pcContrasenia` VARCHAR(50), OUT `pbOcurrioError` BOOLEAN, OUT `pcMensaje` VARCHAR(1000))  SP:BEGIN
+    DECLARE vnConteo  INT;
+    DECLARE vcContrasenia VARCHAR(50);
+    DECLARE tempMensaje VARCHAR(2000);
+    SET autocommit=0;
+    START TRANSACTION;
+    SET tempMensaje='';
+    SET pbOcurrioError=TRUE;
 
-        DECLARE vnConteo  INT;
-        DECLARE vcContrasenia VARCHAR(50);
-        DECLARE tempMensaje VARCHAR(2000);
-        SET autocommit=0;
-		START TRANSACTION;
-		SET tempMensaje='';
-		SET pbOcurrioError=TRUE;
+    IF pnIdUsuario  = '' OR pnIdUsuario  IS NULL THEN
+        SET tempMensaje =  'idusuario, ';
+    END IF;
+    IF pcContrasenia  = '' OR pcContrasenia  IS NULL THEN
+        SET tempMensaje =  'contraseña, ';
+    END IF;
+    IF tempMensaje <> '' THEN
+        SET pcMensaje= CONCAT('Faltan campos requeridos: ', tempMensaje);
+    END IF;
 
-                 IF pnIdUsuario  = '' OR pnIdUsuario  IS NULL THEN
-                    SET tempMensaje =  'idusuario, ';
-                END IF;
-                IF pcContrasenia  = '' OR pcContrasenia  IS NULL THEN
-                    SET tempMensaje =  'contraseña, ';
-                END IF;
-                IF tempMensaje <> '' THEN
-                    SET pcMensaje= CONCAT('Faltan campos requeridos: ', tempMensaje);
-                END IF;
-                
-                SELECT u.contrasenia INTO vcContrasenia FROM Usuario u 
-                WHERE u.idusuario = pnIdUsuario;
+    SELECT u.contrasenia INTO vcContrasenia FROM Usuario u 
+    WHERE u.idusuario = pnIdUsuario;
 
-                IF vcContrasenia <> pcContrasenia THEN
-                    SET pcMensaje='Contraseña no correcta';
-                    LEAVE SP;
-                END IF;
+    IF vcContrasenia <> pcContrasenia THEN
+        SET pcMensaje='Contraseña no correcta';
+        LEAVE SP;
+    END IF;
 
-                SELECT COUNT(*) INTO vnConteo FROM Usuario u
-                WHERE u.idusuario = pnIdUsuario ;
-                IF vnConteo = 0 THEN
-                    SET pcMensaje = 'idusuario no existe';
-                    LEAVE SP;
-                 END if;
+    SELECT COUNT(*) INTO vnConteo FROM Usuario u
+    WHERE u.idusuario = pnIdUsuario ;
+    IF vnConteo = 0 THEN
+        SET pcMensaje = 'idusuario no existe';
+        LEAVE SP;
+        END if;
+
+        DELETE FROM denuncias
+        WHERE idAnuncios IN (SELECT idAnuncios FROM anuncios WHERE idUsuario=pnIdUsuario);
+
+        DELETE FROM calificacionesvendedor
+        WHERE idUsuario = pnIdUsuario;
+
+        DELETE FROM comentariosvendedor
+        WHERE idusuarioCalificador = pnIdUsuario OR idUsuarioCalificado = pnIdUsuario;
+
+        DELETE FROM calificacionanuncio
+        WHERE idAnuncios IN (SELECT idAnuncios FROM anuncios WHERE idUsuario=pnIdUsuario);
+
+        DELETE FROM fotos
+        WHERE idAnuncios IN (SELECT idAnuncios FROM anuncios WHERE idUsuario=pnIdUsuario);
+
+        DELETE FROM anuncios
+        WHERE idUsuario = pnIdUsuario;
 
         DELETE FROM Usuario
         WHERE idusuario = pnIdUsuario;
@@ -1188,28 +1205,27 @@ CREATE TABLE IF NOT EXISTS `fotos` (
   `size` float NOT NULL,
   PRIMARY KEY (`idFotos`),
   KEY `FK_idAnuncios` (`idAnuncios`)
-) ENGINE=MyISAM AUTO_INCREMENT=234 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=245 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `fotos`
 --
 
 INSERT INTO `fotos` (`idFotos`, `idAnuncios`, `nombre`, `localizacion`, `size`) VALUES
-(36, 57, '', '../images/fotosAnuncio/sbethuell@gmail.com/3.jpg', 0),
-(35, 57, '', '../images/fotosAnuncio/sbethuell@gmail.com/2.jpg', 0),
-(34, 57, '', '../images/fotosAnuncio/sbethuell@gmail.com/1.JPG', 0),
+(244, 57, '3.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/3.jpg', 64779),
+(237, 61, 'ps4.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/ps4.jpg', 26535),
 (75, 69, '2.1.3.jpg', '../images/fotosAnuncio/lorenadiaz@gmail.com/2.1.3.jpg', 26090),
 (73, 69, '2.1.1.jpg', '../images/fotosAnuncio/lorenadiaz@gmail.com/2.1.1.jpg', 148981),
 (74, 69, '2.1.2.jpeg', '../images/fotosAnuncio/lorenadiaz@gmail.com/2.1.2.jpeg', 22248),
-(45, 60, 'sm1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/sm1.jpg', 71738),
-(57, 61, 'laptop1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop1.jpg', 71738),
+(241, 60, 'sm1.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/sm1.jpg', 71738),
+(239, 60, 'sm2.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/sm2.jpg', 18044),
 (61, 62, 'laptop.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop.jpg', 408132),
 (54, 62, 'laptop1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/laptop1.jpg', 71738),
-(62, 63, '1.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/1.jpg', 859917),
-(63, 63, '2.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/2.jpg', 898090),
+(62, 63, 'rx.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/rx.jpg', 859917),
+(63, 63, 'rx1.jpg', '../images/fotosAnuncio/jaredcastro13@yahoo.es/rx1.jpg', 898090),
 (66, 65, '5.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/5.jpg', 67278),
 (67, 65, '6.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/6.jpg', 53671),
-(68, 66, '7.webp', '../images/fotosAnuncio/sbethuell@gmail.com/7.webp', 77540),
+(68, 66, 'tv.webp', '../images/fotosAnuncio/lorenadiaz@gmail.com/tv.webp', 77540),
 (69, 67, '8.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/8.jpg', 266115),
 (70, 67, '9.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/9.jpg', 49091),
 (71, 68, '11.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/11.jpg', 33539),
@@ -1371,7 +1387,11 @@ INSERT INTO `fotos` (`idFotos`, `idAnuncios`, `nombre`, `localizacion`, `size`) 
 (230, 118, '30.1.1.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/30.1.1.jpg', 20997),
 (231, 119, '30.2.1.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/30.2.1.jpg', 41795),
 (232, 119, '30.2.2.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/30.2.2.jpg', 31810),
-(233, 119, '30.2.3.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/30.2.3.jpg', 44092);
+(233, 119, '30.2.3.jpg', '../images/fotosAnuncio/sargento9098@gmail.com/30.2.3.jpg', 44092),
+(242, 57, 'iphone2.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/iphone2.jpg', 56583),
+(238, 61, 'ps41.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/ps41.jpg', 142612),
+(240, 60, 'sm3.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/sm3.jpg', 10216),
+(243, 57, 'iphonex.jpg', '../images/fotosAnuncio/sbethuell@gmail.com/iphonex.jpg', 270241);
 
 -- --------------------------------------------------------
 
