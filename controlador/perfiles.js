@@ -237,7 +237,7 @@ misFavoritos=()=>{
 				for(let item of datos){
 					filaUsuario+="<li>"+
                         "<div class='title'>"+
-							"<i onclick='quitarFavorito("+item.idSeguido+")' style='cursor:pointer' title='ELIMINAR VENDEDOR DE FAVORITOS' class='material-icons'>favorite</i>"+
+							"<i onclick='quitarFavorito2("+item.idSeguido+")' style='cursor:pointer' title='ELIMINAR VENDEDOR DE FAVORITOS' class='material-icons'>favorite</i>"+
 							"<a data-toggle='modal' data-target='#modalVendedor2' onclick='infoVendedor2("+item.idSeguido+")' style='color:grey; cursor:pointer'>"+item.nombreVendedor+"</a>"+
 						"</div>"+
 						"<div class='content'>"+
@@ -362,7 +362,7 @@ infoVendedor2 = function (idUsuario) {
 	});
   };
 
-quitarFavorito=(idSeguido)=>{
+quitarFavorito2=(idSeguido)=>{
 
 	showConfirmMessage();
 
