@@ -268,7 +268,7 @@ misFavoritos=()=>{
 							"<a data-toggle='modal' data-target='#modalVendedor2' onclick='infoVendedor2("+item.idSeguido+")' style='color:grey; cursor:pointer'>"+item.nombreVendedor+"</a>"+
 						"</div>"+
 						"<div class='content'>"+
-							"<p>"+item.seguidores+ "Seguidores</p>"+ 
+							"<p>"+item.seguidores+ " Seguidores</p>"+ 
 						"</div>"+
 					"</li>";
 				}
