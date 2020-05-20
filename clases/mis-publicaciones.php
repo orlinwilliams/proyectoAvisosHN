@@ -4,7 +4,9 @@
 
     switch($_GET['accion']){
         case '2': //PUBLICAR ANUNCIO
-                                                                                                               
+            if(isset($_POST["lugar"])){                                                                    
+                $idMunicipios = $_POST["lugar"];
+            }                                                                                                  
             if(isset($_POST["categoria"])){                                                                    
                 $idCategoria = $_POST["categoria"];
             }
@@ -54,13 +56,13 @@
             
             session_start();
             $idUsuario=$_SESSION["usuario"]["idUsuario"]; 
-            $idMunicipio=$_SESSION["usuario"]["idMunicipios"];
+            $idMunicipi=$_SESSION["usuario"]["idMunicipios"];
             $usuario=$_SESSION["usuario"]["correoElectronico"];
             
             $carpetaFoto="fotosAnuncio/";
             
            
-            $sql = "CALL `SP_PUBLICAR_ANUNCIO`('$idUsuario','$idCategoria','$idMunicipio','$nombre',CONCAT('$moneda','$precio'),'$estado','$descripcion',@p7);";
+            $sql = "CALL `SP_PUBLICAR_ANUNCIO`('$idUsuario','$idCategoria','$idMunicipios','$nombre',CONCAT('$moneda','$precio'),'$estado','$descripcion',@p7);";
             
             //ENVIO DE CORREOS A USUARIOS SEGUIDORES
             $idSeguido=$idUsuario;

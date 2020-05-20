@@ -192,11 +192,6 @@ $(document).ready(function () {
         });
 
       }
-      
-
-    
-    
-
   });
 });
 

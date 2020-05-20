@@ -380,8 +380,7 @@ session_start();
                   <select title="SI NO SELECCIONA MUNICIPIO TOMARA POR DEFECTO CON EL QUE SE REGISTRO" class="form-control show-tick" name="lugar" id="lugarMunicipios">
                     <option></option>
                   </select>
-                  <label title="SI NO SELECCIONA MUNICIPIO TOMARA POR DEFECTO CON EL QUE SE REGISTRO" class="form-label" >Lugar</label>
-                    
+                  <label title="SI NO SELECCIONA MUNICIPIO TOMARA POR DEFECTO CON EL QUE SE REGISTRO" class="form-label" >Lugar</label>  
                 </div>
               </div>
 
