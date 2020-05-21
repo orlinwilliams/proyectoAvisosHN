@@ -326,7 +326,7 @@ infoVendedor = function (idUsuario) {
         "<div class='card card-about-me' style='max-height:400px; overflow-y:scroll;'>" +
         "<div class='header' style='text-align:center'>" +
         "<h2>Últimos comentarios</h2>" +
-        "<p><button type='button' class='btn bg-light-green btn-circle waves-effect waves-circle waves-float' data-toggle='collapse' href='#collapseExample' id='botonComentario' aria-expanded='false'" +
+        "<p><button title='AGREGAR COMENTARIO' type='button' class='btn bg-light-green btn-circle waves-effect waves-circle waves-float' data-toggle='collapse' href='#collapseExample' id='botonComentario' aria-expanded='false'" +
         "aria-controls='collapseExample'>" +
         "<i class='material-icons'>chat</i>" +
         "</button></p>" +
