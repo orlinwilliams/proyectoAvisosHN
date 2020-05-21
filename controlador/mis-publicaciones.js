@@ -13,7 +13,7 @@ $(document).ready(function () {
     parallelUploads: 4,
     acceptedFiles: "image/*",
     maxFiles: 10, //CANTIDAD DE IMAGES
-    maxFilesize: 2, //tamaño maxino de imagen
+    maxFilesize: 10, //tamaño maxino de imagen
     paramName: "file",
     clickable: true,
     url: "../clases/mis-publicaciones.php?accion=2",

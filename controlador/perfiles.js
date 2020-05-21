@@ -117,9 +117,13 @@ $(document).ready(function () {
 				"&txt_tefelono=" + $("#txt_tefelono").val() +
 				"&txt_rtn=" + $("#txt_rtn").val(),
 			success: function (resultado) {
-				$("#cuerpoModal").empty();										//Vacia el cuerpo del modal de mensaje
-				$("#cuerpoModal").html(resultado);								//Imprime el cuerpo del modal de mensaje					
-				$("#ModalMensaje").modal("show");								//Despliega el modal con el modal
+				let datos = JSON.parse(resultado);
+				if(datos.error==true){
+					swal("Cancelado", datos.mensaje, "error")
+				}
+				else{
+					swal("Éxito", datos.mensaje, "success")
+				}
 			}
 		});
 	});
@@ -133,9 +137,16 @@ $(document).ready(function () {
 				"&txt_contraseña=" + $("#txt_contraseña").val() +
 				"&txt_contraseña2=" + $("#txt_contraseña2").val(),
 			success: function (resultado) {
-				$("#cuerpoModal").empty();										//Vacia el cuerpo del modal de mensaje
+				let datos = JSON.parse(resultado);
+				if(datos.error==true){
+					swal("Cancelado", datos.mensaje, "error")
+				}
+				else{
+					swal("Éxito", datos.mensaje, "success")
+				}
+				/*$("#cuerpoModal").empty();										//Vacia el cuerpo del modal de mensaje
 				$("#cuerpoModal").html(resultado);								//Imprime el cuerpo del modal de mensaje					
-				$("#ModalMensaje").modal("show");								//Despliega el modal con el modal
+				$("#ModalMensaje").modal("show");								//Despliega el modal con el modal*/
 			}
 		});
 	});

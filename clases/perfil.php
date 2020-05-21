@@ -21,29 +21,32 @@
             if(isset($_POST["txt_tefelono"])){
                 $telefono = $_POST["txt_tefelono"];
             }
+            $respuesta="";
             if($nombre=="" || $nombre==NULL){                                                                       //Comienza a vericar que no sean valores nulos o vacios
-                $respuesta="Ingrese el nombre";
-                echo $respuesta;
+                $respuesta.="nombre, ";
             }
             if(isset($_POST["txt_rtn"])){
                 $rtn = $_POST["txt_rtn"];
             }
             if($apellido=="" || $apellido==NULL){
-                $respuesta="Ingrese el apellido";
-                echo $respuesta;
+                $respuesta.="apellido, ";
             }
             if($correo=="" || $correo==NULL){
-                $respuesta="Ingrese el correo";
-                echo $respuesta;
+                $respuesta.="correo, ";
             }
             if($fecha=="" || $fecha==NULL){
-                $respuesta="Ingrese la fecha";
-                echo $respuesta;
+                $respuesta="fecha,";
+            }
+            if($idMunicipio=="" || $idMunicipio==NULL){
+                $respuesta="municipio,";
             }
             if($telefono=="" || $telefono==NULL){
-                $respuesta="Ingrese el telefono";
-                echo $respuesta;
+                $respuesta="telefono, ";
             }                                                                                                        //Fin de validación
+            if ($respuesta <> "" || $respuesta <> NULL) {
+                $respuesta2 = "Verifique los siguientes campos: " . $respuesta;
+                echo json_encode(array("error" => TRUE, "mensaje" => "$respuesta2"));
+            }
             else{
                 session_start();
                 $idUsuario = $_SESSION["usuario"]["idUsuario"];
@@ -55,12 +58,11 @@
                 $resultado = $conexion->ejecutarInstruccion($sql);
                 $respuesta = $conexion->ejecutarInstruccion($salida);
                 if(!$respuesta){
-                    echo "No hay respuesta del procedimiento";
+                    echo json_encode(array("error" => TRUE, "mensaje" => "No hay respuesta del procedimiento"));
                 }
                 else{
                     $fila=$conexion->obtenerFila($respuesta);
-                    echo $fila["pcMensaje"];
-                    
+                    echo json_encode(array("error" => FALSE, "mensaje" => $fila["pcMensaje"]));
                     $sql="SELECT idUsuario, pNombre, pApellido, correoElectronico, numTelefono,
                     fechaRegistro, fechaNacimiento, urlFoto, RTN, tipousuario, idMunicipios FROM `usuario`
                     INNER JOIN tipousuario ON tipousuario.idtipoUsuario=usuario.idtipoUsuario
@@ -77,26 +79,28 @@
             }                                              
         break;
         case '2':
+            $respuesta="";
             if(isset($_POST["contraseñaActual"])){
                 $contraseñaActual = $_POST["contraseñaActual"];
             }
             if($contraseñaActual=="" || $contraseñaActual==NULL){                                                                       //Comienza a vericar que no sean valores nulos o vacios
-                $respuesta="Ingrese la contraseña actual";
-                echo $respuesta;
+                $respuesta.=" contraseña actual, ";
             }
             if(isset($_POST["txt_contraseña"])){
                 $contraseña = $_POST["txt_contraseña"];
             }
             if($contraseña=="" || $contraseña==NULL){
-                $respuesta="Ingrese la nueva contraseña";
-                echo $respuesta;
+                $respuesta.="nueva contraseña, ";
             }
             if(isset($_POST["txt_contraseña2"])){
                 $contraseña2 = $_POST["txt_contraseña2"];
             }
             if($contraseña2=="" || $contraseña2==NULL){
-                $respuesta="Por favor confirme la contraseña";
-                echo $respuesta;
+                $respuesta.="confirmación de contraseña, ";
+            }
+            if ($respuesta <> "" || $respuesta <> NULL) {
+                $respuesta2 = "Verifique los siguientes campos: " . $respuesta;
+                echo json_encode(array("error" => TRUE, "mensaje" => "$respuesta2"));
             }
             else{
                 session_start();
@@ -107,11 +111,11 @@
                 $resultado = $conexion->ejecutarInstruccion($sql);
                 $respuesta = $conexion->ejecutarInstruccion($salida);
                 if(!$respuesta){
-                    echo "No hay respuesta del procedimiento";
+                    echo json_encode(array("error" => TRUE, "mensaje" => "No hay respuesta del procedimiento"));
                 }
                 else{
                     $fila=$conexion->obtenerFila($respuesta);
-                    echo $fila["pcMensaje"];
+                    echo json_encode(array("error" => FALSE, "mensaje" => $fila["pcMensaje"]));
             }
             $conexion->cerrarConexion();
         }

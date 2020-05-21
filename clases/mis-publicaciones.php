@@ -97,10 +97,6 @@
             else{
                 echo "ERROR EN CONSULTA DE SEGUIDORES";
             }
-
-            
-            
-            
             if($resultadoProcedimiento = $conexion->ejecutarInstruccion($sql)){
                 $carpetaUsuario="../images/".$carpetaFoto.$usuario;
                 if (!file_exists($carpetaUsuario)) {
@@ -180,7 +176,7 @@
             $conexion = new conexion();
             session_start();
             $idUsuario=$_SESSION["usuario"]["idUsuario"];
-            $sql="SELECT idAnuncios,idUsuario,nombre,precio,descripcion FROM anuncios WHERE idUsuario='$idUsuario'";//CONSULTA MIS PUBLICACIONES
+            $sql="SELECT idAnuncios,idUsuario,nombre,precio,descripcion FROM anuncios WHERE idUsuario='$idUsuario' ORDER BY fechaPublicacion DESC";//CONSULTA MIS PUBLICACIONES
             if($resultado=$conexion->ejecutarInstruccion($sql)){
                 if($resultado->num_rows!=0){
                     $datos=array();

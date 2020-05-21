@@ -195,7 +195,13 @@ $(document).ready(function () {
         "&comentario-denuncia=" +
         $("#comentario-denuncia").val(),
       success: function (resultado) {
-        console.log(resultado);
+        let datos = JSON.parse(resultado);
+        if (datos.error == true) {
+          swal("Oops, ha ocurrido un error", datos.mensaje, "error");
+        } else {
+          $("#denuncias").modal("hide");
+          swal("Éxito", datos.mensaje, "success");
+        }
       },
     });
   });
@@ -427,11 +433,16 @@ cargarArticulo = function (idAnuncio) {
       for (var i = 0; i < datos.info.fotos.length; i++) {
         img += "<img src='" + datos.info.fotos[i] + "'/>";
       }
-      if(datos.info.sigueVendedor==true){
-        var iconoFavorito="<i style='cursor:pointer' onclick=quitarFavorito(" +datos.info.idUsuario+") class='material-icons' title='QUITAR VENDEOR DE FAVORITOS'>favorite</i>";
-      }
-      else{
-        var iconoFavorito="<i style='cursor:pointer' onclick=agregarFavorito(" +datos.info.idUsuario+") class='material-icons' title='AGREGAR VENDEDOR A FAVORITOS'>favorite_border</i>";
+      if (datos.info.sigueVendedor == true) {
+        var iconoFavorito =
+          "<i style='cursor:pointer' onclick=quitarFavorito(" +
+          datos.info.idUsuario +
+          ") class='material-icons' title='QUITAR VENDEOR DE FAVORITOS'>favorite</i>";
+      } else {
+        var iconoFavorito =
+          "<i style='cursor:pointer' onclick=agregarFavorito(" +
+          datos.info.idUsuario +
+          ") class='material-icons' title='AGREGAR VENDEDOR A FAVORITOS'>favorite_border</i>";
       }
       $("#infoArticulo").empty();
       $("#infoArticulo").html(
@@ -512,27 +523,29 @@ cargarArticulo = function (idAnuncio) {
           "<span class='icon-name col-lg-6' style='font-size:22px; padding:0px; text-align:center'><strong>Valoración: </strong>" +
           datos.info.valoración +
           "</span>" +
-          "<script>"+
-            "$('#estrella').starrr({"+
-              "rating:" +datos.info.valoración +","+
-              "change:function(e,valor){"+
-                "console.log(valor);"+
-                "var estrellas=valor;"+
-                "if(valor < 3){"+
-                  "menorTres(estrellas)"+
-                "}"+
-                "else {"+
-                  "$.ajax({"+
-                  "url:'../clases/vistas-index.php?accion=9',"+
-                  "method: 'post',"+
-                  "data: 'valoracion='+estrellas,"+
-                  "success: function(resp){"+
-                  "}"+
-                "})"+
-                "}"+
-              "}"+
-            "});"+
-          "</script>"+
+          "<script>" +
+          "$('#estrella').starrr({" +
+          "rating:" +
+          datos.info.valoración +
+          "," +
+          "change:function(e,valor){" +
+          "console.log(valor);" +
+          "var estrellas=valor;" +
+          "if(valor < 3){" +
+          "menorTres(estrellas)" +
+          "}" +
+          "else {" +
+          "$.ajax({" +
+          "url:'../clases/vistas-index.php?accion=9'," +
+          "method: 'post'," +
+          "data: 'valoracion='+estrellas," +
+          "success: function(resp){" +
+          "}" +
+          "})" +
+          "}" +
+          "}" +
+          "});" +
+          "</script>" +
           "<span class='col-lg-6' style='padding:0px; text-align:center' id='estrella'></span>" +
           "</div>" +
           "<br>" +
@@ -679,25 +692,27 @@ enviarCorreoContacto = function (parametros) {
     method: "POST",
     data: "mensaje1=" + $("#mensaje1").val() + "&idanuncio3=" + id,
     success: function (resultado) {
-      var datos=JSON.parse(resultado);
-      if(datos.error==true){
+      var datos = JSON.parse(resultado);
+      if (datos.error == true) {
         alert(datos.mensaje);
-      }
-      else{
+      } else {
         showSuccessMessage();
         function showSuccessMessage() {
-            swal("Correo enviado!", "Presiona ok para seguir navengando!", "success");
-            $("button.confirm").click(()=>{
-                location.reload();
-            })
+          swal(
+            "Correo enviado!",
+            "Presiona ok para seguir navengando!",
+            "success"
+          );
+          $("button.confirm").click(() => {
+            location.reload();
+          });
         }
       }
-      
+
       //Despliega el modal con el modal
     },
   });
 };
-
 
 $(function () {
   $("#publicarArticulo").validate({
@@ -756,9 +771,11 @@ agregarFavorito = (idUsuario) => {
       }
       if (datos.error == false) {
         alert(datos.mensaje);
-        $("#iconoFavorito").html("<i style='cursor:pointer' onclick=quitarFavorito("+datos.idSeguido +") class='material-icons' title='QUITAR VENDEDOR DE FAVORITOS'>favorite</i>");
-        
-
+        $("#iconoFavorito").html(
+          "<i style='cursor:pointer' onclick=quitarFavorito(" +
+            datos.idSeguido +
+            ") class='material-icons' title='QUITAR VENDEDOR DE FAVORITOS'>favorite</i>"
+        );
       }
     },
     error: (error) => {
@@ -779,9 +796,11 @@ quitarFavorito = (idSeguido) => {
       }
       if (datos.error == false) {
         alert(datos.mensaje);
-        $("#iconoFavorito").html("<i style='cursor:pointer' onclick=agregarFavorito("+datos.idSeguido +") class='material-icons' title='AGREGAR VENDEDOR A FAVORITOS'>favorite_border</i>");
-        
-
+        $("#iconoFavorito").html(
+          "<i style='cursor:pointer' onclick=agregarFavorito(" +
+            datos.idSeguido +
+            ") class='material-icons' title='AGREGAR VENDEDOR A FAVORITOS'>favorite_border</i>"
+        );
       }
     },
     error: (error) => {
@@ -790,63 +809,61 @@ quitarFavorito = (idSeguido) => {
   });
 };
 
-menorTres= (estrellas) =>{
+menorTres = (estrellas) => {
   swal(
     {
-    title: '¡Cuéntanos porqué das esta calificación',
-    text:
+      title: "¡Cuéntanos porqué das esta calificación",
+      text:
         "<p style='color:red;'>Estos campos son obligatorios</p>" +
-        "<br>"+
-        "<div class='row'>"+
-            "<div class='col-md-2'>"+
-            "</div>"+
-            "<div class='col-md-8'>"+
-                "<div class='form-group form-float'>"+
-                    "<div class='form-line'>"+
-                        "<select class='form-control show-tick' id='razónDenuncia_2'>"+
-                            "<option value=''></option>"+
-                            "<option value='1'>Descripción imprecisa</option>"+
-                            "<option value='2'>Contenido ofensivo o dañino</option>"+
-                            "<option value='3'>Estafa</option>"+
-                            "<option value='4'>Articulo falso</option>"+
-                            "<option value='5'>Contenido sexual</option>"+
-                            "<option value='6'>Venta de armas o drogas</option>"+
-                            "<option value='7'>Publicación discriminatoria</option>"+
-                            "<option value='8'>Sin intención de venta</option>"+
-                        "</select>"+
-                    "</div>"+
-                "</div>"+  
-            "</div>"+
-            "<div class='col-md-2'>"+
-            "</div>"+
-            "</div>",
-    html: true,
-    type: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#DD6B55",
-    confirmButtonText: "Enviar!",
-    closeOnConfirm: false,
+        "<br>" +
+        "<div class='row'>" +
+        "<div class='col-md-2'>" +
+        "</div>" +
+        "<div class='col-md-8'>" +
+        "<div class='form-group form-float'>" +
+        "<div class='form-line'>" +
+        "<select class='form-control show-tick' id='razónDenuncia_2'>" +
+        "<option value=''></option>" +
+        "<option value='1'>Descripción imprecisa</option>" +
+        "<option value='2'>Contenido ofensivo o dañino</option>" +
+        "<option value='3'>Estafa</option>" +
+        "<option value='4'>Articulo falso</option>" +
+        "<option value='5'>Contenido sexual</option>" +
+        "<option value='6'>Venta de armas o drogas</option>" +
+        "<option value='7'>Publicación discriminatoria</option>" +
+        "<option value='8'>Sin intención de venta</option>" +
+        "</select>" +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        "<div class='col-md-2'>" +
+        "</div>" +
+        "</div>",
+      html: true,
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Enviar!",
+      closeOnConfirm: false,
     },
     function () {
-        let razon2= $('#razónDenuncia_2').val();
-        console.log("te pisan");
-        $.ajax({
-        url:'../clases/vistas-index.php?accion=13',
-        method: 'post',
-        data:"razónDenuncia=" +
-        $("#razónDenuncia_2").val() +
-        'valoracion='+estrellas,
-        success: function(resp){
-          console.log(resp);
-        }
-      })
+      $.ajax({
+        url: "../clases/vistas-index.php?accion=13",
+        method: "post",
+        data:
+          "razónDenuncia=" +
+          $("#razónDenuncia_2").val() +
+          "&valoracion=" +
+          estrellas,
+        success: function (resultado) {
+          let datos = JSON.parse(resultado);
+          if (datos.error == true) {
+            swal("Oops, ha ocurrido un error", datos.mensaje, "error");
+          } else {
+            swal("Éxito", datos.mensaje, "success");
+          }
+        },
+      });
     }
   );
 };
-
-/*
-"razónDenuncia=" +
-$("#razónDenuncia").val() +
-"&comentario-denuncia=" +
-$("#comentario-denuncia").val(),
-*/

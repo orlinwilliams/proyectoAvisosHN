@@ -276,7 +276,7 @@ switch ($_GET["accion"]) {
             $respuesta = "Ingrese su mensaje a enviar.";
             echo $respuesta;
         }
-        
+
         $sql = "SELECT nombre , u.correoElectronico, concat_ws(' ',u.pnombre, u.papellido) as nombreVendedor, u.idUsuario FROM anuncios a 
               INNER JOIN usuario u on u.idUsuario=a.idUsuario WHERE a.idAnuncios= '$idAnuncio'";
         $salida = "SELECT @p10 AS `mensaje`;";                                                                //Llamado al parametro de salida del procedimiento almacenado
@@ -286,22 +286,21 @@ switch ($_GET["accion"]) {
         $fila4 = $conexion->obtenerFila($respuesta);
         $correoVendedor = $fila5["correoElectronico"];
         $nombreVendedor = $fila5["nombreVendedor"];
-        $idVendedor=$fila5["idUsuario"];
-        if($idVendedor==$idUsuario){
-            echo json_encode(array("error"=>true,"mensaje"=>"No puedes contactarte a ti mismo"));
-        }
-        else {
+        $idVendedor = $fila5["idUsuario"];
+        if ($idVendedor == $idUsuario) {
+            echo json_encode(array("error" => true, "mensaje" => "No puedes contactarte a ti mismo"));
+        } else {
             $nombreServer = $_SERVER['SERVER_NAME'];
             $mensajeEncabezado = "<br>Somos MARKETHN<br><br>";
             $mensaje = $mensajeEncabezado . "El usuario: " . $pNombre . " " . $pApellido . " con correo: " . $correoCliente . " dice:<br>" . $mensaje1 . " <br> ";
             $correo = new Correo($correoVendedor, $nombreVendedor, "Cliente interesado", $mensaje);
             if ($correo->enviarCorreo()) { //SE ENVIA CORREO
-                echo  json_encode(array("error"=>false,"mensaje"=>$fila4["mensaje"] . "Correo enviado"));
+                echo  json_encode(array("error" => false, "mensaje" => $fila4["mensaje"] . "Correo enviado"));
             } else {
                 echo "FALLO EN ENVIO DE CORREO";
-            }    
+            }
         }
-        
+
         $conexion->cerrarConexion();
         break;
     case '8': //INGRESA COMENTARIO
@@ -376,26 +375,30 @@ switch ($_GET["accion"]) {
     case '10':
         session_start();
         $idAnuncio = $_SESSION["usuario"]["idAnuncio"];
-
+        $respuesta = "";
         if (isset($_POST["razónDenuncia"])) {
             $denuncia = $_POST["razónDenuncia"];
         }
         if ($denuncia == "" | $denuncia == NULL) {
-            echo "Debe seleccionar una razon de su denuncia";
+            $respuesta .= "razón de denuncia, ";
         }
         if (isset($_POST["comentario-denuncia"])) {
             $comentario = $_POST["comentario-denuncia"];
         }
         if ($comentario == "" | $comentario == NULL) {
-            echo "Debe ingresar su comentario";
+            $respuesta .= "comentario, ";
+        }
+        if ($respuesta <> "" || $respuesta <> NULL) {
+            $respuesta2 = "Verifique los siguientes campos: " . $respuesta;
+            echo json_encode(array("error" => TRUE, "mensaje" => "$respuesta2"));
         } else {
             $conexion = new conexion();
             $sql = "INSERT INTO denuncias (idrazonDenuncia,idAnuncios,comentarios) VALUES ($denuncia, $idAnuncio, '$comentario');";
             $respuesta = $conexion->ejecutarInstruccion($sql);
             if (!$respuesta) {
-                echo "Error al enviar la denuncia";
+                echo json_encode(array("error" => TRUE, "mensaje" => "Error al enviar la denuncia"));
             } else {
-                echo "Denuncia enviada";
+                echo json_encode(array("error" => FALSE, "mensaje" => "Tu denuncia ha sido enviada, pronto será revisada"));
             }
             $conexion->cerrarConexion();
         }
@@ -447,30 +450,37 @@ switch ($_GET["accion"]) {
         } else {
             echo json_encode(array("error" => true, "mensaje" => "No hay idUsuario"));
         }
-
-
         break;
 
-        case '13':
-            session_start();
-            $idAnuncio = $_SESSION["usuario"]["idAnuncio"];
-    
-            if (isset($_POST["razónDenuncia"])) {
-                $denuncia = $_POST["razónDenuncia"];
-            }
-            if ($denuncia == "" | $denuncia == NULL) {
-                echo "Debe seleccionar una razon de su denuncia";
+    case '13':
+        session_start();
+        $idAnuncio = $_SESSION["usuario"]["idAnuncio"];
+        if (isset($_POST["valoracion"])) {
+            $estrellas = $_POST["valoracion"];
+        }
+        $respuesta="";
+        if ($estrellas == "" | $estrellas == NULL) {
+            $respuesta.="valoración del anuncio";
+        }
+        if (isset($_POST["razónDenuncia"])) {
+            $denuncia = $_POST["razónDenuncia"];
+        }
+        if ($denuncia == "" | $denuncia == NULL) {
+            echo json_encode(array("error" => true, "mensaje" => "Justifique con una razón su valoración"));
+        }
+         else {
+            $conexion = new conexion();
+            $sql = "INSERT INTO calificacionanuncio (idAnuncios, valoracion) VALUES ($idAnuncio, $estrellas);";
+            $respuesta = $conexion->ejecutarInstruccion($sql);
+            $sql = "INSERT INTO denuncias (idrazonDenuncia,idAnuncios,comentarios) VALUES ('$denuncia', $idAnuncio,(SELECT descripcion FROM razondenuncia WHERE idrazonDenuncia = '$denuncia'));";
+            $respuesta = $conexion->ejecutarInstruccion($sql);
+            if (!$respuesta) {
+                echo json_encode(array("error" => true, "mensaje" => "Error al enviar la denuncia"));
             } else {
-                $conexion = new conexion();
-                $sql = "INSERT INTO denuncias (idrazonDenuncia,idAnuncios,comentarios) VALUES ('$denuncia', $idAnuncio,(SELECT descripcion FROM razondenuncia WHERE idrazonDenuncia = '$denuncia'));";
-                $respuesta = $conexion->ejecutarInstruccion($sql);
-                if (!$respuesta) {
-                    echo "Error al enviar la denuncia";
-                } else {
-                    echo "Denuncia enviada";
-                }
-                $conexion->cerrarConexion();
+                echo json_encode(array("error" => false, "mensaje" => "Gracias por tu opinión es valiosa, para nosotros es muy valiosa"));
             }
-    
-            break;
+            $conexion->cerrarConexion();
+        }
+
+        break;
 }
