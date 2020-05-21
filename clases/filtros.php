@@ -4,7 +4,7 @@ switch ($_GET["accion"]){
 
     case '1':       //PUBLICACIONES FILTRADAS
         $where='';
-                
+       
         if (isset($_GET["flugar"])){ //si todos estan llenos
             $flugar=$_GET["flugar"];
             
@@ -13,46 +13,140 @@ switch ($_GET["accion"]){
 
                 if (isset($_GET["valoracion"])){
                     $valoracion=$_GET["valoracion"];
+                    $tipovendedor=$_GET["tipovendedor"];
 
-                    if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
-                        $min=$_GET["minimo"];
-                        $max=$_GET["maximo"];
-                        
-                               
-                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
-                                   
-                                    $where="where c.idcategoria like $fcategoria
-                                        AND m.idMunicipios like $flugar 
-                                        AND ca.valoracion LIKE $valoracion
-                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                    if (isset($_GET["tipovendedor"])){
+                        if ($tipovendedor=='empresa') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
                                 
-                            } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
-                                $where="where c.idcategoria like $fcategoria
-                                        AND m.idMunicipios like $flugar 
-                                        AND ca.valoracion LIKE $valoracion";
-
+                                    
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                        
+                                            $where="WHERE c.idcategoria like $fcategoria
+                                                AND m.idMunicipios like $flugar 
+                                                AND ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS NOT null
+                                                AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="WHERE c.idcategoria like $fcategoria
+                                                AND m.idMunicipios like $flugar 
+                                                AND ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS NOT null";  
+                                    }
+                                                    
                             }
-                                               
+                        }elseif ($tipovendedor=='natural') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
+                                
+                                    
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                        
+                                            $where="where c.idcategoria like $fcategoria
+                                                AND m.idMunicipios like $flugar 
+                                                AND ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS null
+                                                AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="where c.idcategoria like $fcategoria
+                                                AND m.idMunicipios like $flugar 
+                                                AND ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS null";
+    
+                                    }
+                                                    
+                            }
+                        }   
+                    } if($tipovendedor=="" || $tipovendedor==NULL){
+                        if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                            $min=$_GET["minimo"];
+                            $max=$_GET["maximo"];
+                            
+                                
+                                if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                    
+                                        $where="where c.idcategoria like $fcategoria
+                                            AND m.idMunicipios like $flugar 
+                                            AND ca.valoracion LIKE $valoracion
+                                            AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                    
+                                } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                    $where="where c.idcategoria like $fcategoria
+                                            AND m.idMunicipios like $flugar 
+                                            AND ca.valoracion LIKE $valoracion";
+
+                                }                                                
+                        }
                     }
                                         
                 }if($valoracion=="" || $valoracion==NULL){//si valoracion vacio; lugar lleno, cateogira llena , demas llenos 
-                    if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
-                        $min=$_GET["minimo"];
-                        $max=$_GET["maximo"];
-                        
-                               
-                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                    $tipovendedor=$_GET["tipovendedor"];
+                    if (isset($_GET["tipovendedor"])){
+                        if ($tipovendedor=='empresa') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
                                 
-                                    $where="where c.idcategoria like $fcategoria
-                                        AND m.idMunicipios like $flugar 
-                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
-                                
-                            }if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
-                                $where="where c.idcategoria like $fcategoria
-                                        AND m.idMunicipios like $flugar";
-
+                                    
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                        
+                                            $where="WHERE c.idcategoria like $fcategoria
+                                                AND m.idMunicipios like $flugar 
+                                                AND u.rtn IS NOT null
+                                                AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="WHERE c.idcategoria like $fcategoria
+                                                AND m.idMunicipios like $flugar 
+                                                AND u.rtn IS NOT null";  
+                                    }
+                                                    
                             }
-                                               
+                        }elseif ($tipovendedor=='natural') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
+                                
+                                    
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                        
+                                            $where="where c.idcategoria like $fcategoria
+                                                AND m.idMunicipios like $flugar 
+                                                AND u.rtn IS null
+                                                AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="where c.idcategoria like $fcategoria
+                                                AND m.idMunicipios like $flugar 
+                                                AND u.rtn IS null";
+    
+                                    }
+                                                    
+                            }
+                        }
+                    } if($tipovendedor=="" || $tipovendedor==NULL){
+                        if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                            $min=$_GET["minimo"];
+                            $max=$_GET["maximo"];
+                            
+                                
+                                if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                    
+                                        $where="where c.idcategoria like $fcategoria
+                                            AND m.idMunicipios like $flugar 
+                                            AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                    
+                                } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                    $where="where c.idcategoria like $fcategoria
+                                            AND m.idMunicipios like $flugar ";
+
+                                }                                                
+                        }
                     }
                     
                 } 
@@ -60,52 +154,138 @@ switch ($_GET["accion"]){
             } if($fcategoria=="" || $fcategoria==NULL){//si categoria vaciaa ; lugar valoracion min max no
                 if (isset($_GET["valoracion"])){
                     $valoracion=$_GET["valoracion"];
+                    $tipovendedor=$_GET["tipovendedor"];
 
-                    if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
-                        $min=$_GET["minimo"];
-                        $max=$_GET["maximo"];
-                        
-                               
-                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                    if (isset($_GET["tipovendedor"])){
+                        if ($tipovendedor=='empresa') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
                                 
-                                    $where="where m.idMunicipios like $flugar 
-                                        AND ca.valoracion LIKE $valoracion
-                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
-                                
-                            } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
-                                $where="where m.idMunicipios like $flugar 
-                                        AND ca.valoracion LIKE $valoracion";
-
-                            }
-                                               
-                    }
-
+                                    
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
                                         
-                } if($valoracion=="" || $valoracion==NULL){//si valoracion vacio; lugar lleno, cateogira vacia , demas llenos 
-                   
-                    if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
-                        $min=$_GET["minimo"];
-                        $max=$_GET["maximo"];
-                        
-                               
-                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
-                                
-                                    $where="where  m.idMunicipios like $flugar 
-                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
-                                
-                            } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
-                                $where="where  m.idMunicipios like $flugar ";
-
+                                            $where="WHERE  m.idMunicipios like $flugar 
+                                                AND ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS NOT null
+                                                AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="WHERE  m.idMunicipios like $flugar 
+                                                AND ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS NOT null";  
+                                    }
+                                                    
                             }
-                                               
+                        }elseif ($tipovendedor=='natural') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
+                                
+                                    
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                        
+                                            $where="where m.idMunicipios like $flugar 
+                                                AND ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS null
+                                                AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="where m.idMunicipios like $flugar 
+                                                AND ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS null";
+    
+                                    }
+                                                    
+                            }
+                        }
+                    }if($tipovendedor=="" || $tipovendedor==NULL){
+                        if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                            $min=$_GET["minimo"];
+                            $max=$_GET["maximo"];
+                            
+                                
+                                if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                    
+                                        $where="where m.idMunicipios like $flugar 
+                                            AND ca.valoracion LIKE $valoracion
+                                            AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                    
+                                } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                    $where="where  m.idMunicipios like $flugar 
+                                            AND ca.valoracion LIKE $valoracion";
+
+                                }                                                
+                        }
                     }
-                   
+                                        
+                }if($valoracion=="" || $valoracion==NULL){//si valoracion vacio; lugar lleno, cateogira llena , demas llenos 
+                    $tipovendedor=$_GET["tipovendedor"];
+                    if (isset($_GET["tipovendedor"])){
+                        
+                            if ($tipovendedor=='empresa') {
+                                if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                    $min=$_GET["minimo"];
+                                    $max=$_GET["maximo"];
+                                    
+                                        
+                                        if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                            
+                                                $where="WHERE m.idMunicipios like $flugar 
+                                                    AND u.rtn IS NOT null
+                                                    AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                            
+                                        } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                            $where="WHERE m.idMunicipios like $flugar
+                                                    AND u.rtn IS NOT null";  
+                                        }
+                                                        
+                                }
+                            }elseif ($tipovendedor=='natural') {
+                                if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                    $min=$_GET["minimo"];
+                                    $max=$_GET["maximo"];
+                                    
+                                        
+                                        if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                            
+                                                $where="where m.idMunicipios like $flugar 
+                                                    AND u.rtn IS null
+                                                    AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                            
+                                        } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                            $where="where m.idMunicipios= $flugar
+                                                    AND u.rtn IS null";
+        
+                                        }
+                                                        
+                                }
+                            }
+
+                    }if($tipovendedor=="" || $tipovendedor==NULL){
+                        if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                            $min=$_GET["minimo"];
+                            $max=$_GET["maximo"];
+                            
+                                
+                                if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                    
+                                        $where="where m.idMunicipios like $flugar
+                                            AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                    
+                                } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                    $where="where m.idMunicipios like $flugar";
+
+                                }                                                
+                        }
+                    }
+                    
                 } 
 
             }
             
         }
-
+////////////////////////////////////////////////////////////////////////////////
         if($flugar=="" || $flugar==NULL){ //si lugar vacio demás datos llenos
 
             if (isset($_GET["fcategoria"])){
@@ -113,89 +293,264 @@ switch ($_GET["accion"]){
 
                 if (isset($_GET["valoracion"])){
                     $valoracion=$_GET["valoracion"];
+                    $tipovendedor=$_GET["tipovendedor"];
 
-                    if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
-                        $min=$_GET["minimo"];
-                        $max=$_GET["maximo"];
-                        
-                               
-                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                    if (isset($_GET["tipovendedor"])){
+                        if ($tipovendedor=='empresa') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
                                 
-                                    $where="where c.idcategoria like $fcategoria
-                                        AND ca.valoracion LIKE $valoracion
-                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
-                                
-                            } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
-                                $where="where c.idcategoria like $fcategoria
-                                        AND ca.valoracion LIKE $valoracion";
-
-                            }
-                                               
-                    }
-
-                    
+                                       
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
                                         
+                                            $where="where c.idcategoria like $fcategoria
+                                                AND ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS NOT null
+                                                AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="where c.idcategoria like $fcategoria
+                                                AND ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS NOT null";
+        
+                                    }
+                                                       
+                            }
+                        }elseif ($tipovendedor=='natural') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
+                                
+                                       
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                        
+                                            $where="where c.idcategoria like $fcategoria
+                                                AND ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS null
+                                                AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="where c.idcategoria like $fcategoria
+                                                AND ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS null";
+        
+                                    }
+                                                       
+                            }
+                        }
+                    }if($tipovendedor=="" || $tipovendedor==NULL){
+                        if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                            $min=$_GET["minimo"];
+                            $max=$_GET["maximo"];
+                            
+                                   
+                                if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                    
+                                        $where="where c.idcategoria like $fcategoria
+                                            AND ca.valoracion LIKE $valoracion
+                                            AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                    
+                                } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                    $where="where c.idcategoria like $fcategoria
+                                            AND ca.valoracion LIKE $valoracion";
+    
+                                }
+                                                   
+                        }
+
+                    }
+                       
                 } if($valoracion=="" || $valoracion==NULL){//si lugar vacio, cateogira llena valoracion vacio, demas llenos 
                     
-                    if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
-                        $min=$_GET["minimo"];
-                        $max=$_GET["maximo"];
-                        
-                               
-                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
-                                
-                                    $where="where c.idcategoria like $fcategoria
-                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
-                                
-                            } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
-                                $where="where c.idcategoria like $fcategoria ";
+                    $tipovendedor=$_GET["tipovendedor"];
 
+                    if (isset($_GET["tipovendedor"])){
+                        if ($tipovendedor=='empresa') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
+                                
+                                       
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                        
+                                            $where="where c.idcategoria like $fcategoria
+                                                AND u.rtn IS NOT null
+                                                AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="where c.idcategoria like $fcategoria
+                                                AND u.rtn IS NOT null ";
+        
+                                    }
+                                                       
                             }
-                                               
+                        }elseif ($tipovendedor=='natural') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
+                                
+                                       
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                        
+                                            $where="where c.idcategoria like $fcategoria
+                                                AND u.rtn IS null
+                                                AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="where c.idcategoria like $fcategoria
+                                                AND u.rtn IS null ";
+        
+                                    }
+                                                       
+                            }
+                        }
+                    }if($tipovendedor=="" || $tipovendedor==NULL){
+                        if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                            $min=$_GET["minimo"];
+                            $max=$_GET["maximo"];
+                            
+                                   
+                                if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                    
+                                        $where="where c.idcategoria like $fcategoria
+                                            AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                    
+                                } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                    $where="where c.idcategoria like $fcategoria ";
+    
+                                }
+                                                   
+                        }
+
                     }
+                    
                     
                 }
                 
             }if($fcategoria=="" || $fcategoria==NULL){//si categoria lugar vacia ; valoracion min max no
                 if (isset($_GET["valoracion"])){
                     $valoracion=$_GET["valoracion"];
+                    $tipovendedor=$_GET["tipovendedor"];
 
-                    if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
-                        $min=$_GET["minimo"];
-                        $max=$_GET["maximo"];
-                        
-                               
-                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                    if (isset($_GET["tipovendedor"])){
+                        if ($tipovendedor=='empresa') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
                                 
-                                    $where="where ca.valoracion LIKE $valoracion
-                                        AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
-                                
-                            } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
-                                $where="where ca.valoracion LIKE $valoracion";
-
-                            }
-                                               
-                    }
-
+                                       
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
                                         
-                } if($valoracion=="" || $valoracion==NULL){//si lugar cateogira valoracion vacio, demas llenos 
-                    
-                    if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
-                        $min=$_GET["minimo"];
-                        $max=$_GET["maximo"];
-                        
-                               
-                            if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
-                                
-                                    $where="where SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
-                                
-                            } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
-                                $where=" ";
-
+                                            $where="where ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS NOT null
+                                                AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="where ca.valoracion LIKE $valoracion
+                                        AND u.rtn IS NOT null";
+        
+                                    }
+                                                       
                             }
-                                               
+                        }elseif ($tipovendedor=='natural') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
+                                
+                                       
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                        
+                                            $where="where ca.valoracion LIKE $valoracion
+                                                AND u.rtn IS null
+                                                AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="where ca.valoracion LIKE $valoracion
+                                        AND u.rtn IS null";
+        
+                                    }
+                                                       
+                            }
+                        }
+                    }if($tipovendedor=="" || $tipovendedor==NULL){
+                        if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                            $min=$_GET["minimo"];
+                            $max=$_GET["maximo"];
+                            
+                                   
+                                if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                    
+                                        $where="where ca.valoracion LIKE $valoracion
+                                            AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                    
+                                } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                    $where="where ca.valoracion LIKE $valoracion";
+    
+                                }                                                   
+                        }
+
                     }
-                    
+                      
+                } if($valoracion=="" || $valoracion==NULL){//si lugar cateogira valoracion vacio, demas llenos 
+                    $tipovendedor=$_GET["tipovendedor"];
+
+                    if (isset($_GET["tipovendedor"])){
+                        if ($tipovendedor=='empresa') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
+                                
+                                       
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                        
+                                            $where="where u.rtn IS NOT null
+                                            AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="where u.rtn IS NOT null";
+        
+                                    }
+                                                       
+                            }
+                        }elseif ($tipovendedor=='natural') {
+                            if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                                $min=$_GET["minimo"];
+                                $max=$_GET["maximo"];
+                                
+                                       
+                                    if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                        
+                                            $where="where u.rtn IS null
+                                            AND SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                        
+                                    } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                        $where="where u.rtn IS null";
+        
+                                    }
+                                                       
+                            }
+                           
+                        }
+                    }if($tipovendedor=="" || $tipovendedor==NULL){
+                        if (isset($_GET["minimo"]) && isset($_GET["maximo"])){
+                            $min=$_GET["minimo"];
+                            $max=$_GET["maximo"];
+                            
+                                   
+                                if ($min>=0 && $max>0 ){ //si campo de rango max es mayor a cero
+                                    
+                                        $where="where SUBSTRING_INDEX(SUBSTRING_INDEX(precio, ' ', 2), ' ', -1) BETWEEN TRUNCATE( $min,0) AND TRUNCATE($max,0)";
+                                    
+                                } if($min==0 && $max==0 ){//si campos de rangos iguales a cero no los toma en el where
+                                    $where=" ";
+    
+                                }
+                                                   
+                        }
+
+                    }
+                                        
                 }
 
             }
@@ -253,9 +608,7 @@ switch ($_GET["accion"]){
                 echo json_encode($datos) ; 
             }
             else{
-                $mensaje=array();
-                $mensaje[]=array("mensaje"=>'No se encontraron coincidencias');
-                echo json_encode($mensaje);
+                echo json_encode(array("error"=>true,"mensaje"=>"No se han encontrado coincidencias"));
             }
         }
         else{

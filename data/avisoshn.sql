@@ -2,8 +2,8 @@
 -- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 20-05-2020 a las 21:55:49
+-- Servidor: 127.0.0.1:3308
+-- Tiempo de generación: 20-05-2020 a las 23:26:39
 -- Versión del servidor: 8.0.18
 -- Versión de PHP: 7.3.12
 
@@ -615,9 +615,9 @@ INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`
 (80, 2, 9, 14, '$ 40', 'Ropa para mujer', 'Bonitos trajes de mujer de moda,  para ejercicio o invierno,  variedad de estilos, colores y tallas.', '2019-08-19 06:00:00', 'Nuevo', 'A', NULL),
 (81, 2, 9, 14, '$ 22', 'Vestidos de mujer', 'Bonitos y hermosos vestidos de mujer, diferentes tallas y colores dependiendo de tus gustos.', '2020-03-19 06:36:34', 'Nuevo', 'A', NULL),
 (82, 2, 10, 14, '$ 22', 'Ropa de niño', 'Ropa de niño, todo tipo de talla y estilos para que puedas elegir', '2020-05-19 08:05:44', 'Nuevo', 'A', NULL),
-(83, 2, 0, 14, '$ 20', 'Zapatos para niños', 'Zapatos deportivos para niños, color blanco y negro.', '2019-09-22 06:00:00', 'Nuevo', 'A', NULL),
+(83, 2, 10, 14, '$ 20', 'Zapatos para niños', 'Zapatos deportivos para niños, color blanco y negro.', '2019-09-22 06:00:00', 'Nuevo', 'A', NULL),
 (84, 2, 11, 14, 'L 400', 'Zapatos de mujer', 'Zaptos de mujer, en buen estado.', '2019-11-10 06:00:00', 'Usado', 'A', NULL),
-(85, 2, 0, 14, 'L 550', 'Calzado de hombre', 'Zapatos de hombre, completamente nuevos y buen precio.', '2020-02-05 06:00:00', 'Nuevo', 'A', NULL),
+(85, 2, 11, 14, 'L 550', 'Calzado de hombre', 'Zapatos de hombre, completamente nuevos y buen precio.', '2020-02-05 06:00:00', 'Nuevo', 'A', NULL),
 (86, 5, 12, 32, '$ 60', 'Bicicletas', 'Bicicleta de carretera de alta calidad a bajo precio/bicicleta de montaña con neumático grueso/bicicleta de nieve mtb con neumático de aire.', '2020-05-19 08:28:46', 'Nuevo', 'A', NULL),
 (87, 5, 12, 32, '$ 20', 'Bicicleta para niñas.', 'Bicicleta de alta calidad para niñas de 20 pulgadas/bicicleta económica de 20 pulgadas princess city/bicicletas de carretera baratas para mujeres.\r\n', '2019-05-19 08:30:09', 'Usado', 'A', NULL),
 (88, 5, 13, 32, '$ 300', 'Máquina de ejercicio', 'Gimnasio fitness ejercicio girando bicicleta ciclismo indoor 10 kg volante bicicleta \r\ncon el titular del teléfono , marca:  FOREX, distintos colores.', '2020-04-26 08:33:02', 'Nuevo', 'A', NULL),
@@ -629,9 +629,9 @@ INSERT INTO `anuncios` (`idAnuncios`, `idUsuario`, `idcategoria`, `idMunicipios`
 (94, 7, 16, 56, '$ 22', 'Escobillas limpiaparabrisas', 'Repuesto universal de la cuchilla del limpiaparabrisas del coche sin marco del parabrisas del automóvil, material caucho, Marca del vehículo compatible: universal. ', '2020-02-27 08:51:47', 'Nuevo', 'A', NULL),
 (95, 7, 16, 56, '$ 25', 'Luces antinuebla para coche', '2 piezas h15 bombilla led de alta potencia 6000k blanco 18smd 3030 para luces de circulación diurna bombilla de repuesto 6000-6500k blanco puro 12v, Marca del vehículo compatible: universal.', '2019-10-16 06:00:00', 'Nuevo', 'A', NULL),
 (96, 7, 17, 56, '$ 30', 'Radio para auto', '12v radio de coche reproductor de audio mp3 bluetooth aux usb sd mmc estéreo fm auto electrónica en el tablero autoradio 1 din para camión taxi windows ce 5.0. Ranura para Tarjeta GPS: Tarjeta TF. Sis', '2020-04-13 08:56:45', 'Usado', 'A', NULL),
-(97, 7, 0, 56, '$ 120', 'swm 9702', 'swm 9702 + cámara 4led 7 pulgadas 1 din android 8.1 reproductor mp5 para automóvil reproductor mulitimedia para automóvil pantalla táctil gps bluetooth incorporado soporte rca / hdmi / fm2 mpeg / mpg.', '2019-08-04 06:00:00', 'Nuevo', 'A', NULL),
+(97, 7, 17, 56, '$ 120', 'swm 9702', 'swm 9702 + cámara 4led 7 pulgadas 1 din android 8.1 reproductor mp5 para automóvil reproductor mulitimedia para automóvil pantalla táctil gps bluetooth incorporado soporte rca / hdmi / fm2 mpeg / mpg.', '2019-08-04 06:00:00', 'Nuevo', 'A', NULL),
 (98, 7, 19, 56, '$ 50', 'Fundas de asiento de auto', 'Fundas de asiento de automóvil antideslizantes transpirables de cuero de pu accesorios de  cojines funda de asiento individual sin reposacabezas y reposabrazos para universal, marca del vehículo compa', '2020-05-13 09:02:45', 'Nuevo', 'A', NULL),
-(99, 7, 0, 56, '$ 6', 'Mando para llave', 'Mando a distancia para llave de 6 botones de repuesto negro para chevrole 2007/2008/2009 suburbano, modelo suburban, dimensiones netas (cm): 5, peso neto (kg): 0.014.', '2020-03-17 08:10:16', 'Restaurado', 'A', NULL),
+(99, 7, 19, 56, '$ 6', 'Mando para llave', 'Mando a distancia para llave de 6 botones de repuesto negro para chevrole 2007/2008/2009 suburbano, modelo suburban, dimensiones netas (cm): 5, peso neto (kg): 0.014.', '2020-03-17 08:10:16', 'Restaurado', 'A', NULL),
 (100, 8, 22, 66, 'L 50', 'Grapadoras', 'Pequeña grapadora de oficina mini grapadora de escritorio para oficina / estudiantes, material 	Carcasa de plástico, tipo: Sujetador, dimensiones (cm): 11.8*3.2*6.', '2020-05-23 09:09:29', 'Nuevo', 'A', NULL),
 (101, 8, 22, 66, 'L 550', 'Disipador para laptop', 'Diy pc stand laptop disipador de calor estante escritorio, estante mesa inclinación 8 grados .\r\n', '2019-05-22 06:00:00', 'Nuevo', 'A', NULL),
 (102, 9, 21, 78, 'L 400', 'Uniforme de militar', 'Uniformes de camuflaje táctico ejército militar personalizados baratos, venta al por mayor.\r\nGénero:    Unisex, Material:  Poliéster/algodón, Tipo de suministro:  Servicio de OEM, Característica:   An', '2019-06-16 06:00:00', 'Usado', 'A', NULL),
@@ -1191,7 +1191,8 @@ INSERT INTO `favoritos` (`idFavoritos`, `idSeguidor`, `idSeguido`) VALUES
 (15, 14, 1),
 (16, 14, 2),
 (17, 14, 12),
-(19, 3, 10);
+(18, 13, 11),
+(19, 13, 2);
 
 -- --------------------------------------------------------
 
@@ -1904,9 +1905,9 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, `pApellido`, `correoElectronico`, `contrasenia`, `token`, `numTelefono`, `fechaRegistro`, `fechaNacimiento`, `RTN`, `urlFoto`, `estado`) VALUES
-(3, 3, 110, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', NULL, ' 504 9619-96-60', '2020-03-25', '1995-12-01', '', '../images/imgUsuarios/5e94d52855d5b5e713b9d83aebIMG_20160714_170043.jpg', 1),
-(2, 2, 14, 'Bethuell', 'Sauceda', 'pmaynorpineda@yahoo.es', 'asdzxc', '', ' 504 9605-01-00', '2020-03-09', '1995-12-01', '', '../images/imgUsuarios/user.png', 1),
-(4, 2, 110, 'Jared', 'Castro', 'jaredcastro13@yahoo.es', 'asd123', NULL, ' 504 9858-00-12', '2020-03-30', '1995-10-03', '', '../images/imgUsuarios/5e97defbe9b51user.jpg', 1),
+(3, 3, 110, 'Maynor', 'Pineda', 'sbethuell@gmail.com', 'asd.456', NULL, ' 504 9619-96-60', '2020-03-25', '1995-12-01', NULL, '../images/imgUsuarios/5e94d52855d5b5e713b9d83aebIMG_20160714_170043.jpg', 1),
+(2, 2, 14, 'Pineda´s', 'Clothes', 'pmaynorpineda@yahoo.es', 'asdzxc', NULL, ' 504 9605-01-00', '2020-03-09', '1995-12-01', '1587-7385-72648', '../images/imgUsuarios/user.png', 1),
+(4, 2, 110, 'Jared', 'Castro', 'jaredcastro13@yahoo.es', 'asd123', NULL, ' 504 9858-00-12', '2020-03-30', '1995-10-03', NULL, '../images/imgUsuarios/5e97defbe9b51user.jpg', 1),
 (0, 2, 6, 'Lorena', 'Diaz', 'lorenadiaz@gmail.com', 'lore-d', NULL, '504 9698-30-41', '2019-01-10', '1992-08-34', NULL, '../images/imgUsuarios/user.png', 1),
 (1, 2, 24, 'Margot', 'Gomez', 'mago20@gmail.com', 'ma.go20', NULL, '504 3331-20-21', '2019-02-14', '1996-11-29', NULL, '../images/imgUsuarios/user.png', 1),
 (5, 2, 32, 'Julio', 'Rodríguez', 'rodri.jul@yahoo.es', 'july34_90', NULL, '504 3460-20-10', '2019-03-26', '1984-12-20', NULL, '../images/imgUsuarios/user.png', 1),
@@ -1915,12 +1916,12 @@ INSERT INTO `usuario` (`idUsuario`, `idtipoUsuario`, `idMunicipios`, `pNombre`, 
 (8, 2, 66, 'Seraphine', 'Santos', 'phine_66@gmail.com', 'ser.tos_5456', NULL, '504 3112-15-16', '2019-06-28', '1974-06-30', NULL, '../images/imgUsuarios/user.png', 1),
 (9, 2, 78, 'Oscar', 'Martinez', 'car-man@yahoo.es', 'godzilla.30', NULL, '504 9668-71-31', '2019-07-24', '1986-04-27', NULL, '../images/imgUsuarios/user.png', 1),
 (10, 2, 88, 'Santiago', 'Salgado', 'salgado.emp@yahoo.com', 'pren.salsan21', NULL, '504 3354-48-88', '2019-08-22', '1990-06-27', NULL, '../images/imgUsuarios/user.png', 1),
-(11, 2, 94, 'Julia', 'Robert', 'julia-ert@gmail.com', 'rob_aa.30', NULL, '504 9669-70-08', '2019-09-04', '1999-09-19', NULL, '../images/imgUsuarios/user.png', 1),
+(11, 2, 94, 'Julia´s', 'Shop', 'julia-ert@gmail.com', 'rob_aa.30', NULL, '504 9669-70-08', '2019-09-04', '1999-09-19', '2849-9474-29583', '../images/imgUsuarios/user.png', 1),
 (12, 2, 108, 'Alejandra', 'Canales', 'ardnaj.20@yahoo.com', 'esla.dra-12', NULL, '504 3333-20-20', '2019-10-29', '1980-12-16', NULL, '../images/imgUsuarios/user.png', 1),
-(13, 2, 122, 'Robert', 'Sarmiento', 'sargento9098@gmail.com', 'sarmi_rob.44', NULL, '504 3130-76-58', '2019-11-14', '1995-12-26', NULL, '../images/imgUsuarios/user.png', 1),
-(14, 2, 136, 'Gissel', 'Lopez', 'gisselo16@gmail.com', 'selogi.16', NULL, '504 9897-34-76', '2019-12-24', '1990-11-23', NULL, '../images/imgUsuarios/user.png', 1),
+(13, 2, 122, 'Robert', 'Sarmiento', 'sargento9098@gmail.com', 'sarmi_rob.44', NULL, ' 504 3130-76-58', '2019-11-14', '1995-12-26', NULL, '../images/imgUsuarios/user.png', 1),
+(14, 2, 136, 'Gissel', 'Lopez', 'gisselo16@gmail.com', 'selogi.16', NULL, '504 9897-34-76', '2019-12-24', '1990-11-23', '2794-0848-84672', '../images/imgUsuarios/user.png', 1),
 (15, 2, 148, 'Daniela', 'Gutierrez', 'rrez.dani@yahoo.es', 'ela.rex-11', NULL, '504 3345-56-67', '2020-01-16', '1997-04-27', NULL, '../images/imgUsuarios/user.png', 1),
-(16, 2, 188, 'Cinthya', 'Morales', 'morita-c@gmail.com', 'leh-45.m', NULL, '504 9594-43-23', '2020-02-21', '1988-07-17', NULL, '../images/imgUsuarios/user.png', 1);
+(16, 2, 188, 'Cinthya', 'Morales', 'morita-c@gmail.com', 'leh-45.m', NULL, '504 9594-43-23', '2020-02-21', '1988-07-17', '1938-7893-98029', '../images/imgUsuarios/user.png', 1);
 
 -- --------------------------------------------------------
 

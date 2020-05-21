@@ -314,7 +314,7 @@ session_start();
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <div class="body" style="padding: 20px 5px 20px 5px">
                 <div class="row clearfix" style="margin:0px">
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <div class="form-group form-float">
                       <div class="form-line">
                         <select class="form-control show-tick" name="lugar" id="f-lugar">
@@ -324,7 +324,7 @@ session_start();
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <div class="form-group form-float">
                       <div class="form-line">
                         <select class="form-control show-tick" name="categoria" id="f-categoria">
@@ -346,6 +346,19 @@ session_start();
                           <option value="5">5</option>
                         </select>
                         <label class="form-label">Valoración</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group form-float">
+                      <div class="form-line">
+                        <select class="form-control show-tick" name="tipoven" id="tipoven">
+                          <option value=""></option>
+                          <option value="natural">Vendedor natural</option>
+                          <option value="empresa">Empresa</option>
+                          
+                        </select>
+                        <label class="form-label">Tipo de Vendedor</label>
                       </div>
                     </div>
                   </div>
@@ -596,6 +609,7 @@ session_start();
             <ul>
               <li><a href="http://www.facebook.com/sharer/sharer.php?u=https://markethn.herokuapp.com/" class="icon-facebook" target="_blank"></a></li>
               <li><a href=" https://twitter.com/intent/tweet?text=Compartir con Markethn&url=https://markethn.herokuapp.com/" class="icon-twitter" target="_blank"></a></li>
+              
             </ul>
           </div>
 
