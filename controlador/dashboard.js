@@ -571,7 +571,8 @@ var rangoFechas=()=>{
         $("#nuevosAnuncios2").html(datos.infobox.cantidadAnuncios);
         $("#nuevasDenuncias2").html(datos.infobox.cantidadDenuncias);
         $("#nuevosComentarios2").html(datos.infobox.cantidadComentarios);
-        comparaFechas=fechaFinal2-fechaInicio2;
+        
+        /*comparaFechas=fechaFinal2-fechaInicio2;
         if(comparaFechas<=7){
           if(typeof datos.grafico!="undefined"){
             $("#muestraGraficasRangoFechas").show();
@@ -628,7 +629,7 @@ var rangoFechas=()=>{
               },
             });
 
-            /*let graficaCategorias = document
+            let graficaCategorias = document
             .getElementById("graficaCategorias2")
             .getContext("2d");
             
@@ -696,7 +697,7 @@ var rangoFechas=()=>{
                   ],
                 },
               },
-            });*/
+            });
             
 
 
@@ -706,7 +707,7 @@ var rangoFechas=()=>{
 
           //console.log(comparaFechas);
 
-        }
+        }*/
         
 
       console.log(datos)
