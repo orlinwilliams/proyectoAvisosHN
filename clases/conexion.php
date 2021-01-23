@@ -6,7 +6,7 @@
 		private $contrasena="";
 		private $host="localhost";
 		private $baseDatos="avisoshn";
-		private $puerto="3306";
+		private $puerto="3308";
 		private $link;
 
 		public function __construct(){

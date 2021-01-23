@@ -89,7 +89,6 @@ tablaGestionPublicaciones = function () {
           ")'  class='datetimepicker form-control' placeholder='" +
           item.fechaLimite +
           "' value='' >" +
-          "<!--EN EL VALUE DEBE CARGAR LA HORA DE LA BASE DE DATOS-->" +
           "<input type='hidden' readonly='readonly' id='fechaidanuncio" +
           i +
           "' value='" +
